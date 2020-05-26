@@ -19,6 +19,7 @@ export default function Home() {
     return (
         <HomeContainer>
             <MainTitle title='SHOW ME THE STYLE'>
+                <h1>aa</h1>>
             </MainTitle>
         </HomeContainer>
     );

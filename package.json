@@ -8,7 +8,7 @@
     "start-watch": "nodemon server.js",
     "dev": "concurrently --kill-others \"npm run start-watch\" \"npm run build-watch\"",
     "build": "parcel build ./client/public/index.html",
-    "start": "npm run build && node server/index.js",
+    "start": "npm run build && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -35,7 +35,10 @@
   "babel": {
     "presets": [
       "@babel/preset-env",
-      "@babel/preset-react"
+      "@babel/preset-react",
+      "env",
+      "react",
+       "@babel/typescript"
     ],
     "plugins": [
       "@babel/plugin-proposal-class-properties"
