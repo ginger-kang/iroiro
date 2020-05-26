@@ -6,14 +6,18 @@ import Router from './Router';
 import { Theme } from './theme';
 
 const AppContainer = styled.div`
-  
+  position: relative;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  heigth: 100%;
 `;
 
 function App() {
   return(
     <AppContainer>
       <GlobalStyle />
-        <Router />
+      <Router />
     </AppContainer>
   );
 };
