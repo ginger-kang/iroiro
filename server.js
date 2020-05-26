@@ -1,3 +1,8 @@
+//import Amplify from 'aws-amplify'
+//import config from './aws-exports'
+
+//Amplify.configure(config)
+
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema');
