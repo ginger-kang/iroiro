@@ -1,7 +1,7 @@
 const axios = require('axios');
 
-const {
-    GraphQLString,
+const {  
+  GraphQLString,
   GraphQLObjectType,
   GraphQLList,
   GraphQLSchema
@@ -16,6 +16,7 @@ const photos = new GraphQLObjectType({
   })
 });
 
+
 const RootQuery = new GraphQLObjectType({
     name:'RootQueryType',
     fields:{
@@ -26,7 +27,8 @@ const RootQuery = new GraphQLObjectType({
                 .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/hello')
                 .then(res=>res.data);
             }
-        }
+        },
+       
     }
 });
 

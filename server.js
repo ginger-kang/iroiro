@@ -1,9 +1,14 @@
+//import Amplify from 'aws-amplify'
+//import config from './aws-exports'
+
+//Amplify.configure(config)
+
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
-const path=require('path')
 const schema = require('./schema');
 const app = express();
 const cors = require('cors');
+const path = require('path')
 
 app.use(cors())
 app.use(express.static('dist'))

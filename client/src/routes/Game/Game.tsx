@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 // import { IMAGEQUERY } from './ImageQuery';
 
+
 const GameContainer = styled.div`
     position: absolute;
     top: 0;
@@ -34,7 +35,6 @@ const LeftImageContainer = styled('div')<LeftImageContainerProps>`
 interface LeftImageProps {
     url: any;
 }
-
 
 const LeftImage = styled('img')<LeftImageProps>`
     width: 68%;
