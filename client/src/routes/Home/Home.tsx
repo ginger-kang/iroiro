@@ -57,11 +57,6 @@ const StartButton = styled.button`
 export default function Home() {
     return (
         <HomeContainer>
-<<<<<<< HEAD
-            <MainTitle title='SHOW ME THE STYLE'>
-                <h1>aa</h1>>
-            </MainTitle>
-=======
             <MainTitleContainer>
                 <MainTitleImage>
                     Lorem Ipsum
@@ -75,7 +70,6 @@ export default function Home() {
                     START
                 </StartButton>
             </Link>
->>>>>>> master
         </HomeContainer>
     );
 }

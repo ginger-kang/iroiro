@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import gql from 'graphql-tag';
+import { Query } from 'react-apollo';
 
 const GameContainer = styled.div`
     position: absolute;
@@ -48,8 +50,20 @@ const RightImage = styled.img`
     height: 100%;
 `;
 
+const PHOTOS_QUERY = gql`
+  query PhotosQuery {
+    photos {
+      url
+      owner
+      category
+    }
+  }
+`;
+
 export default function Game() {
+    
     return (
+        
         <GameContainer>
             <LeftImageContainer>
             <LeftImage src="https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/94657479_538352420198900_169991785916993453_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=108&_nc_ohc=x9sPhFJNaP8AX9yjGVU&oh=7ab7c11e2681bc1b464ac1793e7f7aa8&oe=5EF5FC8E"/>
