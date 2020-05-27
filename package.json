@@ -12,7 +12,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "yarn &&cd client && yarn install && yarn build"
   },
-  "dependencies": {    
+  "dependencies": {
     "axios": "^0.19.2",
     "concurrently": "^5.2.0",
     "cors": "^2.8.5",
@@ -49,5 +49,7 @@
     "plugins": [
       "@babel/plugin-proposal-class-properties"
     ]
-  }
+  },
+  "repository": "https://github.com/ginger-kang/Show-me-the-Style.git",
+  "author": "winnyiee@naver.com <winnyiee@naver.com>"
 }
