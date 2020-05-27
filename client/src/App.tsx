@@ -6,11 +6,12 @@ import Router from './Router';
 import { Theme } from './theme';
 
 const AppContainer = styled.div`
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
-  heigth: 100%;
 `;
 
 function App() {

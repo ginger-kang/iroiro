@@ -16,11 +16,9 @@ const HomeContainer = styled.div`
 
 const MainTitleContainer = styled.div`
     color: white;
-    width: auto;
     margin: 150px 0 15px 0;
-    padding: 15px;
+    padding: 18px;
     display: flex;
-    justify-content: center;
 `;
 
 const MainTitleImage = styled.div`
@@ -65,7 +63,7 @@ export default function Home() {
             <ContentContatiner>
                 ...
             </ContentContatiner>
-            <Link to="/game" >
+            <Link to="/game">
                 <StartButton>
                     START
                 </StartButton>

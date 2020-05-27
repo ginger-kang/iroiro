@@ -2,14 +2,11 @@ import * as React from 'react';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Home from './routes/Home/Home';
-import Game from './routes/Game/Game';
+import Game from './routes/Game/GameLogic';
 
 const MainContainer = styled.div`
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-start;
+    position: relative;
+    height: 100%;
 `;
 
 export default function Router() {
