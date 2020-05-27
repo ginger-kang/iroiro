@@ -49,12 +49,6 @@ const RightImage = styled.img`
 `;
 
 export default function Game() {
-<<<<<<< HEAD
-    return <div> <img 
-    src="https://showmethestyle225739-dev.s3.ap-northeast-2.amazonaws.com/jin.jpg"
-    alt="new"
-    /></div>;
-=======
     return (
         <GameContainer>
             <LeftImageContainer>
@@ -67,5 +61,4 @@ export default function Game() {
             </RightImageContainer>
         </GameContainer>
     );
->>>>>>> master
 }
