@@ -8,8 +8,14 @@
     "start-watch": "nodemon server.js",
     "dev": "concurrently --kill-others \"npm run start-watch\" \"npm run build-watch\"",
     "build": "parcel build ./client/public/index.html",
+<<<<<<< HEAD
     "start": "npm run build && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
+=======
+    "start": "npm run build && node server/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "heroku-postbuild": "cd client && yarn install && yarn build"
+>>>>>>> master
   },
   "dependencies": {
     "aws-amplify": "^3.0.12",

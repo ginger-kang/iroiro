@@ -16,7 +16,11 @@ app.use('/graphql',graphqlHTTP({
     schema,
     graphiql:true
 }));
+<<<<<<< HEAD
 app.get('*', (req, res) => {
+=======
+app.get('/*', (req, res) => {
+>>>>>>> master
     res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
   });
 
