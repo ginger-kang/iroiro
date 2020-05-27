@@ -14,8 +14,8 @@ const GameContainer = styled.div`
 `;
 
 const LeftImageContainer = styled.div`
-    width: 600px;
-    height: 600px;
+    width: 50%;
+    height: 100%;
     background: black; 
     border-radius: 7px;
     color: white;
@@ -25,8 +25,8 @@ const LeftImageContainer = styled.div`
 `;
 
 const RightImageContainer = styled.div`
-    width: 600px;
-    height: 600px;
+    width: 50%;
+    height: 100%;
     border-radius: 7px;
     background: black; 
     color: white;
@@ -39,20 +39,25 @@ const VersusImageContainer = styled.div`
     font-size: 70px;
     font-weight: 700;
 `;
-
+const LeftImage = styled.img`
+    width: 100%;
+    height: 100%;
+`;
+const RightImage = styled.img`
+    width: 100%;
+    height: 100%;
+`;
 
 export default function Game() {
     return (
         <GameContainer>
             <LeftImageContainer>
-                Lorem Ipsum
+            <LeftImage src="https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/94657479_538352420198900_169991785916993453_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=108&_nc_ohc=x9sPhFJNaP8AX9yjGVU&oh=7ab7c11e2681bc1b464ac1793e7f7aa8&oe=5EF5FC8E"/>
+          
             </LeftImageContainer>
-            <VersusImageContainer>
-                <span style={{ color: 'black' }}>V</span>
-                <span style={{ color: 'black' }}>S</span>
-            </VersusImageContainer>
+           
             <RightImageContainer>
-                Lorem Ipsum
+            <RightImage src="https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/p1080x1080/100948860_242816633713769_1220879730547570969_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=1&_nc_ohc=RmHCxKCAiF8AX-znwm5&oh=d4e308d2f4e23158da5c7b262dbeea2e&oe=5EF5F039"/>
             </RightImageContainer>
         </GameContainer>
     );
