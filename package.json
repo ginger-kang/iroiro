@@ -10,7 +10,7 @@
     "build": "parcel build ./client/public/index.html",
     "start": "npm run build && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "yarn &&cd client && yarn install && yarn build"
+    "heroku-postbuild": "yarn"
   },
   "dependencies": {
     "axios": "^0.19.2",
@@ -50,6 +50,7 @@
       "@babel/plugin-proposal-class-properties"
     ]
   },
+  "proxy":"http://localhost:5000/",
   "repository": "https://github.com/ginger-kang/Show-me-the-Style.git",
   "author": "winnyiee@naver.com <winnyiee@naver.com>"
 }
