@@ -10,7 +10,7 @@
     "build": "parcel build ./client/public/index.html",
     "start": "npm run build && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && yarn install && yarn build"
+    "heroku-postbuild": "cd yarn && client && yarn install && yarn build"
   },
   "dependencies": {
     "aws-amplify": "^3.0.12",
