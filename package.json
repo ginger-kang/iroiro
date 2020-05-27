@@ -10,11 +10,9 @@
     "build": "parcel build ./client/public/index.html",
     "start": "npm run build && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd yarn && client && yarn install && yarn build"
+    "heroku-postbuild": "yarn &&cd client && yarn install && yarn build"
   },
-  "dependencies": {
-    "aws-amplify": "^3.0.12",
-    "aws-amplify-react": "^4.1.11",
+  "dependencies": {    
     "axios": "^0.19.2",
     "concurrently": "^5.2.0",
     "cors": "^2.8.5",
@@ -22,6 +20,10 @@
     "express-graphql": "^0.9.0",
     "graphql": "^15.0.0",
     "uuid": "^8.1.0"
+  },
+  "engines": {
+    "yarn": "1.22.4",
+    "node": "12.16.3"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
