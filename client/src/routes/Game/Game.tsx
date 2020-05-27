@@ -10,39 +10,69 @@ const GameContainer = styled.div`
     right: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 200%;
     display: flex;
     justify-content: space-evenly;
-    align-items: center;
     background-color: #efefef;
 `;
 
-interface LeftImageContainerProps {
-    state: 'START' | 'CLICK' | 'MOVE';
-}
-
-const LeftImageContainer = styled('div')<LeftImageContainerProps>`
+const LeftImageContainer = styled.div`
     width: 50%;
-    height: 150%;
+    height: 100%;
     border-radius: 7px;
     color: white;
-    font-size: 100px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 `;
 
 interface LeftImageProps {
     url: any;
 }
 
-const LeftImage = styled('img')<LeftImageProps>`
-    width: 68%;
-    height: 75%;
+interface LeftImageContainerProps {
+    state: 'START' | 'CLICK' | 'MOVE';
+}
+
+const LeftImageBox = styled('div')<LeftImageContainerProps>`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: ${(state: any) => {
+        if ( state === 'START' ) {
+            return null;
+        } else if ( state === 'CLICK' ) {
+            return 'rgba(0,0,0,.4)';
+        } else {
+            return null;
+        }
+    }}
+
+    trasnition: ${(state: any) => {
+        if ( state === 'START' ) {
+            return null;
+        } else if ( state === 'CLICK' ) {
+            return null;
+        } else {
+            return 'all 1s ease';
+        }
+    }}
+`;
+
+const LeftImage = styled('div')<LeftImageProps>`
+    width: 77%;
+    height: 100%;
+    cursor: pointer;
+    margin: 65px;
     border-radius: 10px;
     transition: all 0.2s;
-    cursor: pointer;
     box-shadow: 10px 10px 10px;
+    background: url(${({ url }) => url});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     &:hover {
         -ms-transform: scale(1.1);
@@ -51,32 +81,64 @@ const LeftImage = styled('img')<LeftImageProps>`
     }
 `;
 
-interface RightImageContainerProps {
-    state: 'START' | 'CLICK' | 'MOVE';
-}
-
-const RightImageContainer = styled('div')<RightImageContainerProps>`
+const RightImageContainer = styled.div`
     width: 50%;
-    height: 150%;
+    height: 100%;
     border-radius: 7px;
     color: white;
-    font-size: 100px;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
 `;
 
 interface RightImageProps {
     url: string;
 }
 
-const RightImage = styled('img')<RightImageProps>`
-    width: 68%;
-    height: 75%;
+interface RightImageBoxProps {
+    state: 'START' | 'CLICK' | 'MOVE';
+}
+
+const RightImageBox = styled('div')<RightImageBoxProps>`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background: ${({state}) => {
+        if ( state === 'START' ) {
+            return null;
+        } else if ( state === 'CLICK' ) {
+            return 'rgba(0,0,0,.4)';
+        } else {
+            return null;
+        }
+    }}
+
+    trasnition: ${({state}) => {
+            if ( state === 'START' ) {
+                return null;
+            } else if ( state === 'CLICK' ) {
+                return null;
+            } else {
+                return 'all 1s ease';
+            }
+        }
+    }
+`;
+
+const RightImage = styled('div')<RightImageProps>`
+    width: 77%;
+    height: 100%;
     cursor: pointer;
+    margin: 65px;
     border-radius: 10px;
     transition: all 0.2s;
     box-shadow: 10px 10px 10px;
+    background: url(${({ url }) => url});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 
     &:hover {
         -ms-transform: scale(1.1);
@@ -86,10 +148,10 @@ const RightImage = styled('img')<RightImageProps>`
 `;
 
 const VersusImageContainer = styled.div`
+    position: absolute;
+    top: 25%;
     font-size: 70px;
     font-weight: 700;
-    width: 100px;
-    heigth: 100px;
     border-radius: 100%;
     display: flex;
     justify-content: center;
@@ -105,37 +167,47 @@ const VersusIcon = styled.div`
 interface gProps {
     state: any;
     ClickDirection: any;
-    LeftImageindex: number;
-    RightImageindex: number;
     LeftStyleImages: any;
     RightStyleImages: any;
 }
 
 function Game ({ 
         state, 
-        ClickDirection, 
-        LeftImageindex, 
-        RightImageindex, 
+        ClickDirection,
         LeftStyleImages, 
         RightStyleImages 
     }: gProps) {
 
     return (
         <GameContainer>
-            <LeftImageContainer state={state}>
-                {LeftStyleImages.map(( Leftlook:any ) => (
-                    <LeftImage src={ Leftlook.url } url={ Leftlook.url }/>
-                ))}
+            <LeftImageContainer>
+                <LeftImageBox state={state}>
+                    {LeftStyleImages.map(( Leftlook:any ) => (
+                        <LeftImage 
+                            url={ Leftlook.url } 
+                            onClick={() => 
+                                ClickDirection('LEFT')
+                            }
+                        />
+                    ))}
+                </LeftImageBox>
             </LeftImageContainer>
             <VersusImageContainer>
                 <VersusIcon>
                     <span style={{ color: 'white' }}>VS</span>
                 </VersusIcon>
             </VersusImageContainer>
-            <RightImageContainer state={state}>
-                {RightStyleImages.map(( Rightlook:any ) => (
-                    <LeftImage src={ Rightlook.url } url={ Rightlook.url }/>
-                ))};
+            <RightImageContainer>
+                <RightImageBox state={state}>
+                    {RightStyleImages.map(( Rightlook:any ) => (
+                        <RightImage 
+                            url={ Rightlook.url }
+                            onClick={ () => 
+                                ClickDirection('RIGHT')
+                            }    
+                        />
+                    ))}
+                </RightImageBox>
             </RightImageContainer>
         </GameContainer>
     );
