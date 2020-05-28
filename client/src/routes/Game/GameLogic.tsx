@@ -3,6 +3,7 @@ import Game from './Game';
 import { StyleData } from './DataTemp';
 import { PHOTOS } from './query';
 import { Query, Mutation } from 'react-apollo';
+import GameLoading from '../../components/GameLoading';
 
 interface lState {
     LeftImageindex: number;
@@ -74,7 +75,9 @@ function GameLogic() {
         fetchPolicy={'cache-and-network'}>
             {({ loading, error, data }: any) => {
                 if (loading) {
-                    return <div>loading</div>;
+                    return (
+                        <GameLoading />
+                    );
                 }
                 if (error) {
                     return <div>error</div>;
@@ -83,14 +86,12 @@ function GameLogic() {
                     <Game
                         state={state}
                         ClickDirection={AnswerDirection}
-                        LeftStyleImages={[
-                            data.photos[shuffledData[LeftImageindex]],
-                            data.photos[shuffledData[LeftImageindex + 2]]
-                        ]}
-                        RightStyleImages={[
-                            data.photos[shuffledData[RightImageindex]],
-                            data.photos[shuffledData[RightImageindex + 2]]
-                        ]}
+                        LeftStyleImages={
+                            data.photos[shuffledData[LeftImageindex]]
+                        }
+                        RightStyleImages={
+                            data.photos[shuffledData[RightImageindex]]
+                        }
                         LeftClick = {LeftClick}
                         RightClick = {RightClick}
                     />
