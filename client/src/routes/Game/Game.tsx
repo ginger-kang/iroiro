@@ -10,13 +10,13 @@ const GameContainer = styled.div`
     right: 0;
     left: 0;
     width: 100%;
-    height: 200%;
+    height: 100%;
     display: flex;
     justify-content: space-evenly;
     background-color: #efefef;
 `;
 
-const LeftImageContainer = styled.div`
+const LeftImageContainer = styled.section`
     width: 50%;
     height: 100%;
     border-radius: 7px;
@@ -78,7 +78,7 @@ const LeftImage = styled('div')<LeftImageProps>`
     }
 `;
 
-const RightImageContainer = styled.div`
+const RightImageContainer = styled.section`
     width: 50%;
     height: 100%;
     border-radius: 7px;
@@ -143,7 +143,7 @@ const RightImage = styled('div')<RightImageProps>`
 
 const VersusImageContainer = styled.div`
     position: absolute;
-    top: 25%;
+    top: 50%;
     font-size: 70px;
     font-weight: 700;
     border-radius: 100%;
@@ -180,14 +180,12 @@ function Game ({
         <GameContainer>
             <LeftImageContainer>
                 <LeftImageBox state={state}>
-                    {LeftStyleImages.map(( Leftlook:any ) => (
                         <LeftImage 
-                            url={ Leftlook.url } 
+                            url={ LeftStyleImages.url } 
                             onClick={() => 
                                 LeftClick()
                             }
                         />
-                    ))}
                 </LeftImageBox>
             </LeftImageContainer>
             <VersusImageContainer>
@@ -197,14 +195,12 @@ function Game ({
             </VersusImageContainer>
             <RightImageContainer>
                 <RightImageBox state={state}>
-                    {RightStyleImages.map(( Rightlook:any ) => (
                         <RightImage 
-                            url={ Rightlook.url }
+                            url={ RightStyleImages.url }
                             onClick={ () => 
                                 RightClick()
                             }    
                         />
-                    ))}
                 </RightImageBox>
             </RightImageContainer>
         </GameContainer>
