@@ -7,19 +7,15 @@ const {
   GraphQLSchema
 } = require('graphql');
 
-//Launch Type
 const photos = new GraphQLObjectType({
-  name: 'photo',
+    name: 'photos',
   fields: () => ({
     url: { type: GraphQLString },
     category: { type: GraphQLString },
-    owner: { type: GraphQLString }    
+    owner: { type: GraphQLString }   
   })
 });
 
-
-
-//루트 쿼리
 
 const RootQuery = new GraphQLObjectType({
     name:'RootQueryType',

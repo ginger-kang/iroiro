@@ -4,20 +4,30 @@ import { GlobalStyle } from './global-styles';
 import Router from './Router';
 //import { ThemeProvider } from './theme-components';
 import { Theme } from './theme';
+import client from "./apollo";
+import { ApolloProvider } from "react-apollo";
+import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 
 const AppContainer = styled.div`
-  position: relative;
+  position: absolute;
   top: 0;
   left: 0;
+  right: 0;
+  bottom: 0;
   overflow: hidden;
-  heigth: 100%;
 `;
 
 function App() {
-  return(
+  return (
     <AppContainer>
-      <GlobalStyle />
-      <Router />
+      <ApolloProvider client={client}>
+        <ApolloHooksProvider client={client}>
+
+          <GlobalStyle />
+          <Router />
+
+        </ApolloHooksProvider>
+    </ApolloProvider>
     </AppContainer>
   );
 };

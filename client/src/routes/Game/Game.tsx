@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import gql from 'graphql-tag';
-import { Query } from 'react-apollo';
+// import { IMAGEQUERY } from './ImageQuery';
+
 
 const GameContainer = styled.div`
     position: absolute;
@@ -9,70 +9,202 @@ const GameContainer = styled.div`
     bottom: 0;
     right: 0;
     left: 0;
+    width: 100%;
+    height: 200%;
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-around;
+    justify-content: space-evenly;
+    background-color: #efefef;
 `;
 
 const LeftImageContainer = styled.div`
     width: 50%;
     height: 100%;
-    background: black; 
     border-radius: 7px;
     color: white;
-    font-size: 100px;
     display: flex;
+    flex-direction: column;
+`;
+
+interface LeftImageProps {
+    url: any;
+}
+
+interface LeftImageContainerProps {
+    state: 'START' | 'CLICK' | 'MOVE';
+}
+
+const LeftImageBox = styled('div')<LeftImageContainerProps>`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    background: ${(state: any) => {
+        if ( state === 'START' ) {
+            return null;
+        } else if ( state === 'CLICK' ) {
+            return 'rgba(0,0,0,.4)';
+        } else {
+            return null;
+        }
+    }}
+    trasnition: ${(state: any) => {
+        if ( state === 'START' ) {
+            return null;
+        } else if ( state === 'CLICK' ) {
+            return null;
+        } else {
+            return 'all 1s ease';
+        }
+    }}
+`;
+
+const LeftImage = styled('div')<LeftImageProps>`
+    width: 77%;
+    height: 100%;
+    cursor: pointer;
+    margin: 65px;
+    border-radius: 10px;
+    transition: all 0.2s;
+    box-shadow: 10px 10px 10px;
+    background: url(${({ url }) => url});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    &:hover {
+        -ms-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
 `;
 
 const RightImageContainer = styled.div`
     width: 50%;
     height: 100%;
     border-radius: 7px;
-    background: black; 
     color: white;
-    font-size: 100px;
     display: flex;
+    flex-direction: column;
+`;
+
+interface RightImageProps {
+    url: string;
+}
+
+interface RightImageBoxProps {
+    state: 'START' | 'CLICK' | 'MOVE';
+}
+
+const RightImageBox = styled('div')<RightImageBoxProps>`
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    background: ${({state}) => {
+        if ( state === 'START' ) {
+            return null;
+        } else if ( state === 'CLICK' ) {
+            return 'rgba(0,0,0,.4)';
+        } else {
+            return null;
+        }
+    }}
+    trasnition: ${({state}) => {
+            if ( state === 'START' ) {
+                return null;
+            } else if ( state === 'CLICK' ) {
+                return null;
+            } else {
+                return 'all 1s ease';
+            }
+        }
+    }
+`;
+
+const RightImage = styled('div')<RightImageProps>`
+    width: 77%;
+    height: 100%;
+    cursor: pointer;
+    margin: 65px;
+    border-radius: 10px;
+    transition: all 0.2s;
+    box-shadow: 10px 10px 10px;
+    background: url(${({ url }) => url});
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    &:hover {
+        -ms-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
 `;
 
 const VersusImageContainer = styled.div`
+    position: absolute;
+    top: 25%;
     font-size: 70px;
     font-weight: 700;
-`;
-const LeftImage = styled.img`
-    width: 100%;
-    height: 100%;
-`;
-const RightImage = styled.img`
-    width: 100%;
-    height: 100%;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
-const PHOTOS_QUERY = gql`
-  query PhotosQuery {
-    photos {
-      url
-      owner
-      category
-    }
-  }
+const VersusIcon = styled.div`
+    width: 100%;
+    height: 100%;
+    text-shadow: 2.3px 2.3px 3px rgba(0, 0, 0, .5);
 `;
 
-export default function Game() {
-    
+interface gProps {
+    state: any;
+    ClickDirection: any;
+    LeftStyleImages: any;
+    RightStyleImages: any;
+}
+
+function Game ({ 
+        state, 
+        ClickDirection,
+        LeftStyleImages, 
+        RightStyleImages 
+    }: gProps) {
+
     return (
-        
         <GameContainer>
             <LeftImageContainer>
-            <LeftImage src="https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/s1080x1080/94657479_538352420198900_169991785916993453_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=108&_nc_ohc=x9sPhFJNaP8AX9yjGVU&oh=7ab7c11e2681bc1b464ac1793e7f7aa8&oe=5EF5FC8E"/>
-          
+                <LeftImageBox state={state}>
+                    {LeftStyleImages.map(( Leftlook:any ) => (
+                        <LeftImage 
+                            url={ Leftlook.url } 
+                            onClick={() => 
+                                ClickDirection('LEFT')
+                            }
+                        />
+                    ))}
+                </LeftImageBox>
             </LeftImageContainer>
-           
+            <VersusImageContainer>
+                <VersusIcon>
+                    <span style={{ color: 'white' }}>VS</span>
+                </VersusIcon>
+            </VersusImageContainer>
             <RightImageContainer>
-            <RightImage src="https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/p1080x1080/100948860_242816633713769_1220879730547570969_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=1&_nc_ohc=RmHCxKCAiF8AX-znwm5&oh=d4e308d2f4e23158da5c7b262dbeea2e&oe=5EF5F039"/>
+                <RightImageBox state={state}>
+                    {RightStyleImages.map(( Rightlook:any ) => (
+                        <RightImage 
+                            url={ Rightlook.url }
+                            onClick={ () => 
+                                ClickDirection('RIGHT')
+                            }    
+                        />
+                    ))}
+                </RightImageBox>
             </RightImageContainer>
         </GameContainer>
     );
 }
+
+export default Game;
