@@ -55,19 +55,19 @@ function GameLogic() {
         console.log(LeftStyleData);
     }
 
-    const shuffle = (a: any) => {
+    
+    const shuffleImageData = (a: any) => { 
         console.log(StyleData);
-        let j, x, i;
-        for (i = a.length; i; i -= 1) {
-            j = Math.floor(Math.random() * i);
-            x = a[i - 1];
-            a[i - 1] = a[j];
-            a[j] = x;
+        let j, x, i; 
+        for (i = a.length; i; i -= 1) { 
+            j = Math.floor(Math.random() * i); 
+            x = a[i - 1]; 
+            a[i - 1] = a[j]; 
+            a[j] = x; 
         }
         return a;
     }
-
-    let shuffledData = shuffle(StyleData);
+    let shuffledData;
 
     return (
         <Query query={PHOTOS}>
@@ -78,7 +78,7 @@ function GameLogic() {
                 if (error) {
                     return <div>error</div>;
                 }
-                shuffledData = shuffle(data.photos);
+                shuffledData = shuffleImageData(data.photos);
                 return (
                     <Game
                         state={state}
