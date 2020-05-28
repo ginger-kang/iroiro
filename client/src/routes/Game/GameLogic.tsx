@@ -50,7 +50,7 @@ function GameLogic() {
         // console.log(dir);
         //checkList();
     }
-
+    
     const LeftClick = () => {
         setTimeout(() => {
             setRightImageIndex(RightImageindex + 2);
@@ -71,7 +71,9 @@ function GameLogic() {
     }
 
     return (
-        <Query query={PHOTOS}>
+        <Query query={PHOTOS}
+         notifyOnNetworkStatusChange={true}
+        fetchPolicy={'cache-and-network'}>
             {({ loading, error, data }: any) => {
                 if (loading) {
                     return (
