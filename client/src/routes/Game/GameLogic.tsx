@@ -5,7 +5,7 @@ import { StyleData } from './DataTemp';
 interface lState {
     LeftImageindex: number;
     RightImageindex: number;
-    state: 'START' | 'CLICK' | 'RESULT' | 'MOVE';
+    state: 'START' | 'CLICK' | 'CLICKRESULT' | 'MOVE';
     ClickDirection: 'NOTYET' | 'LEFT' | 'RIGHT';
     LeftStyleData: any;
     RightStyleData: any;
@@ -23,63 +23,68 @@ function GameLogic() {
         //setState('CLICK');
         //setClickDirection(dir);
         // setTimeout(() => {
-        //     setState('RESULT');
+        //     setState('CLICKRESULT');
         // }, 2000);
-        if ( dir === 'LEFT' ) {
-            LeftClick();
-        } else if ( dir === 'RIGHT' ) {
-            RightClick();
-        }
+        // console.log(dir);
+        //checkList();
     }
+
+    const shuffle = (a: any) => {
+        for (let i = a.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [a[i], a[j]] = [a[j], a[i]];
+        }
+        return a;
+      };
+
+    const orderArray: any = [];
+        for (let i = 0; i < 10; i++) {
+            orderArray.push(i);
+    }
+    const shuffledData = shuffle(orderArray);
 
     const LeftClick = () => {
-        console.log(LeftImageindex, RightImageindex);
-        console.log(state);
-        setTimeout(() => {
-            setLeftImageIndex(LeftImageindex + 2);
-            // setState('START');
-            // setClickDirection('NOTYET');
-        }, 1000);
-        console.log(state);
-    }
-
-    const RightClick = () => {
-        console.log(LeftImageindex, RightImageindex);
         setTimeout(() => {
             setRightImageIndex(RightImageindex + 2);
             // setState('START');
             // setClickDirection('NOTYET');
         }, 1000);
+        console.log(LeftImageindex, RightImageindex);
+        console.log(orderArray);
+        console.log(shuffledData);
+    }
+
+    const RightClick = () => {
+        console.log(LeftImageindex, RightImageindex);
+        setTimeout(() => {
+            // setState('START');
+            // setClickDirection('NOTYET');
+            setLeftImageIndex(LeftImageindex + 2);
+        }, 1000);
         console.log(state);
-        console.log(LeftStyleData);
     }
 
-    const shuffleImageData = (a: any) => { 
-        console.log(StyleData);
-        let j, x, i; 
-        for (i = a.length; i; i -= 1) { 
-            j = Math.floor(Math.random() * i); 
-            x = a[i - 1]; 
-            a[i - 1] = a[j]; 
-            a[j] = x; 
-        }
-        return a;
-    }
-
-    let shuffledData = shuffleImageData(StyleData);
+    // const checkList = () => {
+    //     console.log(shuffledData[ LeftImageindex ],
+    //         shuffledData[ LeftImageindex + 2 ]);
+    //     console.log(shuffledData[ RightImageindex ],
+    //         shuffledData[ RightImageindex + 2]);
+    // }
 
     return (
         <Game
             state = { state }
             ClickDirection = { AnswerDirection }
             LeftStyleImages = {[ 
-                shuffledData[ LeftImageindex ],
-                shuffledData[ LeftImageindex + 2 ]   
+                StyleData[ shuffledData[ LeftImageindex ] ],
+                StyleData[ shuffledData[ LeftImageindex + 2 ] ]   
             ]}
             RightStyleImages = {[ 
-                shuffledData[ RightImageindex ],
-                shuffledData[ RightImageindex + 2]   
+                StyleData[ shuffledData[ RightImageindex ]],
+                StyleData[ shuffledData[ RightImageindex + 2 ]]   
             ]}
+            LeftClick = { LeftClick }
+            RightClick = { RightClick }
         />
                  
     );

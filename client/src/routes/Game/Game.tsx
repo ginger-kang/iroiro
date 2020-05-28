@@ -169,13 +169,17 @@ interface gProps {
     ClickDirection: any;
     LeftStyleImages: any;
     RightStyleImages: any;
+    LeftClick: any;
+    RightClick: any;
 }
 
 function Game ({ 
         state, 
         ClickDirection,
         LeftStyleImages, 
-        RightStyleImages 
+        RightStyleImages,
+        LeftClick,
+        RightClick,
     }: gProps) {
 
     return (
@@ -186,7 +190,7 @@ function Game ({
                         <LeftImage 
                             url={ Leftlook.url } 
                             onClick={() => 
-                                ClickDirection('LEFT')
+                                LeftClick()
                             }
                         />
                     ))}
@@ -203,7 +207,7 @@ function Game ({
                         <RightImage 
                             url={ Rightlook.url }
                             onClick={ () => 
-                                ClickDirection('RIGHT')
+                                RightClick()
                             }    
                         />
                     ))}
