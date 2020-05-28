@@ -1,7 +1,69 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { Link } from 'react-router-dom';
+import arrowIcon from '../../Images/arrowIcon.png';
 // import { IMAGEQUERY } from './ImageQuery';
 
+interface NavigationStateProps {
+    navState: any;
+}
+
+const NavigationContainer = styled.nav`
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    z-index: 0;
+`;
+
+interface NavButtonProps {
+    url: any;
+}
+
+const NavButton = styled('button')<NavButtonProps>`
+    width: 50px;
+    z-index: 2;
+    background: url(${({ url }) => url});
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+`;
+
+const NavButtonContainer = styled('div')`
+    width: 100%;
+    height: 55px;
+    display: flex;
+    justify-content: center;
+`;
+
+const NavLinkContainer = styled('div')<NavigationStateProps>`
+    width: 70%;
+    height: ${({navState}) => {
+        if (navState) {
+            return '60px';
+        } else {
+            return '0';
+        }
+    }};
+    display: flex;
+    justify-content: center;
+    transition: .5s ease;
+    z-index: ${({navState}) => {
+        if (navState) {
+            return '1';
+        } else {
+            return '0';
+        }
+    }};
+`;
+
+const HomeButton = styled.div`
+    color: white;
+    font-size: 40px;
+    text-shadow: 2px 2px 2px rgba(0,0,0,0.5);
+`;
 
 const GameContainer = styled.div`
     position: absolute;
@@ -175,35 +237,55 @@ function Game ({
         LeftClick,
         RightClick,
     }: gProps) {
+    
+    const [ navState, setNavState ] = useState(false);
 
     return (
-        <GameContainer>
-            <LeftImageContainer>
-                <LeftImageBox state={state}>
-                        <LeftImage 
-                            url={ LeftStyleImages.url } 
-                            onClick={() => 
-                                LeftClick()
-                            }
-                        />
-                </LeftImageBox>
-            </LeftImageContainer>
-            <VersusImageContainer>
-                <VersusIcon>
-                    <span style={{ color: 'white' }}>VS</span>
-                </VersusIcon>
-            </VersusImageContainer>
-            <RightImageContainer>
-                <RightImageBox state={state}>
-                        <RightImage 
-                            url={ RightStyleImages.url }
-                            onClick={ () => 
-                                RightClick()
-                            }    
-                        />
-                </RightImageBox>
-            </RightImageContainer>
-        </GameContainer>
+        <>
+            <NavigationContainer>
+                <NavLinkContainer navState={navState}>
+                    <Link to={'/'}>
+                        <HomeButton>
+                            HOME
+                        </HomeButton>
+                    </Link>
+                </NavLinkContainer>
+                <NavButtonContainer>
+                    <NavButton url={arrowIcon} 
+                        onClick={() => 
+                        setNavState(!navState)
+                        }
+                    />
+                </NavButtonContainer>
+            </NavigationContainer>
+            <GameContainer>
+                <LeftImageContainer>
+                    <LeftImageBox state={state}>
+                            <LeftImage 
+                                url={ LeftStyleImages.url } 
+                                onClick={() => 
+                                    LeftClick()
+                                }
+                            />
+                    </LeftImageBox>
+                </LeftImageContainer>
+                <VersusImageContainer>
+                    <VersusIcon>
+                        <span style={{ color: 'white' }}>VS</span>
+                    </VersusIcon>
+                </VersusImageContainer>
+                <RightImageContainer>
+                    <RightImageBox state={state}>
+                            <RightImage 
+                                url={ RightStyleImages.url }
+                                onClick={ () => 
+                                    RightClick()
+                                }    
+                            />
+                    </RightImageBox>
+                </RightImageContainer>
+            </GameContainer>
+        </>
     );
 }
 

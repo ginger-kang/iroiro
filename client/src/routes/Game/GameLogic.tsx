@@ -4,6 +4,7 @@ import { StyleData } from './DataTemp';
 import { PHOTOS } from './query';
 import { Query, Mutation } from 'react-apollo';
 import GameLoading from '../../components/GameLoading';
+import ErrorPage from '../../components/ErrorPage';
 
 interface lState {
     LeftImageindex: number;
@@ -78,7 +79,9 @@ function GameLogic() {
                     );
                 }
                 if (error) {
-                    return <div>error</div>;
+                    return (
+                        <ErrorPage />
+                    );
                 }
                 return (
                     <Game

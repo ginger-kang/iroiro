@@ -24,6 +24,7 @@ interface ErrorBoxProps {
 const ErrorBox = styled('div')<ErrorBoxProps>`
     width: 110px;
     height: 110px;
+    margin-bottom: 25px;
     background: url(${({ url }) => url});
     background-size: cover;
     background-position: center center;
