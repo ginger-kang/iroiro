@@ -9,15 +9,16 @@
     "dev": "concurrently --kill-others \"npm run start-watch\" \"npm run build-watch\"",
     "build": "parcel build ./client/public/index.html",
     "start": "node server.js",
-    "startt":"npm run build && node server.js",
+    "startt": "npm run build && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "heroku-postbuild": "parcel build ./client/public/index.html"
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "commitizen": "^4.1.2",
     "concurrently": "^5.2.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1", 
+    "express": "^4.17.1",
     "express-graphql": "^0.9.0",
     "graphql": "^14.2.1",
     "uuid": "^8.1.0"
@@ -51,7 +52,7 @@
       "@babel/plugin-proposal-class-properties"
     ]
   },
-  "proxy":"http://localhost:5000/",
+  "proxy": "http://localhost:5000/",
   "repository": "https://github.com/ginger-kang/Show-me-the-Style.git",
   "author": "winnyiee@naver.com <winnyiee@naver.com>"
 }

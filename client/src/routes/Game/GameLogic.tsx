@@ -32,7 +32,7 @@ function GameLogic() {
             RightClick();
         }
     }
-
+    
     const LeftClick = () => {
         console.log(LeftImageindex, RightImageindex);
         console.log(state);
@@ -54,10 +54,10 @@ function GameLogic() {
         console.log(state);
         console.log(LeftStyleData);
     }
-
+    
     
     const shuffleImageData = (a: any) => { 
-        console.log(StyleData);
+        console.log("aaaaaaaaaaaaegasegaseg");
         let j, x, i; 
         for (i = a.length; i; i -= 1) { 
             j = Math.floor(Math.random() * i); 
@@ -65,12 +65,15 @@ function GameLogic() {
             a[i - 1] = a[j]; 
             a[j] = x; 
         }
+        console.log("aftershuz",a);
         return a;
     }
     let shuffledData;
 
     return (
-        <Query query={PHOTOS}>
+        <Query query={PHOTOS}
+         notifyOnNetworkStatusChange={true}
+        fetchPolicy={'cache-and-network'}>
             {({ loading, error, data }: any) => {
                 if (loading) {
                     return <div>loading</div>;
@@ -83,7 +86,7 @@ function GameLogic() {
                     <Game
                         state={state}
                         ClickDirection={AnswerDirection}
-                        LeftStyleImages={[
+                        LeftStyleImages={[ 
                             shuffledData[LeftImageindex],
                             shuffledData[LeftImageindex + 2]
                         ]}
