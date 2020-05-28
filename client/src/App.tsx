@@ -4,6 +4,9 @@ import { GlobalStyle } from './global-styles';
 import Router from './Router';
 //import { ThemeProvider } from './theme-components';
 import { Theme } from './theme';
+import client from "./apollo";
+import { ApolloProvider } from "react-apollo";
+import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
 
 const AppContainer = styled.div`
   position: absolute;
@@ -15,10 +18,16 @@ const AppContainer = styled.div`
 `;
 
 function App() {
-  return(
+  return (
     <AppContainer>
-      <GlobalStyle />
-      <Router />
+      <ApolloProvider client={client}>
+        <ApolloHooksProvider client={client}>
+
+          <GlobalStyle />
+          <Router />
+
+        </ApolloHooksProvider>
+    </ApolloProvider>
     </AppContainer>
   );
 };

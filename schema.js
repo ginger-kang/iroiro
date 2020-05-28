@@ -8,7 +8,7 @@ const {
 } = require('graphql');
 
 const photos = new GraphQLObjectType({
-    name: 'photo',
+    name: 'photos',
   fields: () => ({
     url: { type: GraphQLString },
     category: { type: GraphQLString },

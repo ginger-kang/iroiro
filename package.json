@@ -1,5 +1,5 @@
 {
-  "name": "practice",
+  "name": "showmethestyle",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -8,20 +8,23 @@
     "start-watch": "nodemon server.js",
     "dev": "concurrently --kill-others \"npm run start-watch\" \"npm run build-watch\"",
     "build": "parcel build ./client/public/index.html",
-    "start": "npm run build && node server.js",
+    "start": "node server.js",
+    "startt":"npm run build && node server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "heroku-postbuild": "cd client && yarn install && yarn build"
+    "heroku-postbuild": "parcel build ./client/public/index.html"
   },
   "dependencies": {
-    "aws-amplify": "^3.0.12",
-    "aws-amplify-react": "^4.1.11",
     "axios": "^0.19.2",
     "concurrently": "^5.2.0",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
+    "express": "^4.17.1", 
     "express-graphql": "^0.9.0",
-    "graphql": "^15.0.0",
+    "graphql": "^14.2.1",
     "uuid": "^8.1.0"
+  },
+  "engines": {
+    "yarn": "1.22.4",
+    "node": "12.16.2"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.8.3",
@@ -47,5 +50,8 @@
     "plugins": [
       "@babel/plugin-proposal-class-properties"
     ]
-  }
+  },
+  "proxy":"http://localhost:5000/",
+  "repository": "https://github.com/ginger-kang/Show-me-the-Style.git",
+  "author": "winnyiee@naver.com <winnyiee@naver.com>"
 }

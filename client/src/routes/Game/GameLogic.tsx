@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Game from './Game';
 import { StyleData } from './DataTemp';
+import { PHOTOS } from './query';
+import { Query, Mutation } from 'react-apollo';
 
 interface lState {
     LeftImageindex: number;
@@ -11,6 +13,16 @@ interface lState {
     RightStyleData: any;
 }
 
+let shuffledData: any = [];
+
+const shuffleImageData = (a: any) => {
+    for (let i = a.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+};
+
 function GameLogic() {
     const [ state, setState ] = useState<string>('START'),
         [ ClickDirection, setClickDirection ] = useState<string>('NOTYET'),
@@ -18,6 +30,14 @@ function GameLogic() {
         [ RightImageindex, setRightImageIndex ] = useState<number>(1),
         [ LeftStyleData, setLeftStyleImages ] = useState([]),
         [ RightStyleData, setRightStyleImages ] = useState([]);
+
+    useEffect(() => {
+        const orderArray: any = [];
+        for ( let i = 0; i < 10; i++){
+            orderArray.push(i);
+        }
+        shuffledData = shuffleImageData(orderArray);
+    }, []);
 
     const AnswerDirection = (dir: string) => {
         //setState('CLICK');
@@ -29,20 +49,6 @@ function GameLogic() {
         //checkList();
     }
 
-    const shuffle = (a: any) => {
-        for (let i = a.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [a[i], a[j]] = [a[j], a[i]];
-        }
-        return a;
-      };
-
-    const orderArray: any = [];
-        for (let i = 0; i < 10; i++) {
-            orderArray.push(i);
-    }
-    const shuffledData = shuffle(orderArray);
-
     const LeftClick = () => {
         setTimeout(() => {
             setRightImageIndex(RightImageindex + 2);
@@ -50,8 +56,6 @@ function GameLogic() {
             // setClickDirection('NOTYET');
         }, 1000);
         console.log(LeftImageindex, RightImageindex);
-        console.log(orderArray);
-        console.log(shuffledData);
     }
 
     const RightClick = () => {
@@ -64,31 +68,35 @@ function GameLogic() {
         console.log(state);
     }
 
-    // const checkList = () => {
-    //     console.log(shuffledData[ LeftImageindex ],
-    //         shuffledData[ LeftImageindex + 2 ]);
-    //     console.log(shuffledData[ RightImageindex ],
-    //         shuffledData[ RightImageindex + 2]);
-    // }
-
     return (
-        <Game
-            state = { state }
-            ClickDirection = { AnswerDirection }
-            LeftStyleImages = {[ 
-                StyleData[ shuffledData[ LeftImageindex ] ],
-                StyleData[ shuffledData[ LeftImageindex + 2 ] ]   
-            ]}
-            RightStyleImages = {[ 
-                StyleData[ shuffledData[ RightImageindex ]],
-                StyleData[ shuffledData[ RightImageindex + 2 ]]   
-            ]}
-            LeftClick = { LeftClick }
-            RightClick = { RightClick }
-        />
-                 
-    );
+        <Query query={PHOTOS}>
+            {({ loading, error, data }: any) => {
+                if (loading) {
+                    return <div>loading</div>;
+                }
+                if (error) {
+                    return <div>error</div>;
+                }
+                return (
+                    <Game
+                        state={state}
+                        ClickDirection={AnswerDirection}
+                        LeftStyleImages={[
+                            data.photos[shuffledData[LeftImageindex]],
+                            data.photos[shuffledData[LeftImageindex + 2]]
+                        ]}
+                        RightStyleImages={[
+                            data.photos[shuffledData[RightImageindex]],
+                            data.photos[shuffledData[RightImageindex + 2]]
+                        ]}
+                        LeftClick = {LeftClick}
+                        RightClick = {RightClick}
+                    />
 
+                );
+            }}
+        </Query>
+    );
 }
 
 export default GameLogic;

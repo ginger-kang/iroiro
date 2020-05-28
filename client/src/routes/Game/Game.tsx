@@ -39,7 +39,6 @@ const LeftImageBox = styled('div')<LeftImageContainerProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
-
     background: ${(state: any) => {
         if ( state === 'START' ) {
             return null;
@@ -49,7 +48,6 @@ const LeftImageBox = styled('div')<LeftImageContainerProps>`
             return null;
         }
     }}
-
     trasnition: ${(state: any) => {
         if ( state === 'START' ) {
             return null;
@@ -73,7 +71,6 @@ const LeftImage = styled('div')<LeftImageProps>`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
     &:hover {
         -ms-transform: scale(1.1);
         -webkit-transform: scale(1.1);
@@ -104,7 +101,6 @@ const RightImageBox = styled('div')<RightImageBoxProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
-
     background: ${({state}) => {
         if ( state === 'START' ) {
             return null;
@@ -114,7 +110,6 @@ const RightImageBox = styled('div')<RightImageBoxProps>`
             return null;
         }
     }}
-
     trasnition: ${({state}) => {
             if ( state === 'START' ) {
                 return null;
@@ -139,7 +134,6 @@ const RightImage = styled('div')<RightImageProps>`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-
     &:hover {
         -ms-transform: scale(1.1);
         -webkit-transform: scale(1.1);

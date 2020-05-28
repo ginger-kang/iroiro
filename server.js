@@ -1,8 +1,3 @@
-//import Amplify from 'aws-amplify'
-//import config from './aws-exports'
-
-//Amplify.configure(config)
-
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
 const schema = require('./schema');
@@ -16,8 +11,7 @@ app.use('/graphql',graphqlHTTP({
     schema,
     graphiql:true
 }));
-
-app.get('/*', (req, res) => {
+app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, 'dist', 'index.html'));
 });
 
