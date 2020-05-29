@@ -72,8 +72,8 @@ function GameLogic() {
 
     return (
         <Query query={PHOTOS}
-         notifyOnNetworkStatusChange={true}
-        fetchPolicy={'cache-and-network'}>
+            notifyOnNetworkStatusChange={true}
+            fetchPolicy={'cache-and-network'}>
             {({ loading, error, data }: any) => {
                 if (loading) {
                     return (

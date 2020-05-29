@@ -22,12 +22,10 @@ function App() {
     <AppContainer>
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
-
           <GlobalStyle />
           <Router />
-
         </ApolloHooksProvider>
-    </ApolloProvider>
+      </ApolloProvider>
     </AppContainer>
   );
 };
