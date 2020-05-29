@@ -7,6 +7,8 @@ const {
   GraphQLSchema
 } = require('graphql');
 
+
+
 const photos = new GraphQLObjectType({
     name: 'photos',
   fields: () => ({
@@ -15,6 +17,7 @@ const photos = new GraphQLObjectType({
     owner: { type: GraphQLString }   
   })
 });
+
 
 
 const RootQuery = new GraphQLObjectType({
