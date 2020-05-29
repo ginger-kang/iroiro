@@ -1,6 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link }from 'react-router-dom';
+import {GoogleLogin} from 'react-google-login';
+import google from '../../Images/google.png';
 
 const HomeContainer = styled.div`
     position: absolute;
@@ -8,17 +10,68 @@ const HomeContainer = styled.div`
     bottom: 0;
     right: 0;
     left: 0;
-    background-color: black;
+    background-color: #efefef;
     display: flex;
     flex-direction: column;
     align-items: center;
 `;
 
-const MainTitleContainer = styled.div`
+const LoginNavContainer = styled.nav`
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const LoginContainer = styled.button`
+    position: absolute;
+    right: 20px;
+    height: 44px;
+    padding: 9px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,.3);
+    border-radius: 10px;
+    font-size: 20px;
+    font-weight: 400;
+`;
+
+interface LoginBoxProps {
+    loginState: any;
+}
+
+const LoginBox = styled('div')<LoginBoxProps>`
+    position: absolute;
+    top: 60px;
+    right: ${({loginState}) => {
+        if (loginState) {
+            return '30px';
+        } else {
+            return '-160px';
+        }
+    }};
+    width: 60px;
+    height: 60px;
+    color: white;
+    font-size: 20px;
+    transition: all 1s ease;
+`;
+
+
+const MainTitleContainer = styled.header`
     color: white;
     margin: 150px 0 15px 0;
     padding: 18px;
     display: flex;
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, .5);
 `;
 
 const MainTitleImage = styled.div`
@@ -26,7 +79,7 @@ const MainTitleImage = styled.div`
     font-weight: 600;
 `;
 
-const ContentContatiner = styled.div`
+const ContentContatiner = styled.article`
     font-size: 20px;
     padding: 15px;
     color: white;
@@ -34,7 +87,7 @@ const ContentContatiner = styled.div`
     justify-content: center;
 `;
 
-const StartButton = styled.button`
+const SelectButton = styled.button`
     width: 200px;
     padding: 7px;
     margin-top: 50px;
@@ -52,20 +105,43 @@ const StartButton = styled.button`
     }
 `;
 
-const SelectButton = styled.button`
-    width: 200px;
-    padding: 7px;
-    margin-top: 50px;
-    border-radius: 10px;
-    font-size: 27px;
-    font-weight: 800;
-    color: white;
-    background: rgba(0,0,0,0.3);
-`;
+const responseGoogle = (response: any) => {
+    console.log(response);
+}
 
 export default function Home() {
+    const [ loginClick, setLoginClick ] = useState(false);
+
     return (
         <HomeContainer>
+            <LoginNavContainer>
+                <LoginContainer onClick={() => setLoginClick(!loginClick)}>
+                    로그인
+                </LoginContainer>
+                <LoginBox loginState={loginClick}>
+                    <GoogleLogin
+                        clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
+                        render={renderProps => (
+                            <button 
+                                onClick={renderProps.onClick} 
+                                disabled={renderProps.disabled}
+                            >
+                                <img src={google} 
+                                    alt='google_logo' 
+                                    style={{
+                                        width: '50px',
+                                        height: '50px'
+                                    }}
+                                />
+                            </button>
+                        )}
+                        buttonText="Login"
+                        onSuccess={responseGoogle}
+                        onFailure={responseGoogle}
+                        cookiePolicy={'single_host_origin'}
+                    />
+            </LoginBox>
+            </LoginNavContainer>
             <MainTitleContainer>
                 <MainTitleImage>
                     Lorem Ipsum
@@ -74,11 +150,6 @@ export default function Home() {
             <ContentContatiner>
                 ...
             </ContentContatiner>
-            <Link to="/game">
-                <StartButton>
-                    START
-                </StartButton>
-            </Link>
             <Link to='/selectmenu'>
                 <SelectButton>
                     Select

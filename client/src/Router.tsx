@@ -3,7 +3,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import styled from 'styled-components';
 import Home from './routes/Home/Home';
 import Game from './routes/Game/GameLogic';
-import SelectMenu from './routes/Select/SelectMenu';
+import SelectMenu from './routes/Select/Select';
 
 const MainContainer = styled.div`
     position: relative;
