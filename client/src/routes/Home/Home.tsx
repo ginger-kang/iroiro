@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link }from 'react-router-dom';
+import GoogleLogin from 'react-google-login';
 
 const HomeContainer = styled.div`
     position: absolute;
@@ -51,7 +52,16 @@ const StartButton = styled.button`
         transform: scale(1.1);
     }
 `;
-
+const SelectButton = styled.button`
+    width: 200px;
+    padding: 7px;
+    margin-top: 50px;
+    border-radius: 10px;
+    font-size: 27px;
+    font-weight: 800;
+    color: white;
+    background: rgba(0,0,0,0.3);
+`;
 export default function Home() {
     return (
         <HomeContainer>
@@ -68,7 +78,11 @@ export default function Home() {
                     START
                 </StartButton>
             </Link>
-            
+            <Link to='/selectmenu'>
+                <SelectButton>
+                    Select
+                </SelectButton>
+            </Link>
         </HomeContainer>
     );
 }

@@ -5,9 +5,9 @@ const multerS3 = require('multer-s3');
 var AWS = require('aws-sdk');
 const path = require('path')
 
-AWS.config.loadFromPath('./aws-service/aws-config.json');
+AWS.config.loadFromPath('./aws-service/aws-confi.json');
 AWS.config.apiVersions = {
-    //dynamodb: '2011-12-05',
+    //dynamodb: '2011-12-05', 
     //ec2: '2013-02-01',
     dynamodb: 'latest'
 }
@@ -25,18 +25,7 @@ function inputToDynamo(params){
     });
 }
 
-/*router.get('/table-list', function (req, res, next) {
-    db.scan(params, function (err, data) {
-        if (err) {
-            console.log(err)
-        }
-        else {
-            console.log(data)
-        }
-    });
 
-    res.send('AWS - See the console plz.');
-});*/
 
 //#######################s3
 let s3 = new AWS.S3();
@@ -47,7 +36,7 @@ let upload = multer({
         bucket: "showmethestyle.com",
         key: function (req, file, cb) {
             let extension =(file.originalname);
-            console.log(extension);
+            
             cb(null, extension)
         },
         acl: 'public-read-write',
@@ -55,20 +44,35 @@ let upload = multer({
 })
 
 router.post('/upload', upload.single("imgFile"), function (req, res, next) {
+    var today = new Date();
+    date = today.getFullYear()+":"+today.getMonth()+":"+today.getDate()+":"+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var params = {
         TableName:'showmethestyle',
         Item:{
-            "id":"1",
-            "uploadDate": Date.now(),
+            "id":date+"master"+":"+req.file.originalname,
+            "uploadDate": date,
             "owner": "master",
             "url":"https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/"+req.file.originalname,
             "category":"etc"
         }
     };
+    
     inputToDynamo(params);
     let imgFile = req.file;
     res.json(imgFile);
 })
+router.get('/table-list', function (req, res, next) {
+    console.log('xxx')
+    db.scan(params, function (err, data) {
+        if (err) {
+            console.log(err)
+        }
+        else {
+            console.log(data)
+        }
+    });
 
+    res.send('AWS - See the console plz.');
+});
 
 module.exports = router
