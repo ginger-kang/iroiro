@@ -105,20 +105,28 @@ const SelectButton = styled.button`
     }
 `;
 
-const responseGoogle = (response: any) => {
-    console.log(response);
-}
-
 export default function Home() {
-    const [ loginClick, setLoginClick ] = useState(false);
+    const [ loginButtonClick, setLoginButtonClick ] = useState(false);
+
+    //google-user Info
+    const [ userGoogleId, setUserGoogleId ] = useState(null);
+    const [ userGoogleName, setUserGoogleName ] = useState(null);
+    const [ provider, setProvider ] = useState('google');
+
+    //set google-user Info
+    const responseGoogle = (response: any) => {
+        setUserGoogleId( response.googleId );
+        setUserGoogleName( response.profileObj.name );
+        setProvider( 'google' );
+    }
 
     return (
         <HomeContainer>
             <LoginNavContainer>
-                <LoginContainer onClick={() => setLoginClick(!loginClick)}>
+                <LoginContainer onClick={() => setLoginButtonClick(!loginButtonClick)}>
                     로그인
                 </LoginContainer>
-                <LoginBox loginState={loginClick}>
+                <LoginBox loginState={loginButtonClick}>
                     <GoogleLogin
                         clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
                         render={renderProps => (
@@ -148,7 +156,12 @@ export default function Home() {
                 </MainTitleImage>
             </MainTitleContainer>
             <ContentContatiner>
-                ...
+                {/* 
+                    google user info test view
+                */}
+                <span style={{color: 'black'}}>UserID: {userGoogleId}</span>
+                &nbsp;
+                <span style={{color: 'black'}}>UserName: {userGoogleName}</span>
             </ContentContatiner>
             <Link to='/selectmenu'>
                 <SelectButton>

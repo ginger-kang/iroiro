@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import ImageUpload from '../../components/ImageUpload';
 
 const SelectPageContainer = styled.div`
     position: absolute;
@@ -11,12 +12,13 @@ const SelectPageContainer = styled.div`
     width: 100%;
     height: 100%;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 `;
 
 const ImageUploadContainer = styled.div`
-    width: 150px;
+    width: 400px;
     height: 150px;
     background: rgba(0,0,0,.3);
 `;
@@ -43,6 +45,7 @@ function SelectMenu() {
     return (
         <SelectPageContainer>
             <ImageUploadContainer>
+                <ImageUpload />
             </ImageUploadContainer>
             <Link to="/game">
                 <StartButton>
@@ -51,6 +54,7 @@ function SelectMenu() {
             </Link>
         </SelectPageContainer>
     );
+
 }
 
 export default SelectMenu;
