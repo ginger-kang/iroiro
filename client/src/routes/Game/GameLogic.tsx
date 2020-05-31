@@ -9,8 +9,7 @@ import ErrorPage from '../../components/ErrorPage';
 interface lState {
     LeftImageindex: number;
     RightImageindex: number;
-    state: 'START' | 'CLICK' | 'CLICKRESULT' | 'MOVE';
-    ClickDirection: 'NOTYET' | 'LEFT' | 'RIGHT';
+    state: 'START' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
     LeftStyleData: any;
     RightStyleData: any;
 }
@@ -25,9 +24,9 @@ const shuffleImageData = (a: any) => {
     return a;
 };
 
-function GameLogic() {
+function GameLogic<lState> () {
     const [ state, setState ] = useState<string>('START'),
-        [ ClickDirection, setClickDirection ] = useState<string>('NOTYET'),
+        // [ ClickState, setClickState ] = useState<string>('NOTYET'),
         [ LeftImageindex, setLeftImageIndex ] = useState<number>(0),
         [ RightImageindex, setRightImageIndex ] = useState<number>(1),
         [ LeftStyleData, setLeftStyleImages ] = useState([]),
@@ -40,32 +39,25 @@ function GameLogic() {
         }
         shuffledData = shuffleImageData(orderArray);
     }, []);
-
-    const AnswerDirection = (dir: string) => {
-        //setState('CLICK');
-        //setClickDirection(dir);
-        // setTimeout(() => {
-        //     setState('CLICKRESULT');
-        // }, 2000);
-        // console.log(dir);
-        //checkList();
-    }
     
     const LeftClick = () => {
+        setState('LEFTCLICK');
         setTimeout(() => {
             setRightImageIndex(RightImageindex + 2);
-            // setState('START');
-            // setClickDirection('NOTYET');
+            setState('START');
         }, 1000);
+        console.log(state);
         console.log(LeftImageindex, RightImageindex);
     }
 
     const RightClick = () => {
+        setState('RIGHTCLICK');
         console.log(LeftImageindex, RightImageindex);
         setTimeout(() => {
             // setState('START');
             // setClickDirection('NOTYET');
             setLeftImageIndex(LeftImageindex + 2);
+            setState('START');
         }, 1000);
         console.log(state);
     }
@@ -88,7 +80,7 @@ function GameLogic() {
                 return (
                     <Game
                         state={state}
-                        ClickDirection={AnswerDirection}
+                        // ClickState={AnswerDirection}
                         LeftStyleImages={
                             data.photos[shuffledData[LeftImageindex]]
                         }

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import arrowIcon from '../../Images/arrowIcon.png';
+import { url } from 'inspector';
 
 
 interface NavigationStateProps {
@@ -79,9 +80,9 @@ const GameContainer = styled.div`
 `;
 
 const LeftImageContainer = styled.section`
+    position: relative;
     width: 50%;
     height: 100%;
-    border-radius: 7px;
     color: white;
     display: flex;
     flex-direction: column;
@@ -92,41 +93,37 @@ interface LeftImageProps {
 }
 
 interface LeftImageContainerProps {
-    state: 'START' | 'CLICK' | 'MOVE';
+    state: 'START' | 'LEFTCLICK' | 'RIGHTCLICK' | 'MOVE';
 }
 
 const LeftImageBox = styled('div')<LeftImageContainerProps>`
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 11%;
+    left: 11%;
+    width: 77%;
+    height: 75%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: ${(state: any) => {
+    background: rgba(0,0,0,.3);
+    opacity: ${(state: any) => {
         if ( state === 'START' ) {
-            return null;
-        } else if ( state === 'CLICK' ) {
-            return 'rgba(0,0,0,.4)';
+            return '1';
+        } else if ( state === 'LEFTCLICK' ) {
+            return '.5';
+        } else if ( state === 'RIGHTCLICK' ) {
+            return '.5';
         } else {
-            return null;
+            return '1';
         }
-    }}
-    trasnition: ${(state: any) => {
-        if ( state === 'START' ) {
-            return null;
-        } else if ( state === 'CLICK' ) {
-            return null;
-        } else {
-            return 'all 1s ease';
-        }
-    }}
+    }};
+    trasnition: all 0.5s ease;
 `;
 
 const LeftImage = styled('div')<LeftImageProps>`
-    width: 77%;
+    width: 100%;
     height: 100%;
     cursor: pointer;
-    margin: 65px;
-    border-radius: 10px;
     transition: all 0.2s;
     box-shadow: 10px 10px 10px;
     background: url(${({ url }) => url});
@@ -141,9 +138,9 @@ const LeftImage = styled('div')<LeftImageProps>`
 `;
 
 const RightImageContainer = styled.section`
+    position: relative;
     width: 50%;
     height: 100%;
-    border-radius: 7px;
     color: white;
     display: flex;
     flex-direction: column;
@@ -158,38 +155,22 @@ interface RightImageBoxProps {
 }
 
 const RightImageBox = styled('div')<RightImageBoxProps>`
-    width: 100%;
-    height: 100%;
+    position: absolute;
+    top: 11%;
+    left: 11%;
+    width: 77%;
+    height: 75%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: ${({state}) => {
-        if ( state === 'START' ) {
-            return null;
-        } else if ( state === 'CLICK' ) {
-            return 'rgba(0,0,0,.4)';
-        } else {
-            return null;
-        }
-    }}
-    trasnition: ${({state}) => {
-            if ( state === 'START' ) {
-                return null;
-            } else if ( state === 'CLICK' ) {
-                return null;
-            } else {
-                return 'all 1s ease';
-            }
-        }
-    }
+    background: rgba(0,0,0,.3);
+    trasnition: 'all .5s ease';
 `;
 
 const RightImage = styled('div')<RightImageProps>`
-    width: 77%;
+    width: 100%;
     height: 100%;
     cursor: pointer;
-    margin: 65px;
-    border-radius: 10px;
     transition: all 0.2s;
     box-shadow: 10px 10px 10px;
     background: url(${({ url }) => url});
@@ -220,9 +201,11 @@ const VersusIcon = styled.div`
     text-shadow: 2.3px 2.3px 3px rgba(0, 0, 0, .5);
 `;
 
+
+
 interface gProps {
     state: any;
-    ClickDirection: any;
+    // ClickState: any;
     LeftStyleImages: any;
     RightStyleImages: any;
     LeftClick: any;
@@ -231,7 +214,7 @@ interface gProps {
 
 function Game ({ 
         state, 
-        ClickDirection,
+        // ClickState,
         LeftStyleImages, 
         RightStyleImages,
         LeftClick,
@@ -253,7 +236,7 @@ function Game ({
                 <NavButtonContainer>
                     <NavButton url={arrowIcon} 
                         onClick={() => 
-                        setNavState(!navState)
+                            setNavState(!navState)
                         }
                     />
                 </NavButtonContainer>

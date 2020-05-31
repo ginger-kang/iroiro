@@ -11,6 +11,7 @@ const MainContainer = styled.div`
 `;
 
 export default function Router() {
+    const a: String = "abc";
     return (
         <MainContainer>
             <BrowserRouter>
