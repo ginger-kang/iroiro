@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link }from 'react-router-dom';
-import {GoogleLogin} from 'react-google-login';
+import { Link } from 'react-router-dom';
+import { GoogleLogin } from 'react-google-login';
 import google from '../../Images/google.png';
+import KakaoLogin from 'react-kakao-login'
 
 const HomeContainer = styled.div`
     position: absolute;
@@ -48,10 +49,10 @@ interface LoginBoxProps {
     loginState: any;
 }
 
-const LoginBox = styled('div')<LoginBoxProps>`
+const LoginBox = styled('div') <LoginBoxProps>`
     position: absolute;
     top: 60px;
-    right: ${({loginState}) => {
+    right: ${({ loginState }) => {
         if (loginState) {
             return '30px';
         } else {
@@ -106,18 +107,34 @@ const SelectButton = styled.button`
 `;
 
 export default function Home() {
-    const [ loginButtonClick, setLoginButtonClick ] = useState(false);
+    const [loginButtonClick, setLoginButtonClick] = useState(false);
 
-    //google-user Info
-    const [ userGoogleId, setUserGoogleId ] = useState(null);
-    const [ userGoogleName, setUserGoogleName ] = useState(null);
-    const [ provider, setProvider ] = useState('google');
+  
+
+    //total-user Info
+    const [userSocialId, setUserSocialId] = useState(null);
+    const [userSocialName, setUserSocialName] = useState(null);
+    const [provider, setProvider] = useState('' );
+
+    console.log(userSocialId,userSocialName,provider);
 
     //set google-user Info
-    const responseGoogle = (response: any) => {
-        setUserGoogleId( response.googleId );
-        setUserGoogleName( response.profileObj.name );
-        setProvider( 'google' );
+    const responseLogin = (response: any,tempProvider: any) => {
+        console.log(response)
+        if(tempProvider=='google'){
+            setUserSocialId(response.googleId);
+            setUserSocialName(response.profileObj.name);
+            setProvider('google');
+            window.sessionStorage.setItem('id',response.googleId);
+            //localStorage.setItem('user',response.googleId);
+        }else if(tempProvider=='kakao'){
+            setUserSocialName(response.profile.kakao_account.profile.nickname);
+            //localStorage.setItem('user',response.profile.id);
+            window.sessionStorage.setItem('id',response.profile.id);
+            setProvider('kakao');
+        }
+
+        
     }
 
     return (
@@ -130,12 +147,13 @@ export default function Home() {
                     <GoogleLogin
                         clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
                         render={renderProps => (
-                            <button 
-                                onClick={renderProps.onClick} 
+                            <button
+                                onClick={renderProps.onClick}
                                 disabled={renderProps.disabled}
+
                             >
-                                <img src={google} 
-                                    alt='google_logo' 
+                                <img src={google}
+                                    alt='google_logo'
                                     style={{
                                         width: '50px',
                                         height: '50px'
@@ -144,11 +162,19 @@ export default function Home() {
                             </button>
                         )}
                         buttonText="Login"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
+                        onSuccess={res=>responseLogin(res,'google')}
+                        onFailure={res=>console.log(1)}
+                        isSignedIn={true}
                         cookiePolicy={'single_host_origin'}
                     />
-            </LoginBox>
+                    <KakaoLogin
+                        jsKey='0a72b63b122363029a9f28be03dc7b33'
+                        useDefaultStyle
+                        onSuccess={res=>responseLogin(res,'kakao')}
+                        onFailure={res=>console.log(1)}                        
+                        getProfile={true}
+                    />
+                </LoginBox>
             </LoginNavContainer>
             <MainTitleContainer>
                 <MainTitleImage>
@@ -159,16 +185,16 @@ export default function Home() {
                 {/* 
                     google user info test view
                 */}
-                <span style={{color: 'black'}}>UserID: {userGoogleId}</span>
+                <span style={{ color: 'black' }}>UserID: {userSocialId}</span>
                 &nbsp;
-                <span style={{color: 'black'}}>UserName: {userGoogleName}</span>
+                <span style={{ color: 'black' }}>UserName: {userSocialName}</span>
             </ContentContatiner>
             <Link to='/selectmenu'>
                 <SelectButton>
                     Select
                 </SelectButton>
             </Link>
-            
+
         </HomeContainer>
     );
 }
