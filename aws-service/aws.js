@@ -61,7 +61,8 @@ router.post('/upload', upload.single("imgFile"), function (req, res, next) {
     let imgFile = req.file;
     res.json(imgFile);
 })
-router.get('/table-list', function (req, res, next) {
+
+/*router.get('/table-list', function (req, res, next) {
     console.log('xxx')
     db.scan(params, function (err, data) {
         if (err) {
@@ -73,6 +74,20 @@ router.get('/table-list', function (req, res, next) {
     });
 
     res.send('AWS - See the console plz.');
-});
-
+});*/
+var params = {
+  TableName : "Users",  
+  Key:{
+    userId:"moonseok"
+  }
+  
+};
+db.get(params,function(err,data){
+  if(err){
+    console.log("err")
+  }else{
+    console.log(data);
+    return (data);
+  }
+})
 module.exports = router

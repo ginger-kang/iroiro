@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 import { GoogleLogin } from 'react-google-login';
 import google from '../../Images/google.png';
 import KakaoLogin from 'react-kakao-login'
-
+import gql from "graphql-tag";
+import { useQuery } from '@apollo/react-hooks';
 const HomeContainer = styled.div`
     position: absolute;
     top: 0;
@@ -106,7 +107,11 @@ const SelectButton = styled.button`
     }
 `;
 
+
 export default function Home() {
+
+    
+
     const [loginButtonClick, setLoginButtonClick] = useState(false);
 
   
@@ -126,6 +131,8 @@ export default function Home() {
             setUserSocialName(response.profileObj.name);
             setProvider('google');
             window.sessionStorage.setItem('id',response.googleId);
+            console.log(response.googleId);
+            
             //localStorage.setItem('user',response.googleId);
         }else if(tempProvider=='kakao'){
             setUserSocialName(response.profile.kakao_account.profile.nickname);
