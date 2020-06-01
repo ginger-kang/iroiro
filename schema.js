@@ -59,7 +59,7 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(PhotoType),
       resolve(parent, args) {
         return axios
-          .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/hello')
+          .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/hello')          
           .then(res => res.data);
       }
     },
@@ -76,7 +76,7 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         params2.Key.userId = args.userId;
-        
+        console.log(args.userId);
         return db.get(params2).promise().then(res => res.Item);
       }
     }
