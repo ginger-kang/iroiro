@@ -2,7 +2,7 @@ const axios = require('axios');
 var AWS = require('aws-sdk');
 const path = require('path')
 
-AWS.config.loadFromPath('./aws-service/aws-config.json');
+// AWS.config.loadFromPath('./aws-service/aws-config.json');
 AWS.config.apiVersions = {
   //dynamodb: '2011-12-05', 
   //ec2: '2013-02-01',
@@ -56,7 +56,7 @@ const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
     Photos: {
-      type: PhotoType,
+      type: new GraphQLList(PhotoType),
       resolve(parent, args) {
         return axios
           .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/hello')

@@ -10,11 +10,10 @@ export const PHOTOS = gql`
   }
 `;
 
-export const USEREXIST = ({userId}) =>gql`
-{
-  AllUsers(userId:${userId}{
-    userId
+export const USEREXIST  = gql`
+  query USEREXIST($userId: any) {
+    AllUsers(userId: $userId){
+      userId
+    }
   }
-
-}
 `;

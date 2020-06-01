@@ -109,12 +109,7 @@ const SelectButton = styled.button`
 
 
 export default function Home() {
-
-    
-
     const [loginButtonClick, setLoginButtonClick] = useState(false);
-
-  
 
     //total-user Info
     const [userSocialId, setUserSocialId] = useState(null);
