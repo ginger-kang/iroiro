@@ -5,8 +5,8 @@ const multerS3 = require('multer-s3');
 var AWS = require('aws-sdk');
 const path = require('path')
 
-AWS.config.accessKeyId = process.env.accessKeyId;
-AWS.config.secretAccessKey = process.env.secretAccessKey;
+AWS.config.accessKeyId = process.env.aws_access_key_id;
+AWS.config.secretAccessKey = process.env.aws_secret_access_key;
 AWS.config.region = process.env.region;
 
 
