@@ -2,10 +2,19 @@ import gql from "graphql-tag";
 
 export const PHOTOS = gql`
   {
-    photos{
+    Photos{
       url
       category
       owner
     }
   }
+`;
+
+export const USEREXIST = ({userId}) =>gql`
+{
+  AllUsers(userId:${userId}{
+    userId
+  }
+
+}
 `;

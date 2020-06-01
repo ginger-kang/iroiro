@@ -82,10 +82,10 @@ function GameLogic<lState> () {
                         state={state}
                         // ClickState={AnswerDirection}
                         LeftStyleImages={
-                            data.photos[shuffledData[LeftImageindex]]
+                            data.Photos[shuffledData[LeftImageindex]]
                         }
                         RightStyleImages={
-                            data.photos[shuffledData[RightImageindex]]
+                            data.Photos[shuffledData[RightImageindex]]
                         }
                         LeftClick = {LeftClick}
                         RightClick = {RightClick}
