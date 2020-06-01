@@ -11,7 +11,7 @@ dist
 .pnp.js
 
 
-./aws-service/aws-config.json
+aws-confi*
 
 # testing
 /coverage
