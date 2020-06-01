@@ -10,6 +10,9 @@ dist
 /.pnp
 .pnp.js
 
+
+./aws-service/aws-config.json
+
 # testing
 /coverage
 
