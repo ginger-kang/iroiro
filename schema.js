@@ -13,7 +13,7 @@ AWS.config.apiVersions = {
   dynamodb: 'latest'
 }
 var db = new AWS.DynamoDB.DocumentClient();
-
+console.log(AWS.config)
 const {
   GraphQLString,
   GraphQLObjectType,
