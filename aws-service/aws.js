@@ -5,7 +5,20 @@ const multerS3 = require('multer-s3');
 var AWS = require('aws-sdk');
 const path = require('path')
 
-//AWS.config.loadFromPath('./aws-service/aws-config.json');
+AWS.config.loadFromPath('./aws-service/aws-config.json');
+
+
+/*AWS.config.getCredentials(function(err) {
+    
+    if (err) console.log(err.stack);
+    // credentials not loaded
+    else {
+      console.log("Access key:", AWS.config.credentials.accessKeyId);
+      console.log("Secret access key:", AWS.config.credentials.secretAccessKey);
+      console.log("Secret access key:", AWS.config.credentials.region);
+    }
+  });*/
+
 AWS.config.apiVersions = {
     //dynamodb: '2011-12-05', 
     //ec2: '2013-02-01',

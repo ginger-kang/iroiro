@@ -20,6 +20,6 @@
     "jsx": "react"
   },
   "include": [
-    "src", "../ImageUpload.js"
+    "src", "../ImageUpload.js", "../login.tsx"
   ]
 }
