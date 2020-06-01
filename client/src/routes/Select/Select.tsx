@@ -2,11 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import ImageUpload from '../../components/ImageUpload';
-import { USER_EXIST } from '../Game/query';
+import  { USER_EXIST } from '../Game/query';
 import { Query } from "react-apollo"
 import { useQuery } from '@apollo/react-hooks';
 import GameLoading from '../../components/GameLoading';
 import ErrorPage from '../../components/ErrorPage';
+
 const SelectPageContainer = styled.div`
     position: absolute;
     top: 0;
@@ -46,10 +47,10 @@ const StartButton = styled.button`
 `;
 
 function SelectMenu() {
-    let userId = window.sessionStorage.getItem('userId');
-    userId = "moonseok";
+    let userId = window.sessionStorage.getItem('id');
+    // userId = "moonseok";
     const { loading, error, data } = useQuery(USER_EXIST, {
-        variables: {userId}
+        variables: {userId},
     });
 
     if (loading) return <GameLoading />;

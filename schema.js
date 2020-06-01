@@ -2,7 +2,7 @@ const axios = require('axios');
 var AWS = require('aws-sdk');
 const path = require('path')
 
-AWS.config.loadFromPath('./aws-service/aws-config.json');
+// AWS.config.loadFromPath('./aws-service/aws-config.json');
 AWS.config.apiVersions = {
   //dynamodb: '2011-12-05', 
   //ec2: '2013-02-01',

@@ -94,7 +94,7 @@ function GameLogic<lState> () {
                 );
             }}
         </Query>
-    );
+     );
 }
 
 export default GameLogic;
