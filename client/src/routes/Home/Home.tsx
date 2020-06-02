@@ -6,6 +6,8 @@ import google from '../../Images/google.png';
 import KakaoLogin from 'react-kakao-login'
 import gql from "graphql-tag";
 import { useQuery } from '@apollo/react-hooks';
+import {googleApi,kakaoApi} from '../../../../login-config/loginConfig'
+
 const HomeContainer = styled.div`
     position: absolute;
     top: 0;
@@ -147,7 +149,7 @@ export default function Home() {
                 </LoginContainer>
                 <LoginBox loginState={loginButtonClick}>
                     <GoogleLogin
-                        clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
+                        clientId={googleApi}
                         render={renderProps => (
                             <button
                                 onClick={renderProps.onClick}
@@ -170,7 +172,7 @@ export default function Home() {
                         cookiePolicy={'single_host_origin'}
                     />
                     <KakaoLogin
-                        jsKey='0a72b63b122363029a9f28be03dc7b33'
+                        jsKey={kakaoApi}
                         useDefaultStyle
                         onSuccess={res=>responseLogin(res,'kakao')}
                         onFailure={res=>console.log(1)}                        

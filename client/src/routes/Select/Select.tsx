@@ -49,6 +49,7 @@ const StartButton = styled.button`
 function SelectMenu() {
     let userId = window.sessionStorage.getItem('id');
     // userId = "moonseok";
+    console.log(userId)
     const { loading, error, data } = useQuery(USER_EXIST, {
         variables: {userId},
     });
