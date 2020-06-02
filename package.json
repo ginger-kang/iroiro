@@ -29,12 +29,11 @@
     "uuid": "^8.1.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.0.0-0",
+    "@babel/core": "^7.10.2",
     "@babel/plugin-proposal-class-properties": "^7.8.3",
+    "@babel/preset-env": "^7.10.2",
     "@babel/preset-react": "^7.10.1",
     "@babel/preset-typescript": "^7.10.1",
-    "babel-preset-env": "^1.7.0",
-    "babel-preset-react": "^6.24.1",
     "nodemon": "^2.0.4",
     "parcel-bundler": "^1.12.4"
   },
@@ -44,18 +43,7 @@
     "parcel",
     "express"
   ],
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react",
-      "env",
-      "react",
-      "@babel/typescript"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-class-properties"
-    ]
-  },
+  
   "proxy": "http://localhost:5000/",
   "repository": "https://github.com/ginger-kang/Show-me-the-Style.git",
   "author": "winnyiee@naver.com <winnyiee@naver.com>"
