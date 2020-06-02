@@ -1,5 +1,5 @@
   
-export let StyleData = [
+let StyleData = [
   {
       url: 'https://scontent-ssn1-1.cdninstagram.com/v/t51.2885-15/e35/p1080x1080/84344227_181374026481020_4025207970493280300_n.jpg?_nc_ht=scontent-ssn1-1.cdninstagram.com&_nc_cat=108&_nc_ohc=BW3BFmP1hY8AX_BDuFT&oh=12883bc59aa5d674609f3ccee1b601f4&oe=5EF58C74',
       vote: 5,
@@ -69,3 +69,5 @@ export let StyleData = [
       vote: 5,
   }
 ]
+
+export default StyleData;

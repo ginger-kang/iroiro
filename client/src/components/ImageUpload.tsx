@@ -53,10 +53,9 @@ function ImageUpload () {
                     //     display: 'none'
                     // }}
                 />
-​
-                {/* <button type="submit">
-                    Upload to S3
-                </button> */}
+                <button type="submit">
+                    Upload
+                </button>
             </form>
         </FileUploadContainer>
     );
