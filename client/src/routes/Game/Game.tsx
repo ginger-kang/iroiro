@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import arrowIcon from '../../Images/arrowIcon.png';
 import { url } from 'inspector';
+import MeditatingDoodle from '../../Images/doodle/MeditatingDoodle.png';
 
 
 interface NavigationStateProps {
@@ -76,7 +77,7 @@ const GameContainer = styled.div`
     height: 100%;
     display: flex;
     justify-content: space-evenly;
-    background-color: #efefef;
+    background: white;
 `;
 
 const LeftImageContainer = styled.section`
@@ -125,7 +126,7 @@ const LeftImage = styled('div')<LeftImageProps>`
     height: 100%;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 1px 1px 1px;
     background: url(${({ url }) => url});
     background-size: cover;
     background-position: center;
@@ -172,7 +173,7 @@ const RightImage = styled('div')<RightImageProps>`
     height: 100%;
     cursor: pointer;
     transition: all 0.2s;
-    box-shadow: 10px 10px 10px;
+    box-shadow: 1px 1px 1px;
     background: url(${({ url }) => url});
     background-size: cover;
     background-position: center;
@@ -186,7 +187,7 @@ const RightImage = styled('div')<RightImageProps>`
 
 const VersusImageContainer = styled.div`
     position: absolute;
-    top: 50%;
+    top: 40%;
     font-size: 70px;
     font-weight: 700;
     border-radius: 100%;
@@ -198,7 +199,13 @@ const VersusImageContainer = styled.div`
 const VersusIcon = styled.div`
     width: 100%;
     height: 100%;
-    text-shadow: 2.3px 2.3px 3px rgba(0, 0, 0, .5);
+    background: white;
+    border-radius: 100%;
+
+    & img {
+        width: 10vw;
+        height: 10vw;
+    }
 `;
 
 
@@ -254,7 +261,7 @@ function Game ({
                 </LeftImageContainer>
                 <VersusImageContainer>
                     <VersusIcon>
-                        <span style={{ color: 'white' }}>VS</span>
+                        <img src={MeditatingDoodle} alt='meditatingDoodle' />
                     </VersusIcon>
                 </VersusImageContainer>
                 <RightImageContainer>

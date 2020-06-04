@@ -6,9 +6,6 @@ export const GlobalStyle = createGlobalStyle`
     * {
         box-sizing: border-box;
     }
-    html, body {
-        overflow: hidden;
-    }
     button { 
         cursor: pointer;
         border: none;

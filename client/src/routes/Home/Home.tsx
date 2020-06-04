@@ -6,18 +6,18 @@ import google from '../../Images/google.png';
 import KakaoLogin from 'react-kakao-login'
 import gql from "graphql-tag";
 import { useQuery } from '@apollo/react-hooks';
-import {googleApi,kakaoApi} from '../../../../login-config/loginConfig'
+import SelectMenu from '../../components/Select';
+import Winner from '../../components/winner';
 
-const HomeContainer = styled.div`
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
-    background-color: #efefef;
+import sittingDoodle from '../../Images/doodle/GroovySittingDoodle.png';
+
+const HomeContainer = styled.section`
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+    overflow: hidden;
 `;
 
 const LoginNavContainer = styled.nav`
@@ -33,19 +33,28 @@ const LoginNavContainer = styled.nav`
     align-items: center;
 `;
 
-const LoginContainer = styled.button`
-    position: absolute;
-    right: 20px;
-    height: 44px;
+const LoginButton = styled.button`
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 110px;
+    height: 42px;
     padding: 9px;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0,0,0,.3);
+    border: 1.5px solid black;
     border-radius: 10px;
+    background: black;
     font-size: 20px;
-    font-weight: 400;
+    transition: all .1s ease;
+
+    &:hover {
+        -ms-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
 `;
 
 interface LoginBoxProps {
@@ -53,60 +62,79 @@ interface LoginBoxProps {
 }
 
 const LoginBox = styled('div') <LoginBoxProps>`
-    position: absolute;
-    top: 60px;
-    right: ${({ loginState }) => {
+    position: fixed;
+    top: 250px;
+    display: ${({ loginState }) => {
         if (loginState) {
-            return '30px';
+            return 'flex';
         } else {
-            return '-160px';
+            return 'none';
         }
     }};
-    width: 60px;
-    height: 60px;
+    min-width: 400px;
+    min-height: 140px;
     color: white;
     font-size: 20px;
-    transition: all 1s ease;
+    transition: all 2s ease;
+    background: rgba(0,0,0,.78);
+    border-radius: 11px;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
 `;
 
+const KakaoButton = styled(KakaoLogin)`
+    width: 25%;
+    height: 25%;
+    min-width: 100px;
+    min-height: 100px;
+    color: black;
+    margin: 40px;
+    background-color: #FFEB00;
+    border-radius: 10px;
+    font-size: 77px;
+    text-align: center;
+`;
 
-const MainTitleContainer = styled.header`
-    color: white;
-    margin: 150px 0 15px 0;
-    padding: 18px;
+const HomeImageContainer = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    
+    & img {
+        z-index: -1;
+    }
+`;
+
+const HomeContentContainer = styled.div`
+    color: black;
+    padding: 10px;
     display: flex;
-    text-shadow: 3px 3px 3px rgba(0, 0, 0, .5);
+    flex-direction: column;
+    z-index: 1;
+    align-items: center;
+
+    & img {
+        transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-5deg) skew(0deg, 0deg);
+        transform-style: preserve-3d;
+    }
 `;
 
 const MainTitleImage = styled.div`
-    font-size: 120px;
-    font-weight: 600;
+    font-size: 7vw;
 `;
 
-const ContentContatiner = styled.article`
-    font-size: 20px;
+const ContentContatiner = styled.p`
+    font-size: 14px;
     padding: 15px;
     color: white;
     display: flex;
     justify-content: center;
-`;
-
-const SelectButton = styled.button`
-    width: 200px;
-    padding: 7px;
-    margin-top: 50px;
-    border-radius: 10px;
-    font-size: 27px;
-    font-weight: 800;
-    color: white;
-    background: rgba(0,0,0,0.3);
-    transition: all 0.1s;
-
-    &:hover {
-        -ms-transform: scale(1.1);
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
-    }
 `;
 
 
@@ -142,63 +170,63 @@ export default function Home() {
     }
 
     return (
-        <HomeContainer>
-            <LoginNavContainer>
-                <LoginContainer onClick={() => setLoginButtonClick(!loginButtonClick)}>
+        <>
+            <HomeContainer>
+                <LoginNavContainer>
+                    <span style={{ color: 'black', fontSize: '18px' }}>Hello {userSocialName}!</span>  
+                </LoginNavContainer>
+                <LoginButton onClick={() => setLoginButtonClick(!loginButtonClick)}>
                     로그인
-                </LoginContainer>
-                <LoginBox loginState={loginButtonClick}>
-                    <GoogleLogin
-                        clientId={googleApi}
-                        render={renderProps => (
-                            <button
-                                onClick={renderProps.onClick}
-                                disabled={renderProps.disabled}
-
-                            >
-                                <img src={google}
-                                    alt='google_logo'
+                </LoginButton>
+                    <LoginBox loginState={loginButtonClick}>
+                        <GoogleLogin
+                            clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
+                            render={renderProps => (
+                                <button
+                                    onClick={renderProps.onClick}
+                                    disabled={renderProps.disabled}
                                     style={{
-                                        width: '50px',
-                                        height: '50px'
+                                        background: 'none'
                                     }}
-                                />
-                            </button>
-                        )}
-                        buttonText="Login"
-                        onSuccess={res=>responseLogin(res,'google')}
-                        onFailure={res=>console.log(1)}
-                        isSignedIn={true}
-                        cookiePolicy={'single_host_origin'}
-                    />
-                    <KakaoLogin
-                        jsKey={kakaoApi}
-                        useDefaultStyle
-                        onSuccess={res=>responseLogin(res,'kakao')}
-                        onFailure={res=>console.log(1)}                        
-                        getProfile={true}
-                    />
-                </LoginBox>
-            </LoginNavContainer>
-            <MainTitleContainer>
-                <MainTitleImage>
-                    Lorem Ipsum
-                </MainTitleImage>
-            </MainTitleContainer>
-            <ContentContatiner>
-                {/* 
-                    google user info test view
-                */}
-                <span style={{ color: 'black' }}>UserID: {userSocialId}</span>
-                &nbsp;
-                <span style={{ color: 'black' }}>UserName: {userSocialName}</span>
-            </ContentContatiner>
-            <Link to='/selectmenu'>
-                <SelectButton>
-                    Select
-                </SelectButton>
-            </Link>
-
-        </HomeContainer>
+                                >
+                                    <img src={google}
+                                        alt='google_logo'
+                                        style={{
+                                            width: '50%',
+                                            height: '50%',
+                                        }}
+                                    />
+                                </button>
+                            )}
+                            buttonText="Login"
+                            onSuccess={res=>responseLogin(res,'google')}
+                            onFailure={res=>console.log(1)}
+                            isSignedIn={true}
+                            cookiePolicy={'single_host_origin'}
+                        />
+                        <KakaoButton
+                            jsKey='0a72b63b122363029a9f28be03dc7b33'
+                            buttonText='K'
+                            onSuccess={res=>responseLogin(res,'kakao')}
+                            onFailure={res=>console.log(1)}                        
+                            getProfile={true}
+                        />
+                    </LoginBox>
+                <HomeContentContainer>
+                    <img src={sittingDoodle} alt='sittingDoodle' style={{ width: '40%'}} />
+                    <MainTitleImage>
+                        Lorem Ipsum
+                    </MainTitleImage>
+                    <ContentContatiner>
+                    {/* 
+                        google user info test view
+                    */}
+                    <span style={{ color: 'black', fontSize: '2.5vw' }}>자신의 스타일을 사람들에게 보여주세요</span>
+                </ContentContatiner>
+                </HomeContentContainer>
+            </HomeContainer>
+            <SelectMenu />
+            <Winner />
+        </>
     );
 }
