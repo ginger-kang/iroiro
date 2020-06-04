@@ -7,7 +7,7 @@ import KakaoLogin from 'react-kakao-login'
 import gql from "graphql-tag";
 import { useQuery } from '@apollo/react-hooks';
 import SelectMenu from '../../components/Select';
-import Winner from '../../components/winner';
+import Winner from '../../components/Winner';
 
 import sittingDoodle from '../../Images/doodle/GroovySittingDoodle.png';
 
