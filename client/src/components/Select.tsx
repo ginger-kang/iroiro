@@ -16,7 +16,8 @@ const SelectPageContainer = styled.section`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #0095ff29;
+    background-color: #85ff0017;
+    overflow: hidden;
 `;
 
 const StartButton = styled.button`
