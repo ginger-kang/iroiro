@@ -7,7 +7,7 @@ AWS.config.accessKeyId = process.env.aws_access_key_id;
 AWS.config.secretAccessKey = process.env.aws_secret_access_key;
 
 AWS.config.region = process.env.region;
-console.log(AWS.config.region)
+
 AWS.config.apiVersions = {
   //dynamodb: '2011-12-05', 
   //ec2: '2013-02-01',
@@ -56,7 +56,7 @@ var params2 = {
     'userId': ''
   }
 }
-console.log(db)
+
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
@@ -81,7 +81,7 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         params2.Key.userId = args.userId;
-        console.log(params2)
+        
         return db.get(params2).promise().then(res => res.Item);
       }
     }

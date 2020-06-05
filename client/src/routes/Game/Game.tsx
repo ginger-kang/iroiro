@@ -199,7 +199,7 @@ const VersusImageContainer = styled.div`
 const VersusIcon = styled.div`
     width: 100%;
     height: 100%;
-    background: white;
+    background: transparent;
     border-radius: 100%;
 
     & img {
