@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import axios from 'axios';
-
+import uploadIcon from '../Images/uploadIcon.png'
 
 
 const FileUploadContainer = styled.div`
@@ -34,7 +34,6 @@ width: 192px;
             box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 `;
 const Label = styled.label`
-for:imageUpload
 display: inline-block;
 width: 34px;
 height: 34px;
@@ -51,9 +50,9 @@ transition: all .2s ease-in-out;
     background: #f1f1f1;
     border-color: #d6d6d6;
 }
-&:after {
-    icon: ;
-    font-family: 'fontawesome';
+&:after {       
+    background-image: url(${uploadIcon});
+    font-family: 'FontAwesome';
     color: #757575;
     position: absolute;
     top: 10px;
@@ -61,7 +60,7 @@ transition: all .2s ease-in-out;
     right: 0;
     text-align: center;
     margin: auto;
-}`;
+}` ;
 
 
 
@@ -69,10 +68,9 @@ transition: all .2s ease-in-out;
 function ImageUpload() {
 
     //It sends a request to upload to the server by storing the file object in the state
-    const FileUpload() {
-        console.log(11);
+    
         const [uploadedFile, setUploadedFile] = useState('');
-        
+        const [image, setImage] = useState({ preview: "", raw: "" });
     
         //Post request to server when submitted 
         const handleSubmit = (e: any) => {
@@ -96,18 +94,22 @@ function ImageUpload() {
         };
     
         const handleChange = (e: any) => {
-            const uploadedFile = e.target.files[0];
-        };
-    }
+            if (e.target.files.length) {
+              setImage({
+                preview: URL.createObjectURL(e.target.files[0]),
+                raw: e.target.files[0]
+              });
+            }
+          };
+    
     const uploadInput = useRef(null);
     return (
         <FileUploadContainer>
-
             <Upload>
-                <Edit>
-                    <input ref={uploadInput} type='file' onSubmit={FileUpload} style={{display:'none'}}/>                    
-                    <Label>
+                <Edit>                    
+                    <Label htmlFor='imageUpload'>                        
                     </Label>
+                    <Input type='file' id='imageUpload' onChange={handleChange} style={{display:'none'}}/>                    
                 </Edit>
                 <Preview>
                 </Preview>

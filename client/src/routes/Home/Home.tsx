@@ -8,8 +8,10 @@ import gql from "graphql-tag";
 import { useQuery } from '@apollo/react-hooks';
 import SelectMenu from '../../components/Select';
 import Winner from '../../components/Winner';
+import {USER_EXIST} from '../Game/query';
 
 import sittingDoodle from '../../Images/doodle/GroovySittingDoodle.png';
+
 
 const HomeContainer = styled.section`
     height: 100vh;
@@ -150,13 +152,26 @@ export default function Home() {
 
     //set google-user Info
     const responseLogin = (response: any,tempProvider: any) => {
-        console.log(response)
+        console.log(JSON.stringify(USER_EXIST))
+        
         if(tempProvider=='google'){
+            fetch('/graphql', {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'text/plain',
+                  'Accept': 'text/plain',
+                },
+                body: JSON.stringify({
+                  USER_EXIST,
+                  variables:response.googleId,                  
+                })
+              }).then(r=>r.json()).then(data=>console.log(data));
+
             setUserSocialId(response.googleId);
             setUserSocialName(response.profileObj.name);
             setProvider('google');
             window.sessionStorage.setItem('id',response.googleId);
-            console.log(response.googleId);
+             
             
             //localStorage.setItem('user',response.googleId);
         }else if(tempProvider=='kakao'){
