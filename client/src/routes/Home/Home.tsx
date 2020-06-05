@@ -5,11 +5,11 @@ import { GoogleLogin } from 'react-google-login';
 import google from '../../Images/google.png';
 import KakaoLogin from 'react-kakao-login'
 import gql from "graphql-tag";
-import { useQuery } from '@apollo/react-hooks';
+import { useLazyQuery } from '@apollo/react-hooks';
 import SelectMenu from '../../components/Select';
 import Winner from '../../components/Winner';
-import {USER_EXIST} from '../Game/query';
-
+import {USER_EXIST,PHOTOS} from '../Game/query';
+import client from '../../apollo';
 import sittingDoodle from '../../Images/doodle/GroovySittingDoodle.png';
 
 
@@ -152,20 +152,18 @@ export default function Home() {
 
     //set google-user Info
     const responseLogin = (response: any,tempProvider: any) => {
-        console.log(JSON.stringify(USER_EXIST))
         
+        var googleId = response.googleId;
         if(tempProvider=='google'){
-            fetch('/graphql', {
-                method: 'POST',
-                headers: {
-                  'Content-Type': 'text/plain',
-                  'Accept': 'text/plain',
-                },
-                body: JSON.stringify({
-                  USER_EXIST,
-                  variables:response.googleId,                  
-                })
-              }).then(r=>r.json()).then(data=>console.log(data));
+            client.query({
+                query:USER_EXIST,variables:{userId:googleId},
+            }).then(res=>{
+                if(res.data.User==null){
+                    // 신규 사용자
+                }else{
+                    // 기존 사용자
+                }
+            });
 
             setUserSocialId(response.googleId);
             setUserSocialName(response.profileObj.name);
