@@ -49,6 +49,7 @@ const LoginButton = styled.button`
     background: black;
     font-size: 20px;
     transition: all .1s ease;
+    z-index: 300;
 
     &:hover {
         -ms-transform: scale(1.1);
@@ -81,7 +82,7 @@ const LoginBox = styled('div') <LoginBoxProps>`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    z-index: 100;
+    z-index: 10000;
 `;
 
 const KakaoButton = styled(KakaoLogin)`
