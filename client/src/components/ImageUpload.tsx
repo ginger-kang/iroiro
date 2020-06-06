@@ -2,7 +2,7 @@ import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 import axios from 'axios';
-import uploadIcon from '../Images/uploadIcon.png'
+
 
 
 const FileUploadContainer = styled.div`
@@ -71,10 +71,6 @@ function ImageUpload() {
     const FileUpload = () => {
         console.log(1);
         const [uploadedFile, setUploadedFile] = useState('');
-<<<<<<< HEAD
-        const [image, setImage] = useState({ preview: "", raw: "" });
-=======
->>>>>>> 32f29e9bfae380692ac2dca0de1b73d4a6a82227
     
         //Post request to server when submitted 
         const handleSubmit = (e: any) => {
@@ -98,22 +94,17 @@ function ImageUpload() {
         };
     
         const handleChange = (e: any) => {
-            if (e.target.files.length) {
-              setImage({
-                preview: URL.createObjectURL(e.target.files[0]),
-                raw: e.target.files[0]
-              });
-            }
-          };
-    
+            const uploadedFile = e.target.files[0];
+        };
+    }
     const uploadInput = useRef(null);
     return (
         <FileUploadContainer>
             <Upload>
-                <Edit>                    
-                    <Label htmlFor='imageUpload'>                        
+                <Edit>
+                <Label htmlFor='imageUpload'>                        
                     </Label>
-                    <Input type='file' id='imageUpload' onChange={handleChange} style={{display:'none'}}/>                    
+                    <Input type='file' id='imageUpload' onChange={handleChange} style={{display:'none'}}/>
                 </Edit>
                 <Preview>
                 </Preview>
@@ -121,7 +112,6 @@ function ImageUpload() {
 
         </FileUploadContainer>
     );
-}
 }
 
 export default ImageUpload;

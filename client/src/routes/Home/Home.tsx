@@ -8,7 +8,7 @@ import gql from "graphql-tag";
 import { useLazyQuery } from '@apollo/react-hooks';
 import SelectMenu from '../../components/Select';
 import Winner from '../../components/Winner';
-import {USER_EXIST,PHOTOS} from '../Game/query';
+import {USER_EXIST,PHOTOS,CREATE_USER} from '../Game/query';
 import client from '../../apollo';
 import sittingDoodle from '../../Images/doodle/GroovySittingDoodle.png';
 
@@ -51,7 +51,6 @@ const LoginButton = styled.button`
     background: black;
     font-size: 20px;
     transition: all .1s ease;
-    z-index: 300;
 
     &:hover {
         -ms-transform: scale(1.1);
@@ -84,7 +83,7 @@ const LoginBox = styled('div') <LoginBoxProps>`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    z-index: 10000;
+    z-index: 100;
 `;
 
 const KakaoButton = styled(KakaoLogin)`
@@ -153,33 +152,37 @@ export default function Home() {
 
     //set google-user Info
     const responseLogin = (response: any,tempProvider: any) => {
-        
-        var googleId = response.googleId;
+        console.log(response)   
+        var userIdForQuery: any;
         if(tempProvider=='google'){
-            client.query({
-                query:USER_EXIST,variables:{userId:googleId},
-            }).then(res=>{
-                if(res.data.User==null){
-                    // 신규 사용자
-                }else{
-                    // 기존 사용자
-                }
-            });
-
+            userIdForQuery = response.googleId;
             setUserSocialId(response.googleId);
             setUserSocialName(response.profileObj.name);
-            setProvider('google');
-            window.sessionStorage.setItem('id',response.googleId);
+            //setProvider('google');
+            //window.sessionStorage.setItem('id',response.googleId);
              
             
             //localStorage.setItem('user',response.googleId);
         }else if(tempProvider=='kakao'){
+            
+            userIdForQuery = response.googleId;
             setUserSocialName(response.profile.kakao_account.profile.nickname);
             //localStorage.setItem('user',response.profile.id);
-            window.sessionStorage.setItem('id',response.profile.id);
-            setProvider('kakao');
+            //window.sessionStorage.setItem('id',response.profile.id);
+            //setProvider('kakao');
         }
-
+        client.query({
+            query:USER_EXIST,variables:{userId:userIdForQuery},
+        }).then(res=>{
+            if(res.data.User==null){
+                client.mutate({
+                    variables:{userId:userIdForQuery,userName:"temp"},
+                    mutation:CREATE_USER
+                });
+            }else{
+                // 기존 사용자
+            }
+        });
         
     }
 
@@ -215,7 +218,7 @@ export default function Home() {
                             buttonText="Login"
                             onSuccess={res=>responseLogin(res,'google')}
                             onFailure={res=>console.log(1)}
-                            isSignedIn={true}
+                            //isSignedIn={true}
                             cookiePolicy={'single_host_origin'}
                         />
                         <KakaoButton
