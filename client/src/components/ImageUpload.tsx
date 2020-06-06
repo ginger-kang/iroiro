@@ -104,7 +104,7 @@ function ImageUpload() {
                 <Edit>
                 <Label htmlFor='imageUpload'>                        
                     </Label>
-                    <Input type='file' id='imageUpload' onChange={handleChange} style={{display:'none'}}/>
+                    <Input type='file' id='imageUpload' onChange={FileUpload} style={{display:'none'}}/>
                 </Edit>
                 <Preview>
                 </Preview>
