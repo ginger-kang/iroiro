@@ -10,7 +10,7 @@ AWS.config.secretAccessKey = process.env.aws_secret_access_key;
 AWS.config.region = process.env.region;
 
 
-console.log(AWS.config)
+
 /*AWS.config.getCredentials(function(err) {
     
     if (err) console.log(err.stack);

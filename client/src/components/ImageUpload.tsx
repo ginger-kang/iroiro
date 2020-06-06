@@ -100,12 +100,11 @@ function ImageUpload() {
     const uploadInput = useRef(null);
     return (
         <FileUploadContainer>
-
             <Upload>
                 <Edit>
-                    <input ref={uploadInput} type='file' onSubmit={FileUpload} style={{display:'none'}}/>                    
-                    <Label>
+                <Label htmlFor='imageUpload'>                        
                     </Label>
+                    <Input type='file' id='imageUpload' onChange={handleChange} style={{display:'none'}}/>
                 </Edit>
                 <Preview>
                 </Preview>

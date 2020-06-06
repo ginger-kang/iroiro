@@ -27,7 +27,7 @@ const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     userId: { type: GraphQLString },
-    nickName: { type: GraphQLString }    
+    userName: { type: GraphQLString }    
   })
 });
 const PhotoType = new GraphQLObjectType({
@@ -88,8 +88,29 @@ const RootQuery = new GraphQLObjectType({
   }
 });
 
-
+const RootMutation = new GraphQLObjectType({ 
+  name: 'RootMutationType',
+  fields:{
+    CreateUser:{
+      type: UserType,
+      args:{
+        userId  : {type : GraphQLString},
+        userName  : {type : GraphQLString},
+      },
+      resolve(parent,args){
+        params = {
+          TableName:"Users",
+          Item:{
+            'userId':args.userId,
+            'userName':args.userName
+          }
+        }
+        return db.put(params).promise().then(res=>console.log(res));
+      }
+    }
+  }
+})
 
 module.exports = new GraphQLSchema({
-  query: RootQuery
+  query: RootQuery, mutation: RootMutation
 })

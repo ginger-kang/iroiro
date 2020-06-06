@@ -18,3 +18,12 @@ export const USER_EXIST = gql`
   }
 }
 `;
+
+export const CREATE_USER = gql`
+  mutation CreateUser($userId: String!,$userName: String!) {
+  CreateUser(userId: $userId, userName: $userName) {
+    userId
+    userName
+  }
+}
+`;
