@@ -154,8 +154,10 @@ export default function Home() {
     const responseLogin = (response: any,tempProvider: any) => {
         console.log(response)   
         var userIdForQuery: any;
+        var userNameForQuery: any;
         if(tempProvider=='google'){
             userIdForQuery = response.googleId;
+            userNameForQuery = response.profileObj.name;
             setUserSocialId(response.googleId);
             setUserSocialName(response.profileObj.name);
             //setProvider('google');
@@ -163,9 +165,9 @@ export default function Home() {
              
             
             //localStorage.setItem('user',response.googleId);
-        }else if(tempProvider=='kakao'){
-            
+        }else if(tempProvider=='kakao'){            
             userIdForQuery = response.googleId;
+            userNameForQuery = response.profile.kakao_account.profile.nickname 
             setUserSocialName(response.profile.kakao_account.profile.nickname);
             //localStorage.setItem('user',response.profile.id);
             //window.sessionStorage.setItem('id',response.profile.id);
@@ -176,12 +178,12 @@ export default function Home() {
         }).then(res=>{
             if(res.data.User==null){
                 client.mutate({
-                    variables:{userId:userIdForQuery,userName:"temp"},
+                    variables:{userId:userIdForQuery,userName:userNameForQuery},
                     mutation:CREATE_USER
                 });
-            }else{
-                // 기존 사용자
-            }
+            };
+            window.sessionStorage.setItem('userId',userIdForQuery)
+            window.sessionStorage.setItem('userNaME',userNameForQuery)
         });
         
     }
