@@ -9,6 +9,7 @@ import Winner from '../../components/Winner';
 import {USER_EXIST,PHOTOS,CREATE_USER} from '../Game/query';
 import client from '../../apollo';
 import sittingDoodle from '../../Images/doodle/GroovySittingDoodle.png';
+import { AiFillRocket } from 'react-icons/ai';
 
 
 const HomeContainer = styled.section`
@@ -37,8 +38,10 @@ const LoginButton = styled.button`
     position: fixed;
     bottom: 10px;
     right: 10px;
-    width: 110px;
-    height: 42px;
+    width: 8vw;
+    height: 3vw;
+    min-width: 60px;
+    min-height: 25px;
     padding: 9px;
     color: white;
     display: flex;
@@ -47,7 +50,7 @@ const LoginButton = styled.button`
     border: 1.5px solid black;
     border-radius: 10px;
     background: black;
-    font-size: 20px;
+    font-size: 1.5vw;
     transition: all .1s ease;
     z-index: 300;
 
@@ -120,7 +123,7 @@ const HomeContentContainer = styled.div`
     transition: all 1s ease;
 
     & img {
-        transform: translate3d(0px, 0px, 0px) scale3d(1.1, 1.1, 1.1) rotateX(0deg) rotateY(0deg) rotateZ(-5deg) skew(0deg, 0deg);
+        transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-10deg) skew(0deg, 0deg);
         transform-style: preserve-3d;
     }
 `;
@@ -141,8 +144,10 @@ const LogoutButton = styled.div`
     position: fixed;
     bottom: 10px;
     right: 10px;
-    width: 110px;
-    height: 42px;
+    width: 8vw;
+    height: 3vw;
+    min-width: 60px;
+    min-height: 25px;
     padding: 9px;
     color: white;
     display: flex;
@@ -151,7 +156,7 @@ const LogoutButton = styled.div`
     border: 1.5px solid black;
     border-radius: 10px;
     background: black;
-    font-size: 20px;
+    font-size: 1.5vw;
     transition: all .1s ease;
     z-index: 300;
 
@@ -201,6 +206,19 @@ const LogoutBox = styled('div')<LogoutBoxProps>`
             background: rgba(0,0,0,.8);
             border-radius: 10px;
         }
+    }
+`;
+
+const ScrollController = styled.button`
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    cursor: pointer;
+    transition: 1s ease;
+    background: none;
+
+    &:hover {
+        transform: translateY(-10px);
     }
 `;
 
@@ -261,6 +279,14 @@ export default function Home() {
     const responseLogout = () => {
         window.sessionStorage.clear();
         window.location.reload();
+    }
+
+    const handleScrollControll = () => {
+        window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: 'smooth'
+          });
     }
 
     return (
@@ -351,6 +377,9 @@ export default function Home() {
                     <span style={{ color: 'black', fontSize: '2.4vw' }}>자신의 스타일을 사람들에게 보여주세요</span>
                 </ContentContatiner>
                 </HomeContentContainer>
+                <ScrollController onClick={handleScrollControll}>
+                    <AiFillRocket size={40}/>
+                </ScrollController>
             </HomeContainer>
             <SelectMenu />
             <Winner />
