@@ -7,7 +7,6 @@ import uploadIcon from '../Images/uploadIcon.png'
 
 const FileUploadContainer = styled.div`
     width: 20vw;
-    height: 100%;
     display: flex;
 `;
 
@@ -18,7 +17,6 @@ const Edit = styled.div`
 const Upload = styled.div`
     position: relative;
     max-width: 205px;
-    margin: 50px auto;
 `;
 
 const Input = styled.input`
@@ -26,15 +24,15 @@ const Input = styled.input`
 `;
 
 const Preview = styled.div`
-    width: 192px;
-    height: 192px;
+    width: 8vw;
+    height: 8vw;
     position: relative;
     border-radius: 100%;
     border: 6px solid #F8F8F8;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
 `;
 const Label = styled.label`
-    for:imageUpload
+    for:imageUpload;
     display: inline-block;
     width: 34px;
     height: 34px;
@@ -71,9 +69,12 @@ function ImageUpload() {
 
     //It sends a request to upload to the server by storing the file object in the state
     const FileUpload = () => {
-        console.log(11);
+        console.log(1);
         const [uploadedFile, setUploadedFile] = useState('');
+<<<<<<< HEAD
         const [image, setImage] = useState({ preview: "", raw: "" });
+=======
+>>>>>>> 32f29e9bfae380692ac2dca0de1b73d4a6a82227
     
         //Post request to server when submitted 
         const handleSubmit = (e: any) => {

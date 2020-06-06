@@ -14,7 +14,8 @@ const ErrorPageContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: #efefef;
+    background-color: white;
+    z-index: 100;
 `;
 
 interface ErrorBoxProps {
