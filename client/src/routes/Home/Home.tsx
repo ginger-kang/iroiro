@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { GoogleLogin } from 'react-google-login';
+import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import google from '../../Images/google.png';
 import KakaoLogin from 'react-kakao-login'
-import gql from "graphql-tag";
-import { useLazyQuery } from '@apollo/react-hooks';
 import SelectMenu from '../../components/Select';
 import Winner from '../../components/Winner';
 import {USER_EXIST,PHOTOS,CREATE_USER} from '../Game/query';
@@ -61,12 +59,13 @@ const LoginButton = styled.button`
 `;
 
 interface LoginBoxProps {
-    loginState: any;
+    loginState: boolean;
 }
 
 const LoginBox = styled('div') <LoginBoxProps>`
     position: fixed;
-    top: 250px;
+    top: 48%;
+    left: 50%;
     display: ${({ loginState }) => {
         if (loginState) {
             return 'flex';
@@ -78,13 +77,24 @@ const LoginBox = styled('div') <LoginBoxProps>`
     min-height: 140px;
     color: white;
     font-size: 20px;
-    transition: all 2s ease;
+    transition: all 1.5s ease;
     background: rgba(0,0,0,.78);
     border-radius: 11px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
     z-index: 10000;
+    transform: translateX(-50%) translateY(-50%) scale(1.05);
+
+    & button {
+        transition: all .2s ease;
+
+        &:hover {
+            -ms-transform: scale(1.1);
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+        }
+    }
 `;
 
 const KakaoButton = styled(KakaoLogin)`
@@ -107,9 +117,10 @@ const HomeContentContainer = styled.div`
     flex-direction: column;
     z-index: 1;
     align-items: center;
+    transition: all 1s ease;
 
     & img {
-        transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-5deg) skew(0deg, 0deg);
+        transform: translate3d(0px, 0px, 0px) scale3d(1.1, 1.1, 1.1) rotateX(0deg) rotateY(0deg) rotateZ(-5deg) skew(0deg, 0deg);
         transform-style: preserve-3d;
     }
 `;
@@ -126,51 +137,130 @@ const ContentContatiner = styled.p`
     justify-content: center;
 `;
 
+const LogoutButton = styled.div`
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    width: 110px;
+    height: 42px;
+    padding: 9px;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1.5px solid black;
+    border-radius: 10px;
+    background: black;
+    font-size: 20px;
+    transition: all .1s ease;
+    z-index: 300;
+
+    &:hover {
+        -ms-transform: scale(1.1);
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+`;
+
+interface LogoutBoxProps {
+    logoutState: boolean;
+}
+
+const LogoutBox = styled('div')<LogoutBoxProps>`
+    position: fixed;
+    top: 48%;
+    left: 50%;
+    display: ${({ logoutState }) => {
+        if (logoutState) {
+            return 'flex';
+        } else {
+            return 'none';
+        }
+    }};
+    min-width: 400px;
+    min-height: 140px;
+    color: white;
+    font-size: 20px;
+    transition: all 1.5s ease;
+    background: rgba(0,0,0,.78);
+    border-radius: 11px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+    transform: translateX(-50%) translateY(-50%) scale(1.05);
+
+    & button {
+        transition: all .2s ease;
+        background: none;
+
+        &:hover {
+            -ms-transform: scale(1.1);
+            -webkit-transform: scale(1.1);
+            transform: scale(1.1);
+            background: rgba(0,0,0,.8);
+            border-radius: 10px;
+        }
+    }
+`;
 
 export default function Home() {
     const [loginButtonClick, setLoginButtonClick] = useState(false);
+    const [logoutButtonClick, setLogoutButtonClick] = useState(false);
+    const [isLoggedIn, setisLoggedIn] = useState<any>(null);
 
     //total-user Info
     const [userSocialId, setUserSocialId] = useState(null);
     const [userSocialName, setUserSocialName] = useState(null);
-    const [provider, setProvider] = useState('' );
+    const [provider, setProvider] = useState('');
+
+    useEffect(() => {
+        setisLoggedIn(window.sessionStorage.getItem('userId'));
+    })
 
     console.log(userSocialId,userSocialName,provider);
 
     //set google-user Info
     const responseLogin = (response: any,tempProvider: any) => {
-        console.log(response)   
-        var userIdForQuery: any;
+        console.log(response);
+
+        let userIdForQuery: any;
+        let userNameForQuery: any;
+
         if(tempProvider=='google'){
             userIdForQuery = response.googleId;
+            userNameForQuery = response.profileObj.name;
             setUserSocialId(response.googleId);
             setUserSocialName(response.profileObj.name);
             //setProvider('google');
             //window.sessionStorage.setItem('id',response.googleId);
-             
-            
             //localStorage.setItem('user',response.googleId);
-        }else if(tempProvider=='kakao'){
-            
+        }else if(tempProvider=='kakao'){            
             userIdForQuery = response.googleId;
+            userNameForQuery = response.profile.kakao_account.profile.nickname 
             setUserSocialName(response.profile.kakao_account.profile.nickname);
             //localStorage.setItem('user',response.profile.id);
             //window.sessionStorage.setItem('id',response.profile.id);
             //setProvider('kakao');
         }
         client.query({
-            query:USER_EXIST,variables:{userId:userIdForQuery},
+            query: USER_EXIST, variables:{userId:userIdForQuery},
         }).then(res=>{
-            if(res.data.User==null){
+            if(res.data.User === null){
                 client.mutate({
-                    variables:{userId:userIdForQuery,userName:"temp"},
+                    variables:{userId:userIdForQuery,userName:userNameForQuery},
                     mutation:CREATE_USER
                 });
-            }else{
-                // 기존 사용자
-            }
+            };
+            window.sessionStorage.setItem('userId',userIdForQuery);
+            window.sessionStorage.setItem('userName',userNameForQuery);
         });
-        
+    }
+
+    //logout
+    const responseLogout = () => {
+        window.sessionStorage.clear();
+        window.location.reload();
     }
 
     return (
@@ -179,33 +269,42 @@ export default function Home() {
                 <LoginNavContainer>
                     <span style={{ color: 'black', fontSize: '18px' }}>Hello {userSocialName}!</span>  
                 </LoginNavContainer>
+                {isLoggedIn === null ? 
                 <LoginButton onClick={() => setLoginButtonClick(!loginButtonClick)}>
                     로그인
                 </LoginButton>
+                : 
+                <LogoutButton onClick={() => setLogoutButtonClick(!logoutButtonClick)}>
+                    로그아웃
+                </LogoutButton>
+                }
                     <LoginBox loginState={loginButtonClick}>
                         <GoogleLogin
                             clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
                             render={renderProps => (
                                 <button
-                                    onClick={renderProps.onClick}
+                                    onClick={
+                                        renderProps.onClick
+                                    }
                                     disabled={renderProps.disabled}
                                     style={{
                                         background: 'none'
                                     }}
                                 >
-                                    <img src={google}
-                                        alt='google_logo'
-                                        style={{
-                                            width: '50%',
-                                            height: '50%',
-                                        }}
-                                    />
+                                <img src={google}
+                                    alt='google_logo'
+                                    style={{
+                                        width: '50%',
+                                        height: '50%',
+                                    }}
+                                    onClick={() => setLoginButtonClick(!loginButtonClick)}
+                                />
                                 </button>
                             )}
                             buttonText="Login"
                             onSuccess={res=>responseLogin(res,'google')}
                             onFailure={res=>console.log(1)}
-                            //isSignedIn={true}
+                            isSignedIn={true}
                             cookiePolicy={'single_host_origin'}
                         />
                         <KakaoButton
@@ -216,6 +315,30 @@ export default function Home() {
                             getProfile={true}
                         />
                     </LoginBox>
+                    <LogoutBox logoutState={logoutButtonClick}>
+                        <span style={{
+                            fontSize: '2vw',
+                        }}>로그아웃 하시겠습니까?</span>
+                        <GoogleLogout 
+                            clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
+                            render={renderProps => (
+                                <button
+                                    onClick={renderProps.onClick}
+                                    disabled={renderProps.disabled}
+                                    style={{
+                                        width: '20%',
+                                        height: '20%',
+                                        color: 'white',
+                                        cursor: 'pointer',
+                                        fontSize: '1.7vw',
+                                        marginTop: '20px', 
+                                    }}
+                                >확인
+                                </button>
+                            )}
+                            onLogoutSuccess={responseLogout}
+                        />
+                    </LogoutBox>
                 <HomeContentContainer>
                     <img src={sittingDoodle} alt='sittingDoodle' style={{ width: '40%'}} />
                     <MainTitleImage>
@@ -225,7 +348,7 @@ export default function Home() {
                     {/* 
                         google user info test view
                     */}
-                    <span style={{ color: 'black', fontSize: '2.5vw' }}>자신의 스타일을 사람들에게 보여주세요</span>
+                    <span style={{ color: 'black', fontSize: '2.4vw' }}>자신의 스타일을 사람들에게 보여주세요</span>
                 </ContentContatiner>
                 </HomeContentContainer>
             </HomeContainer>

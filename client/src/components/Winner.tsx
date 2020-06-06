@@ -10,12 +10,13 @@ const WinnerContainer = styled.section`
     height: 100vh;
     background-color: white;
     display: flex;
+    overflow: hidden;
     flex-direction: row;
     overflow: hidden;
 
 `;
 
-const WinnersContainer = styled.div`
+const WinnersContainer = styled('div')`
     width: 40%;
     display: flex;
     flex-direction: column;
@@ -23,7 +24,6 @@ const WinnersContainer = styled.div`
     justify-content: center;
     overflow: hidden;
     position: relative;
-    background-color: #f7fb0017;
 
     & img {
         width: 16vw;
@@ -39,7 +39,6 @@ const WinnersContainer = styled.div`
             transform: scale(1.1);
         }
     }
-
     & button {
         background: none;
         transition: all .5s ease;
@@ -64,6 +63,14 @@ const UserInputContainer = styled.div`
     width: 60%;
     display: flex;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
+`;
+
+const RoundContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
 `;
@@ -102,31 +109,21 @@ function Winner() {
                     </ImageUploadContainer>
                 </UserInputContainer>
                 <WinnersContainer>
-                    <button style={{
-                        position: 'absolute',
-                        left: '15px',
-                        top: '50%',
-                    }} onClick={leftButtonClick}
-                    ><AiOutlineLeft size={33}/></button>
-                    <button style={{
-                        position: 'absolute',
-                        right: '15px',
-                        top: '50%',
-                    }} onClick={rightButtonClick}
-                    ><AiOutlineRight size={33}/></button>
-                    <span style={{ color: 'black', fontSize: '1.8vw'}}>{roundIndex+1}회차</span>
+                    <RoundContainer>
+                        <button onClick={leftButtonClick}
+                        ><AiOutlineLeft size={18}/></button>
+                        <span style={{ 
+                            color: 'black', fontSize: '1.8vw', margin: '0 10px'
+                            }}
+                        >{roundIndex+1}회차</span>
+                        <button onClick={rightButtonClick}
+                        ><AiOutlineRight size={18}/></button>
+                    </RoundContainer>
                     <img src={ImageData[1].url} alt='1st' />
                     <span style={{ color: 'black', fontSize: '1.5vw'}}>@yokota.mayuu</span>
                     <img src={ImageData[11].url} alt='2st' />
                     <span style={{ color: 'black', fontSize: '1.5vw'}}>@yokota.mayuu</span>
                 </WinnersContainer>
-                {/* <SecondContainer>
-                    <span style={{ color: 'black', fontSize: '1.8vw'}}>2회차</span>
-                    <img src={ImageData[10].url} alt='1st' />
-                    <span style={{ color: 'black', fontSize: '1.5vw'}}>@yokota.mayuu</span>
-                    <img src={ImageData[9].url} alt='2st' />
-                    <span style={{ color: 'black', fontSize: '1.5vw'}}>@yokota.mayuu</span>
-                </SecondContainer> */}
             </WinnerContainer>
         </>
     );

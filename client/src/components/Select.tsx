@@ -16,7 +16,7 @@ const SelectPageContainer = styled.section`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #85ff0017;
+    background-color: #b400ff08;
     overflow: hidden;
 `;
 
@@ -85,7 +85,7 @@ const ContentContainer = styled.div`
 `;
 
 function SelectMenu() {
-    let userId = window.sessionStorage.getItem('id');
+    let userId = window.sessionStorage.getItem('userId');
     // userId = "moonseok";
    
     const { loading, error, data } = useQuery(USER_EXIST, {
