@@ -254,6 +254,7 @@ export default function Home() {
             window.sessionStorage.setItem('userName',userNameForQuery);
             setUserSocialId(userIdForQuery);
             setUserSocialName(userNameForQuery);
+            
             //setProvider('google');
             //window.sessionStorage.setItem('id',response.googleId);
             //localStorage.setItem('user',response.googleId);
@@ -264,6 +265,7 @@ export default function Home() {
             window.sessionStorage.setItem('userName',userNameForQuery);
             setUserSocialName(userNameForQuery);
             setUserSocialId(userIdForQuery);
+            window.location.reload();
             //localStorage.setItem('user',response.profile.id);
             //window.sessionStorage.setItem('id',response.profile.id);
             //setProvider('kakao');
@@ -337,14 +339,14 @@ export default function Home() {
                             )}
                             buttonText="Login"
                             onSuccess={res=>responseLogin(res,'google')}
-                            onFailure={res=>console.log(1)}                            
+                            onFailure={res=>console.log('google login fail')}                            
                             cookiePolicy={'single_host_origin'}
                         />
                         <KakaoButton
                             jsKey='0a72b63b122363029a9f28be03dc7b33'
                             buttonText='K'
                             onSuccess={res=>responseLogin(res,'kakao')}
-                            onFailure={res=>console.log(1)}                        
+                            onFailure={res=>console.log('kakao login fail')}                        
                             getProfile={true}
                         />
                     </LoginBox>
