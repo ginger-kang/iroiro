@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
@@ -11,8 +11,7 @@ import client from '../../apollo';
 import sittingDoodle from '../../Images/doodle/GroovySittingDoodle.png';
 import { AiFillRocket } from 'react-icons/ai';
 
-
-const HomeContainer = styled.section`
+const HomeContainer = styled('section')`
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -113,7 +112,7 @@ const KakaoButton = styled(KakaoLogin)`
     text-align: center;
 `;
 
-const HomeContentContainer = styled.div`
+const HomeContentContainer = styled('div')`
     color: black;
     padding: 10px;
     display: flex;
@@ -123,6 +122,7 @@ const HomeContentContainer = styled.div`
     transition: all 1s ease;
 
     & img {
+        will-change: transform;
         transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-10deg) skew(0deg, 0deg);
         transform-style: preserve-3d;
     }

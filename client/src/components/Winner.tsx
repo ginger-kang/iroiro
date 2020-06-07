@@ -104,7 +104,7 @@ function Winner() {
                 <UserInputContainer>
                     <span style={{ color: 'black', fontSize: '2vw'}}>자신의 스타일을 뽐내보세요</span>
                     <ImageUploadContainer>
-                        <img src={DancingDoodle} alt='dancingdoodle' style={{ width:'60%', minWidth:'200px'}} />
+                        <img src={DancingDoodle} alt='dancingdoodle' style={{ width:'80%', minWidth:'200px'}} />
                         <ImageUpload />
                     </ImageUploadContainer>
                 </UserInputContainer>
