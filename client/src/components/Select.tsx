@@ -88,12 +88,7 @@ function SelectMenu() {
     let userId = window.sessionStorage.getItem('userId');
     // userId = "moonseok";
    
-    const { loading, error, data } = useQuery(USER_EXIST, {
-        variables: {userId},
-    });
-
-    if (loading) return <GameLoading />;
-    if (error) return <ErrorPage />
+    
     return (
         <SelectPageContainer>
             <ContentContainer>
