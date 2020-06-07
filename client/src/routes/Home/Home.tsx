@@ -265,7 +265,9 @@ export default function Home() {
             window.sessionStorage.setItem('userName',userNameForQuery);
             setUserSocialName(userNameForQuery);
             setUserSocialId(userIdForQuery);
-            window.location.reload();
+            setLoginButtonClick(!loginButtonClick);
+            //window.location.reload();
+            
             //localStorage.setItem('user',response.profile.id);
             //window.sessionStorage.setItem('id',response.profile.id);
             //setProvider('kakao');
