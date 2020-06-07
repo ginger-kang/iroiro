@@ -240,11 +240,11 @@ export default function Home() {
 
     //set google-user Info
     const responseLogin = (response: any,tempProvider: any) => {
-        console.log(response);
+        
 
         let userIdForQuery: any;
         let userNameForQuery: any;
-
+        
         if(tempProvider=='google'){
             userIdForQuery = response.googleId;
             userNameForQuery = response.profileObj.name;
@@ -254,14 +254,14 @@ export default function Home() {
             //window.sessionStorage.setItem('id',response.googleId);
             //localStorage.setItem('user',response.googleId);
         }else if(tempProvider=='kakao'){            
-            userIdForQuery = response.googleId;
+            userIdForQuery = String(response.profile.id);
             userNameForQuery = response.profile.kakao_account.profile.nickname 
             setUserSocialName(response.profile.kakao_account.profile.nickname);
             //localStorage.setItem('user',response.profile.id);
             //window.sessionStorage.setItem('id',response.profile.id);
             //setProvider('kakao');
         }
-        client.query({
+        /*client.query({
             query: USER_EXIST, variables:{userId:userIdForQuery},
         }).then(res=>{
             if(res.data.User === null){
@@ -270,15 +270,17 @@ export default function Home() {
                     mutation:CREATE_USER
                 });
             };
+            
             window.sessionStorage.setItem('userId',userIdForQuery);
             window.sessionStorage.setItem('userName',userNameForQuery);
-        });
+        });*/
     }
 
     //logout
     const responseLogout = () => {
         window.sessionStorage.clear();
         window.location.reload();
+        
     }
 
     const handleScrollControll = () => {
@@ -329,8 +331,7 @@ export default function Home() {
                             )}
                             buttonText="Login"
                             onSuccess={res=>responseLogin(res,'google')}
-                            onFailure={res=>console.log(1)}
-                            isSignedIn={true}
+                            onFailure={res=>console.log(1)}                            
                             cookiePolicy={'single_host_origin'}
                         />
                         <KakaoButton
@@ -345,12 +346,9 @@ export default function Home() {
                         <span style={{
                             fontSize: '2vw',
                         }}>로그아웃 하시겠습니까?</span>
-                        <GoogleLogout 
-                            clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
-                            render={renderProps => (
+                                                  
                                 <button
-                                    onClick={renderProps.onClick}
-                                    disabled={renderProps.disabled}
+                                    onClick={responseLogout}                                    
                                     style={{
                                         width: '20%',
                                         height: '20%',
@@ -361,9 +359,8 @@ export default function Home() {
                                     }}
                                 >확인
                                 </button>
-                            )}
-                            onLogoutSuccess={responseLogout}
-                        />
+                            
+                        
                     </LogoutBox>
                 <HomeContentContainer>
                     <img src={sittingDoodle} alt='sittingDoodle' style={{ width: '40%'}} />
