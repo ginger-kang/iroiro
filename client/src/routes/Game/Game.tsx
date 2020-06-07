@@ -108,7 +108,6 @@ const LeftImageBox = styled('div')<ImageBoxProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0,0,0,.3);
     trasnition: all 1s ease;
 `;
 
@@ -122,10 +121,12 @@ const LeftImage = styled('div')<LeftImageProps>`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    border-radius: 100%;
+
     &:hover {
-        -ms-transform: scale(1.1);
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
+        -ms-transform: scale(1.06);
+        -webkit-transform: scale(1.06);
+        transform: scale(1.06);
     }
 `;
 
@@ -139,6 +140,8 @@ const LeftResultModal = styled('div')<ImageBoxProps>`
     background: rgba(0,0,0,.5);
     justify-content: center;
     align-items: center;
+    border-radius: 100%;
+
     display: ${({state}) => {
         switch (state) {
             case 'WAIT':
@@ -180,7 +183,6 @@ const RightImageBox = styled('div')<ImageBoxProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(0,0,0,.3);
     trasnition: all 1s ease;
 `;
 
@@ -194,10 +196,11 @@ const RightImage = styled('div')<RightImageProps>`
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    border-radius: 100%;
     &:hover {
-        -ms-transform: scale(1.1);
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
+        -ms-transform: scale(1.06);
+        -webkit-transform: scale(1.06);
+        transform: scale(1.06);
     }
 `;
 
@@ -211,6 +214,8 @@ const RightResultModal = styled('div')<ImageBoxProps>`
     background: rgba(0,0,0,.5);
     justify-content: center;
     align-items: center;
+    border-radius: 100%;
+
     display: ${({state}) => {
         switch (state) {
             case 'WAIT':
