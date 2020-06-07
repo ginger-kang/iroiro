@@ -228,12 +228,14 @@ export default function Home() {
     const [isLoggedIn, setisLoggedIn] = useState<any>(null);
 
     //total-user Info
-    const [userSocialId, setUserSocialId] = useState(null);
-    const [userSocialName, setUserSocialName] = useState(null);
+    const [userSocialId, setUserSocialId] = useState(window.sessionStorage.getItem('userId'));
+    const [userSocialName, setUserSocialName] = useState(window.sessionStorage.getItem('userName'));
     const [provider, setProvider] = useState('');
 
     useEffect(() => {
         setisLoggedIn(window.sessionStorage.getItem('userId'));
+        console.log(isLoggedIn)
+        
     })
 
     console.log(userSocialId,userSocialName,provider);
@@ -248,15 +250,20 @@ export default function Home() {
         if(tempProvider=='google'){
             userIdForQuery = response.googleId;
             userNameForQuery = response.profileObj.name;
-            setUserSocialId(response.googleId);
-            setUserSocialName(response.profileObj.name);
+            window.sessionStorage.setItem('userId',userIdForQuery);
+            window.sessionStorage.setItem('userName',userNameForQuery);
+            setUserSocialId(userIdForQuery);
+            setUserSocialName(userNameForQuery);
             //setProvider('google');
             //window.sessionStorage.setItem('id',response.googleId);
             //localStorage.setItem('user',response.googleId);
         }else if(tempProvider=='kakao'){            
             userIdForQuery = String(response.profile.id);
             userNameForQuery = response.profile.kakao_account.profile.nickname 
-            setUserSocialName(response.profile.kakao_account.profile.nickname);
+            window.sessionStorage.setItem('userId',userIdForQuery);
+            window.sessionStorage.setItem('userName',userNameForQuery);
+            setUserSocialName(userNameForQuery);
+            setUserSocialId(userIdForQuery);
             //localStorage.setItem('user',response.profile.id);
             //window.sessionStorage.setItem('id',response.profile.id);
             //setProvider('kakao');
@@ -271,8 +278,7 @@ export default function Home() {
                 });
             };
             
-            window.sessionStorage.setItem('userId',userIdForQuery);
-            window.sessionStorage.setItem('userName',userNameForQuery);
+           
         });
     }
 
