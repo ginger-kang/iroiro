@@ -261,7 +261,7 @@ export default function Home() {
             //window.sessionStorage.setItem('id',response.profile.id);
             //setProvider('kakao');
         }
-        /*client.query({
+        client.query({
             query: USER_EXIST, variables:{userId:userIdForQuery},
         }).then(res=>{
             if(res.data.User === null){
@@ -273,7 +273,7 @@ export default function Home() {
             
             window.sessionStorage.setItem('userId',userIdForQuery);
             window.sessionStorage.setItem('userName',userNameForQuery);
-        });*/
+        });
     }
 
     //logout
