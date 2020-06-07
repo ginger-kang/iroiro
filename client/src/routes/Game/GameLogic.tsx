@@ -46,9 +46,9 @@ function GameLogic<lState> () {
                 setRightImageIndex(RightImageindex + 2);
                 setClickState('WAIT');
             }, 1000);
-        } else {
+        } else if ( direction === 'RIGHT' ){
             setTimeout(() => {
-                setRightImageIndex(LeftImageindex + 2);
+                setLeftImageIndex(LeftImageindex + 2);
                 setClickState('WAIT');
             }, 1000);
         }
