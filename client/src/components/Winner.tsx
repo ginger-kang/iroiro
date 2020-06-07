@@ -10,14 +10,14 @@ const WinnerContainer = styled.section`
     height: 100vh;
     background-color: white;
     display: flex;
-    overflow: hidden;
     flex-direction: row;
     overflow: hidden;
+    justify-content: center;
 
 `;
 
 const WinnersContainer = styled('div')`
-    width: 40%;
+    width: 25%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -60,7 +60,7 @@ const ImageUploadContainer = styled.div`
 `;
 
 const UserInputContainer = styled.div`
-    width: 60%;
+    width: 45%;
     display: flex;
     flex-direction: column;
     align-items: center;

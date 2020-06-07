@@ -90,6 +90,9 @@ const LoginBox = styled('div') <LoginBoxProps>`
 
     & button {
         transition: all .2s ease;
+        width: 23%;
+        height: 23%;
+        margin: 40px;
 
         &:hover {
             -ms-transform: scale(1.1);
@@ -100,10 +103,10 @@ const LoginBox = styled('div') <LoginBoxProps>`
 `;
 
 const KakaoButton = styled(KakaoLogin)`
-    width: 25%;
+    width: 20%;
     height: 25%;
-    min-width: 100px;
-    min-height: 100px;
+    min-width: 85px;
+    min-height: 85px;
     color: black;
     margin: 40px;
     background-color: #FFEB00;
@@ -332,8 +335,8 @@ export default function Home() {
                                 <img src={google}
                                     alt='google_logo'
                                     style={{
-                                        width: '50%',
-                                        height: '50%',
+                                        width: '100%',
+                                        height: '100%',
                                     }}
                                     onClick={() => setLoginButtonClick(!loginButtonClick)}
                                 />

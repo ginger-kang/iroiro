@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import arrowIcon from '../../Images/arrowIcon.png';
 import { url } from 'inspector';
 import MeditatingDoodle from '../../Images/doodle/MeditatingDoodle.png';
+import StyleData from './DataTemp';
+import { AiFillStar } from 'react-icons/ai';
 
 
 interface NavigationStateProps {
@@ -93,11 +95,11 @@ interface LeftImageProps {
     url: any;
 }
 
-interface LeftImageContainerProps {
-    state: 'START' | 'LEFTCLICK' | 'RIGHTCLICK' | 'MOVE';
+interface ImageBoxProps {
+    state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
 }
 
-const LeftImageBox = styled('div')<LeftImageContainerProps>`
+const LeftImageBox = styled('div')<ImageBoxProps>`
     position: absolute;
     top: 11%;
     left: 11%;
@@ -107,18 +109,7 @@ const LeftImageBox = styled('div')<LeftImageContainerProps>`
     flex-direction: column;
     align-items: center;
     background: rgba(0,0,0,.3);
-    opacity: ${(state: any) => {
-        if ( state === 'START' ) {
-            return '1';
-        } else if ( state === 'LEFTCLICK' ) {
-            return '.5';
-        } else if ( state === 'RIGHTCLICK' ) {
-            return '.5';
-        } else {
-            return '1';
-        }
-    }};
-    trasnition: all 0.5s ease;
+    trasnition: all 1s ease;
 `;
 
 const LeftImage = styled('div')<LeftImageProps>`
@@ -138,6 +129,31 @@ const LeftImage = styled('div')<LeftImageProps>`
     }
 `;
 
+const LeftResultModal = styled('div')<ImageBoxProps>`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: yellow;
+    font-size: 50px;
+    display: flex;
+    background: rgba(0,0,0,.5);
+    justify-content: center;
+    align-items: center;
+    display: ${({state}) => {
+        switch (state) {
+            case 'WAIT':
+              return 'none';
+            case 'LEFTCLICK':
+              return 'flex';
+            case 'RIGHTCLICK':
+              return 'flex';
+            case 'CLICKRESULT':
+              return 'flex';
+          }
+        }
+    };
+`;
+
 const RightImageContainer = styled.section`
     position: relative;
     width: 50%;
@@ -151,11 +167,11 @@ interface RightImageProps {
     url: string;
 }
 
-interface RightImageBoxProps {
-    state: 'START' | 'CLICK' | 'MOVE';
+interface ImageBoxProps {
+    state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
 }
 
-const RightImageBox = styled('div')<RightImageBoxProps>`
+const RightImageBox = styled('div')<ImageBoxProps>`
     position: absolute;
     top: 11%;
     left: 11%;
@@ -165,7 +181,7 @@ const RightImageBox = styled('div')<RightImageBoxProps>`
     flex-direction: column;
     align-items: center;
     background: rgba(0,0,0,.3);
-    trasnition: 'all .5s ease';
+    trasnition: all 1s ease;
 `;
 
 const RightImage = styled('div')<RightImageProps>`
@@ -183,6 +199,31 @@ const RightImage = styled('div')<RightImageProps>`
         -webkit-transform: scale(1.1);
         transform: scale(1.1);
     }
+`;
+
+const RightResultModal = styled('div')<ImageBoxProps>`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: yellow;
+    font-size: 50px;
+    display: flex;
+    background: rgba(0,0,0,.5);
+    justify-content: center;
+    align-items: center;
+    display: ${({state}) => {
+        switch (state) {
+            case 'WAIT':
+              return 'none';
+            case 'LEFTCLICK':
+              return 'flex';
+            case 'RIGHTCLICK':
+              return 'flex';
+            case 'CLICKRESULT':
+              return 'flex';
+          }
+        }
+    };
 `;
 
 const VersusImageContainer = styled.div`
@@ -208,10 +249,8 @@ const VersusIcon = styled.div`
     }
 `;
 
-
-
 interface gProps {
-    state: any;
+    clickState: any;
     // ClickState: any;
     LeftStyleImages: any;
     RightStyleImages: any;
@@ -220,7 +259,7 @@ interface gProps {
 }
 
 function Game ({ 
-        state, 
+        clickState, 
         // ClickState,
         LeftStyleImages, 
         RightStyleImages,
@@ -250,13 +289,16 @@ function Game ({
             </NavigationContainer>
             <GameContainer>
                 <LeftImageContainer>
-                    <LeftImageBox state={state}>
-                            <LeftImage 
-                                url={ LeftStyleImages.url } 
-                                onClick={() => 
-                                    LeftClick()
-                                }
-                            />
+                    <LeftImageBox state={clickState}>
+                        <LeftImage 
+                            url={ LeftStyleImages.url } 
+                            onClick={() => 
+                                LeftClick()
+                            }
+                        />
+                        <LeftResultModal state={clickState}>
+                            <AiFillStar size={47}/>50
+                        </LeftResultModal>
                     </LeftImageBox>
                 </LeftImageContainer>
                 <VersusImageContainer>
@@ -265,13 +307,16 @@ function Game ({
                     </VersusIcon>
                 </VersusImageContainer>
                 <RightImageContainer>
-                    <RightImageBox state={state}>
-                            <RightImage 
-                                url={ RightStyleImages.url }
-                                onClick={ () => 
-                                    RightClick()
-                                }    
-                            />
+                    <RightImageBox state={clickState}>
+                        <RightImage 
+                            url={ RightStyleImages.url }
+                            onClick={ () => 
+                                RightClick()
+                            }    
+                        />
+                        <RightResultModal state={clickState}>
+                            <AiFillStar size={47}/>30
+                        </RightResultModal>
                     </RightImageBox>
                 </RightImageContainer>
             </GameContainer>
