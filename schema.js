@@ -1,7 +1,8 @@
 const axios = require('axios');
 var AWS = require('aws-sdk');
 const path = require('path')
-
+const multer = require("multer");
+const multerS3 = require('multer-s3');
 
 AWS.config.accessKeyId = process.env.aws_access_key_id;
 AWS.config.secretAccessKey = process.env.aws_secret_access_key;
@@ -27,15 +28,18 @@ const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     userId: { type: GraphQLString },
-    userName: { type: GraphQLString }    
+    userName: { type: GraphQLString }
   })
 });
 const PhotoType = new GraphQLObjectType({
   name: 'Photo',
   fields: () => ({
+    id: { type: GraphQLString },
     url: { type: GraphQLString },
     category: { type: GraphQLString },
-    owner: { type: GraphQLString }
+    owner: { type: GraphQLString },
+    uploadDate: { type: GraphQLString },
+    originalname: { type: GraphQLString }
   })
 });
 
@@ -64,7 +68,7 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(PhotoType),
       resolve(parent, args) {
         return axios
-          .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/hello')          
+          .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/hello')
           .then(res => res.data);
       }
     },
@@ -81,34 +85,59 @@ const RootQuery = new GraphQLObjectType({
       },
       resolve(parent, args) {
         params2.Key.userId = args.userId;
-        
+
         return db.get(params2).promise().then(res => res.Item);
       }
     }
   }
 });
 
-const RootMutation = new GraphQLObjectType({ 
+const RootMutation = new GraphQLObjectType({
   name: 'RootMutationType',
-  fields:{
-    CreateUser:{
+  fields: {
+    CreateUser: {
       type: UserType,
-      args:{
-        userId  : {type : GraphQLString},
-        userName  : {type : GraphQLString},
+      args: {
+        userId: { type: GraphQLString },
+        userName: { type: GraphQLString },
       },
-      resolve(parent,args){
+      resolve(parent, args) {
         params = {
-          TableName:"Users",
-          Item:{
-            'userId':args.userId,
-            'userName':args.userName
+          TableName: "Users",
+          Item: {
+            'userId': args.userId,
+            'userName': args.userName
           }
         }
-        return db.put(params).promise().then(res=>console.log(res));
+        return db.put(params).promise().then(res => console.log(res));
+      }
+    },
+    UploadPhoto: {
+      type: PhotoType,
+      args: {
+        owner: { type: GraphQLString },
+        category: { type: GraphQLString },
+        originalname: { type: GraphQLString },
+        uploadDate: { type: GraphQLString },
+        
+      },
+      resolve(parent, args) {
+        params = {
+          TableName: "showmethestyle",
+          Item: {
+            "id": args.owner + ":" + args.originalname,
+            "uploadDate": args.uploadDate,
+            "owner": args.owner,
+            "url": "https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/" + args.category + "/" + args.originalname,
+            "category": args.category
+          }
+        }
+        
+        return db.put(params).promise().then(res =>res);
       }
     }
   }
+
 })
 
 module.exports = new GraphQLSchema({

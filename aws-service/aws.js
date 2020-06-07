@@ -46,21 +46,23 @@ function inputToDynamo(params){
 //#######################s3
 let s3 = new AWS.S3();
 
-let upload = multer({
+let upload = multer({    
     storage: multerS3({
         s3: s3,
         bucket: "showmethestyle.com",
         key: function (req, file, cb) {
             let extension =(file.originalname);
-            
+            console.log(file,"AAAAAA")
             cb(null, extension)
         },
         acl: 'public-read-write',
     })
 })
 
-router.post('/upload', upload.single("imgFile"), function (req, res, next) {
-    var today = new Date();
+
+router.post('/upload', upload.any("img"), function (req, res, next) {
+    console.log("accept")
+    /*var today = new Date();
     date = today.getFullYear()+":"+today.getMonth()+":"+today.getDate()+":"+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var params = {
         TableName:'showmethestyle',
@@ -73,9 +75,11 @@ router.post('/upload', upload.single("imgFile"), function (req, res, next) {
         }
     };
     
-    inputToDynamo(params);
+    inputToDynamo(params);*/    
     let imgFile = req.file;
     res.json(imgFile);
+    
+    
 })
 
 /*router.get('/table-list', function (req, res, next) {

@@ -27,3 +27,11 @@ export const CREATE_USER = gql`
   }
 }
 `;
+
+export const UPLOAD_PHOTO = gql`
+  mutation UploadPhoto($owner: String!,$category: String!,$originalname: String!,$uploadDate: String!) {
+  UploadPhoto (owner: $owner, category: $category,originalname : $originalname, uploadDate : $uploadDate) {
+    owner
+  }
+}
+`;

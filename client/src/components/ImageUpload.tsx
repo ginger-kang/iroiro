@@ -1,9 +1,10 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import tempIcon from '../Images/VersusTemp.png'
-import { AiOutlineUpload } from 'react-icons/ai';
-import axios from 'axios';
 
+import { AiOutlineUpload } from 'react-icons/ai';
+import client from '../apollo';
+import { UPLOAD_PHOTO } from '../routes/Game/query';
+import axios from 'axios'
 
 
 const FileUploadContainer = styled.div`
@@ -55,7 +56,7 @@ const Preview = styled.label`
     }
 `;
 
-const PreviewP = styled('div')<PrevImageProps>`
+const PreviewP = styled('div') <PrevImageProps>`
     background-image: url(${({ url }) => url});
     width: 100%;
     height: 100%;
@@ -68,7 +69,7 @@ const PreviewP = styled('div')<PrevImageProps>`
     background-position: center;
 `;
 
-const Label = styled.label`
+/*const Label = styled.label`
     for:imageUpload;
     display: inline-block;
     width: 34px;
@@ -98,61 +99,73 @@ const Label = styled.label`
         margin: auto;
     }
 `;
-
+*/
 interface PrevImageProps {
-    
+
     url: string;
 }
 
 
 function ImageUpload() {
-        
-        const [uploadedFile, setUploadedFile] = useState({url:""});
+
+    const [uploadedFile, setUploadedFile] = useState({ url: "", raw: "",name:"" });
     //It sends a request to upload to the server by storing the file object in the state
-            //Post request to server when submitted 
-        const handleSubmit = (e: any) => {
-            e.preventDefault();
-            const imageData = new FormData();
-            //imageData.append("file", uploadedFile);
-            console.log(imageData)
-            if (imageData) {
-                
-            }
-            //request
-            axios.post(
-                'S3 업로드할 url',
-                imageData
-            ).then((res) => {
-                console.log(res.data);
-            }).catch((error) => {
-                console.log(error);
-            });
-        }
+    //Post request to server when submitted 
+    const handleSubmit = async (e: { preventDefault: () => void; }) => {
 
-        const handleClick = (e: any) => {
-            console.log(e.target);
-        };
+        const imageData = new FormData();
+        imageData.append("image",uploadedFile.raw)
+        var today = new Date();
+        var date = today.getFullYear()+":"+today.getMonth()+":"+today.getDate()+":"+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+        client.mutate({
+            variables: { owner: window.sessionStorage.getItem('userName'), category: "temp",originalname:uploadedFile.name,uploadDate : date },
+            mutation: UPLOAD_PHOTO,
+        });
 
-        const handleChange = (e: any) => {
-            
-            var file = e.target.files[0]
-            
-            
-            setUploadedFile({
-                url: URL.createObjectURL(file)});      
-            
-        };
-    
+        
+        axios.post('/upload',imageData,{
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }})
+          .then(function (response){
+            console.log("in imageUpload");
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+
+
+    };
+
+    const handleClick = (e: any) => {
+        //console.log(e.target);
+    };
+
+    const handleChange = (e: any) => {
+
+        var file = e.target.files[0]
+
+
+        setUploadedFile({
+            url: URL.createObjectURL(file),
+            raw: file,
+            name:file.name
+        });
+
+    };
+
     const uploadInput = useRef(null);
     return (
         <FileUploadContainer>
             <Upload>
                 <Preview htmlFor='imageUpload'>
                     <PreviewP id="imagePreview" url={uploadedFile.url}>
-                        <AiOutlineUpload  size={50}/>
+                        <AiOutlineUpload size={50} />
                     </PreviewP>
                 </Preview>
-                <Input type='file' id='imageUpload' onChange={handleChange}/>
+                <Input type='file' id='imageUpload' onChange={handleChange} />
+                <button onClick={handleSubmit}></button>
             </Upload>
 
         </FileUploadContainer>
