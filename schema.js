@@ -1,7 +1,8 @@
 const axios = require('axios');
 var AWS = require('aws-sdk');
 const path = require('path')
-
+const multer = require("multer");
+const multerS3 = require('multer-s3');
 
 AWS.config.accessKeyId = process.env.aws_access_key_id;
 AWS.config.secretAccessKey = process.env.aws_secret_access_key;
@@ -38,7 +39,7 @@ const PhotoType = new GraphQLObjectType({
     category: { type: GraphQLString },
     owner: { type: GraphQLString },
     uploadDate: { type: GraphQLString },
-    originalname:{type:GraphQLString}
+    originalname: { type: GraphQLString }
   })
 });
 
@@ -118,19 +119,21 @@ const RootMutation = new GraphQLObjectType({
         category: { type: GraphQLString },
         originalname: { type: GraphQLString },
         uploadDate: { type: GraphQLString },
+        
       },
       resolve(parent, args) {
         params = {
           TableName: "showmethestyle",
           Item: {
-            "id": args.date + args.owner + ":" + args.originalname,
+            "id": args.owner + ":" + args.originalname,
             "uploadDate": args.uploadDate,
             "owner": args.owner,
             "url": "https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/" + args.category + "/" + args.originalname,
             "category": args.category
           }
         }
-        return db.put(params).promise().then(res => console.log(res));
+        
+        return db.put(params).promise().then(res =>res);
       }
     }
   }

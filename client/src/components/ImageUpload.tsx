@@ -1,10 +1,10 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import tempIcon from '../Images/VersusTemp.png'
+
 import { AiOutlineUpload } from 'react-icons/ai';
 import client from '../apollo';
 import { UPLOAD_PHOTO } from '../routes/Game/query';
-
+import axios from 'axios'
 
 
 const FileUploadContainer = styled.div`
@@ -114,7 +114,7 @@ function ImageUpload() {
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
 
         const imageData = new FormData();
-        imageData.append("image", uploadedFile.raw)
+        imageData.append("image",uploadedFile.raw)
         var today = new Date();
         var date = today.getFullYear()+":"+today.getMonth()+":"+today.getDate()+":"+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
         client.mutate({
@@ -122,14 +122,24 @@ function ImageUpload() {
             mutation: UPLOAD_PHOTO,
         });
 
-
-
+        
+        axios.post('/upload',imageData,{
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }})
+          .then(function (response){
+            console.log("in imageUpload");
+            console.log(response)
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
 
 
     };
 
     const handleClick = (e: any) => {
-        console.log(e.target);
+        //console.log(e.target);
     };
 
     const handleChange = (e: any) => {
