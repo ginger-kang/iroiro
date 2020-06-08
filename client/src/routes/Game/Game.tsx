@@ -93,6 +93,7 @@ const LeftImageContainer = styled.section`
 
 interface LeftImageProps {
     url: any;
+    state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
 }
 
 interface ImageBoxProps {
@@ -115,18 +116,19 @@ const LeftImage = styled('div')<LeftImageProps>`
     width: 100%;
     height: 100%;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s;
     box-shadow: 1px 1px 1px;
-    background: url(${({ url }) => url});
+    background:  url(${({ url }) => url});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 100%;
+    border-radius: 10px;
 
     &:hover {
-        -ms-transform: scale(1.06);
-        -webkit-transform: scale(1.06);
-        transform: scale(1.06);
+        box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
+        // -ms-transform: scale(1.06);
+        // -webkit-transform: scale(1.06);
+        // transform: scale(1.06);
     }
 `;
 
@@ -140,8 +142,32 @@ const LeftResultModal = styled('div')<ImageBoxProps>`
     background: rgba(0,0,0,.5);
     justify-content: center;
     align-items: center;
-    border-radius: 100%;
+    border-radius: 10px;
 
+    display: ${({state}) => {
+        switch (state) {
+            case 'WAIT':
+              return 'none';
+            case 'LEFTCLICK':
+              return 'none';
+            case 'RIGHTCLICK':
+              return 'none';
+            case 'CLICKRESULT':
+              return 'flex';
+          }
+        }
+    };
+`;
+
+const LeftClickEffectContainer = styled('div')<ImageBoxProps>`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: yellow;
+    font-size: 50px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
     display: ${({state}) => {
         switch (state) {
             case 'WAIT':
@@ -149,12 +175,31 @@ const LeftResultModal = styled('div')<ImageBoxProps>`
             case 'LEFTCLICK':
               return 'flex';
             case 'RIGHTCLICK':
-              return 'flex';
+              return 'none';
             case 'CLICKRESULT':
-              return 'flex';
+              return 'none';
           }
         }
     };
+    animation: bounce 1.3s infinite alternate;
+    -webkit-animation: bounce 1.3s infinite alternate;
+   
+    @keyframes bounce {
+        from {
+            transform: translateY(0px);
+        }
+        to {
+            transform: translateY(-15px);
+        }
+    }
+    @-webkit-keyframes bounce {
+        from {
+            transform: translateY(0px);
+        }
+        to {
+            transform: translateY(-15px);
+        }
+    }
 `;
 
 const RightImageContainer = styled.section`
@@ -183,24 +228,25 @@ const RightImageBox = styled('div')<ImageBoxProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    trasnition: all 1s ease;
+    transition: all 1s ease;
 `;
 
 const RightImage = styled('div')<RightImageProps>`
     width: 100%;
     height: 100%;
     cursor: pointer;
-    transition: all 0.2s;
+    transition: all 0.3s;
     box-shadow: 1px 1px 1px;
     background: url(${({ url }) => url});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    border-radius: 100%;
+    border-radius: 10px;
     &:hover {
-        -ms-transform: scale(1.06);
-        -webkit-transform: scale(1.06);
-        transform: scale(1.06);
+        box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
+        // -ms-transform: scale(1.06);
+        // -webkit-transform: scale(1.06);
+        // transform: scale(1.06);
     }
 `;
 
@@ -211,24 +257,68 @@ const RightResultModal = styled('div')<ImageBoxProps>`
     color: yellow;
     font-size: 50px;
     display: flex;
-    background: rgba(0,0,0,.5);
     justify-content: center;
     align-items: center;
-    border-radius: 100%;
+    border-radius: 10px;
+    background: rgba(0,0,0,.5);
+    transition: all 1s ease;
 
     display: ${({state}) => {
         switch (state) {
             case 'WAIT':
               return 'none';
             case 'LEFTCLICK':
-              return 'flex';
+              return 'none';
             case 'RIGHTCLICK':
-              return 'flex';
+              return 'none';
             case 'CLICKRESULT':
               return 'flex';
           }
         }
     };
+`;
+
+const RightClickEffectContainer = styled('div')<ImageBoxProps>`
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    color: yellow;
+    font-size: 50px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    display: ${({state}) => {
+        switch (state) {
+            case 'WAIT':
+              return 'none';
+            case 'LEFTCLICK':
+              return 'none';
+            case 'RIGHTCLICK':
+              return 'flex';
+            case 'CLICKRESULT':
+              return 'none';
+          }
+        }
+    };
+    animation: bounce 1.3s infinite alternate;
+    -webkit-animation: bounce 1.3s infinite alternate;
+   
+    @keyframes bounce {
+        from {
+            transform: translateY(0px);
+        }
+        to {
+            transform: translateY(-15px);
+        }
+    }
+    @-webkit-keyframes bounce {
+        from {
+            transform: translateY(0px);
+        }
+        to {
+            transform: translateY(-15px);
+        }
+    }
 `;
 
 const VersusImageContainer = styled.div`
@@ -297,6 +387,7 @@ function Game ({
                     <LeftImageBox state={clickState}>
                         <LeftImage 
                             url={ LeftStyleImages.url } 
+                            state={ clickState }
                             onClick={() => 
                                 LeftClick()
                             }
@@ -304,6 +395,9 @@ function Game ({
                         <LeftResultModal state={clickState}>
                             <AiFillStar size={47}/>50
                         </LeftResultModal>
+                        <LeftClickEffectContainer state={clickState}>
+                            <AiFillStar size={47}/>
+                        </LeftClickEffectContainer>
                     </LeftImageBox>
                 </LeftImageContainer>
                 <VersusImageContainer>
@@ -322,6 +416,9 @@ function Game ({
                         <RightResultModal state={clickState}>
                             <AiFillStar size={47}/>30
                         </RightResultModal>
+                        <RightClickEffectContainer state={clickState}>
+                            <AiFillStar size={47}/>
+                        </RightClickEffectContainer>
                     </RightImageBox>
                 </RightImageContainer>
             </GameContainer>

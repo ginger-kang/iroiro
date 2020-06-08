@@ -29,14 +29,16 @@ const WinnersContainer = styled('div')`
         width: 16vw;
         height: 16vw;
         margin: 25px 0;
-        border-radius: 100%;
+        border-radius: 10px;
         min-width: 150px;
         min-height: 150px;
         transition: all .5s ease;
+        cursor: pointer;
+
         &:hover {
-            -ms-transform: scale(1.1);
-            -webkit-transform: scale(1.1);
-            transform: scale(1.1);
+            -ms-transform: scale(1.05);
+            -webkit-transform: scale(1.05);
+            transform: scale(1.05);
         }
     }
     & button {

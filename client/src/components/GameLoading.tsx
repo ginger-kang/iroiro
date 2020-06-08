@@ -33,7 +33,7 @@ const LoadingIcon = styled('div')<LoadingIconProps>`
     background-position: center center;
     z-index: 2;
     transition: 1s ease;
-    animation: LoadingIcon infinite 5s linear;
+    animation: LoadingIcon infinite 4s linear;
     @keyframes LoadingIcon {
         from {
           transform: rotate(0deg);

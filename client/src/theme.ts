@@ -13,6 +13,7 @@ const colors = {
 const fontSizes: string[] = [];
 
 const theme = {
+    sizes,
     colors,
     fontSizes,
 };

@@ -43,14 +43,14 @@ function GameLogic<lState> () {
     const waitClick = (direction: string) => {
         if ( direction === 'LEFT' ) {
             setTimeout(() => {
-                setRightImageIndex(RightImageindex + 2);
                 setClickState('WAIT');
-            }, 1000);
+                setRightImageIndex(RightImageindex + 2);
+            }, 2000);
         } else if ( direction === 'RIGHT' ){
             setTimeout(() => {
-                setLeftImageIndex(LeftImageindex + 2);
                 setClickState('WAIT');
-            }, 1000);
+                setLeftImageIndex(LeftImageindex + 2);
+            }, 2000);
         }
     }
 
@@ -58,7 +58,7 @@ function GameLogic<lState> () {
         setClickState('LEFTCLICK');
         setTimeout(() => {
             clickResult('LEFT')
-        }, 1500);
+        }, 500);
         console.log(clickState);
         console.log(LeftImageindex, RightImageindex);
     }
@@ -67,7 +67,7 @@ function GameLogic<lState> () {
         setClickState('RIGHTCLICK');
         setTimeout(() => {
             clickResult('RIGHT')
-        }, 1500);
+        }, 500);
         console.log(LeftImageindex, RightImageindex);
         console.log(clickState);
     }
@@ -76,7 +76,7 @@ function GameLogic<lState> () {
         setTimeout(() => {
             setClickState('CLICKRESULT');
             waitClick(direction);
-        }, 1000);
+        }, 2000);
         console.log(clickState);
     }
 
