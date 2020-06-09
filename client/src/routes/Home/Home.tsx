@@ -10,6 +10,8 @@ import {USER_EXIST,PHOTOS,CREATE_USER} from '../Game/query';
 import client from '../../apollo';
 import sittingDoodle from '../../Images/doodle/GroovySittingDoodle.png';
 import { AiFillRocket } from 'react-icons/ai';
+import CreateNickName from '../../components/CreateUser';
+
 
 const HomeContainer = styled('section')`
     height: 100vh;
@@ -472,6 +474,7 @@ export default function Home() {
                         google user info test view
                     */}
                     <span style={{ color: 'black', fontSize: '2.4vw' }}>자신의 스타일을 사람들에게 보여주세요</span>
+                    <CreateNickName></CreateNickName>
                 </ContentContatiner>
                 </HomeContentContainer>
                 <ScrollController onClick={handleScrollControll}>
