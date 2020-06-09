@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { AiOutlineUpload } from 'react-icons/ai';
 import client from '../apollo';
-import { UPLOAD_PHOTO } from '../routes/Game/query';
+import { UPLOAD_PHOTO, USER_EXIST } from '../routes/Game/query';
 import axios from 'axios'
 
 
@@ -108,32 +108,40 @@ interface PrevImageProps {
 
 function ImageUpload() {
 
-    const [uploadedFile, setUploadedFile] = useState({ url: "", raw: "",name:"" });
+    const [uploadedFile, setUploadedFile] = useState({ url: "", raw: "", name: "" });
     //It sends a request to upload to the server by storing the file object in the state
     //Post request to server when submitted 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
 
-        const imageData = new FormData();
-        imageData.append("image",uploadedFile.raw)
-        var today = new Date();
-        var date = today.getFullYear()+":"+today.getMonth()+":"+today.getDate()+":"+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-        client.mutate({
-            variables: { owner: window.sessionStorage.getItem('userName'), category: "temp",originalname:uploadedFile.name,uploadDate : date },
-            mutation: UPLOAD_PHOTO,
-        });
+        client.query({
+            query: USER_EXIST, variables: { userId: window.sessionStorage.getItem('userId') },
+        }).then(res => {
+            if (res.data.User != null) {
+                var imageData = new FormData();
+                imageData.append("image", uploadedFile.raw)
+                var today = new Date();
+                var date = today.getFullYear() + ":" + today.getMonth() + ":" + today.getDate() + ":" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                client.mutate({
+                    variables: { owner: window.sessionStorage.getItem('userName'), category: "temp", originalname: uploadedFile.name, uploadDate: date },
+                    mutation: UPLOAD_PHOTO,
+                });
 
-        
-        axios.post('/upload',imageData,{
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }})
-          .then(function (response){
-            console.log("in imageUpload");
-            console.log(response)
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
+
+                axios.post('/upload', imageData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
+                    .then(function (response) {
+                        console.log("in imageUpload");
+                        console.log(response)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
+        })
+
 
 
     };
@@ -150,7 +158,7 @@ function ImageUpload() {
         setUploadedFile({
             url: URL.createObjectURL(file),
             raw: file,
-            name:file.name
+            name: file.name
         });
 
     };

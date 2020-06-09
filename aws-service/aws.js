@@ -45,13 +45,14 @@ function inputToDynamo(params){
 
 //#######################s3
 let s3 = new AWS.S3();
-
+var today = new Date();
+var date = today.getFullYear()+":"+today.getMonth()+":"+today.getDate()+":"+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 let upload = multer({    
     storage: multerS3({
         s3: s3,
         bucket: "showmethestyle.com",
         key: function (req, file, cb) {
-            let extension =(file.originalname);
+            let extension =window.sessionStorage.getItem('userName')+"-"+date+"-"+file.originalname
             console.log(file,"AAAAAA")
             cb(null, extension)
         },
