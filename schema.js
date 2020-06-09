@@ -28,7 +28,8 @@ const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     userId: { type: GraphQLString },
-    userName: { type: GraphQLString }
+    userName: { type: GraphQLString },
+    userNickName: { type: GraphQLString },
   })
 });
 const PhotoType = new GraphQLObjectType({
@@ -68,7 +69,7 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(PhotoType),
       resolve(parent, args) {
         return axios
-          .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/hello')
+          .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/amekaji')
           .then(res => res.data);
       }
     },
@@ -113,6 +114,30 @@ const RootMutation = new GraphQLObjectType({
         }
         return db.put(params).promise().then(res => console.log(res));
       }
+    },
+    SetUserNickName:{
+      type: UserType,
+      args:{
+        userId : {type : GraphQLString},
+        userNickName:{type:GraphQLString}
+      },
+      resolve(parent,args){
+          params = {
+          TableName:"Users",
+          Key:{
+            'userId': args.userId,
+              
+          },
+          UpdateExpression: "set info.rating = :r, info.plot=:p, info.actors=:a",
+          ExpressionAttributeValues:{
+              ":N":5.5,
+              
+              
+          },
+          ReturnValues:"UPDATED_NEW"
+      };
+      }
+
     },
     UploadPhoto: {
       type: PhotoType,
