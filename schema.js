@@ -68,7 +68,7 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(PhotoType),
       resolve(parent, args) {
         return axios
-          .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/hello')
+          .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/amekaji')
           .then(res => res.data);
       }
     },

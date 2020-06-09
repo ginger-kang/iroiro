@@ -32,7 +32,8 @@ const Preview = styled.label`
     height: 10vw;
     margin-bottom: 0;
     border-radius: 100%;
-    background: #FFFFFF;
+    color: ${props => props.theme.bgColor};
+    background: ${props => props.theme.textColor};
     border: 1px solid transparent;
     box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
     cursor: pointer;
