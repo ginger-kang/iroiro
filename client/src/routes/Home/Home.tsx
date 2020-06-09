@@ -6,7 +6,7 @@ import google from '../../Images/google.png';
 import KakaoLogin from 'react-kakao-login'
 import SelectMenu from '../../components/Select';
 import Winner from '../../components/Winner';
-import {USER_EXIST,PHOTOS,CREATE_USER} from '../Game/query';
+import {USER_EXIST,PHOTOS,CREATE_USER} from '../../query';
 import client from '../../apollo';
 import sittingDoodle from '../../Images/doodle/GroovySittingDoodle.png';
 import { AiFillRocket } from 'react-icons/ai';
@@ -358,7 +358,7 @@ export default function Home() {
         }).then(res=>{
             if(res.data.User === null){
                 client.mutate({
-                    variables:{userId:userIdForQuery,userName:userNameForQuery},
+                    variables:{userId:userIdForQuery,userName:userNameForQuery,userNickName:null},
                     mutation:CREATE_USER
                 });
             };

@@ -100,13 +100,15 @@ const RootMutation = new GraphQLObjectType({
       args: {
         userId: { type: GraphQLString },
         userName: { type: GraphQLString },
+        userNickName : {type : GraphQLString},      
       },
       resolve(parent, args) {
         params = {
           TableName: "Users",
           Item: {
             'userId': args.userId,
-            'userName': args.userName
+            'userName': args.userName,
+            'userNickName': args.userNickName
           }
         }
         return db.put(params).promise().then(res => console.log(res));

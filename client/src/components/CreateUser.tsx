@@ -19,6 +19,8 @@ const customStyles = {
 function CreateNickName(){
   
   const [modalIsOpen,setIsOpen] = React.useState(false);
+  const [nickNameState,setNicknameState] = React.useState("닉네임설정해라");
+
   function openModal() {
     setIsOpen(true);
   }
@@ -29,7 +31,7 @@ function CreateNickName(){
   }
 
   function setNickname(){
-    //TODO:
+    
   }
     return (
       <div>
@@ -42,10 +44,9 @@ function CreateNickName(){
         >          
           <button onClick={closeModal}>close</button>
           
-          <div>I am a modal</div>
-          <form>
-            <input />            
-            <button onClick={setNickname}>닉네임저장</button>
+          <div>닉네임변경해라</div>
+          <form onSubmit={setNickname}>
+            <input type="text" value={nickNameState}/>                     
           </form>
         </Modal>
       </div>

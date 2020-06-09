@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { AiOutlineUpload } from 'react-icons/ai';
 import client from '../apollo';
-import { UPLOAD_PHOTO, USER_EXIST } from '../routes/Game/query';
+import { UPLOAD_PHOTO, USER_EXIST } from '../query';
 import axios from 'axios'
 
 
