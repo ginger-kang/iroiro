@@ -5,7 +5,7 @@ const multerS3 = require('multer-s3');
 var AWS = require('aws-sdk');
 const path = require('path')
 var bodyParser = require('body-parser')
-
+const formidable = require('formidable');
  
 AWS.config.accessKeyId = process.env.aws_access_key_id;
 AWS.config.secretAccessKey = process.env.aws_secret_access_key;
@@ -69,8 +69,21 @@ let upload = multer({
 })
 
 
-router.post('/upload',function (req, res, next) {
-  console.log(req)
+router.route('/upload').post((req, res, next)=>{
+  const form = new formidable.IncomingForm();
+  // Parse `req` and upload all associated files
+  form.parse(req, function(err, fields, files) {
+    if (err) {
+      return res.status(400).json({ error: err.message });
+    }
+    const [firstFileName] = Object.keys(files);
+    //TODO : upload
+  
+    
+    
+  });
+});
+  
   
     
     /*var today = new Date();
@@ -90,7 +103,7 @@ router.post('/upload',function (req, res, next) {
     
     
     
-})
+
 
 /*router.get('/table-list', function (req, res, next) {
     console.log('xxx')
