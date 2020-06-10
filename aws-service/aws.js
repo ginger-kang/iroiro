@@ -4,7 +4,9 @@ const multer = require("multer");
 const multerS3 = require('multer-s3');
 var AWS = require('aws-sdk');
 const path = require('path')
+var bodyParser = require('body-parser')
 
+ 
 AWS.config.accessKeyId = process.env.aws_access_key_id;
 AWS.config.secretAccessKey = process.env.aws_secret_access_key;
 AWS.config.region = process.env.region;
@@ -46,14 +48,20 @@ function inputToDynamo(params){
 //#######################s3
 let s3 = new AWS.S3();
 var today = new Date();
-var date = today.getFullYear()+":"+today.getMonth()+":"+today.getDate()+":"+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+var date = today.getFullYear()+":"+(today.getMonth()+1)+":"+today.getDate()+":"+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
 let upload = multer({    
     storage: multerS3({
         s3: s3,
-        bucket: "showmethestyle.com",
+        bucket: "showmethestyle.com/temp",
+        metadata: function (req, file, cb) {
+          console.log(req.params)
+            cb(null, Object.assign({}, req.body));
+          },
         key: function (req, file, cb) {
-            let extension =window.sessionStorage.getItem('userName')+"-"+date+"-"+file.originalname
-            console.log(file,"AAAAAA")
+            
+            let extension =file.originalname+"-"+date;   
+            
+            
             cb(null, extension)
         },
         acl: 'public-read-write',
@@ -61,8 +69,10 @@ let upload = multer({
 })
 
 
-router.post('/upload', upload.any("img"), function (req, res, next) {
-    console.log("accept")
+router.post('/upload',function (req, res, next) {
+  console.log(req)
+  
+    
     /*var today = new Date();
     date = today.getFullYear()+":"+today.getMonth()+":"+today.getDate()+":"+today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var params = {
@@ -77,8 +87,7 @@ router.post('/upload', upload.any("img"), function (req, res, next) {
     };
     
     inputToDynamo(params);*/    
-    let imgFile = req.file;
-    res.json(imgFile);
+    
     
     
 })

@@ -109,30 +109,33 @@ interface PrevImageProps {
 
 function ImageUpload() {
 
+    const [userName,setUserName] = useState("");
     const [uploadedFile, setUploadedFile] = useState({ url: "", raw: "", name: "" });
     //It sends a request to upload to the server by storing the file object in the state
     //Post request to server when submitted 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
-
+        
         client.query({
             query: USER_EXIST, variables: { userId: window.sessionStorage.getItem('userId') },
         }).then(res => {
             if (res.data.User != null) {
+                var today = new Date();
+                var date = today.getFullYear() + ":" + (today.getMonth()+1) + ":" + today.getDate() + ":" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                var originalname = uploadedFile.name
                 var imageData = new FormData();
                 imageData.append("image", uploadedFile.raw)
-                var today = new Date();
-                var date = today.getFullYear() + ":" + today.getMonth() + ":" + today.getDate() + ":" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+                imageData.append("imageId", originalname+"-"+date)
+                  
                 client.mutate({
-                    variables: { owner: window.sessionStorage.getItem('userName'), category: "temp", originalname: uploadedFile.name, uploadDate: date },
+                    variables: { owner: window.sessionStorage.getItem('userName'), category: "temp", originalname: originalname, uploadDate: date },
                     mutation: UPLOAD_PHOTO,
                 });
 
-
-                axios.post('/upload', imageData, {
-                    headers: {
-                        'Content-Type': 'multipart/form-data'
-                    }
-                })
+                const config = {     
+                    headers: { 'Content-type': 'multipart/form-data' }
+                }
+                
+                axios.post('/upload', imageData,config)
                     .then(function (response) {
                         console.log("in imageUpload");
                         console.log(response)
