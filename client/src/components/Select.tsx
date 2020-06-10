@@ -7,8 +7,8 @@ import { useQuery } from '@apollo/react-hooks';
 import GameLoading from './GameLoading';
 import ErrorPage from './ErrorPage';
 
-import ManDoodle from '../Images/doodle/DumpingDoodle.png';
-import WomanDoodle from '../Images/doodle/SprintingDoodle.png';
+import ManDoodle from '../Images/doodle/DumpingDoodle.svg';
+import WomanDoodle from '../Images/doodle/SprintingDoodle.svg';
 
 const SelectPageContainer = styled.section`
     height: 100vh;
@@ -16,19 +16,19 @@ const SelectPageContainer = styled.section`
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    background-color: #b400ff08;
+    background: ${props => props.theme.secondBgColor};
     overflow: hidden;
 `;
 
 const StartButton = styled.button`
     padding: 10px;
     margin-top: 20px;
-    font-size: 1.5vw;
-    color: white;
+    font-size: 1.1vw;
+    width: 8vw;
+    min-width: 62px;
     border-radius: 6px;
     -webkit-transition: all 0.1s;
     transition: all 0.1s;
-    background-color: black;
 
     &:hover {
         -ms-transform: scale(1.1);
@@ -39,7 +39,6 @@ const StartButton = styled.button`
 
 const ManContainer = styled.div`
     width: 27%;
-    color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -55,7 +54,6 @@ const ManContainer = styled.div`
 
 const WomanContainer = styled.div`
     width: 27%;
-    color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -71,7 +69,6 @@ const WomanContainer = styled.div`
 
 const ContentContainer = styled.div`
     width: 30%;
-    color: black;
     display: flex;
     justify-content: center;
     align-items: flex-start;
@@ -92,7 +89,7 @@ function SelectMenu() {
     return (
         <SelectPageContainer>
             <ContentContainer>
-                <span style={{fontSize: '2.5vw', color:'black'}}>어떤 스타일을 선호하시나요?</span>
+                <span style={{fontSize: '2.5vw', color:`${({props} : {props:any})=> props.theme.textColor}`}}>어떤 스타일을 선호하시나요?</span>
                 <p>소개팅 자리에 나갈 때 무슨 옷을 입고가실지 고민하고 있으신가요?</p>
                 <p>자신의 여자친구, 남자친구를 친한 친구들 한테 소개시켜 줄 때 어떤 옷을 입히고 싶으신가요.</p>
             </ContentContainer>

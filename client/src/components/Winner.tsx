@@ -3,12 +3,13 @@ import styled from 'styled-components';
 import ImageUpload from './ImageUpload';
 import ImageData from '../routes/Game/DataTemp';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
-import DancingDoodle from '../Images/doodle/DancingDoodle.png';
+import DancingDoodle from '../Images/doodle/DancingDoodle.svg';
 
 const WinnerContainer = styled.section`
     width: 100%;
     height: 100vh;
-    background-color: white;
+    background: ${props => props.theme.thirdBgColor};
+    color: ${props => props.theme.textColor};
     display: flex;
     flex-direction: row;
     overflow: hidden;
@@ -24,6 +25,7 @@ const WinnersContainer = styled('div')`
     justify-content: center;
     overflow: hidden;
     position: relative;
+    color: ${props => props.theme.textColor};
 
     & img {
         width: 16vw;
@@ -67,6 +69,7 @@ const UserInputContainer = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    color: ${props => props.theme.textColor};
 `;
 
 const RoundContainer = styled.div`
@@ -75,6 +78,10 @@ const RoundContainer = styled.div`
     flex-direction: row;
     align-items: center;
     justify-content: center;
+    
+    & button {
+        color: ${props => props.theme.textColor};
+    }
 `;
 
 
@@ -104,27 +111,40 @@ function Winner() {
         <>
             <WinnerContainer>
                 <UserInputContainer>
-                    <span style={{ color: 'black', fontSize: '2vw'}}>자신의 스타일을 뽐내보세요</span>
+                    <span style={{ 
+                        color: `${({props} : {props:any})=> props.theme.textColor}`, 
+                        fontSize: '2vw'
+                        }}>자신의 스타일을 뽐내보세요</span>
                     <ImageUploadContainer>
-                        <img src={DancingDoodle} alt='dancingdoodle' style={{ width:'80%', minWidth:'200px'}} />
+                        <img src={DancingDoodle} alt='dancingdoodle' style={{ width: '85%', minWidth:'500px'}} />
                         <ImageUpload />
                     </ImageUploadContainer>
                 </UserInputContainer>
                 <WinnersContainer>
                     <RoundContainer>
-                        <button onClick={leftButtonClick}
-                        ><AiOutlineLeft size={18}/></button>
+                        <button onClick={leftButtonClick}>
+                            <AiOutlineLeft size={18}/>
+                        </button>
                         <span style={{ 
-                            color: 'black', fontSize: '1.8vw', margin: '0 10px'
+                            color: `${({props} : {props:any})=> props.theme.textColor}`, 
+                            fontSize: '1.8vw', 
+                            margin: '0 10px'
                             }}
                         >{roundIndex+1}회차</span>
-                        <button onClick={rightButtonClick}
-                        ><AiOutlineRight size={18}/></button>
+                        <button onClick={rightButtonClick}>
+                            <AiOutlineRight size={18}/>
+                        </button>
                     </RoundContainer>
                     <img src={ImageData[1].url} alt='1st' />
-                    <span style={{ color: 'black', fontSize: '1.5vw'}}>@yokota.mayuu</span>
+                    <span style={{ 
+                        color: `${({props} : {props:any})=> props.theme.textColor}`, 
+                        fontSize: '1.5vw'}}
+                    >@yokota.mayuu</span>
                     <img src={ImageData[11].url} alt='2st' />
-                    <span style={{ color: 'black', fontSize: '1.5vw'}}>@yokota.mayuu</span>
+                    <span style={{ 
+                        color: `${({props} : {props:any})=> props.theme.textColor}`, 
+                        fontSize: '1.5vw'}}
+                    >@yokota.mayuu</span>
                 </WinnersContainer>
             </WinnerContainer>
         </>

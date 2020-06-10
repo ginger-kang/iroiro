@@ -8,10 +8,11 @@ import SelectMenu from '../../components/Select';
 import Winner from '../../components/Winner';
 import {USER_EXIST,PHOTOS,CREATE_USER} from '../../query';
 import client from '../../apollo';
-import sittingDoodle from '../../Images/doodle/GroovySittingDoodle.png';
+import SittingDoodle from '../../Images/doodle/GroovySittingDoodlee.svg';
 import { AiFillRocket } from 'react-icons/ai';
 import CreateNickName from '../../components/CreateUser';
 
+import theme from '../../theme';
 
 const HomeContainer = styled('section')`
     height: 100vh;
@@ -20,6 +21,7 @@ const HomeContainer = styled('section')`
     align-items: center;
     justify-content: center;
     overflow: hidden;
+    background: ${props => props.theme.firstBgColor};
 `;
 
 const LoginNavContainer = styled.nav`
@@ -44,16 +46,15 @@ const LoginButton = styled.button`
     min-width: 60px;
     min-height: 25px;
     padding: 9px;
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1.5px solid black;
     border-radius: 10px;
-    background: black;
     font-size: 1.5vw;
     transition: all .1s ease;
     z-index: 300;
+    cursor: pointer;
 
     &:hover {
         -ms-transform: scale(1.1);
@@ -79,10 +80,10 @@ const LoginBox = styled('div') <LoginBoxProps>`
     }};
     min-width: 400px;
     min-height: 140px;
-    color: white;
+    color: ${props => props.theme.textColor};
     font-size: 20px;
     transition: all 1.5s ease;
-    background: rgba(0,0,0,.78);
+    background: ${props => props.theme.contentBgColor};
     border-radius: 11px;
     flex-direction: row;
     justify-content: center;
@@ -138,11 +139,25 @@ const HomeContentContainer = styled('div')`
     // }
 `;
 
+// const MainImageContainer = styled.img.attrs(props => ({
+//     src: props.theme.sittingIcon,
+//     alt: 'sittingIcon',
+//     width: '60%',
+// }))`
+
+// `;
+
 const MainTitleImage = styled.div`
     font-size: 7vw;
 
     & svg {
         animation: fill 0.5s ease forwards 4.5s;
+        width: 50vw;
+        height: 10vw;
+
+        & path {
+            stroke: ${props => props.theme.textColor};
+        }
     
         & path:nth-child(1) {
             stroke-dasharray: 217px;
@@ -206,7 +221,7 @@ const MainTitleImage = styled.div`
                 fill: transparent;
             }
             to {
-                fill: black;
+                fill: ${props => props.theme.textColor};
             }
         }
 
@@ -216,9 +231,9 @@ const MainTitleImage = styled.div`
 const ContentContatiner = styled.p`
     font-size: 14px;
     padding: 15px;
-    color: white;
     display: flex;
     justify-content: center;
+    color: ${props => props.theme.textColor};
 `;
 
 const LogoutButton = styled.div`
@@ -230,16 +245,15 @@ const LogoutButton = styled.div`
     min-width: 60px;
     min-height: 25px;
     padding: 9px;
-    color: white;
     display: flex;
     justify-content: center;
     align-items: center;
     border: 1.5px solid black;
     border-radius: 10px;
-    background: black;
     font-size: 1.5vw;
     transition: all .1s ease;
     z-index: 300;
+    cursor: pointer;
 
     &:hover {
         -ms-transform: scale(1.1);
@@ -268,7 +282,7 @@ const LogoutBox = styled('div')<LogoutBoxProps>`
     color: white;
     font-size: 20px;
     transition: all 1.5s ease;
-    background: rgba(0,0,0,.78);
+    background: ${props => props.theme.contentBgColor};
     border-radius: 11px;
     flex-direction: column;
     justify-content: center;
@@ -279,12 +293,13 @@ const LogoutBox = styled('div')<LogoutBoxProps>`
     & button {
         transition: all .2s ease;
         background: none;
+        color: ${props => props.theme.textColor};
 
         &:hover {
             -ms-transform: scale(1.1);
             -webkit-transform: scale(1.1);
             transform: scale(1.1);
-            background: rgba(0,0,0,.8);
+            background: rgba(0,0,0,.2);
             border-radius: 10px;
         }
     }
@@ -297,6 +312,7 @@ const ScrollController = styled.button`
     cursor: pointer;
     transition: 1s ease;
     background: none;
+    color: ${props => props.theme.textColor};
 
     &:hover {
         transform: translateY(-10px);
@@ -315,16 +331,14 @@ export default function Home() {
 
     useEffect(() => {
         setisLoggedIn(window.sessionStorage.getItem('userId'));
-        console.log(isLoggedIn)
-        
-    })
+        console.log(isLoggedIn);
+        console.log(theme);
+    });
 
     console.log(userSocialId,userSocialName,provider);
 
     //set google-user Info
     const responseLogin = (response: any,tempProvider: any) => {
-        
-
         let userIdForQuery: any;
         let userNameForQuery: any;
         
@@ -386,7 +400,7 @@ export default function Home() {
         <>
             <HomeContainer>
                 <LoginNavContainer>
-                    <span style={{ color: 'black', fontSize: '18px' }}>Hello {userSocialName}!</span>  
+                    <span style={{ color: `${({props} : {props:any})=> props.theme.textColor}`, fontSize: '18px' }}>Hello {userSocialName}!</span>  
                 </LoginNavContainer>
                 {isLoggedIn === null ? 
                 <LoginButton onClick={() => setLoginButtonClick(!loginButtonClick)}>
@@ -443,7 +457,7 @@ export default function Home() {
                                     style={{
                                         width: '20%',
                                         height: '20%',
-                                        color: 'white',
+                                        color: `${({props} : {props:any})=> props.theme.textColor}`,
                                         cursor: 'pointer',
                                         fontSize: '1.7vw',
                                         marginTop: '20px', 
@@ -454,7 +468,8 @@ export default function Home() {
                         
                     </LogoutBox>
                 <HomeContentContainer>
-                    <img src={sittingDoodle} alt='sittingDoodle' style={{ width: '40%'}} />
+                    {/* <MainImageContainer /> */}
+                    <img src={SittingDoodle} alt='sittingDoodle' style={{ width: '60%'}} />
                     <MainTitleImage>
                         <svg id="logo "width="634" height="115" viewBox="0 0 634 115" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M17.0779 70.8997H39.914V80.8015H6V6H17.0779V70.8997Z" stroke="black" stroke-width="5" mask="url(#path-1-outside-1)"/>
@@ -473,12 +488,11 @@ export default function Home() {
                     {/* 
                         google user info test view
                     */}
-                    <span style={{ color: 'black', fontSize: '2.4vw' }}>자신의 스타일을 사람들에게 보여주세요</span>
-                    <CreateNickName></CreateNickName>
-                </ContentContatiner>
+                        <span style={{ color: `${({props} : {props:any})=> props.theme.textColor}`, fontSize: '2.4vw' }}>자신의 스타일을 사람들에게 보여주세요</span>
+                    </ContentContatiner>
                 </HomeContentContainer>
                 <ScrollController onClick={handleScrollControll}>
-                    <AiFillRocket size={40}/>
+                    <AiFillRocket size={40} color={`${({props} : {props:any})=> props.theme.textColor}`}/>
                 </ScrollController>
             </HomeContainer>
             <SelectMenu />

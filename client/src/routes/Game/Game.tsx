@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import arrowIcon from '../../Images/arrowIcon.png';
 import { url } from 'inspector';
-import MeditatingDoodle from '../../Images/doodle/MeditatingDoodle.png';
 import StyleData from './DataTemp';
 import { AiFillStar } from 'react-icons/ai';
 
@@ -402,7 +401,7 @@ function Game ({
                 </LeftImageContainer>
                 <VersusImageContainer>
                     <VersusIcon>
-                        <img src={MeditatingDoodle} alt='meditatingDoodle' />
+                        {/* <img src={MeditatingDoodle} alt='meditatingDoodle' /> */}vs
                     </VersusIcon>
                 </VersusImageContainer>
                 <RightImageContainer>
