@@ -79,7 +79,20 @@ router.route('/upload').post((req, res, next)=>{
     const [firstFileName] = Object.keys(files);
     //TODO : upload
   
-    
+    var upload = new AWS.S3.ManagedUpload({
+      params: {
+        Bucket: "showmethemoney.com",
+        Key: fields.imageId,
+        Body: file,
+        ACL: "public-read"
+      }
+    });
+
+    var promise = upload.promise();
+
+    promise.then(function(data){
+      alert("upload success")
+    })
     
   });
 });
