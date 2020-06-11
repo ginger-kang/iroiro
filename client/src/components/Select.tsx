@@ -1,11 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import  { USER_EXIST } from '../routes/Game/query';
-import { Query } from "react-apollo"
-import { useQuery } from '@apollo/react-hooks';
-import GameLoading from './GameLoading';
-import ErrorPage from './ErrorPage';
 
 import ManDoodle from '../Images/doodle/DumpingDoodle.svg';
 import WomanDoodle from '../Images/doodle/SprintingDoodle.svg';
@@ -18,6 +13,10 @@ const SelectPageContainer = styled.section`
     align-items: center;
     background: ${props => props.theme.secondBgColor};
     overflow: hidden;
+
+    @media screen and (max-width: 710px) { 
+        flex-direction: column;
+    }
 `;
 
 const StartButton = styled.button`
@@ -37,8 +36,16 @@ const StartButton = styled.button`
     }
 `;
 
+const ImageContainer = styled.div`
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+`;
+
 const ManContainer = styled.div`
-    width: 27%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -53,7 +60,7 @@ const ManContainer = styled.div`
 `;
 
 const WomanContainer = styled.div`
-    width: 27%;
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -93,22 +100,24 @@ function SelectMenu() {
                 <p>소개팅 자리에 나갈 때 무슨 옷을 입고가실지 고민하고 있으신가요?</p>
                 <p>자신의 여자친구, 남자친구를 친한 친구들 한테 소개시켜 줄 때 어떤 옷을 입히고 싶으신가요.</p>
             </ContentContainer>
-            <ManContainer>
-                <img src={ManDoodle} alt='manDoodle' style={{ width: '100%', minWidth: '200px'}} />
-                <Link to="/game">
-                    <StartButton>
-                        MAN
-                    </StartButton>
-                </Link>
-            </ManContainer>
-            <WomanContainer>
-                <img src={WomanDoodle} alt='womanDoodle' style={{ width: '100%', minWidth: '200px'}} />
-                <Link to="/game">
-                    <StartButton>
-                        WOMAN
-                    </StartButton>
-                </Link>
-            </WomanContainer>
+            <ImageContainer>
+                <ManContainer>
+                    <img src={ManDoodle} alt='manDoodle' style={{ width: '100%', minWidth: '200px'}} />
+                    <Link to="/game">
+                        <StartButton>
+                            MAN
+                        </StartButton>
+                    </Link>
+                </ManContainer>
+                <WomanContainer>
+                    <img src={WomanDoodle} alt='womanDoodle' style={{ width: '100%', minWidth: '200px'}} />
+                    <Link to="/game">
+                        <StartButton>
+                            WOMAN
+                        </StartButton>
+                    </Link>
+                </WomanContainer>
+            </ImageContainer>
         </SelectPageContainer>   
     );
 }
