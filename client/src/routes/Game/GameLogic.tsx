@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Game from './Game';
-
-import { PHOTOS } from './query';
+import { PHOTOS } from '../../query';
 import { Query, Mutation } from 'react-apollo';
 import GameLoading from '../../components/GameLoading';
 import ErrorPage from '../../components/ErrorPage';
@@ -34,7 +33,7 @@ function GameLogic<lState> () {
 
     useEffect(() => {
         const orderArray: any = [];
-        for ( let i = 0; i < 50; i++){
+        for ( let i = 0; i < 5; i++){
             orderArray.push(i);
         }
         shuffledData = shuffleImageData(orderArray);
@@ -96,7 +95,10 @@ function GameLogic<lState> () {
                         <ErrorPage />
                     );
                 }
-                return (
+                if(data){
+                    console.log(data)
+                }
+                return (                    
                     <Game
                         clickState={clickState}
                         // ClickState={AnswerDirection}

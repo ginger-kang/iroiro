@@ -78,7 +78,7 @@ const GameContainer = styled.div`
     height: 100%;
     display: flex;
     justify-content: space-evenly;
-    background: white;
+    background: ${props => props.theme.bgColor};
 `;
 
 const LeftImageContainer = styled.section`
@@ -108,7 +108,7 @@ const LeftImageBox = styled('div')<ImageBoxProps>`
     display: flex;
     flex-direction: column;
     align-items: center;
-    trasnition: all 1s ease;
+    transition: all 1s ease;
 `;
 
 const LeftImage = styled('div')<LeftImageProps>`
@@ -116,7 +116,6 @@ const LeftImage = styled('div')<LeftImageProps>`
     height: 100%;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 1px 1px 1px;
     background:  url(${({ url }) => url});
     background-size: cover;
     background-position: center;
@@ -124,7 +123,7 @@ const LeftImage = styled('div')<LeftImageProps>`
     border-radius: 10px;
 
     &:hover {
-        box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 0px 12px 5px ${props => props.theme.hoverColor};
         // -ms-transform: scale(1.06);
         // -webkit-transform: scale(1.06);
         // transform: scale(1.06);
@@ -235,14 +234,13 @@ const RightImage = styled('div')<RightImageProps>`
     height: 100%;
     cursor: pointer;
     transition: all 0.3s;
-    box-shadow: 1px 1px 1px;
     background: url(${({ url }) => url});
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     border-radius: 10px;
     &:hover {
-        box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.3);
+        box-shadow: 0px 0px 12px 5px ${props => props.theme.hoverColor};
         // -ms-transform: scale(1.06);
         // -webkit-transform: scale(1.06);
         // transform: scale(1.06);
@@ -362,7 +360,7 @@ function Game ({
     }: gProps) {
     
     const [ navState, setNavState ] = useState(false);
-
+    
     return (
         <>
             <NavigationContainer>

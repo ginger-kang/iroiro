@@ -1,6 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import  { USER_EXIST } from '../query';
+import { Query } from "react-apollo"
+import { useQuery } from '@apollo/react-hooks';
+import GameLoading from './GameLoading';
+import ErrorPage from './ErrorPage';
 
 import ManDoodle from '../Images/doodle/DumpingDoodle.svg';
 import WomanDoodle from '../Images/doodle/SprintingDoodle.svg';
@@ -30,9 +35,8 @@ const StartButton = styled.button`
     transition: all 0.1s;
 
     &:hover {
-        -ms-transform: scale(1.1);
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
+        background:  ${props => props.theme.pointColor};
+        color: white;
     }
 `;
 
@@ -44,7 +48,11 @@ const ImageContainer = styled.div`
     align-items: center;
 `;
 
-const ManContainer = styled.div`
+interface scrollPosition {
+    scrollPos: number;
+}
+
+const ManContainer = styled('div')<scrollPosition>`
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -54,12 +62,14 @@ const ManContainer = styled.div`
     & img {
         margin-bottom: 25px;
         will-change: transform;
-        transform: translate3d(0px, 39.1975px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+        transform: translate3d(0px, ${({scrollPos}) => scrollPos}px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
         transform-style: preserve-3d;
+
+        transition: all 1s ease;
     }
 `;
 
-const WomanContainer = styled.div`
+const WomanContainer = styled('div')<scrollPosition>`
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -69,8 +79,10 @@ const WomanContainer = styled.div`
     & img {
         margin-bottom: 25px;
         will-change: transform;
-        transform: translate3d(0px, 39.1975px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+        transform: translate3d(0px, ${({scrollPos}) => scrollPos}px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
         transform-style: preserve-3d;
+
+        transition: all 1s ease;
     }
 `;
 
@@ -89,9 +101,16 @@ const ContentContainer = styled.div`
 `;
 
 function SelectMenu() {
-    let userId = window.sessionStorage.getItem('userId');
-    // userId = "moonseok";
-   
+    // let userId = window.sessionStorage.getItem('userId');
+    const [scrollPosition, setScrollPosition] = useState<number>(0);
+
+    useEffect(() => {
+        window.addEventListener('scroll', getCurrentScroll);
+    })
+
+    const getCurrentScroll = () => {
+        setScrollPosition((window.scrollY + window.innerHeight) / document.body.clientHeight * 100);
+    }
     
     return (
         <SelectPageContainer>
@@ -101,7 +120,7 @@ function SelectMenu() {
                 <p>자신의 여자친구, 남자친구를 친한 친구들 한테 소개시켜 줄 때 어떤 옷을 입히고 싶으신가요.</p>
             </ContentContainer>
             <ImageContainer>
-                <ManContainer>
+                <ManContainer scrollPos={scrollPosition < 66 ? scrollPosition - 66 : 39}>
                     <img src={ManDoodle} alt='manDoodle' style={{ width: '100%', minWidth: '200px'}} />
                     <Link to="/game">
                         <StartButton>
@@ -109,7 +128,7 @@ function SelectMenu() {
                         </StartButton>
                     </Link>
                 </ManContainer>
-                <WomanContainer>
+                <WomanContainer scrollPos={scrollPosition < 66 ? scrollPosition - 66 : 39}>
                     <img src={WomanDoodle} alt='womanDoodle' style={{ width: '100%', minWidth: '200px'}} />
                     <Link to="/game">
                         <StartButton>

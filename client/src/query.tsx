@@ -20,10 +20,11 @@ export const USER_EXIST = gql`
 `;
 
 export const CREATE_USER = gql`
-  mutation CreateUser($userId: String!,$userName: String!) {
-  CreateUser(userId: $userId, userName: $userName) {
+  mutation CreateUser($userId: String!,$userName: String!,$userNickName: String!) {
+  CreateUser(userId: $userId, userName: $userName,userNickName:$userNickName) {
     userId
     userName
+    userNickName
   }
 }
 `;

@@ -6,10 +6,12 @@ import google from '../../Images/google.png';
 import KakaoLogin from 'react-kakao-login'
 import SelectMenu from '../../components/Select';
 import Winner from '../../components/Winner';
-import {USER_EXIST,PHOTOS,CREATE_USER} from '../Game/query';
+import {USER_EXIST,PHOTOS,CREATE_USER} from '../../query';
 import client from '../../apollo';
 import SittingDoodle from '../../Images/doodle/GroovySittingDoodlee.svg';
 import { AiFillRocket } from 'react-icons/ai';
+import CreateNickName from '../../components/CreateUser';
+
 import theme from '../../theme';
 
 const HomeContainer = styled('section')`
@@ -39,7 +41,7 @@ const LoginButton = styled.button`
     position: fixed;
     bottom: 10px;
     right: 10px;
-    width: 8vw;
+    width: 9vw;
     height: 3vw;
     min-width: 60px;
     min-height: 25px;
@@ -47,17 +49,17 @@ const LoginButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1.5px solid black;
-    border-radius: 10px;
-    font-size: 1.5vw;
+    border-radius: 6px;
+    font-size: 1.3vw;
     transition: all .1s ease;
     z-index: 300;
     cursor: pointer;
+    background: ${props => props.theme.textColor};
+    color: ${props => props.theme.bgColor};
 
     &:hover {
-        -ms-transform: scale(1.1);
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
+        background:  ${props => props.theme.pointColor};
+        color: white;
     }
 `;
 
@@ -81,8 +83,8 @@ const LoginBox = styled('div') <LoginBoxProps>`
     color: ${props => props.theme.textColor};
     font-size: 20px;
     transition: all 1.5s ease;
-    background: ${props => props.theme.contentBgColor};
-    border-radius: 11px;
+    background: ${props => props.theme.modalBgColor};
+    border-radius: 6px;
     flex-direction: row;
     justify-content: center;
     align-items: center;
@@ -116,7 +118,11 @@ const KakaoButton = styled(KakaoLogin)`
     text-align: center;
 `;
 
-const HomeContentContainer = styled('div')`
+interface scrollPercentage {
+    scrollPos: number;
+}
+
+const HomeContentContainer = styled('div')<scrollPercentage>`
     color: black;
     padding: 10px;
     display: flex;
@@ -125,16 +131,13 @@ const HomeContentContainer = styled('div')`
     align-items: center;
     transition: all 1s ease;
 
-    // & img {
-    //     will-change: transform;
-    //     transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(-10deg) skew(0deg, 0deg);
-    //     transform-style: preserve-3d;
-    //     transition: all .5s ease;
+    & img {
+        will-change: transform;
+        transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(${({scrollPos}) => scrollPos}deg) skew(0deg, 0deg);
+        transform-style: preserve-3d;
 
-    //     &:hover {
-    //         transform: rotateZ(0deg);
-    //     }
-    // }
+        transition: all 1.5s ease;
+    }
 `;
 
 // const MainImageContainer = styled.img.attrs(props => ({
@@ -238,7 +241,7 @@ const LogoutButton = styled.div`
     position: fixed;
     bottom: 10px;
     right: 10px;
-    width: 8vw;
+    width: 9vw;
     height: 3vw;
     min-width: 60px;
     min-height: 25px;
@@ -246,17 +249,18 @@ const LogoutButton = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    border: 1.5px solid black;
-    border-radius: 10px;
-    font-size: 1.5vw;
+    border-radius: 6px;
+    font-size: 1.3vw;
+    text-align: center;
     transition: all .1s ease;
     z-index: 300;
     cursor: pointer;
+    background: ${props => props.theme.textColor};
+    color: ${props => props.theme.bgColor};
 
     &:hover {
-        -ms-transform: scale(1.1);
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
+        background:  ${props => props.theme.pointColor};
+        color: white;
     }
 `;
 
@@ -275,30 +279,44 @@ const LogoutBox = styled('div')<LogoutBoxProps>`
             return 'none';
         }
     }};
-    min-width: 400px;
+    width: 30vw;
+    height: 12vw;
+    min-width: 300px;
     min-height: 140px;
     color: white;
     font-size: 20px;
     transition: all 1.5s ease;
-    background: ${props => props.theme.contentBgColor};
-    border-radius: 11px;
+    background: ${props => props.theme.modalBgColor};
+    border-radius: 6px;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: 10000;
     transform: translateX(-50%) translateY(-50%) scale(1.05);
+`;
+
+const LogoutButtonContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    align-items: center;
+    width: 100%;
+    height: 30%;
+    margin-top: 20px;
 
     & button {
         transition: all .2s ease;
         background: none;
-        color: ${props => props.theme.textColor};
+        color: white;
+        width: 80px;
+        height: 33px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 6px;
+        background: ${props => props.theme.pointColor};
 
         &:hover {
-            -ms-transform: scale(1.1);
-            -webkit-transform: scale(1.1);
-            transform: scale(1.1);
-            background: rgba(0,0,0,.2);
-            border-radius: 10px;
+            background: #072ea7;
         }
     }
 `;
@@ -318,9 +336,10 @@ const ScrollController = styled.button`
 `;
 
 export default function Home() {
-    const [loginButtonClick, setLoginButtonClick] = useState(false);
-    const [logoutButtonClick, setLogoutButtonClick] = useState(false);
+    const [loginButtonClick, setLoginButtonClick] = useState<boolean>(false);
+    const [logoutButtonClick, setLogoutButtonClick] = useState<boolean>(false);
     const [isLoggedIn, setisLoggedIn] = useState<any>(null);
+    const [scrollPosition, setScrollPosition] = useState(0);
 
     //total-user Info
     const [userSocialId, setUserSocialId] = useState(window.sessionStorage.getItem('userId'));
@@ -329,6 +348,7 @@ export default function Home() {
 
     useEffect(() => {
         setisLoggedIn(window.sessionStorage.getItem('userId'));
+        window.addEventListener('scroll', getCurrentScroll);
         console.log(isLoggedIn);
         console.log(theme);
     });
@@ -370,7 +390,7 @@ export default function Home() {
         }).then(res=>{
             if(res.data.User === null){
                 client.mutate({
-                    variables:{userId:userIdForQuery,userName:userNameForQuery},
+                    variables:{userId:userIdForQuery,userName:userNameForQuery,userNickName:null},
                     mutation:CREATE_USER
                 });
             };
@@ -392,6 +412,11 @@ export default function Home() {
             left: 0,
             behavior: 'smooth'
           });
+    }
+
+    const getCurrentScroll = () => {
+        setScrollPosition((window.scrollY + window.innerHeight) / document.body.clientHeight * 100);
+        console.log((window.scrollY + window.innerHeight) / document.body.clientHeight * 100);
     }
 
     return (
@@ -447,25 +472,19 @@ export default function Home() {
                     </LoginBox>
                     <LogoutBox logoutState={logoutButtonClick}>
                         <span style={{
-                            fontSize: '2vw',
+                            fontSize: '23px',
                         }}>로그아웃 하시겠습니까?</span>
-                                                  
-                                <button
-                                    onClick={responseLogout}                                    
-                                    style={{
-                                        width: '20%',
-                                        height: '20%',
-                                        color: `${({props} : {props:any})=> props.theme.textColor}`,
-                                        cursor: 'pointer',
-                                        fontSize: '1.7vw',
-                                        marginTop: '20px', 
-                                    }}
-                                >확인
-                                </button>
-                            
-                        
+                        <LogoutButtonContainer>
+                            <button
+                                onClick={responseLogout}                                    
+                            >예</button>
+                            <button
+                                onClick={() => setLogoutButtonClick(!logoutButtonClick)}>
+                                아니요
+                            </button>
+                        </LogoutButtonContainer>
                     </LogoutBox>
-                <HomeContentContainer>
+                <HomeContentContainer scrollPos={scrollPosition > 36 ? scrollPosition / 5 : 0}>
                     {/* <MainImageContainer /> */}
                     <img src={SittingDoodle} alt='sittingDoodle' style={{ width: '60%'}} />
                     <MainTitleImage>

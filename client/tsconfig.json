@@ -21,6 +21,6 @@
     "noImplicitAny": true,
   },
   "include": [
-    "src", "../ImageUpload.js", "../login.tsx"
+    "src", "../ImageUpload.js", "../login.tsx", "query.tsx"
   ]
 }
