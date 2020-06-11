@@ -124,7 +124,7 @@ function ImageUpload() {
                 var originalname = uploadedFile.name
                 var imageData = new FormData();
                 imageData.append("image", uploadedFile.raw)
-                imageData.append("imageId", originalname+"-"+date)
+                imageData.append("imageId", date+"-"+originalname)
                   
                 client.mutate({
                     variables: { owner: window.sessionStorage.getItem('userName'), category: "temp", originalname: originalname, uploadDate: date },

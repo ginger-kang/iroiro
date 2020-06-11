@@ -6,7 +6,8 @@ var AWS = require('aws-sdk');
 const path = require('path')
 var bodyParser = require('body-parser')
 const formidable = require('formidable');
- 
+var fs = require('fs');
+
 AWS.config.accessKeyId = process.env.aws_access_key_id;
 AWS.config.secretAccessKey = process.env.aws_secret_access_key;
 AWS.config.region = process.env.region;
@@ -76,23 +77,39 @@ router.route('/upload').post((req, res, next)=>{
     if (err) {
       return res.status(400).json({ error: err.message });
     }
-    const [firstFileName] = Object.keys(files);
-    //TODO : upload
-  
-    var upload = new AWS.S3.ManagedUpload({
-      params: {
-        Bucket: "showmethemoney.com",
-        Key: fields.imageId,
-        Body: file,
-        ACL: "public-read"
-      }
-    });
+    
+    const file = files.image
+    
+    fs.readFile(file.path, function (err, data) {
+      if (err) throw err; // Something went wrong!
+      var s3bucket = new AWS.S3({params: {Bucket: 'showmethestyle.com/temp'}});
+      s3bucket.createBucket(function () {
+          var params = {
+              Key: fields.imageId, //file.name doesn't exist as a property
+              Body: data,
+              ACL:'public-read'
+          };
+          s3bucket.upload(params, function (err, data) {
+              // Whether there is an error or not, delete the temp file
+              fs.unlink(file.path, function (err) {
+                  if (err) {
+                      console.error(err);
+                  }
+                  console.log('Temp File Delete');
+              });
 
-    var promise = upload.promise();
-
-    promise.then(function(data){
-      alert("upload success")
-    })
+              console.log("PRINT FILE:", file);
+              if (err) {
+                  console.log('ERROR MSG: ', err);
+                  res.status(500).send(err);
+              } else {
+                  console.log('Successfully uploaded data');
+                  res.status(200).end();
+              }
+          });
+      });
+  });
+   
     
   });
 });

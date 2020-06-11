@@ -155,10 +155,10 @@ const RootMutation = new GraphQLObjectType({
         params = {
           TableName: "showmethestyle",
           Item: {
-            "id": args.owner + "-" + args.originalname+"-"+args.uploadDate,
+            "id":args.uploadDate + "-" + args.originalname+"-",
             "uploadDate": args.uploadDate,
             "owner": args.owner,
-            "url": "https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/" + args.category + "/"+args.originalname+"-"+args.uploadDate,
+            "url": "https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/" + args.category + "/"+args.uploadDate+"-"+args.originalname,
             "category": args.category
           }
         }
