@@ -63,7 +63,7 @@ const RootQuery = new GraphQLObjectType({
         var params = {
           TableName: "showmethestyle",          
           };        
-        return db.scan(params).promise().then(res => res.Items);
+        return db.scan(params).promise().then(res => (res.Items));
       }
     },
     AllUsers: {
@@ -118,7 +118,7 @@ const RootMutation = new GraphQLObjectType({
         return db.put(params).promise().then(res => console.log(res));
       }
     },
-    SetUserNickName:{
+    /*SetUserNickName:{
       type: UserType,
       args:{
         userId : {type : GraphQLString},
@@ -133,15 +133,14 @@ const RootMutation = new GraphQLObjectType({
           },
           UpdateExpression: "set info.rating = :r, info.plot=:p, info.actors=:a",
           ExpressionAttributeValues:{
-              ":N":5.5,
-              
+              ":N":5.5,              
               
           },
           ReturnValues:"UPDATED_NEW"
       };
       }
 
-    },
+    },*/
     UploadPhoto: {
       type: PhotoType,
       args: {

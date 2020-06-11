@@ -34,7 +34,7 @@ function GameLogic<lState> () {
 
     useEffect(() => {
         const orderArray: any = [];
-        for ( let i = 0; i < 50; i++){
+        for ( let i = 0; i < 5; i++){
             orderArray.push(i);
         }
         shuffledData = shuffleImageData(orderArray);
@@ -96,7 +96,10 @@ function GameLogic<lState> () {
                         <ErrorPage />
                     );
                 }
-                return (
+                if(data){
+                    console.log(data)
+                }
+                return (                    
                     <Game
                         clickState={clickState}
                         // ClickState={AnswerDirection}
