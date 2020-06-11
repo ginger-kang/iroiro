@@ -362,7 +362,7 @@ function Game ({
     }: gProps) {
     
     const [ navState, setNavState ] = useState(false);
-
+    
     return (
         <>
             <NavigationContainer>

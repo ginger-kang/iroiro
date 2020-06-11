@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import  { USER_EXIST } from '../routes/Game/query';
+import  { USER_EXIST } from '../query';
 import { Query } from "react-apollo"
 import { useQuery } from '@apollo/react-hooks';
 import GameLoading from './GameLoading';

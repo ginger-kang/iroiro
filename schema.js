@@ -28,7 +28,8 @@ const UserType = new GraphQLObjectType({
   name: 'User',
   fields: () => ({
     userId: { type: GraphQLString },
-    userName: { type: GraphQLString }
+    userName: { type: GraphQLString },
+    userNickName: { type: GraphQLString },
   })
 });
 const PhotoType = new GraphQLObjectType({
@@ -51,15 +52,7 @@ const PhotoType = new GraphQLObjectType({
   })
 });*/
 
-var params = {
-  TableName: "Users"
-};
-var params2 = {
-  TableName: "Users",
-  Key: {
-    'userId': ''
-  }
-}
+
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -67,14 +60,18 @@ const RootQuery = new GraphQLObjectType({
     Photos: {
       type: new GraphQLList(PhotoType),
       resolve(parent, args) {
-        return axios
-          .get('https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/amekaji')
-          .then(res => res.data);
+        var params = {
+          TableName: "showmethestyle",          
+          };        
+        return db.scan(params).promise().then(res => (res.Items));
       }
     },
     AllUsers: {
       type: new GraphQLList(UserType),
       resolve(parent, args) {
+        var params = {
+          TableName: "Users"
+        };
         return db.scan(params).promise().then(res => res.Items);
       }
     },
@@ -84,9 +81,16 @@ const RootQuery = new GraphQLObjectType({
         userId: { type: GraphQLString }
       },
       resolve(parent, args) {
-        params2.Key.userId = args.userId;
+        var params = {
+          TableName: "Users",
+          Key: {
+            'userId': ''
+          }
+        }
+        
+        params.Key.userId = args.userId;
 
-        return db.get(params2).promise().then(res => res.Item);
+        return db.get(params).promise().then(res => res.Item);
       }
     }
   }
@@ -100,18 +104,43 @@ const RootMutation = new GraphQLObjectType({
       args: {
         userId: { type: GraphQLString },
         userName: { type: GraphQLString },
+        userNickName : {type : GraphQLString},      
       },
       resolve(parent, args) {
         params = {
           TableName: "Users",
           Item: {
             'userId': args.userId,
-            'userName': args.userName
+            'userName': args.userName,
+            'userNickName': args.userNickName
           }
         }
         return db.put(params).promise().then(res => console.log(res));
       }
     },
+    /*SetUserNickName:{
+      type: UserType,
+      args:{
+        userId : {type : GraphQLString},
+        userNickName:{type:GraphQLString}
+      },
+      resolve(parent,args){
+          params = {
+          TableName:"Users",
+          Key:{
+            'userId': args.userId,
+              
+          },
+          UpdateExpression: "set info.rating = :r, info.plot=:p, info.actors=:a",
+          ExpressionAttributeValues:{
+              ":N":5.5,              
+              
+          },
+          ReturnValues:"UPDATED_NEW"
+      };
+      }
+
+    },*/
     UploadPhoto: {
       type: PhotoType,
       args: {
@@ -125,10 +154,10 @@ const RootMutation = new GraphQLObjectType({
         params = {
           TableName: "showmethestyle",
           Item: {
-            "id": args.owner + ":" + args.originalname,
+            "id":args.uploadDate + "-" + args.originalname+"-",
             "uploadDate": args.uploadDate,
             "owner": args.owner,
-            "url": "https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/" + args.category + "/" + args.originalname,
+            "url": "https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/" + args.category + "/"+args.uploadDate+"-"+args.originalname,
             "category": args.category
           }
         }
