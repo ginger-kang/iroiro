@@ -489,6 +489,7 @@ export default function Home() {
                         google user info test view
                     */}
                         <span style={{ color: `${({props} : {props:any})=> props.theme.textColor}`, fontSize: '2.4vw' }}>자신의 스타일을 사람들에게 보여주세요</span>
+                        <CreateNickName></CreateNickName>
                     </ContentContatiner>
                 </HomeContentContainer>
                 <ScrollController onClick={handleScrollControll}>

@@ -118,7 +118,7 @@ const RootMutation = new GraphQLObjectType({
         return db.put(params).promise().then(res => console.log(res));
       }
     },
-    /*SetUserNickName:{
+    SetUserNickName:{
       type: UserType,
       args:{
         userId : {type : GraphQLString},
@@ -131,16 +131,23 @@ const RootMutation = new GraphQLObjectType({
             'userId': args.userId,
               
           },
-          UpdateExpression: "set info.rating = :r, info.plot=:p, info.actors=:a",
+          UpdateExpression: "set userNickName= :N",
           ExpressionAttributeValues:{
-              ":N":5.5,              
+              ":N":args.userNickName,              
               
           },
           ReturnValues:"UPDATED_NEW"
       };
+        return db.update(params,function(err,data){
+           if(err){
+             console.log("Update Nickname Error")
+           }else{
+             console.log("Nickname update Success")
+           }
+         })   
       }
 
-    },*/
+    },
     UploadPhoto: {
       type: PhotoType,
       args: {

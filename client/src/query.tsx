@@ -29,6 +29,15 @@ export const CREATE_USER = gql`
 }
 `;
 
+export const SET_USER_NICKNAME = gql`
+  mutation SetUserNickName($userId: String!,$userNickName: String!) {
+  SetUserNickName(userId: $userId, userNickName:$userNickName) {
+    userId    
+    userNickName
+  }
+}
+`;
+
 export const UPLOAD_PHOTO = gql`
   mutation UploadPhoto($owner: String!,$category: String!,$originalname: String!,$uploadDate: String!) {
   UploadPhoto (owner: $owner, category: $category,originalname : $originalname, uploadDate : $uploadDate) {
