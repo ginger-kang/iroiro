@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 import { USER_EXIST } from '../query';
 import { Query } from 'react-apollo';
 import { useQuery } from '@apollo/react-hooks';
-import GameLoading from './GameLoading';
-import ErrorPage from './ErrorPage';
 
 import ManDoodle from '../Images/doodle/DumpingDoodle.svg';
 import WomanDoodle from '../Images/doodle/SprintingDoodle.svg';
 
 const SelectPageContainer = styled.section`
+  width: 100%;
   height: 100vh;
   display: flex;
   flex-direction: row;
@@ -18,6 +17,7 @@ const SelectPageContainer = styled.section`
   align-items: center;
   background: ${(props) => props.theme.secondBgColor};
   overflow: hidden;
+  position: relative;
 
   @media screen and (max-width: 710px) {
     flex-direction: column;
@@ -104,6 +104,21 @@ const ContentContainer = styled.div`
   }
 `;
 
+const BottomLineContainer = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transition: 0.1s ease;
+
+  transform: translateX(-50%);
+
+  & svg {
+    & line {
+      stroke: ${(props) => props.theme.borderColor};
+    }
+  }
+`;
+
 function SelectMenu() {
   // let userId = window.sessionStorage.getItem('userId');
   const [scrollPosition, setScrollPosition] = useState<number>(0);
@@ -162,6 +177,24 @@ function SelectMenu() {
           </Link>
         </WomanContainer>
       </ImageContainer>
+      <BottomLineContainer>
+        <svg
+          width="159"
+          height="3"
+          viewBox="0 0 159 3"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <line
+            x1="0.993976"
+            y1="2.00002"
+            x2="158.994"
+            y2="1.04821"
+            stroke="#242CE3"
+            stroke-width="2"
+          />
+        </svg>
+      </BottomLineContainer>
     </SelectPageContainer>
   );
 }

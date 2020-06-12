@@ -7,8 +7,11 @@ import { UPLOAD_PHOTO, USER_EXIST } from '../query';
 import axios from 'axios';
 
 const FileUploadContainer = styled.div`
-  width: 20vw;
+  width: 50%;
+  height: 100%;
   display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 const Edit = styled.div`
@@ -16,8 +19,12 @@ const Edit = styled.div`
 `;
 
 const Upload = styled.div`
-  position: relative;
-  max-width: 205px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 90%;
 `;
 
 const Input = styled.input`
@@ -27,8 +34,10 @@ const Input = styled.input`
 const Preview = styled.label`
   for: imageUpload;
   display: inline-block;
-  width: 10vw;
-  height: 10vw;
+  width: 80%;
+  height: 85%;
+  min-width: 120px;
+  min-height: 120px;
   margin-bottom: 0;
   border-radius: 100%;
   color: ${(props) => props.theme.bgColor};
@@ -40,8 +49,8 @@ const Preview = styled.label`
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    background: #f1f1f1;
-    border-color: #d6d6d6;
+    background: ${(props) => props.theme.pointColor};
+    color: white;
   }
   &:after {
     icon: ;
@@ -67,6 +76,22 @@ const PreviewP = styled('div')<PrevImageProps>`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;
+`;
+
+const ImageSubmitButton = styled.button`
+  width: 10vw;
+  height: 3vw;
+  padding: 5px;
+  border-radius: 6px;
+  color: ${(props) => props.theme.bgColor};
+  background: ${(props) => props.theme.textColor};
+  font-size: 1.1vw;
+  margin-top: 40px;
+
+  &:hover {
+    color: white;
+    background: ${(props) => props.theme.pointColor};
+  }
 `;
 
 /*const Label = styled.label`
@@ -190,7 +215,7 @@ function ImageUpload() {
           </PreviewP>
         </Preview>
         <Input type="file" id="imageUpload" onChange={handleChange} />
-        <button onClick={handleSubmit}></button>
+        <ImageSubmitButton onClick={handleSubmit}>제출하기</ImageSubmitButton>
       </Upload>
     </FileUploadContainer>
   );

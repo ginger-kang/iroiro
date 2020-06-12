@@ -80,7 +80,7 @@ const DarkModeToggleButton = styled('div')<ToggleProps>`
 `;
 
 function App() {
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
 
   const isLight = theme === 'light';
 

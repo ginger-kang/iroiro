@@ -1,6 +1,5 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import google from '../../Images/google.png';
 import KakaoLogin from 'react-kakao-login';
@@ -9,10 +8,11 @@ import Winner from '../../components/Winner';
 import { USER_EXIST, PHOTOS, CREATE_USER } from '../../query';
 import client from '../../apollo';
 import SittingDoodle from '../../Images/doodle/GroovySittingDoodlee.svg';
-import { AiFillRocket } from 'react-icons/ai';
+import { AiFillRocket, AiOutlineClose } from 'react-icons/ai';
 import CreateNickName from '../../components/CreateUser';
 
 import theme from '../../theme';
+import Awarded from '../../components/Awarded';
 
 const HomeContainer = styled('section')`
   height: 100vh;
@@ -69,7 +69,7 @@ interface LoginBoxProps {
 
 const LoginBox = styled('div')<LoginBoxProps>`
   position: fixed;
-  top: 48%;
+  top: 50%;
   left: 50%;
   display: ${({ loginState }) => {
     if (loginState) {
@@ -78,7 +78,8 @@ const LoginBox = styled('div')<LoginBoxProps>`
       return 'none';
     }
   }};
-  min-width: 400px;
+  width: 30vw;
+  min-width: 300px;
   min-height: 140px;
   color: ${(props) => props.theme.textColor};
   font-size: 20px;
@@ -86,35 +87,43 @@ const LoginBox = styled('div')<LoginBoxProps>`
   background: ${(props) => props.theme.modalBgColor};
   border-radius: 6px;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   z-index: 10000;
   transform: translateX(-50%) translateY(-50%) scale(1.05);
 
   & button {
     transition: all 0.2s ease;
-    width: 23%;
-    height: 23%;
-    margin: 40px;
 
     &:hover {
-      -ms-transform: scale(1.1);
-      -webkit-transform: scale(1.1);
-      transform: scale(1.1);
+      -ms-transform: scale(1.05);
+      -webkit-transform: scale(1.05);
+      transform: scale(1.05);
     }
   }
 `;
 
+const LoginCancelButton = styled.button`
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  color: white;
+  cursor: pointer;
+  background: red;
+  border-radius: 100%;
+  width: 15px;
+  height: 15px;
+`;
+
 const KakaoButton = styled(KakaoLogin)`
-  width: 20%;
-  height: 25%;
-  min-width: 85px;
-  min-height: 85px;
+  width: 80px;
+  height: 80px;
+  min-width: 70px;
+  min-height: 70px;
   color: black;
-  margin: 40px;
   background-color: #ffeb00;
   border-radius: 10px;
-  font-size: 77px;
+  font-size: 60px;
   text-align: center;
 `;
 
@@ -242,7 +251,6 @@ const LogoutButton = styled.div`
   bottom: 10px;
   right: 10px;
   width: 9vw;
-  height: 3vw;
   min-width: 60px;
   min-height: 25px;
   padding: 9px;
@@ -280,7 +288,6 @@ const LogoutBox = styled('div')<LogoutBoxProps>`
     }
   }};
   width: 30vw;
-  height: 12vw;
   min-width: 300px;
   min-height: 140px;
   color: white;
@@ -332,6 +339,21 @@ const ScrollController = styled.button`
 
   &:hover {
     transform: translateY(-10px);
+  }
+`;
+
+const BottomLineContainer = styled.div`
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transition: 0.1s ease;
+
+  transform: translateX(-50%);
+
+  & svg {
+    & line {
+      stroke: ${(props) => props.theme.borderColor};
+    }
   }
 `;
 
@@ -466,6 +488,8 @@ export default function Home() {
                 disabled={renderProps.disabled}
                 style={{
                   background: 'none',
+                  width: '85px',
+                  minWidth: '75px',
                 }}
               >
                 <img
@@ -490,6 +514,9 @@ export default function Home() {
             onSuccess={(res) => responseLogin(res, 'kakao')}
             onFailure={(res) => console.log('kakao login fail')}
             getProfile={true}
+          />
+          <LoginCancelButton
+            onClick={() => setLoginButtonClick(!loginButtonClick)}
           />
         </LoginBox>
         <LogoutBox logoutState={logoutButtonClick}>
@@ -608,9 +635,28 @@ export default function Home() {
             color={`${({ props }: { props: any }) => props.theme.textColor}`}
           />
         </ScrollController>
+        <BottomLineContainer>
+          <svg
+            width="159"
+            height="3"
+            viewBox="0 0 159 3"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <line
+              x1="0.993976"
+              y1="2.00002"
+              x2="158.994"
+              y2="1.04821"
+              stroke="#242CE3"
+              stroke-width="2"
+            />
+          </svg>
+        </BottomLineContainer>
       </HomeContainer>
       <SelectMenu />
       <Winner />
+      <Awarded />
     </>
   );
 }
