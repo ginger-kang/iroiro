@@ -114,7 +114,8 @@ function ImageUpload() {
     //It sends a request to upload to the server by storing the file object in the state
     //Post request to server when submitted 
     const handleSubmit = async (e: { preventDefault: () => void; }) => {
-        
+        let userId = window.sessionStorage.getItem('userId');
+        if(userId!=null){
         client.query({
             query: USER_EXIST, variables: { userId: window.sessionStorage.getItem('userId') },
         }).then(res => {
@@ -137,14 +138,15 @@ function ImageUpload() {
                 
                 axios.post('/upload', imageData,config)
                     .then(function (response) {
-                        console.log("in imageUpload");
-                        console.log(response)
+                        alert("이미지 업로드 성공")                        
                     })
                     .catch(function (error) {
                         console.log(error);
                     });
             }
-        })
+        })}else{
+            alert("로그인 해주세요!")
+        }
 
 
 
