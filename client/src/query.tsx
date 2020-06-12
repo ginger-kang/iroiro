@@ -1,8 +1,8 @@
-import gql from "graphql-tag";
+import gql from 'graphql-tag';
 
 export const PHOTOS = gql`
   {
-    Photos{
+    Photos {
       url
       category
       owner
@@ -11,28 +11,45 @@ export const PHOTOS = gql`
 `;
 
 export const USER_EXIST = gql`
-  query getUser($userId: String!){
-  User(userId: $userId){
-    userId
-  
+  query getUser($userId: String!) {
+    User(userId: $userId) {
+      userId
+    }
   }
-}
 `;
 
 export const CREATE_USER = gql`
-  mutation CreateUser($userId: String!,$userName: String!,$userNickName: String!) {
-  CreateUser(userId: $userId, userName: $userName,userNickName:$userNickName) {
-    userId
-    userName
-    userNickName
+  mutation CreateUser(
+    $userId: String!
+    $userName: String!
+    $userNickName: String!
+  ) {
+    CreateUser(
+      userId: $userId
+      userName: $userName
+      userNickName: $userNickName
+    ) {
+      userId
+      userName
+      userNickName
+    }
   }
-}
 `;
 
 export const UPLOAD_PHOTO = gql`
-  mutation UploadPhoto($owner: String!,$category: String!,$originalname: String!,$uploadDate: String!) {
-  UploadPhoto (owner: $owner, category: $category,originalname : $originalname, uploadDate : $uploadDate) {
-    owner
+  mutation UploadPhoto(
+    $owner: String!
+    $category: String!
+    $originalname: String!
+    $uploadDate: String!
+  ) {
+    UploadPhoto(
+      owner: $owner
+      category: $category
+      originalname: $originalname
+      uploadDate: $uploadDate
+    ) {
+      owner
+    }
   }
-}
 `;

@@ -3,15 +3,14 @@ import styled, { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './global-styles';
 import Router from './Router';
 import { lightTheme, darkTheme } from './theme';
-import client from "./apollo";
-import { ApolloProvider } from "react-apollo";
-import { ApolloProvider as ApolloHooksProvider } from "react-apollo-hooks";
+import client from './apollo';
+import { ApolloProvider } from 'react-apollo';
+import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 
 import DarkMode from './Images/darkMode.svg';
 import LightMode from './Images/lightMode.svg';
 
-const AppContainer = styled.div`
-`;
+const AppContainer = styled.div``;
 
 interface ToggleProps {
   isLight: boolean;
@@ -19,20 +18,21 @@ interface ToggleProps {
 }
 
 const DarkModeToggleButton = styled('div')<ToggleProps>`
-  background: ${({isLight}) => {
+  background: ${({ isLight }) => {
     if (isLight) {
       return 'linear-gradient(#39598A, #79D7ED)';
     } else {
       return 'linear-gradient(#091236, #1E215D)';
     }
   }};
-  border: 2px solid ${({isLight}) => {
-    if (isLight) {
-      return '#FFF';
-    } else {
-      return '#6B8096';
-    }
-  }};
+  border: 2px solid
+    ${({ isLight }) => {
+      if (isLight) {
+        return '#FFF';
+      } else {
+        return '#6B8096';
+      }
+    }};
   top: 5px;
   left: 5px;
   border-radius: 30px;
@@ -55,24 +55,24 @@ const DarkModeToggleButton = styled('div')<ToggleProps>`
     min-height: 22px;
     transition: all 0.5s linear;
     cursor: pointer;
-    
+
     // sun
     &:nth-child(1) {
       transform: ${({ isLight }) => {
-          if (isLight) {
-              return 'translateY(-45px)';
-          } else {
-              return 'translateY(0)';
-          }
+        if (isLight) {
+          return 'translateY(-45px)';
+        } else {
+          return 'translateY(0)';
+        }
       }};
     }
     // moon
     &:nth-child(2) {
       transform: ${({ isLight }) => {
         if (isLight) {
-            return 'translateY(0)';
+          return 'translateY(0)';
         } else {
-            return 'translateY(-45px)';
+          return 'translateY(-45px)';
         }
       }};
     }
@@ -92,13 +92,13 @@ function App() {
     } else {
       setTheme('light');
     }
-  }
+  };
 
   return (
     <AppContainer>
       <DarkModeToggleButton isLight={isLight}>
-        <img src={LightMode} alt='sun' onClick={toggleTheme}/>
-        <img src={DarkMode} alt='moon' onClick={toggleTheme}/>
+        <img src={LightMode} alt="sun" onClick={toggleTheme} />
+        <img src={DarkMode} alt="moon" onClick={toggleTheme} />
       </DarkModeToggleButton>
       {/* <div style={{width: '300px', height: '200px', backgroundColor: 'tomato'}}>테스트</div> */}
       <ApolloProvider client={client}>
@@ -111,6 +111,6 @@ function App() {
       </ApolloProvider>
     </AppContainer>
   );
-};
+}
 
 export default App;
