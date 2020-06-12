@@ -14,7 +14,7 @@ const ErrorPageContainer = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background: ${props => props.theme.bgColor};
     z-index: 100;
 `;
 
@@ -37,7 +37,7 @@ function ErrorPage () {
             <ErrorBox url={ErrorIcon}/>
             <span style={{
                 fontSize: '30px',
-                color: 'black'
+                color: `${({props} : {props:any})=> props.theme.textColor}`,
                 }}>
                 오류가 발생했습니다. 새로고침 해주세요!
             </span>

@@ -9,7 +9,7 @@ export default function Router() {
             <BrowserRouter>
                 <Switch>
                     <Route path='/' exact component={Home} />
-                    <Route path='/game' component={Game} />                
+                    <Route path='/game' component={Game} />     
                 </Switch>
             </BrowserRouter>
         </>

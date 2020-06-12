@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import loadingIcon from '../Images/loadingIcon.png';
+import loadingIcon from '../Images/loadingIcon.svg';
 
 const LoadingContainer = styled.div`
     position: absolute;
@@ -13,42 +13,40 @@ const LoadingContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #efefef;
+    background: ${props => props.theme.bgColor};
 `;
 
 const LoadingBox = styled.div`
-    width: 110px;
-    height: 110px;
+    width: auto;
+    height: auto;
 `;
 
-interface LoadingIconProps {
-    url: any;
-}
-
-const LoadingIcon = styled('div')<LoadingIconProps>`
+const LoadingIcon = styled('div')`
     width: 100%;
     height: 100%;
-    background: url(${({ url }) => url});
-    background-size: cover;
-    background-position: center center;
     z-index: 2;
     transition: 1s ease;
-    animation: LoadingIcon infinite 4s linear;
-    @keyframes LoadingIcon {
-        from {
-          transform: rotate(0deg);
+
+    & img {
+        animation: LoadingIcon infinite 1s ease-in-out both;
+        @keyframes LoadingIcon {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
         }
-        to {
-          transform: rotate(360deg);
-        }
-      }
+    }
 `;
 
 function GameLoading() {
     return (
         <LoadingContainer>
             <LoadingBox>
-                <LoadingIcon url={loadingIcon}/>
+                <LoadingIcon>
+                    <img src={loadingIcon} alt='loading' />
+                </LoadingIcon>
             </LoadingBox>
         </LoadingContainer>
     );

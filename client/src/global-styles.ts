@@ -1,6 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import { theme } from './theme';
 
 export const GlobalStyle = createGlobalStyle`
     ${reset}
@@ -16,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
         border: none;
         outline: none;
         color: ${({theme} : {theme: any}) => theme.bgColor};
-        background-color: ${({theme} : {theme: any}) => theme.textColor};
+        background: ${({theme} : {theme: any}) => theme.textColor};
     }
     ol, ul, li {
         list-style: none;

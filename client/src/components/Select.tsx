@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import  { USER_EXIST } from '../query';
@@ -18,6 +18,10 @@ const SelectPageContainer = styled.section`
     align-items: center;
     background: ${props => props.theme.secondBgColor};
     overflow: hidden;
+
+    @media screen and (max-width: 710px) { 
+        flex-direction: column;
+    }
 `;
 
 const StartButton = styled.button`
@@ -31,14 +35,25 @@ const StartButton = styled.button`
     transition: all 0.1s;
 
     &:hover {
-        -ms-transform: scale(1.1);
-        -webkit-transform: scale(1.1);
-        transform: scale(1.1);
+        background:  ${props => props.theme.pointColor};
+        color: white;
     }
 `;
 
-const ManContainer = styled.div`
-    width: 27%;
+const ImageContainer = styled.div`
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+`;
+
+interface scrollPosition {
+    scrollPos: number;
+}
+
+const ManContainer = styled('div')<scrollPosition>`
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -47,13 +62,15 @@ const ManContainer = styled.div`
     & img {
         margin-bottom: 25px;
         will-change: transform;
-        transform: translate3d(0px, 39.1975px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+        transform: translate3d(0px, ${({scrollPos}) => scrollPos}px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
         transform-style: preserve-3d;
+
+        transition: all 1s ease;
     }
 `;
 
-const WomanContainer = styled.div`
-    width: 27%;
+const WomanContainer = styled('div')<scrollPosition>`
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -62,8 +79,10 @@ const WomanContainer = styled.div`
     & img {
         margin-bottom: 25px;
         will-change: transform;
-        transform: translate3d(0px, 39.1975px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
+        transform: translate3d(0px, ${({scrollPos}) => scrollPos}px, 0px) scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg) skew(0deg, 0deg);
         transform-style: preserve-3d;
+
+        transition: all 1s ease;
     }
 `;
 
@@ -82,9 +101,16 @@ const ContentContainer = styled.div`
 `;
 
 function SelectMenu() {
-    let userId = window.sessionStorage.getItem('userId');
-    // userId = "moonseok";
-   
+    // let userId = window.sessionStorage.getItem('userId');
+    const [scrollPosition, setScrollPosition] = useState<number>(0);
+
+    useEffect(() => {
+        window.addEventListener('scroll', getCurrentScroll);
+    })
+
+    const getCurrentScroll = () => {
+        setScrollPosition((window.scrollY + window.innerHeight) / document.body.clientHeight * 100);
+    }
     
     return (
         <SelectPageContainer>
@@ -93,22 +119,24 @@ function SelectMenu() {
                 <p>소개팅 자리에 나갈 때 무슨 옷을 입고가실지 고민하고 있으신가요?</p>
                 <p>자신의 여자친구, 남자친구를 친한 친구들 한테 소개시켜 줄 때 어떤 옷을 입히고 싶으신가요.</p>
             </ContentContainer>
-            <ManContainer>
-                <img src={ManDoodle} alt='manDoodle' style={{ width: '100%', minWidth: '200px'}} />
-                <Link to="/game">
-                    <StartButton>
-                        MAN
-                    </StartButton>
-                </Link>
-            </ManContainer>
-            <WomanContainer>
-                <img src={WomanDoodle} alt='womanDoodle' style={{ width: '100%', minWidth: '200px'}} />
-                <Link to="/game">
-                    <StartButton>
-                        WOMAN
-                    </StartButton>
-                </Link>
-            </WomanContainer>
+            <ImageContainer>
+                <ManContainer scrollPos={scrollPosition < 66 ? scrollPosition - 66 : 39}>
+                    <img src={ManDoodle} alt='manDoodle' style={{ width: '100%', minWidth: '200px'}} />
+                    <Link to="/game">
+                        <StartButton>
+                            MAN
+                        </StartButton>
+                    </Link>
+                </ManContainer>
+                <WomanContainer scrollPos={scrollPosition < 66 ? scrollPosition - 66 : 39}>
+                    <img src={WomanDoodle} alt='womanDoodle' style={{ width: '100%', minWidth: '200px'}} />
+                    <Link to="/game">
+                        <StartButton>
+                            WOMAN
+                        </StartButton>
+                    </Link>
+                </WomanContainer>
+            </ImageContainer>
         </SelectPageContainer>   
     );
 }

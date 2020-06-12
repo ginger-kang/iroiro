@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Game from './Game';
-
 import { PHOTOS } from '../../query';
 import { Query, Mutation } from 'react-apollo';
 import GameLoading from '../../components/GameLoading';
