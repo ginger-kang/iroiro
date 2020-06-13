@@ -39,8 +39,8 @@ function CreateNickName(){
     
     client.mutate({
       mutation: SET_USER_NICKNAME, variables: { userId: window.sessionStorage.getItem('userId'),userNickName:nickNameState},
-  }).then(res => res)
-    
+  }).then(res => {res;alert("닉네임 변경 완료!")})
+     
   }
     return (
       <div>
