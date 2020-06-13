@@ -4,14 +4,14 @@ import Home from './routes/Home/Home';
 import Game from './routes/Game/GameLogic';
 
 export default function Router() {
-    return (
-        <>
-            <BrowserRouter>
-                <Switch>
-                    <Route path='/' exact component={Home} />
-                    <Route path='/game' component={Game} />                
-                </Switch>
-            </BrowserRouter>
-        </>
-    );
+  return (
+    <>
+      <BrowserRouter>
+        <Switch>
+          <Route path="/" exact component={Home} />
+          <Route path="/game" component={Game} />
+        </Switch>
+      </BrowserRouter>
+    </>
+  );
 }
