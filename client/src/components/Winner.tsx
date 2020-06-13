@@ -98,7 +98,7 @@ function Winner() {
             자신의 스타일을 뽐내보세요
           </span>
           <ImageUploadContainer
-            scrollPos={scrollPosition > 66 ? scrollPosition / 11 : 0}
+            scrollPos={scrollPosition > 50 ? scrollPosition / 10 : 0}
           >
             <img
               src={DancingDoodle}

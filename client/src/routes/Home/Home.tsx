@@ -336,6 +336,7 @@ const ScrollController = styled.button`
   transition: 1s ease;
   background: none;
   color: ${(props) => props.theme.textColor};
+  z-index: 300;
 
   &:hover {
     transform: translateY(-10px);
@@ -661,4 +662,3 @@ export default function Home() {
     </>
   );
 }
-
