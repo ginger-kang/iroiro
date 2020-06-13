@@ -618,6 +618,7 @@ export default function Home() {
             {/* 
                         google user info test view
                     */}
+
             <span
               style={{
                 color: `${({ props }: { props: any }) =>
@@ -660,3 +661,4 @@ export default function Home() {
     </>
   );
 }
+
