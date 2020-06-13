@@ -4,19 +4,20 @@ import Modal from 'react-modal';
 import client from '../apollo';
 import {SET_USER_NICKNAME} from '../query';
 const customStyles = {
-  
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)',
-    
-  }
+
+  content: {
+    top: '50%',
+    left: '50%',
+    right: 'auto',
+    bottom: 'auto',
+    marginRight: '-50%',
+    transform: 'translate(-50%, -50%)',
+  },
+
 };
 
 // Make sure to bind modal to your appElement (http://reactcommunity.org/react-modal/accessibility/)
+
 
 
 function CreateNickName(){
@@ -28,10 +29,10 @@ function CreateNickName(){
     setIsOpen(true);
   }
 
-
-  function closeModal(){
+  function closeModal() {
     setIsOpen(false);
   }
+
 
   const setNickname = (event: { preventDefault: () => void; }) =>{
     event.preventDefault();
@@ -61,6 +62,7 @@ function CreateNickName(){
         </Modal>
       </div>
     );
+
 }
 
 export default CreateNickName;
