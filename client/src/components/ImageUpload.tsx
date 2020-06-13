@@ -202,7 +202,7 @@ function ImageUpload() {
                     </PreviewP>
                 </Preview>
                 <Input type='file' id='imageUpload' onChange={handleChange} />
-                <button onClick={handleSubmit}></button>
+                <ImageSubmitButton onClick={handleSubmit}>업로드</ImageSubmitButton>
             </Upload>
 
         </FileUploadContainer>
