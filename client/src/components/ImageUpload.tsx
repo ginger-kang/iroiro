@@ -141,7 +141,7 @@ function ImageUpload() {
                         alert("이미지 업로드 성공")                        
                     })
                     .catch(function (error) {
-                        console.log(error);
+                        alert("업로드 실패")
                     });
             }
         })}else{
