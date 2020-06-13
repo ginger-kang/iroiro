@@ -153,7 +153,7 @@ function SelectMenu() {
       </ContentContainer>
       <ImageContainer>
         <ManContainer
-          scrollPos={scrollPosition < 66 ? scrollPosition - 66 : 39}
+          scrollPos={scrollPosition < 50 ? scrollPosition - 50 : 39}
         >
           <img
             src={ManDoodle}
@@ -165,7 +165,7 @@ function SelectMenu() {
           </Link>
         </ManContainer>
         <WomanContainer
-          scrollPos={scrollPosition < 66 ? scrollPosition - 66 : 39}
+          scrollPos={scrollPosition < 50 ? scrollPosition - 50 : 39}
         >
           <img
             src={WomanDoodle}
