@@ -20,6 +20,7 @@ const {
   GraphQLObjectType,
   GraphQLList,
   GraphQLSchema,
+  GraphQLInt,
 } = require("graphql");
 
 const UserType = new GraphQLObjectType({
@@ -39,6 +40,7 @@ const PhotoType = new GraphQLObjectType({
     owner: { type: GraphQLString },
     uploadDate: { type: GraphQLString },
     originalname: { type: GraphQLString },
+    round:{type: GraphQLInt}
   }),
 });
 
@@ -97,6 +99,22 @@ const RootQuery = new GraphQLObjectType({
           .then((res) => res.Item);
       },
     },
+    Contest:{
+      type: new GraphQLList(PhotoType),
+      args:{
+        round: {type: GraphQLInt},
+      },
+      resolve(parent,args){
+        var params = {
+          TableName : 'Contest',
+          FilterExpression : 'round = :round',
+          ExpressionAttributeValues : {':round' : args.round}
+        };
+        
+        
+        return db.scan(params).promise().then((res)=>res.Items);
+      }
+    }
   },
 });
 

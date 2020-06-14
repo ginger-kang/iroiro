@@ -18,6 +18,16 @@ export const USER_EXIST = gql`
   }
 `;
 
+
+export const CONTEST = gql`
+  query getContest($round: Int!){
+    Contest(round: $round){
+      url
+      owner
+    }
+  }
+  `;
+
 export const CREATE_USER = gql`
   mutation CreateUser(
     $userId: String!
