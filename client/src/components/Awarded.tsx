@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import ImageData from '../routes/Game/DataTemp';
-
+import Contest from './Contest'
 const AwardedContainer = styled.section`
   width: 100%;
   height: 105vh;
@@ -148,30 +148,8 @@ function Awarded() {
       <NextRoundButton onClick={rightButtonClick}>
         <AiOutlineRight size={40} />
       </NextRoundButton>
-      <WinnersContainer>
-        <ManWinner>
-          <img src={ImageData[1].url} alt="1st" />
-          <span
-            style={{
-              color: `${({ props }: { props: any }) => props.theme.textColor}`,
-              fontSize: '1.5vw',
-            }}
-          >
-            @yokota.mayuu
-          </span>
-        </ManWinner>
-        <WomanWinner>
-          <img src={ImageData[11].url} alt="2st" />
-          <span
-            style={{
-              color: `${({ props }: { props: any }) => props.theme.textColor}`,
-              fontSize: '1.5vw',
-            }}
-          >
-            @yokota.mayuu
-          </span>
-        </WomanWinner>
-      </WinnersContainer>
+      <Contest/>
+      
     </AwardedContainer>
   );
 }

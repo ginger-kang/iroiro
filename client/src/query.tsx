@@ -21,8 +21,9 @@ export const USER_EXIST = gql`
 
 export const CONTEST = gql`
   query getContest($round: Int!){
-    Photos(round: $round){
+    Contest(round: $round){
       url
+      owner
     }
   }
   `;
