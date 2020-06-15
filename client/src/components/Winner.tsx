@@ -73,7 +73,7 @@ const BottomLineContainer = styled.div`
 
 function Winner() {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
-
+  
   useEffect(() => {
     window.addEventListener('scroll', getCurrentScroll);
   });

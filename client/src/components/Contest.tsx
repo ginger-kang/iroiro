@@ -55,21 +55,20 @@ const WomanWinner = styled.div`
   align-items: center;
 `;
 function Contest() {
- 
+  
+
     const { loading, error, data } = useQuery(CONTEST, {
         variables: { round:1 },        
-        pollInterval: 500,
+        
       });
-    
+      console.log('contest')
         if (loading) {
           return <GameLoading />;
         }
         if (error) {
           return <ErrorPage />;
         }
-        if (data) {
-          console.log(data.Contest[0]);
-        } 
+        
     
         return (
             <WinnersContainer>

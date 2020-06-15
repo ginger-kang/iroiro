@@ -79,8 +79,8 @@ const PreviewP = styled('div')<PrevImageProps>`
 `;
 
 const ImageSubmitButton = styled.button`
-  width: 10vw;
-  height: 3vw;
+  width: 6vw;
+  height: 2vw;
   padding: 5px;
   border-radius: 6px;
   color: ${(props) => props.theme.bgColor};
@@ -202,7 +202,7 @@ function ImageUpload() {
                     </PreviewP>
                 </Preview>
                 <Input type='file' id='imageUpload' onChange={handleChange} />
-                <ImageSubmitButton onClick={handleSubmit}>업로드</ImageSubmitButton>
+                <ImageSubmitButton onClick={handleSubmit}>Upload</ImageSubmitButton>
             </Upload>
 
         </FileUploadContainer>
