@@ -10,8 +10,8 @@ import client from '../../apollo';
 import SittingDoodle from '../../Images/doodle/GroovySittingDoodlee.svg';
 import { AiFillRocket, AiOutlineClose } from 'react-icons/ai';
 import CreateNickName from '../../components/CreateUser';
-import loginIcon from '../../Images/loginIcon.png'
-import welcomeIcon from '../../Images/welcomeIcon.png'
+import loginIcon from '../../Images/loginIcon.png';
+import welcomeIcon from '../../Images/welcomeIcon.png';
 import theme from '../../theme';
 import Awarded from '../../components/Awarded';
 
@@ -39,11 +39,10 @@ const LoginNavContainer = styled.nav`
 `;
 
 const LoginButton = styled.button`
-  
   position: fixed;
   bottom: 10px;
   right: 10px;
-  width: 7vw;
+  width: 9vw;
   height: 3vw;
   min-width: 60px;
   min-height: 25px;
@@ -56,9 +55,8 @@ const LoginButton = styled.button`
   transition: all 0.1s ease;
   z-index: 300;
   cursor: pointer;
-  
-  background: transparent;
-  color: transparent;
+  background: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.bgColor};
 
   &:hover {
     background: ${(props) => props.theme.pointColor};
@@ -250,11 +248,11 @@ const ContentContatiner = styled.p`
 `;
 
 const LogoutButton = styled.div`
-  
   position: fixed;
   bottom: 10px;
   right: 10px;
   width: 9vw;
+  height: 3vw;
   min-width: 60px;
   min-height: 25px;
   padding: 9px;
@@ -470,12 +468,12 @@ export default function Home() {
               fontSize: '18px',
             }}
           >
-            <img src={welcomeIcon}></img> {userSocialName}!
+            Hello {userSocialName}!
           </span>
         </LoginNavContainer>
         {isLoggedIn === null ? (
           <LoginButton onClick={() => setLoginButtonClick(!loginButtonClick)}>
-            <img src={loginIcon} />
+            로그인
           </LoginButton>
         ) : (
           <LogoutButton
