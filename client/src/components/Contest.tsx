@@ -55,49 +55,46 @@ const WomanWinner = styled.div`
   align-items: center;
 `;
 function Contest() {
- 
-    const { loading, error, data } = useQuery(CONTEST, {
-        variables: { round:1 },        
-        pollInterval: 500,
-      });
-    
-        if (loading) {
-          return <GameLoading />;
-        }
-        if (error) {
-          return <ErrorPage />;
-        }
-        if (data) {
-          console.log(data.Contest[0]);
-        } 
-    
-        return (
-            <WinnersContainer>
-            <ManWinner>
-              <img src={data.Contest[0].url} alt="1st" />
-              <span
-                style={{
-                  color: `${({ props }: { props: any }) => props.theme.textColor}`,
-                  fontSize: '1.5vw',
-                }}
-              >
-                @{data.Contest[0].owner}
-              </span>
-            </ManWinner>
-            <WomanWinner>
-              <img src={data.Contest[0].url} alt="2st" />
-              <span
-                style={{
-                  color: `${({ props }: { props: any }) => props.theme.textColor}`,
-                  fontSize: '1.5vw',
-                }}
-              >
-                @{data.Contest[0].owner}
-              </span>
-            </WomanWinner>
-          </WinnersContainer>
-        );
-      
+  const { loading, error, data } = useQuery(CONTEST, {
+    variables: { round: 1 },
+  });
+
+  if (loading) {
+    return <GameLoading />;
+  }
+  if (error) {
+    return <ErrorPage />;
+  }
+  if (data) {
+    console.log(data.Contest[0]);
+  }
+
+  return (
+    <WinnersContainer>
+      <ManWinner>
+        <img src={data.Contest[0].url} alt="1st" />
+        <span
+          style={{
+            color: `${({ props }: { props: any }) => props.theme.textColor}`,
+            fontSize: '1.5vw',
+          }}
+        >
+          @{data.Contest[0].owner}
+        </span>
+      </ManWinner>
+      <WomanWinner>
+        <img src={data.Contest[0].url} alt="2st" />
+        <span
+          style={{
+            color: `${({ props }: { props: any }) => props.theme.textColor}`,
+            fontSize: '1.5vw',
+          }}
+        >
+          @{data.Contest[0].owner}
+        </span>
+      </WomanWinner>
+    </WinnersContainer>
+  );
 }
 
 export default Contest;

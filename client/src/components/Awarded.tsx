@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import ImageData from '../routes/Game/DataTemp';
-import Contest from './Contest'
+import Contest from './Contest';
 const AwardedContainer = styled.section`
   width: 100%;
   height: 105vh;
@@ -118,7 +118,6 @@ function Awarded() {
     } else {
       setRoundIndex(roundIndex - 1);
     }
-    console.log(roundIndex);
   };
 
   const rightButtonClick = () => {
@@ -127,7 +126,6 @@ function Awarded() {
     } else {
       setRoundIndex(roundIndex + 1);
     }
-    console.log(roundIndex);
   };
 
   return (
@@ -148,8 +146,7 @@ function Awarded() {
       <NextRoundButton onClick={rightButtonClick}>
         <AiOutlineRight size={40} />
       </NextRoundButton>
-      <Contest/>
-      
+      <Contest />
     </AwardedContainer>
   );
 }

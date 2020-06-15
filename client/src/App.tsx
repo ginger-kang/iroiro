@@ -85,8 +85,6 @@ function App() {
   const isLight = theme === 'light';
 
   const toggleTheme = () => {
-    console.log(theme);
-    console.log(isLight);
     if (theme === 'light') {
       setTheme('dark');
     } else {
