@@ -14,6 +14,7 @@ AWS.config.apiVersions = {
   dynamodb: "latest",
 };
 var db = new AWS.DynamoDB.DocumentClient();
+console.log(AWS.config);
 
 const {
   GraphQLString,
@@ -40,7 +41,7 @@ const PhotoType = new GraphQLObjectType({
     owner: { type: GraphQLString },
     uploadDate: { type: GraphQLString },
     originalname: { type: GraphQLString },
-    round:{type: GraphQLInt}
+    round: { type: GraphQLInt },
   }),
 });
 
@@ -99,22 +100,24 @@ const RootQuery = new GraphQLObjectType({
           .then((res) => res.Item);
       },
     },
-    Contest:{
+    Contest: {
       type: new GraphQLList(PhotoType),
-      args:{
-        round: {type: GraphQLInt},
+      args: {
+        round: { type: GraphQLInt },
       },
-      resolve(parent,args){
+      resolve(parent, args) {
         var params = {
-          TableName : 'Contest',
-          FilterExpression : 'round = :round',
-          ExpressionAttributeValues : {':round' : args.round}
+          TableName: "Contest",
+          FilterExpression: "round = :round",
+          ExpressionAttributeValues: { ":round": args.round },
         };
-        
-        
-        return db.scan(params).promise().then((res)=>res.Items);
-      }
-    }
+
+        return db
+          .scan(params)
+          .promise()
+          .then((res) => res.Items);
+      },
+    },
   },
 });
 
@@ -143,35 +146,32 @@ const RootMutation = new GraphQLObjectType({
           .then((res) => console.log(res));
       },
     },
-    SetUserNickName:{
+    SetUserNickName: {
       type: UserType,
-      args:{
-        userId : {type : GraphQLString},
-        userNickName:{type:GraphQLString}
+      args: {
+        userId: { type: GraphQLString },
+        userNickName: { type: GraphQLString },
       },
-      resolve(parent,args){
-          params = {
-          TableName:"Users",
-          Key:{
-            'userId': args.userId,
-              
+      resolve(parent, args) {
+        params = {
+          TableName: "Users",
+          Key: {
+            userId: args.userId,
           },
           UpdateExpression: "set userNickName= :N",
-          ExpressionAttributeValues:{
-              ":N":args.userNickName,              
-              
+          ExpressionAttributeValues: {
+            ":N": args.userNickName,
           },
-          ReturnValues:"UPDATED_NEW"
-      };
-        return db.update(params,function(err,data){
-           if(err){
-             console.log("Update Nickname Error")
-           }else{
-             console.log("Nickname update Success")
-           }
-         })   
-      }
-
+          ReturnValues: "UPDATED_NEW",
+        };
+        return db.update(params, function (err, data) {
+          if (err) {
+            console.log("Update Nickname Error");
+          } else {
+            console.log("Nickname update Success");
+          }
+        });
+      },
     },
     UploadPhoto: {
       type: PhotoType,

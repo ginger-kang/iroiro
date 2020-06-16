@@ -79,8 +79,8 @@ const PreviewP = styled('div')<PrevImageProps>`
 `;
 
 const ImageSubmitButton = styled.button`
-  width: 6vw;
-  height: 2vw;
+  width: 10vw;
+  height: 3vw;
   padding: 5px;
   border-radius: 6px;
   color: ${(props) => props.theme.bgColor};
@@ -130,84 +130,99 @@ interface PrevImageProps {
 }
 
 function ImageUpload() {
+  const [userName, setUserName] = useState('');
+  const [uploadedFile, setUploadedFile] = useState({
+    url: '',
+    raw: '',
+    name: '',
+  });
+  //It sends a request to upload to the server by storing the file object in the state
+  //Post request to server when submitted
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    let userId = window.sessionStorage.getItem('userId');
+    if (userId != null) {
+      client
+        .query({
+          query: USER_EXIST,
+          variables: { userId: window.sessionStorage.getItem('userId') },
+        })
+        .then((res) => {
+          if (res.data.User != null) {
+            var today = new Date();
+            var date =
+              today.getFullYear() +
+              ':' +
+              (today.getMonth() + 1) +
+              ':' +
+              today.getDate() +
+              ':' +
+              today.getHours() +
+              ':' +
+              today.getMinutes() +
+              ':' +
+              today.getSeconds();
+            var originalname = uploadedFile.name;
+            var imageData = new FormData();
+            imageData.append('image', uploadedFile.raw);
+            imageData.append('imageId', date + '-' + originalname);
 
+            client.mutate({
+              variables: {
+                owner: window.sessionStorage.getItem('userName'),
+                category: 'temp',
+                originalname: originalname,
+                uploadDate: date,
+              },
+              mutation: UPLOAD_PHOTO,
+            });
 
-    const [userName,setUserName] = useState("");
-    const [uploadedFile, setUploadedFile] = useState({ url: "", raw: "", name: "" });
-    //It sends a request to upload to the server by storing the file object in the state
-    //Post request to server when submitted 
-    const handleSubmit = async (e: { preventDefault: () => void; }) => {
-        let userId = window.sessionStorage.getItem('userId');
-        if(userId!=null){
-        client.query({
-            query: USER_EXIST, variables: { userId: window.sessionStorage.getItem('userId') },
-        }).then(res => {
-            if (res.data.User != null) {
-                var today = new Date();
-                var date = today.getFullYear() + ":" + (today.getMonth()+1) + ":" + today.getDate() + ":" + today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-                var originalname = uploadedFile.name
-                var imageData = new FormData();
-                imageData.append("image", uploadedFile.raw)
-                imageData.append("imageId", date+"-"+originalname)
-                  
-                client.mutate({
-                    variables: { owner: window.sessionStorage.getItem('userName'), category: "temp", originalname: originalname, uploadDate: date },
-                    mutation: UPLOAD_PHOTO,
-                });
+            const config = {
+              headers: { 'Content-type': 'multipart/form-data' },
+            };
 
-                const config = {     
-                    headers: { 'Content-type': 'multipart/form-data' }
-                }
-                
-                axios.post('/upload', imageData,config)
-                    .then(function (response) {
-                        alert("이미지 업로드 성공")                        
-                    })
-                    .catch(function (error) {
-                        alert("업로드 실패")
-                    });
-            }
-        })}else{
-            alert("로그인 해주세요!")
-        }
-
-
-
-    };
-
-    const handleClick = (e: any) => {
-        //console.log(e.target);
-    };
-
-    const handleChange = (e: any) => {
-
-        var file = e.target.files[0]
-
-
-        setUploadedFile({
-            url: URL.createObjectURL(file),
-            raw: file,
-            name: file.name
+            axios
+              .post('/upload', imageData, config)
+              .then(function (response) {
+                alert('이미지 업로드 성공');
+              })
+              .catch(function (error) {
+                alert('업로드 실패');
+              });
+          }
         });
+    } else {
+      alert('로그인 해주세요!');
+    }
+  };
 
-    };
+  const handleClick = (e: any) => {
+    //console.log(e.target);
+  };
 
-    const uploadInput = useRef(null);
-    return (
-        <FileUploadContainer>
-            <Upload>
-                <Preview htmlFor='imageUpload'>
-                    <PreviewP id="imagePreview" url={uploadedFile.url}>
-                        <AiOutlineUpload size={50} />
-                    </PreviewP>
-                </Preview>
-                <Input type='file' id='imageUpload' onChange={handleChange} />
-                <ImageSubmitButton onClick={handleSubmit}>Upload</ImageSubmitButton>
-            </Upload>
+  const handleChange = (e: any) => {
+    var file = e.target.files[0];
 
-        </FileUploadContainer>
-    );
+    setUploadedFile({
+      url: URL.createObjectURL(file),
+      raw: file,
+      name: file.name,
+    });
+  };
 
+  const uploadInput = useRef(null);
+  return (
+    <FileUploadContainer>
+      <Upload>
+        <Preview htmlFor="imageUpload">
+          <PreviewP id="imagePreview" url={uploadedFile.url}>
+            <AiOutlineUpload size={50} />
+          </PreviewP>
+        </Preview>
+        <Input type="file" id="imageUpload" onChange={handleChange} />
+        <ImageSubmitButton onClick={handleSubmit}>Upload</ImageSubmitButton>
+      </Upload>
+    </FileUploadContainer>
+  );
 }
 
 export default ImageUpload;
