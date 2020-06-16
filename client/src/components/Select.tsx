@@ -191,7 +191,7 @@ function SelectMenu() {
             x2="158.994"
             y2="1.04821"
             stroke="#242CE3"
-            stroke-width="2"
+            strokeWidth="2"
           />
         </svg>
       </BottomLineContainer>
