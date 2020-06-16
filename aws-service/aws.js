@@ -12,16 +12,7 @@ AWS.config.accessKeyId = process.env.aws_access_key_id;
 AWS.config.secretAccessKey = process.env.aws_secret_access_key;
 AWS.config.region = process.env.region;
 
-/*AWS.config.getCredentials(function(err) {
-    
-    if (err) console.log(err.stack);
-    // credentials not loaded
-    else {
-      console.log("Access key:", AWS.config.credentials.accessKeyId);
-      console.log("Secret access key:", AWS.config.credentials.secretAccessKey);
-      console.log("Secret access key:", AWS.config.credentials.region);
-    }
-  });*/
+
 
 AWS.config.apiVersions = {
   //dynamodb: '2011-12-05',
@@ -58,22 +49,7 @@ var date =
   today.getMinutes() +
   ":" +
   today.getSeconds();
-let upload = multer({
-  storage: multerS3({
-    s3: s3,
-    bucket: "showmethestyle.com/temp",
-    metadata: function (req, file, cb) {
-      console.log(req.params);
-      cb(null, Object.assign({}, req.body));
-    },
-    key: function (req, file, cb) {
-      let extension = file.originalname + "-" + date;
 
-      cb(null, extension);
-    },
-    acl: "public-read-write",
-  }),
-});
 
 router.route("/upload").post((req, res, next) => {
   const form = new formidable.IncomingForm();

@@ -111,7 +111,7 @@ const WomanWinner = styled.div`
 
 function Awarded() {
   const [roundIndex, setRoundIndex] = useState(0);
-
+  console.log('aarded')
   const leftButtonClick = () => {
     if (roundIndex === 0) {
       setRoundIndex(2);

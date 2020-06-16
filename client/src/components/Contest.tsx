@@ -66,7 +66,7 @@ function Contest() {
     return <ErrorPage />;
   }
   if (data) {
-    console.log(data.Contest[0]);
+    console.log("contestdata",data.Contest[0]);
   }
 
   return (

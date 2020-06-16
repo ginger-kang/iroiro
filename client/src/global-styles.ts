@@ -3,14 +3,17 @@ import reset from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
     ${reset}
+   
     * {
         box-sizing: border-box;
+        
     }
     body {
         transition: all 0.25s linear;
         color: ${({ theme }: { theme: any }) => theme.textColor};
     }
     button { 
+        
         cursor: pointer;
         border: none;
         outline: none;

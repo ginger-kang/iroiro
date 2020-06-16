@@ -55,9 +55,15 @@ const LoginButton = styled.button`
   transition: all 0.1s ease;
   z-index: 300;
   cursor: pointer;
+<<<<<<< HEAD
+  
+  background: transparent;
+  color: transparent;
+=======
   background: ${(props) => props.theme.textColor};
   color: ${(props) => props.theme.bgColor};
 
+>>>>>>> 1dcf0c42a1623092e205d3ce6ad98c3dca3fe0c5
   &:hover {
     background: ${(props) => props.theme.pointColor};
     color: white;
@@ -92,10 +98,8 @@ const LoginBox = styled('div')<LoginBoxProps>`
   align-items: center;
   z-index: 10000;
   transform: translateX(-50%) translateY(-50%) scale(1.05);
-
   & button {
     transition: all 0.2s ease;
-
     &:hover {
       -ms-transform: scale(1.05);
       -webkit-transform: scale(1.05);
@@ -140,13 +144,11 @@ const HomeContentContainer = styled('div')<scrollPercentage>`
   z-index: 1;
   align-items: center;
   transition: all 1s ease;
-
   & img {
     will-change: transform;
     transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
       rotateY(0deg) rotateZ(${({ scrollPos }) => scrollPos}deg) skew(0deg, 0deg);
     transform-style: preserve-3d;
-
     transition: all 1.5s ease;
   }
 `;
@@ -161,16 +163,13 @@ const HomeContentContainer = styled('div')<scrollPercentage>`
 
 const MainTitleImage = styled.div`
   font-size: 7vw;
-
   & svg {
     animation: fill 0.5s ease forwards 4.5s;
     width: 50vw;
     height: 10vw;
-
     & path {
       stroke: ${(props) => props.theme.textColor};
     }
-
     & path:nth-child(1) {
       stroke-dasharray: 217px;
       stroke-dashoffset: 217px;
@@ -221,13 +220,11 @@ const MainTitleImage = styled.div`
       stroke-dashoffset: 477px;
       animation: line-anim 2s ease forwards 2.7s;
     }
-
     @keyframes line-anim {
       to {
         stroke-dashoffset: 0;
       }
     }
-
     @keyframes fill {
       from {
         fill: transparent;
@@ -267,7 +264,6 @@ const LogoutButton = styled.div`
   cursor: pointer;
   background: ${(props) => props.theme.textColor};
   color: ${(props) => props.theme.bgColor};
-
   &:hover {
     background: ${(props) => props.theme.pointColor};
     color: white;
@@ -312,7 +308,6 @@ const LogoutButtonContainer = styled.div`
   width: 100%;
   height: 30%;
   margin-top: 20px;
-
   & button {
     transition: all 0.2s ease;
     background: none;
@@ -323,7 +318,6 @@ const LogoutButtonContainer = styled.div`
     font-size: 16px;
     border-radius: 6px;
     background: ${(props) => props.theme.pointColor};
-
     &:hover {
       background: #072ea7;
     }
@@ -339,7 +333,6 @@ const ScrollController = styled.button`
   background: none;
   color: ${(props) => props.theme.textColor};
   z-index: 300;
-
   &:hover {
     transform: translateY(-10px);
   }
@@ -350,9 +343,7 @@ const BottomLineContainer = styled.div`
   left: 50%;
   bottom: 0;
   transition: 0.1s ease;
-
   transform: translateX(-50%);
-
   & svg {
     & line {
       stroke: ${(props) => props.theme.borderColor};
@@ -377,7 +368,7 @@ export default function Home() {
 
   useEffect(() => {
     setisLoggedIn(window.sessionStorage.getItem('userId'));
-    window.addEventListener('scroll', getCurrentScroll);
+    //window.addEventListener('scroll', getCurrentScroll);
   });
 
   console.log(userSocialId, userSocialName, provider);
@@ -386,7 +377,7 @@ export default function Home() {
   const responseLogin = (response: any, tempProvider: any) => {
     let userIdForQuery: any;
     let userNameForQuery: any;
-
+    console.log("responseLogin")
     if (tempProvider == 'google') {
       userIdForQuery = response.googleId;
       userNameForQuery = response.profileObj.name;
