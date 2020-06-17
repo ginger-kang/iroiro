@@ -8,9 +8,7 @@ var bodyParser = require("body-parser");
 const formidable = require("formidable");
 var fs = require("fs");
 
-AWS.config.accessKeyId = process.env.aws_access_key_id;
-AWS.config.secretAccessKey = process.env.aws_secret_access_key;
-AWS.config.region = process.env.region;
+
 
 
 

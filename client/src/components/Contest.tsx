@@ -4,7 +4,7 @@ import { CONTEST } from '../query';
 import { useQuery } from '@apollo/react-hooks';
 import GameLoading from './GameLoading';
 import ErrorPage from './ErrorPage';
-
+import instagram from '../Images/instagram.png'
 const WinnersContainer = styled('div')`
   width: 70%;
   height: 60%;
@@ -13,14 +13,14 @@ const WinnersContainer = styled('div')`
   justify-content: space-evenly;
   overflow: hidden;
   color: ${(props) => props.theme.textColor};
-
+  
   & img {
     width: 16vw;
     height: 16vw;
     margin: 25px 0;
     border-radius: 10px;
-    min-width: 150px;
-    min-height: 150px;
+    min-width: 10px;
+    min-height: 10px;
     transition: all 0.5s ease;
     cursor: pointer;
 
@@ -58,7 +58,7 @@ function Contest() {
   const { loading, error, data } = useQuery(CONTEST, {
     variables: { round: 1 },
   });
-
+  let url=""
   if (loading) {
     return <GameLoading />;
   }
@@ -67,6 +67,7 @@ function Contest() {
   }
   if (data) {
     console.log("contestdata",data.Contest[0]);
+    url = "https://www.instagram.com/"+data.Contest[0].instagram;
   }
 
   return (
@@ -80,6 +81,7 @@ function Contest() {
           }}
         >
           @{data.Contest[0].owner}
+          <a href={"https://instagram.com/"+data.Contest[0].instagram}><img src={instagram} alt="instagram" style={{width:'23px' ,height:'23px',margin:'0'}}/></a>
         </span>
       </ManWinner>
       <WomanWinner>
@@ -91,6 +93,7 @@ function Contest() {
           }}
         >
           @{data.Contest[0].owner}
+          <a href={"https://instagram.com/"+data.Contest[0].instagram}><img src={instagram} alt="instagram" style={{width:'23px' ,height:'23px',margin:'0'}}/></a>
         </span>
       </WomanWinner>
     </WinnersContainer>
