@@ -23,6 +23,7 @@ export const CONTEST = gql`
     Contest(round: $round) {
       url
       owner
+      instagram
     }
   }
 `;
@@ -32,15 +33,18 @@ export const CREATE_USER = gql`
     $userId: String!
     $userName: String!
     $userNickName: String!
+    $userInstagram: String!
   ) {
     CreateUser(
       userId: $userId
       userName: $userName
       userNickName: $userNickName
+      userInstagram: $userInstagram
     ) {
       userId
       userName
       userNickName
+      userInstagram
     }
   }
 `;
@@ -59,7 +63,7 @@ export const UPLOAD_PHOTO = gql`
     $owner: String!
     $category: String!
     $originalname: String!
-    $uploadDate: String!
+    $uploadDate: String!    
   ) {
     UploadPhoto(
       owner: $owner

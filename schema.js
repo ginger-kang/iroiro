@@ -7,14 +7,13 @@ const multerS3 = require("multer-s3");
 AWS.config.accessKeyId = process.env.aws_access_key_id;
 AWS.config.secretAccessKey = process.env.aws_secret_access_key;
 AWS.config.region = process.env.region;
-
+  
 AWS.config.apiVersions = {
   //dynamodb: '2011-12-05',
   //ec2: '2013-02-01',
   dynamodb: "latest",
 };
 var db = new AWS.DynamoDB.DocumentClient();
-console.log(AWS.config);
 
 const {
   GraphQLString,
@@ -30,6 +29,7 @@ const UserType = new GraphQLObjectType({
     userId: { type: GraphQLString },
     userName: { type: GraphQLString },
     userNickName: { type: GraphQLString },
+    userInstagram: { type: GraphQLString },
   }),
 });
 const PhotoType = new GraphQLObjectType({
@@ -41,7 +41,10 @@ const PhotoType = new GraphQLObjectType({
     owner: { type: GraphQLString },
     uploadDate: { type: GraphQLString },
     originalname: { type: GraphQLString },
-    round: { type: GraphQLInt },
+
+    round:{type: GraphQLInt},
+    instagram:{ type: GraphQLString },
+
   }),
 });
 
@@ -130,6 +133,7 @@ const RootMutation = new GraphQLObjectType({
         userId: { type: GraphQLString },
         userName: { type: GraphQLString },
         userNickName: { type: GraphQLString },
+        userInstagram: { type: GraphQLString },
       },
       resolve(parent, args) {
         params = {
@@ -138,6 +142,7 @@ const RootMutation = new GraphQLObjectType({
             userId: args.userId,
             userName: args.userName,
             userNickName: args.userNickName,
+            userInstagram:args.userInstagram
           },
         };
         return db
