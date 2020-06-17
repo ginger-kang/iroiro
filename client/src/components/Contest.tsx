@@ -4,7 +4,7 @@ import { CONTEST } from '../query';
 import { useQuery } from '@apollo/react-hooks';
 import GameLoading from './GameLoading';
 import ErrorPage from './ErrorPage';
-import instagram from '../Images/instagram.png'
+import instagram from '../Images/instagram.png';
 const WinnersContainer = styled('div')`
   width: 70%;
   height: 60%;
@@ -13,7 +13,7 @@ const WinnersContainer = styled('div')`
   justify-content: space-evenly;
   overflow: hidden;
   color: ${(props) => props.theme.textColor};
-  
+
   & img {
     width: 16vw;
     height: 16vw;
@@ -58,7 +58,7 @@ function Contest() {
   const { loading, error, data } = useQuery(CONTEST, {
     variables: { round: 1 },
   });
-  let url=""
+  let url = '';
   if (loading) {
     return <GameLoading />;
   }
@@ -66,8 +66,8 @@ function Contest() {
     return <ErrorPage />;
   }
   if (data) {
-    console.log("contestdata",data.Contest[0]);
-    url = "https://www.instagram.com/"+data.Contest[0].instagram;
+    console.log('contestdata', data.Contest[0]);
+    url = 'https://www.instagram.com/' + data.Contest[0].instagram;
   }
 
   return (
@@ -78,10 +78,26 @@ function Contest() {
           style={{
             color: `${({ props }: { props: any }) => props.theme.textColor}`,
             fontSize: '1.5vw',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          @{data.Contest[0].owner}
-          <a href={"https://instagram.com/"+data.Contest[0].instagram}><img src={instagram} alt="instagram" style={{width:'23px' ,height:'23px',margin:'0'}}/></a>
+          <a
+            onClick={() =>
+              window.open(
+                'https://instagram.com/' + data.Contest[0].instagram,
+                '_blank',
+              )
+            }
+          >
+            <img
+              src={instagram}
+              alt="instagram"
+              style={{ width: '23px', height: '23px', margin: '0' }}
+            />
+          </a>
+          {data.Contest[0].owner}
         </span>
       </ManWinner>
       <WomanWinner>
@@ -90,10 +106,26 @@ function Contest() {
           style={{
             color: `${({ props }: { props: any }) => props.theme.textColor}`,
             fontSize: '1.5vw',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
-          @{data.Contest[0].owner}
-          <a href={"https://instagram.com/"+data.Contest[0].instagram}><img src={instagram} alt="instagram" style={{width:'23px' ,height:'23px',margin:'0'}}/></a>
+          <a
+            onClick={() =>
+              window.open(
+                'https://instagram.com/' + data.Contest[0].instagram,
+                '_blank',
+              )
+            }
+          >
+            <img
+              src={instagram}
+              alt="instagram"
+              style={{ width: '23px', height: '23px', margin: '0' }}
+            />
+          </a>
+          {data.Contest[0].owner}
         </span>
       </WomanWinner>
     </WinnersContainer>
