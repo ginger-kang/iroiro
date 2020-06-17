@@ -55,15 +55,9 @@ const LoginButton = styled.button`
   transition: all 0.1s ease;
   z-index: 300;
   cursor: pointer;
-<<<<<<< HEAD
-  
-  background: transparent;
-  color: transparent;
-=======
   background: ${(props) => props.theme.textColor};
   color: ${(props) => props.theme.bgColor};
 
->>>>>>> 1dcf0c42a1623092e205d3ce6ad98c3dca3fe0c5
   &:hover {
     background: ${(props) => props.theme.pointColor};
     color: white;
@@ -368,7 +362,7 @@ export default function Home() {
 
   useEffect(() => {
     setisLoggedIn(window.sessionStorage.getItem('userId'));
-    //window.addEventListener('scroll', getCurrentScroll);
+    window.addEventListener('scroll', getCurrentScroll);
   });
 
   console.log(userSocialId, userSocialName, provider);
@@ -377,7 +371,7 @@ export default function Home() {
   const responseLogin = (response: any, tempProvider: any) => {
     let userIdForQuery: any;
     let userNameForQuery: any;
-    console.log("responseLogin")
+    console.log('responseLogin');
     if (tempProvider == 'google') {
       userIdForQuery = response.googleId;
       userNameForQuery = response.profileObj.name;

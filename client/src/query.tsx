@@ -18,16 +18,15 @@ export const USER_EXIST = gql`
   }
 `;
 
-
 export const CONTEST = gql`
-  query getContest($round: Int!){
-    Contest(round: $round){
+  query getContest($round: Int!) {
+    Contest(round: $round) {
       url
       owner
       instagram
     }
   }
-  `;
+`;
 
 export const CREATE_USER = gql`
   mutation CreateUser(
@@ -51,12 +50,12 @@ export const CREATE_USER = gql`
 `;
 
 export const SET_USER_NICKNAME = gql`
-  mutation SetUserNickName($userId: String!,$userNickName: String!) {
-  SetUserNickName(userId: $userId, userNickName:$userNickName) {
-    userId    
-    userNickName
+  mutation SetUserNickName($userId: String!, $userNickName: String!) {
+    SetUserNickName(userId: $userId, userNickName: $userNickName) {
+      userId
+      userNickName
+    }
   }
-}
 `;
 
 export const UPLOAD_PHOTO = gql`
