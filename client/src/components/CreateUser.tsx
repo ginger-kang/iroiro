@@ -142,17 +142,17 @@ function CreateUserInfo() {
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   const [nickNameState, setNicknameState] = React.useState<string>('');
   const [instagramState, setInstagramState] = React.useState<string>('');
-  const [userIdState,setUserIdState] = React.useState<string>(window.sessionStorage.getItem('userId') || '');
-
+  const [userIdState,setUserIdState] = React.useState<string>(window.sessionStorage.getItem('userId') || "a");
+  console.log(userIdState)
   client.query({
     query:USER_EXIST,
     variables:{
       userId:userIdState
     }
   }).then((res)=>{
-    
+    if(res.data.User!=null){
     setInstagramState(res.data.User.userInstagram);
-    setNicknameState(res.data.User.userNickName);
+    setNicknameState(res.data.User.userNickName);}
   });
 
   const setUserInfo = (event: { preventDefault: () => void }) => {
