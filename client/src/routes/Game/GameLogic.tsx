@@ -59,7 +59,6 @@ function GameLogic<lState>() {
       clickResult('LEFT');
     }, 500);
     console.log(clickState);
-    console.log(LeftImageindex, RightImageindex);
   };
 
   const RightClick = () => {
@@ -67,7 +66,6 @@ function GameLogic<lState>() {
     setTimeout(() => {
       clickResult('RIGHT');
     }, 500);
-    console.log(LeftImageindex, RightImageindex);
     console.log(clickState);
   };
 

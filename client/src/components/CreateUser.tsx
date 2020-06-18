@@ -150,7 +150,7 @@ function CreateUserInfo() {
       userId:userIdState
     }
   }).then((res)=>{
-    console.log(res)
+    console.log("aa")
     setInstagramState(res.data.User.userInstagram);
     setNicknameState(res.data.User.userNickName);
   });

@@ -167,7 +167,7 @@ function SelectMenu() {
           <img
             src={ManDoodle}
             alt="manDoodle"
-            style={{ width: '100%', minWidth: '200px' }}
+            style={{ width: '100%', minWidth: '100px' }}
           />
           <Link to="/game">
             <StartButton>MAN</StartButton>
@@ -177,7 +177,7 @@ function SelectMenu() {
           <img
             src={WomanDoodle}
             alt="womanDoodle"
-            style={{ width: '100%', minWidth: '200px' }}
+            style={{ width: '100%', minWidth: '100px' }}
           />
           <Link to="/game">
             <StartButton>WOMAN</StartButton>
