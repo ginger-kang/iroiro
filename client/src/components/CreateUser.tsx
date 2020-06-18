@@ -24,6 +24,7 @@ function CreateNickName(){
   
   const [modalIsOpen,setIsOpen] = React.useState(false);
   const [nickNameState,setNicknameState] = React.useState("");
+  const [instagramState,setInstagramState] = React.useState("");
 
   function openModal() {
     setIsOpen(true);
@@ -41,6 +42,12 @@ function CreateNickName(){
       mutation: SET_USER_NICKNAME, variables: { userId: window.sessionStorage.getItem('userId'),userNickName:nickNameState},
   }).then(res => {res;alert("닉네임 변경 완료!")})
      
+  const setInstagram = (event: { preventDefault: () => void; }) =>{
+    event.preventDefault();
+    
+    client.mutate({
+      mutation: SET_USER_NICKNAME, variables: { userId: window.sessionStorage.getItem('userId'),userNickName:nickNameState},
+  }).then(res => {res;alert("닉네임 변경 완료!")})
   }
     return (
       <div>
@@ -57,6 +64,11 @@ function CreateNickName(){
           <div>닉네임변경해라</div>
           <form onSubmit={setNickname}>
             <input type="text" id="inputNickName" defaultValue="닉네임 설정" onChange={e =>setNicknameState(e.target.value)}/>    
+            <button type="submit">Click</button>         
+          </form>
+          <div>닉네임변경해라</div>
+          <form onSubmit={setInstagram}>
+            <input type="text" id="inputInstagram" defaultValue="닉네임 설정" onChange={e =>setInstagramState(e.target.value)}/>    
             <button type="submit">Click</button>         
           </form>
         </Modal>

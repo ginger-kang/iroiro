@@ -447,7 +447,7 @@ export default function Home() {
               fontSize: '18px',
             }}
           >
-            Hello {userSocialName}!
+            Hi {userSocialName}!
           </span>
         </LoginNavContainer>
         {isLoggedIn === null ? (
