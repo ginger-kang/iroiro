@@ -423,7 +423,9 @@ export default function Home() {
             mutation: CREATE_USER,
           });
         }        
-        window.sessionStorage.setItem('userNickName',res.data.User.userNickName);
+        console.log(res.data)
+        //window.sessionStorage.setItem('userNickName',res.data.User.userNickName);
+        //window.sessionStorage.setItem('userInstagram',res.data.User.userInstagram);
       });
   };
 
@@ -439,6 +441,7 @@ export default function Home() {
       left: 0,
       behavior: 'smooth',
     });
+    
   };
 
   const getCurrentScroll = () => {
@@ -448,17 +451,19 @@ export default function Home() {
       28
     ) {
       setScrollPosition(13);
+      console.log("fir")
     } else if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 <
       28
     ) {
       setScrollPosition(0);
+      console.log("sec")
     }
   };
 
   window.addEventListener('scroll', getCurrentScroll);
-
+  
   return (
     <>
       <HomeContainer>
@@ -533,6 +538,7 @@ export default function Home() {
             </button>
           </LogoutButtonContainer>
         </LogoutBox>
+        
         <HomeContentContainer scrollPos={scrollPosition}>
           {/* <MainImageContainer /> */}
           <img

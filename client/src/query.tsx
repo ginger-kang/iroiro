@@ -15,6 +15,7 @@ export const USER_EXIST = gql`
     User(userId: $userId) {
       userId
       userNickName
+      userInstagram
     }
   }
 `;
