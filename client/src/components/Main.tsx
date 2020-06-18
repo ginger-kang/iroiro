@@ -10,7 +10,8 @@ import { AiFillRocket } from 'react-icons/ai';
 import CreateUserInfo from './CreateUser';
 import { ToastContainer, toast,Flip } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { truncate } from 'fs';
+
+
 
 const HomeContainer = styled('section')`
   height: 100vh;
@@ -522,6 +523,7 @@ function Main() {
           onFailure={(res) => console.log('kakao login fail')}
           getProfile={true}
         />
+        
         <LoginCancelButton
           onClick={() => setLoginButtonClick(!loginButtonClick)}
         />
