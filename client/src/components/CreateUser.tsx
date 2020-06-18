@@ -20,7 +20,7 @@ const customStyles = {
 
 
 
-function CreateNickName(){
+function CreateUserInfo(){
   
   const [modalIsOpen,setIsOpen] = React.useState(false);
   const [nickNameState,setNicknameState] = React.useState("");
@@ -55,12 +55,11 @@ function CreateNickName(){
         >          
           <button onClick={closeModal}>close</button>
           
-          <div>닉네임변경해라</div>
+          <div>닉네임</div>
           <form onSubmit={setUserInfo}>
-            <input type="text" id="inputNickName" defaultValue="닉네임 설정" onChange={e =>setNicknameState(e.target.value)}/>    
-            <button type="submit">Click</button>         
+            <input type="text" id="inputNickName" defaultValue="닉네임 설정" onChange={e =>setNicknameState(e.target.value)}/>                         
           
-          <div>닉네임변경해라</div>
+          <div>인스타계정</div>
           
             <input type="text" id="inputInstagram" defaultValue="인스타 ID" onChange={e =>setInstagramState(e.target.value)}/>    
             <button type="submit">Click</button>         
@@ -71,4 +70,4 @@ function CreateNickName(){
 
 }
 
-export default CreateNickName;
+export default CreateUserInfo;
