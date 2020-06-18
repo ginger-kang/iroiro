@@ -11,7 +11,7 @@ export const lightTheme = {
   secondBgColor: '#ff8d00',
   thirdBgColor: '#9198e5',
   fourthBgColor: '#ff4f4f',
-  modalBgColor: 'rgba(0,0,0,.88)',
+  modalBgColor: 'rgba(10,10,10,.95)',
   textColor: '#000000',
   toggleBorder: '#FFF',
   gradient: 'linear-gradient(#39598A, #79D7ED)',

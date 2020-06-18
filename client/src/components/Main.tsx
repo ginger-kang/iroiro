@@ -23,28 +23,6 @@ const HomeContainer = styled('section')`
   background: ${(props) => props.theme.firstBgColor};
 `;
 
-const LoginNavContainer = styled.nav`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  width: 100%;
-  height: 60px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 500;
-`;
-
-const UserContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 200px;
-  height: 100%;
-`;
-
 const LoginButton = styled.button`
   position: fixed;
   bottom: 10px;
@@ -473,11 +451,6 @@ function Main() {
 
   return (
     <HomeContainer>
-      <LoginNavContainer>
-        <UserContainer>
-          <CreateUserInfo />
-        </UserContainer>
-      </LoginNavContainer>
       {isLoggedIn === null ? (
         <LoginButton onClick={() => setLoginButtonClick(!loginButtonClick)}>
           로그인

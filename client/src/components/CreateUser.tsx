@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import client from '../apollo';
-import { SET_USER_INFO,USER_EXIST } from '../query';
+import { SET_USER_INFO } from '../query';
+import InputUserInfo from './InputUserInfo';
 
 const UserModalContainer = styled.div`
   width: auto;
@@ -66,105 +67,24 @@ const UserModal = styled('div')<UserModalState>`
   transform: translateX(-50%) translateY(-50%) scale(1.05);
 `;
 
-const SubmitButton = styled.button`
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  width: 55px;
-  height: 30px;
-  border-radius: 6px;
-  background: ${(props) => props.theme.pointColor};
-  color: white;
-
-  &:hover {
-    background: #072ea7;
-  }
-`;
-
-const UserInfoForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 80%;
-  height: 50%;
-`;
-
-const InstaContainer = styled.section`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 50%;
-
-  & span {
-    color: white;
-    font-size: 1.1vw;
-    margin-right: 15px;
-  }
-
-  & input {
-    padding: 6px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(190, 190, 190, 0.99);
-    border-radius: 6px;
-    outline: none;
-    color: white;
-  }
-`;
-
-const NickNameContainer = styled.section`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 50%;
-
-  & span {
-    color: white;
-    font-size: 1.1vw;
-    margin-right: 15px;
-  }
-
-  & input {
-    padding: 6px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(190, 190, 190, 0.99);
-    border-radius: 6px;
-    outline: none;
-    color: white;
-  }
-`;
-
 function CreateUserInfo() {
-  const [modalIsOpen, setModalIsOpen] = React.useState(false);
-  const [nickNameState, setNicknameState] = React.useState<string>('');
-  const [instagramState, setInstagramState] = React.useState<string>('');
-  const [userIdState,setUserIdState] = React.useState<string>(window.sessionStorage.getItem('userId') || "a");
-  console.log(userIdState)
-  client.query({
-    query:USER_EXIST,
-    variables:{
-      userId:userIdState
-    }
-  }).then((res)=>{
-    if(res.data.User!=null){
-    setInstagramState(res.data.User.userInstagram);
-    setNicknameState(res.data.User.userNickName);}
-  });
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [userIdState, setUserIdState] = useState<any>(
+    window.sessionStorage.getItem('userId') || '',
+  );
 
-  const setUserInfo = (event: { preventDefault: () => void }) => {
-    event.preventDefault();
-    console.log(nickNameState)
+  const onSubmit = (inputValue: any) => {
+    const { nickname, instagram } = inputValue;
+
+    console.log(nickname);
+    console.log(instagram);
     client
       .mutate({
         mutation: SET_USER_INFO,
         variables: {
           userId: window.sessionStorage.getItem('userId'),
-          userNickName: nickNameState,
-          userInstagram: instagramState,
+          userNickName: nickname,
+          userInstagram: instagram,
         },
       })
       .then((res) => {
@@ -172,6 +92,7 @@ function CreateUserInfo() {
         alert('닉네임 변경 완료!');
       });
   };
+
   return (
     <UserModalContainer>
       <ModalOpenButton onClick={() => setModalIsOpen(!modalIsOpen)}>
@@ -179,25 +100,7 @@ function CreateUserInfo() {
       </ModalOpenButton>
       <UserModal isOpen={modalIsOpen}>
         <ModalCloseButton onClick={() => setModalIsOpen(!modalIsOpen)} />
-        <UserInfoForm onSubmit={setUserInfo}>
-          <NickNameContainer>
-            <span>닉네임</span>
-            <input
-              type="text"
-              placeholder={nickNameState || "닉네임 입력!"}
-              onChange={(e) => setNicknameState(e.target.value)}
-            />
-          </NickNameContainer>
-          <InstaContainer>
-            <span>인스타</span>
-            <input
-              type="text"
-              placeholder={instagramState || "인스타ID 입력!"}
-              onChange={(e) => setInstagramState(e.target.value)}
-            />
-          </InstaContainer>
-          <SubmitButton type="submit">등록</SubmitButton>
-        </UserInfoForm>
+        <InputUserInfo onSubmit={onSubmit} />
       </UserModal>
     </UserModalContainer>
   );
