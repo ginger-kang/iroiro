@@ -64,6 +64,7 @@ function Contest() {
   const { loading, error, data } = useQuery(CONTEST, {
     variables: { round: 1 },
   });
+
   let url = '';
   if (loading) {
     return <GameLoading />;
