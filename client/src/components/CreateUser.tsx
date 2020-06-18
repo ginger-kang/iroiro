@@ -2,7 +2,7 @@ import React from 'react';
 
 import Modal from 'react-modal';
 import client from '../apollo';
-import {SET_USER_NICKNAME} from '../query';
+import {SET_USER_INFO} from '../query';
 const customStyles = {
 
   content: {
@@ -35,20 +35,14 @@ function CreateNickName(){
   }
 
 
-  const setNickname = (event: { preventDefault: () => void; }) =>{
+  const setUserInfo = (event: { preventDefault: () => void; }) =>{
     event.preventDefault();
     
     client.mutate({
-      mutation: SET_USER_NICKNAME, variables: { userId: window.sessionStorage.getItem('userId'),userNickName:nickNameState},
+      mutation: SET_USER_INFO, variables: { userId: window.sessionStorage.getItem('userId'),userNickName:nickNameState,userInstagram:instagramState},
   }).then(res => {res;alert("닉네임 변경 완료!")})
-     
-  const setInstagram = (event: { preventDefault: () => void; }) =>{
-    event.preventDefault();
-    
-    client.mutate({
-      mutation: SET_USER_NICKNAME, variables: { userId: window.sessionStorage.getItem('userId'),userNickName:nickNameState},
-  }).then(res => {res;alert("닉네임 변경 완료!")})
-  }
+}
+  
     return (
       <div>
         <button onClick={openModal}>Open Modal</button>
@@ -62,13 +56,13 @@ function CreateNickName(){
           <button onClick={closeModal}>close</button>
           
           <div>닉네임변경해라</div>
-          <form onSubmit={setNickname}>
+          <form onSubmit={setUserInfo}>
             <input type="text" id="inputNickName" defaultValue="닉네임 설정" onChange={e =>setNicknameState(e.target.value)}/>    
             <button type="submit">Click</button>         
-          </form>
+          
           <div>닉네임변경해라</div>
-          <form onSubmit={setInstagram}>
-            <input type="text" id="inputInstagram" defaultValue="닉네임 설정" onChange={e =>setInstagramState(e.target.value)}/>    
+          
+            <input type="text" id="inputInstagram" defaultValue="인스타 ID" onChange={e =>setInstagramState(e.target.value)}/>    
             <button type="submit">Click</button>         
           </form>
         </Modal>

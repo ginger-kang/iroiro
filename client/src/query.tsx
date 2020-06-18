@@ -49,11 +49,21 @@ export const CREATE_USER = gql`
   }
 `;
 
-export const SET_USER_NICKNAME = gql`
-  mutation SetUserNickName($userId: String!, $userNickName: String!) {
-    SetUserNickName(userId: $userId, userNickName: $userNickName) {
+export const SET_USER_INFO = gql`
+  mutation SetUserInfo($userId: String!, $userNickName: String!, $userInstagram: String!) {
+    SetUserInfo(userId: $userId, userNickName: $userNickName,userInstagram: $userInstagram) {
       userId
       userNickName
+      userInstagram
+    }
+  }
+`;
+
+export const SET_USER_INSTAGRAM = gql`
+  mutation SetUserInstagram($userId: String!, $userInstagram: String!) {
+    SetUserInstagram(userId: $userId, userInstagram: $userInstagram) {
+      userId
+      userInstagram
     }
   }
 `;
