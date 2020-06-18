@@ -34,16 +34,9 @@ const ImageUploadContainer = styled('div')<scrollPosition>`
 
   & img {
     will-change: transform;
-    transform: translate3d(
-        ${({ scrollPos }) => scrollPos - 40}px,
-        ${({ scrollPos }) => scrollPos - 10}px,
-        0px
-      )
-      scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg)
-      skew(${({ scrollPos }) => scrollPos}deg, 0deg);
+    transform: translateX(${({ scrollPos }) => scrollPos}%);
     transform-style: preserve-3d;
-
-    transition: all 1s ease;
+    transition: all 1.7s ease;
   }
 `;
 
@@ -73,17 +66,24 @@ const BottomLineContainer = styled.div`
 
 function Winner() {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
-  
-  useEffect(() => {
-    window.addEventListener('scroll', getCurrentScroll);
-  });
 
   const getCurrentScroll = () => {
-    setScrollPosition(
+    if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-        100,
-    );
+        100 >=
+      60
+    ) {
+      setScrollPosition(0);
+    } else if (
+      ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
+        100 <
+      60
+    ) {
+      setScrollPosition(-150);
+    }
   };
+
+  window.addEventListener('scroll', getCurrentScroll);
 
   return (
     <>
@@ -97,9 +97,7 @@ function Winner() {
           >
             자신의 스타일을 뽐내보세요
           </span>
-          <ImageUploadContainer
-            scrollPos={scrollPosition > 50 ? scrollPosition / 10 : 0}
-          >
+          <ImageUploadContainer scrollPos={scrollPosition}>
             <img
               src={DancingDoodle}
               alt="dancingdoodle"

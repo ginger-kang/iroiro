@@ -123,17 +123,28 @@ function SelectMenu() {
   // let userId = window.sessionStorage.getItem('userId');
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
-  useEffect(() => {
-    window.addEventListener('scroll', getCurrentScroll);
-  });
+  // useEffect(() => {
+  //   window.addEventListener('scroll', getCurrentScroll);
+  // });
 
   const getCurrentScroll = () => {
-    setScrollPosition(
+    if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-        100,
-    );
+        100 >=
+      40
+    ) {
+      setScrollPosition(39);
+    } else if (
+      ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
+        100 <
+      40
+    ) {
+      setScrollPosition(-40);
+    }
   };
-  
+
+  window.addEventListener('scroll', getCurrentScroll);
+
   return (
     <SelectPageContainer>
       <ContentContainer>
@@ -152,9 +163,7 @@ function SelectMenu() {
         </p>
       </ContentContainer>
       <ImageContainer>
-        <ManContainer
-          scrollPos={scrollPosition < 50 ? scrollPosition - 50 : 39}
-        >
+        <ManContainer scrollPos={scrollPosition}>
           <img
             src={ManDoodle}
             alt="manDoodle"
@@ -164,9 +173,7 @@ function SelectMenu() {
             <StartButton>MAN</StartButton>
           </Link>
         </ManContainer>
-        <WomanContainer
-          scrollPos={scrollPosition < 50 ? scrollPosition - 50 : 39}
-        >
+        <WomanContainer scrollPos={scrollPosition}>
           <img
             src={WomanDoodle}
             alt="womanDoodle"

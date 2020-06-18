@@ -14,10 +14,6 @@ const FileUploadContainer = styled.div`
   align-items: center;
 `;
 
-const Edit = styled.div`
-  z-index: 1;
-`;
-
 const Upload = styled.div`
   display: flex;
   flex-direction: column;
@@ -94,37 +90,6 @@ const ImageSubmitButton = styled.button`
   }
 `;
 
-/*const Label = styled.label`
-    for:imageUpload;
-    display: inline-block;
-    width: 34px;
-    height: 34px;
-    margin-bottom: 0;
-    border-radius: 100%;
-    background: #FFFFFF;
-    border: 1px solid transparent;
-    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
-    cursor: pointer;
-    font-weight: normal;
-    transition: all .2s ease-in-out;
-        
-    &:hover {
-        background: #f1f1f1;
-        border-color: #d6d6d6;
-    }
-    &:after {
-        icon: ;
-        font-family: 'fontawesome';
-        color: #757575;
-        position: absolute;
-        top: 10px;
-        left: 0;
-        right: 0;
-        text-align: center;
-        margin: auto;
-    }
-`;
-*/
 interface PrevImageProps {
   url: string;
 }
@@ -210,6 +175,7 @@ function ImageUpload() {
   };
 
   const uploadInput = useRef(null);
+
   return (
     <FileUploadContainer>
       <Upload>
