@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import GameLoading from './GameLoading';
 import ErrorPage from './ErrorPage';
 import instagram from '../Images/instagram.png';
+
 const WinnersContainer = styled('div')`
   width: 70%;
   height: 60%;
@@ -19,8 +20,8 @@ const WinnersContainer = styled('div')`
     height: 16vw;
     margin: 25px 0;
     border-radius: 10px;
-    min-width: 10px;
-    min-height: 10px;
+    min-width: 160px;
+    min-height: 160px;
     transition: all 0.5s ease;
     cursor: pointer;
 
@@ -39,6 +40,10 @@ const WinnersContainer = styled('div')`
       transform: scale(1.08);
     }
   }
+
+  @media screen and (max-width: 710px) {
+    flex-direction: column;
+  }
 `;
 
 const ManWinner = styled.div`
@@ -54,6 +59,7 @@ const WomanWinner = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 function Contest() {
   const { loading, error, data } = useQuery(CONTEST, {
     variables: { round: 1 },
@@ -94,7 +100,13 @@ function Contest() {
             <img
               src={instagram}
               alt="instagram"
-              style={{ width: '23px', height: '23px', margin: '0' }}
+              style={{
+                width: '23px',
+                height: '23px',
+                margin: '0',
+                minWidth: '23px',
+                minHeight: '23px',
+              }}
             />
           </a>
           {data.Contest[0].owner}
@@ -122,7 +134,13 @@ function Contest() {
             <img
               src={instagram}
               alt="instagram"
-              style={{ width: '23px', height: '23px', margin: '0' }}
+              style={{
+                width: '23px',
+                height: '23px',
+                margin: '0',
+                minWidth: '23px',
+                minHeight: '23px',
+              }}
             />
           </a>
           {data.Contest[0].owner}

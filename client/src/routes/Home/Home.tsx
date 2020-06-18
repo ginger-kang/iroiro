@@ -8,11 +8,7 @@ import Winner from '../../components/Winner';
 import { USER_EXIST, PHOTOS, CREATE_USER } from '../../query';
 import client from '../../apollo';
 import SittingDoodle from '../../Images/doodle/GroovySittingDoodlee.svg';
-import { AiFillRocket, AiOutlineClose } from 'react-icons/ai';
-import CreateNickName from '../../components/CreateUser';
-import loginIcon from '../../Images/loginIcon.png';
-import welcomeIcon from '../../Images/welcomeIcon.png';
-import theme from '../../theme';
+import { AiFillRocket } from 'react-icons/ai';
 import Awarded from '../../components/Awarded';
 
 const HomeContainer = styled('section')`

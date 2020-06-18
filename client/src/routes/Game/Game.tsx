@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import arrowIcon from '../../Images/arrowIcon.png';
-import { url } from 'inspector';
-import StyleData from './DataTemp';
 import { AiFillStar } from 'react-icons/ai';
 
 interface NavigationStateProps {

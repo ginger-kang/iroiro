@@ -79,9 +79,9 @@ const PreviewP = styled('div')<PrevImageProps>`
 `;
 
 const ImageSubmitButton = styled.button`
-  width: 10vw;
-  height: 3vw;
-  padding: 5px;
+  width: 8vw;
+  padding: 10px;
+  min-width: 62px;
   border-radius: 6px;
   color: ${(props) => props.theme.bgColor};
   background: ${(props) => props.theme.textColor};

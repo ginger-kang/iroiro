@@ -15,42 +15,6 @@ const AwardedContainer = styled.section`
   position: relative;
 `;
 
-const WinnersContainer = styled('div')`
-  width: 70%;
-  height: 60%;
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
-  overflow: hidden;
-  color: ${(props) => props.theme.textColor};
-
-  & img {
-    width: 16vw;
-    height: 16vw;
-    margin: 25px 0;
-    border-radius: 10px;
-    min-width: 150px;
-    min-height: 150px;
-    transition: all 0.5s ease;
-    cursor: pointer;
-
-    &:hover {
-      -ms-transform: scale(1.05);
-      -webkit-transform: scale(1.05);
-      transform: scale(1.05);
-    }
-  }
-  & button {
-    background: none;
-    transition: all 0.5s ease;
-    &:hover {
-      -ms-transform: scale(1.1);
-      -webkit-transform: scale(1.1);
-      transform: scale(1.08);
-    }
-  }
-`;
-
 const RoundContainer = styled.div`
   width: 100%;
   display: flex;
@@ -70,8 +34,13 @@ const PrevRoundButton = styled.button`
   transition: 0.1s ease;
   height: 8vw;
   width: 3.5vw;
+  min-width: 30px;
   border-radius: 6px;
   transform: translateY(-50%);
+
+  & svg {
+    width: 2vw;
+  }
 
   &:hover {
     color: white;
@@ -86,27 +55,18 @@ const NextRoundButton = styled.button`
   transition: 0.1s ease;
   height: 8vw;
   width: 3.5vw;
+  min-width: 30px;
   border-radius: 6px;
   transform: translateY(-50%);
+
+  & svg {
+    width: 2vw;
+  }
 
   &:hover {
     color: white;
     background: ${(props) => props.theme.pointColor};
   }
-`;
-
-const ManWinner = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-`;
-
-const WomanWinner = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 `;
 
 function Awarded() {
@@ -130,7 +90,7 @@ function Awarded() {
   return (
     <AwardedContainer>
       <PrevRoundButton onClick={leftButtonClick}>
-        <AiOutlineLeft size={40} />
+        <AiOutlineLeft size={27} />
       </PrevRoundButton>
       <RoundContainer>
         <span
@@ -143,7 +103,7 @@ function Awarded() {
         </span>
       </RoundContainer>
       <NextRoundButton onClick={rightButtonClick}>
-        <AiOutlineRight size={40} />
+        <AiOutlineRight size={27} />
       </NextRoundButton>
       <Contest />
     </AwardedContainer>
