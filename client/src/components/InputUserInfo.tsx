@@ -115,12 +115,12 @@ function InputUserInfo({ onSubmit }: inputProps) {
   }
   if (data) {
     console.log(data.User);
-
-    return (
-      <UserInfoForm onSubmit={handleSubmit}>
-        <NickNameContainer>
-          <span>닉네임</span>
-          {/* {data.User.userNickName === '' ? (
+  }
+  return (
+    <UserInfoForm onSubmit={handleSubmit}>
+      <NickNameContainer>
+        <span>닉네임</span>
+        {/* {data.User.userNickName === '' ? (
           <input
             name="nickname"
             placeholder="닉네임"
@@ -128,27 +128,26 @@ function InputUserInfo({ onSubmit }: inputProps) {
             value={nickname}
           />
         ) : ( */}
-          <input
-            name="nickname"
-            defaultValue={data.User.userNickName}
-            onChange={onChange}
-            value={nickname}
-          />
-          {/* )} */}
-        </NickNameContainer>
-        <InstaContainer>
-          <span>인스타</span>
-          <input
-            name="instagram"
-            placeholder="인스타그램"
-            onChange={onChange}
-            value={instagram}
-          />
-        </InstaContainer>
-        <SubmitButton type="submit">등록</SubmitButton>
-      </UserInfoForm>
-    );
-  }
+        <input
+          name="nickname"
+          defaultValue={data.User.userNickName}
+          onChange={onChange}
+          value={nickname}
+        />
+        {/* )} */}
+      </NickNameContainer>
+      <InstaContainer>
+        <span>인스타</span>
+        <input
+          name="instagram"
+          placeholder="인스타그램"
+          onChange={onChange}
+          value={instagram}
+        />
+      </InstaContainer>
+      <SubmitButton type="submit">등록</SubmitButton>
+    </UserInfoForm>
+  );
 }
 
 export default InputUserInfo;
