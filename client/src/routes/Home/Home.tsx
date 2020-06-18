@@ -10,6 +10,7 @@ import client from '../../apollo';
 import SittingDoodle from '../../Images/doodle/GroovySittingDoodlee.svg';
 import { AiFillRocket } from 'react-icons/ai';
 import Awarded from '../../components/Awarded';
+import CreateUserInfo from '../../components/CreateUser';
 
 const HomeContainer = styled('section')`
   height: 100vh;
@@ -32,6 +33,15 @@ const LoginNavContainer = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
+  z-index: 500;
+`;
+
+const UserContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 100%;
 `;
 
 const LoginButton = styled.button`
@@ -104,10 +114,14 @@ const LoginCancelButton = styled.button`
   top: 5px;
   color: white;
   cursor: pointer;
-  background: red;
+  background: white;
   border-radius: 100%;
   width: 15px;
   height: 15px;
+
+  &:hover {
+    background: red;
+  }
 `;
 
 const KakaoButton = styled(KakaoLogin)`
@@ -437,14 +451,9 @@ export default function Home() {
     <>
       <HomeContainer>
         <LoginNavContainer>
-          <span
-            style={{
-              color: `${({ props }: { props: any }) => props.theme.textColor}`,
-              fontSize: '18px',
-            }}
-          >
-            Hi {userSocialName}!
-          </span>
+          <UserContainer>
+            <CreateUserInfo />
+          </UserContainer>
         </LoginNavContainer>
         {isLoggedIn === null ? (
           <LoginButton onClick={() => setLoginButtonClick(!loginButtonClick)}>

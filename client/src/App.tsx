@@ -43,7 +43,7 @@ const DarkModeToggleButton = styled('div')<ToggleProps>`
   overflow: hidden;
   padding: 0.5rem;
   position: absolute;
-  z-index: 500;
+  z-index: 600;
   width: 8vw;
   min-width: 66px;
   min-height: 40px;
