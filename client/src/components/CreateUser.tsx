@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import client from '../apollo';
-import { SET_USER_INFO } from '../query';
+import { SET_USER_INFO,USER_EXIST } from '../query';
 
 const UserModalContainer = styled.div`
   width: auto;
@@ -142,10 +142,22 @@ function CreateUserInfo() {
   const [modalIsOpen, setModalIsOpen] = React.useState(false);
   const [nickNameState, setNicknameState] = React.useState<string>('');
   const [instagramState, setInstagramState] = React.useState<string>('');
+  const [userIdState,setUserIdState] = React.useState<string>(window.sessionStorage.getItem('userId') || '');
+
+  client.query({
+    query:USER_EXIST,
+    variables:{
+      userId:userIdState
+    }
+  }).then((res)=>{
+    console.log("aa")
+    setInstagramState(res.data.User.userInstagram);
+    setNicknameState(res.data.User.userNickName);
+  });
 
   const setUserInfo = (event: { preventDefault: () => void }) => {
     event.preventDefault();
-
+    console.log(nickNameState)
     client
       .mutate({
         mutation: SET_USER_INFO,
@@ -172,7 +184,7 @@ function CreateUserInfo() {
             <span>닉네임</span>
             <input
               type="text"
-              placeholder="닉네임 설정"
+              placeholder={nickNameState || "닉네임 입력!"}
               onChange={(e) => setNicknameState(e.target.value)}
             />
           </NickNameContainer>
@@ -180,7 +192,7 @@ function CreateUserInfo() {
             <span>인스타</span>
             <input
               type="text"
-              placeholder="인스타 계정"
+              placeholder={instagramState || "인스타ID 입력!"}
               onChange={(e) => setInstagramState(e.target.value)}
             />
           </InstaContainer>
