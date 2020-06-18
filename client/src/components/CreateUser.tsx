@@ -14,9 +14,14 @@ const UserModalContainer = styled.div`
 const ModalOpenButton = styled.button`
   width: 35px;
   height: 35px;
-  background: ${(props) => props.theme.modalBgColor};
+  background: ${(props) => props.theme.textColor};
   border-radius: 100%;
   font-size: 13px;
+  transition: all 0.5s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 `;
 
 const ModalCloseButton = styled.button`

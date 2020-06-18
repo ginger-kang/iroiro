@@ -149,6 +149,7 @@ const HomeContentContainer = styled('div')<scrollPercentage>`
   align-items: center;
   transition: all 1s ease;
   & img {
+    margin-bottom: -50px;
     will-change: transform;
     transform: translate3d(0px, 0px, 0px) scale3d(1, 1, 1) rotateX(0deg)
       rotateY(0deg) rotateZ(${({ scrollPos }) => scrollPos}deg) skew(0deg, 0deg);
@@ -372,7 +373,6 @@ export default function Home() {
 
   useEffect(() => {
     setisLoggedIn(window.sessionStorage.getItem('userId'));
-    window.addEventListener('scroll', getCurrentScroll);
   });
 
   console.log(userSocialId, userSocialName, provider);
@@ -442,11 +442,22 @@ export default function Home() {
   };
 
   const getCurrentScroll = () => {
-    setScrollPosition(
+    if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-        100,
-    );
+        100 >=
+      28
+    ) {
+      setScrollPosition(13);
+    } else if (
+      ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
+        100 <
+      28
+    ) {
+      setScrollPosition(0);
+    }
   };
+
+  window.addEventListener('scroll', getCurrentScroll);
 
   return (
     <>
@@ -522,9 +533,7 @@ export default function Home() {
             </button>
           </LogoutButtonContainer>
         </LogoutBox>
-        <HomeContentContainer
-          scrollPos={scrollPosition > 36 ? scrollPosition / 5 : 0}
-        >
+        <HomeContentContainer scrollPos={scrollPosition}>
           {/* <MainImageContainer /> */}
           <img
             src={SittingDoodle}
