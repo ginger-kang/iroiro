@@ -192,7 +192,7 @@ const RootMutation = new GraphQLObjectType({
         params = {
           TableName: "showmethestyle",
           Item: {
-            id: args.uploadDate + "-" + args.originalname + "-",
+            id: args.uploadDate + "-" + args.originalname ,
             uploadDate: args.uploadDate,
             owner: args.owner,
             url:

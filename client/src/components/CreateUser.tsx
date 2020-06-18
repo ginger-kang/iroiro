@@ -167,7 +167,7 @@ function CreateUserInfo() {
             <span>닉네임</span>
             <input
               type="text"
-              placeholder="닉네임 설정"
+              placeholder={window.sessionStorage.getItem('userNickName') || ""}
               onChange={(e) => setNicknameState(e.target.value)}
             />
           </NickNameContainer>

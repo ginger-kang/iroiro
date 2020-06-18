@@ -422,7 +422,8 @@ export default function Home() {
             },
             mutation: CREATE_USER,
           });
-        }
+        }        
+        window.sessionStorage.setItem('userNickName',res.data.User.userNickName);
       });
   };
 
