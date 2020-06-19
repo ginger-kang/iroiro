@@ -8,9 +8,6 @@ import client from '../apollo';
 import SittingDoodle from '../Images/doodle/GroovySittingDoodlee.svg';
 import { AiFillRocket } from 'react-icons/ai';
 import CreateUserInfo from './CreateUser';
-import { ToastContainer, toast,Flip } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import { truncate } from 'fs';
 
 const HomeContainer = styled('section')`
   height: 100vh;
@@ -351,7 +348,7 @@ function Main() {
 
   useEffect(() => {
     setisLoggedIn(window.sessionStorage.getItem('userId'));
-  });
+  }, []);
 
   //console.log(userSocialId, userSocialName, provider);
 
@@ -372,7 +369,6 @@ function Main() {
       //window.sessionStorage.setItem('id',response.googleId);
       //localStorage.setItem('user',response.googleId);
     } else if (tempProvider == 'kakao') {
-
       userIdForQuery = String(response.profile.id);
       userNameForQuery = response.profile.kakao_account.profile.nickname;
       window.sessionStorage.setItem('userId', userIdForQuery);
@@ -381,21 +377,12 @@ function Main() {
       setUserSocialId(userIdForQuery);
       setLoginButtonClick(!loginButtonClick);
       //window.location.reload();
-      
+
       //localStorage.setItem('user',response.profile.id);
       //window.sessionStorage.setItem('id',response.profile.id);
       //setProvider('kakao');
     }
-    toast.dark('🌺 로그인 되었습니다!', {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      transition:Flip,
-      });
+
     client
       .query({
         query: USER_EXIST,
@@ -408,12 +395,13 @@ function Main() {
               userId: userIdForQuery,
               userName: userNameForQuery,
               userNickName: null,
-              userInstagram: null
+              userInstagram: null,
             },
             mutation: CREATE_USER,
           });
         }
       });
+    window.location.reload();
   };
 
   //logout
@@ -495,16 +483,12 @@ function Main() {
           onFailure={(res) => console.log('kakao login fail')}
           getProfile={true}
         />
+
         <LoginCancelButton
           onClick={() => setLoginButtonClick(!loginButtonClick)}
         />
-        
       </LoginBox>
-      <ToastContainer
-          
-        />
-        {/* Same as */}
-        <ToastContainer />
+
       <LogoutBox logoutState={logoutButtonClick}>
         <span
           style={{

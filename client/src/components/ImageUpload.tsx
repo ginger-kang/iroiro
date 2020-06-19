@@ -27,10 +27,9 @@ const Input = styled.input`
 `;
 
 const Preview = styled.label`
-  for: imageUpload;
   display: inline-block;
-  width: 80%;
-  height: 85%;
+  width: 23vw;
+  height: 23vw;
   min-width: 120px;
   min-height: 120px;
   margin-bottom: 0;
@@ -179,7 +178,7 @@ function ImageUpload() {
     <FileUploadContainer>
       <Upload>
         <Preview htmlFor="imageUpload">
-          <PreviewP id="imagePreview" url={uploadedFile.url}>
+          <PreviewP url={uploadedFile.url}>
             <AiOutlineUpload size={50} />
           </PreviewP>
         </Preview>
