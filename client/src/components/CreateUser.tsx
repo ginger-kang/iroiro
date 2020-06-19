@@ -3,10 +3,11 @@ import styled from 'styled-components';
 import client from '../apollo';
 import { SET_USER_INFO, USER_EXIST } from '../query';
 import { useQuery } from '@apollo/react-hooks';
-import { ToastContainer, toast, Flip } from 'react-toastify';
-import { useForm } from "react-hook-form";
-import ErrorPage from './ErrorPage'
+import { ToastContainer, toast, Slide } from 'react-toastify';
+import { useForm } from 'react-hook-form';
+import ErrorPage from './ErrorPage';
 import 'react-toastify/dist/ReactToastify.css';
+
 const UserModalContainer = styled.div`
   width: auto;
   height: 100%;
@@ -117,7 +118,7 @@ const NickNameContainer = styled.section`
     color: white;
   }
 `;
-const UserModal = styled('div') <UserModalState>`
+const UserModal = styled('div')<UserModalState>`
   position: fixed;
   top: 48%;
   left: 50%;
@@ -142,13 +143,15 @@ const UserModal = styled('div') <UserModalState>`
 `;
 
 function CreateUserInfo() {
+
   const [modalIsOpen, setModalIsOpen] = useState(false);  
 
-  
+
   const { register, handleSubmit } = useForm();
 
-  const [userIdState, setUserIdState] = useState<string>(window.sessionStorage.getItem('userId') || 'a');
-
+  const [userIdState, setUserIdState] = useState<string>(
+    window.sessionStorage.getItem('userId') || 'a',
+  );
 
   let { loading, error, data } = useQuery(USER_EXIST, {
     variables: { userId: userIdState },
@@ -161,14 +164,17 @@ function CreateUserInfo() {
     return <ErrorPage />;
   }
 
-  if (data.User==null){
-    data = {User:{userNickName : '로그인 해주세요',userInstagram : '로그인 해주세요'}}
-    console.log(data)
+  if (data.User == null) {
+    data = {
+      User: {
+        userNickName: '로그인 해주세요',
+        userInstagram: '로그인 해주세요',
+      },
+    };
+    console.log(data);
   }
-  console.log(data)
+  console.log(data);
   const onSubmit = (data: any) => {
-
-
     client
       .mutate({
         mutation: SET_USER_INFO,
@@ -179,9 +185,9 @@ function CreateUserInfo() {
         },
       })
       .then((res) => {
-        toast.dark('🌺닉네임 변경 완료', {
-          transition:Flip,
-          position: "top-right",
+        toast.dark('👩‍🔧닉네임 변경 완료👨‍🔧', {
+          transition: Slide,
+          position: 'top-right',
           autoClose: 2000,
           hideProgressBar: true,
           closeOnClick: true,
@@ -189,11 +195,8 @@ function CreateUserInfo() {
           draggable: true,
           progress: undefined,
         });
-
       });
-
   };
-
 
   return (
     <UserModalContainer>
@@ -205,15 +208,23 @@ function CreateUserInfo() {
         <UserInfoForm onSubmit={handleSubmit(onSubmit)}>
           <NickNameContainer>
             <span>닉네임</span>
-            <input name="userNickName" defaultValue={data.User.userNickName} ref={register({ maxLength: 20 })} />
+            <input
+              name="userNickName"
+              defaultValue={data.User.userNickName}
+              ref={register({ maxLength: 20 })}
+            />
           </NickNameContainer>
           <InstaContainer>
             <span>인스타</span>
-            <input name="userInstagram" defaultValue={data.User.userInstagram || ""} ref={register({ maxLength: 20 })} />
+            <input
+              name="userInstagram"
+              defaultValue={data.User.userInstagram || ''}
+              ref={register({ maxLength: 20 })}
+            />
           </InstaContainer>
 
           <SubmitButton type="submit">등록</SubmitButton>
-        </UserInfoForm>        
+        </UserInfoForm>
       </UserModal>
       <ToastContainer />
     </UserModalContainer>

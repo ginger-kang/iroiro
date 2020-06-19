@@ -1,9 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { USER_EXIST } from '../query';
-import { Query } from 'react-apollo';
-import { useQuery } from '@apollo/react-hooks';
 
 import ManDoodle from '../Images/doodle/DumpingDoodle.svg';
 import WomanDoodle from '../Images/doodle/SprintingDoodle.svg';

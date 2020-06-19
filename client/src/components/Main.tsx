@@ -9,9 +9,6 @@ import SittingDoodle from '../Images/doodle/GroovySittingDoodlee.svg';
 import { AiFillRocket } from 'react-icons/ai';
 import NaverLogin from 'react-naver-login';
 
-
-
-
 const HomeContainer = styled('section')`
   height: 100vh;
   display: flex;
@@ -352,8 +349,6 @@ const buttonStyle = {
 
 function Main() {
 
-
-
   const [loginButtonClick, setLoginButtonClick] = useState<boolean>(false);
   const [logoutButtonClick, setLogoutButtonClick] = useState<boolean>(false);
   const [isLoggedIn, setisLoggedIn] = useState<any>(null);
@@ -370,7 +365,7 @@ function Main() {
 
   useEffect(() => {
     setisLoggedIn(window.sessionStorage.getItem('userId'));
-  });
+  }, []);
 
   //console.log(userSocialId, userSocialName, provider);
 
@@ -391,7 +386,6 @@ function Main() {
       //window.sessionStorage.setItem('id',response.googleId);
       //localStorage.setItem('user',response.googleId);
     } else if (tempProvider == 'kakao') {
-
       userIdForQuery = String(response.profile.id);
       userNameForQuery = response.profile.kakao_account.profile.nickname;
       window.sessionStorage.setItem('userId', userIdForQuery);
@@ -418,7 +412,7 @@ function Main() {
               userId: userIdForQuery,
               userName: userNameForQuery,
               userNickName: null,
-              userInstagram: null
+              userInstagram: null,
             },
             mutation: CREATE_USER,
           });
@@ -506,6 +500,7 @@ function Main() {
           onFailure={(res) => console.log('kakao login fail')}
           getProfile={true}
         />
+
         
         <NaverLogin
           clientId="VFtyErnFdMS45iISw0Fy"
@@ -517,6 +512,7 @@ function Main() {
         <LoginCancelButton
           onClick={() => setLoginButtonClick(!loginButtonClick)}
         />
+
 
       </LoginBox>
 

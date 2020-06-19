@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import ImageData from '../routes/Game/DataTemp';
 import Contest from './Contest';
+
 const AwardedContainer = styled.section`
   width: 100%;
   height: 105vh;
