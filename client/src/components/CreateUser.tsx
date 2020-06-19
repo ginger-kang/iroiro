@@ -143,9 +143,10 @@ const UserModal = styled('div')<UserModalState>`
 `;
 
 function CreateUserInfo() {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
-  const [nickNameState, setNicknameState] = useState('');
-  const [instagramState, setInstagramState] = useState<string>('');
+
+  const [modalIsOpen, setModalIsOpen] = useState(false);  
+
+
   const { register, handleSubmit } = useForm();
 
   const [userIdState, setUserIdState] = useState<string>(

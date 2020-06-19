@@ -7,7 +7,7 @@ import { USER_EXIST, PHOTOS, CREATE_USER } from '../query';
 import client from '../apollo';
 import SittingDoodle from '../Images/doodle/GroovySittingDoodlee.svg';
 import { AiFillRocket } from 'react-icons/ai';
-import CreateUserInfo from './CreateUser';
+import NaverLogin from 'react-naver-login';
 
 const HomeContainer = styled('section')`
   height: 100vh;
@@ -49,7 +49,7 @@ interface LoginBoxProps {
   loginState: boolean;
 }
 
-const LoginBox = styled('div')<LoginBoxProps>`
+const LoginBox = styled('div') <LoginBoxProps>`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -115,7 +115,7 @@ interface scrollPercentage {
   scrollPos: number;
 }
 
-const HomeContentContainer = styled('div')<scrollPercentage>`
+const HomeContentContainer = styled('div') <scrollPercentage>`
   color: black;
   padding: 10px;
   display: flex;
@@ -254,7 +254,7 @@ interface LogoutBoxProps {
   logoutState: boolean;
 }
 
-const LogoutBox = styled('div')<LogoutBoxProps>`
+const LogoutBox = styled('div') <LogoutBoxProps>`
   position: fixed;
   top: 48%;
   left: 50%;
@@ -331,7 +331,24 @@ const BottomLineContainer = styled.div`
   }
 `;
 
+
+const buttonStyle = {
+  backgroundColor: '#20c997',
+  width: '40px',
+  height: '32px',
+  padding: '16px',
+  margin: '0',
+  fontSize: '24px',
+  fontWeight: 600,
+  color: 'white',
+  textAlign: 'center',
+  cursor: 'pointer',
+  border: '1px solid #dee2e6',
+  borderRadius: '4px',
+}
+
 function Main() {
+
   const [loginButtonClick, setLoginButtonClick] = useState<boolean>(false);
   const [logoutButtonClick, setLogoutButtonClick] = useState<boolean>(false);
   const [isLoggedIn, setisLoggedIn] = useState<any>(null);
@@ -421,13 +438,13 @@ function Main() {
   const getCurrentScroll = () => {
     if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-        100 >=
+      100 >=
       28
     ) {
       setScrollPosition(13);
     } else if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-        100 <
+      100 <
       28
     ) {
       setScrollPosition(0);
@@ -443,10 +460,10 @@ function Main() {
           로그인
         </LoginButton>
       ) : (
-        <LogoutButton onClick={() => setLogoutButtonClick(!logoutButtonClick)}>
-          로그아웃
-        </LogoutButton>
-      )}
+          <LogoutButton onClick={() => setLogoutButtonClick(!logoutButtonClick)}>
+            로그아웃
+          </LogoutButton>
+        )}
       <LoginBox loginState={loginButtonClick}>
         <GoogleLogin
           clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
@@ -484,9 +501,19 @@ function Main() {
           getProfile={true}
         />
 
+        
+        <NaverLogin
+          clientId="VFtyErnFdMS45iISw0Fy"
+          callbackUrl="http://127.0.0.1:3000/login"
+          render={(props) => <div onClick={props.onClick}>Naver Login</div>}
+          onSuccess={(result) => console.log(result)}
+          onFailure={() => console.error()}
+        />
         <LoginCancelButton
           onClick={() => setLoginButtonClick(!loginButtonClick)}
         />
+
+
       </LoginBox>
 
       <LogoutBox logoutState={logoutButtonClick}>

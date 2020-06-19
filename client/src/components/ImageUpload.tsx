@@ -93,7 +93,7 @@ interface PrevImageProps {
 }
 
 function ImageUpload() {
-  const [userName, setUserName] = useState('');
+  
   const [uploadedFile, setUploadedFile] = useState({
     url: '',
     raw: '',
@@ -124,8 +124,10 @@ function ImageUpload() {
               today.getMinutes() +
               ':' +
               today.getSeconds();
+
             var originalname = uploadedFile.name;
             var imageData = new FormData();
+
             imageData.append('image', uploadedFile.raw);
             imageData.append('imageId', date + '-' + originalname);
 
@@ -158,9 +160,6 @@ function ImageUpload() {
     }
   };
 
-  const handleClick = (e: any) => {
-    //console.log(e.target);
-  };
 
   const handleChange = (e: any) => {
     var file = e.target.files[0];
