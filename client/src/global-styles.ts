@@ -6,7 +6,7 @@ export const GlobalStyle = createGlobalStyle`
    
     * {
         box-sizing: border-box;
-        
+        font-family: 'NanumSquare', sans-serif !important;
     }
     body {
         transition: all 0.25s linear;
