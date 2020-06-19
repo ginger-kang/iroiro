@@ -11,7 +11,7 @@ export const PHOTOS = gql`
 `;
 
 export const USER_EXIST = gql`
-  query getUser($userId: String!) {
+  query getUser($userId: String) {
     User(userId: $userId) {
       userId
       userNickName
@@ -52,8 +52,16 @@ export const CREATE_USER = gql`
 `;
 
 export const SET_USER_INFO = gql`
-  mutation SetUserInfo($userId: String!, $userNickName: String!, $userInstagram: String!) {
-    SetUserInfo(userId: $userId, userNickName: $userNickName,userInstagram: $userInstagram) {
+  mutation SetUserInfo(
+    $userId: String!
+    $userNickName: String!
+    $userInstagram: String!
+  ) {
+    SetUserInfo(
+      userId: $userId
+      userNickName: $userNickName
+      userInstagram: $userInstagram
+    ) {
       userId
       userNickName
       userInstagram
@@ -75,7 +83,7 @@ export const UPLOAD_PHOTO = gql`
     $owner: String!
     $category: String!
     $originalname: String!
-    $uploadDate: String!    
+    $uploadDate: String!
   ) {
     UploadPhoto(
       owner: $owner

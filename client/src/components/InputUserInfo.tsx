@@ -128,12 +128,12 @@ function InputUserInfo({ onSubmit }: inputProps) {
             value={nickname}
           />
         ) : ( */}
-        <input
+        {/* <input
           name="nickname"
           defaultValue={data.User.userNickName}
           onChange={onChange}
           value={nickname}
-        />
+        /> */}
         {/* )} */}
       </NickNameContainer>
       <InstaContainer>

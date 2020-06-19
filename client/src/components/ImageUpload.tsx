@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-
 import { AiOutlineUpload } from 'react-icons/ai';
 import client from '../apollo';
 import { UPLOAD_PHOTO, USER_EXIST } from '../query';
