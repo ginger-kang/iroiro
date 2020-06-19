@@ -156,7 +156,7 @@ function CreateUserInfo() {
   });
 
   if (loading) {
-    return <ErrorPage />;
+    return null;
   }
   if (error) {
     return <ErrorPage />;
@@ -211,8 +211,7 @@ function CreateUserInfo() {
           </InstaContainer>
 
           <SubmitButton type="submit">등록</SubmitButton>
-        </UserInfoForm>
-        
+        </UserInfoForm>        
       </UserModal>
       <ToastContainer />
     </UserModalContainer>
