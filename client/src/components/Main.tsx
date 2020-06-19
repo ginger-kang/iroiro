@@ -8,8 +8,7 @@ import client from '../apollo';
 import SittingDoodle from '../Images/doodle/GroovySittingDoodlee.svg';
 import { AiFillRocket } from 'react-icons/ai';
 import CreateUserInfo from './CreateUser';
-import { ToastContainer, toast,Flip } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
 
 
 
@@ -336,6 +335,9 @@ const BottomLineContainer = styled.div`
 `;
 
 function Main() {
+  
+
+
   const [loginButtonClick, setLoginButtonClick] = useState<boolean>(false);
   const [logoutButtonClick, setLogoutButtonClick] = useState<boolean>(false);
   const [isLoggedIn, setisLoggedIn] = useState<any>(null);
@@ -387,16 +389,7 @@ function Main() {
       //window.sessionStorage.setItem('id',response.profile.id);
       //setProvider('kakao');
     }
-    toast.dark('🌺 로그인 되었습니다!', {
-      position: "top-center",
-      autoClose: 2000,
-      hideProgressBar: true,
-      closeOnClick: true,
-      pauseOnHover: false,
-      draggable: true,
-      progress: undefined,
-      transition:Flip,
-      });
+    
     client
       .query({
         query: USER_EXIST,
@@ -415,6 +408,7 @@ function Main() {
           });
         }
       });
+      window.location.reload();
   };
 
   //logout
@@ -502,11 +496,7 @@ function Main() {
         />
         
       </LoginBox>
-      <ToastContainer
-          
-        />
-        {/* Same as */}
-        <ToastContainer />
+      
       <LogoutBox logoutState={logoutButtonClick}>
         <span
           style={{
