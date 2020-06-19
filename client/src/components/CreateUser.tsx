@@ -148,10 +148,10 @@ function CreateUserInfo() {
   const [instagramState, setInstagramState] = useState<string>('');
   const { register, handleSubmit } = useForm();
 
-  const [userIdState, setUserIdState] = useState<string>(window.sessionStorage.getItem('userId') || '');
+  const [userIdState, setUserIdState] = useState<string>(window.sessionStorage.getItem('userId') || 'a');
 
 
-  const { loading, error, data } = useQuery(USER_EXIST, {
+  let { loading, error, data } = useQuery(USER_EXIST, {
     variables: { userId: userIdState },
   });
 
@@ -162,8 +162,11 @@ function CreateUserInfo() {
     return <ErrorPage />;
   }
 
-
-
+  if (data.User==null){
+    data = {User:{userNickName : '로그인 해주세요',userInstagram : '로그인 해주세요'}}
+    console.log(data)
+  }
+  console.log(data)
   const onSubmit = (data: any) => {
 
 
@@ -203,7 +206,7 @@ function CreateUserInfo() {
         <UserInfoForm onSubmit={handleSubmit(onSubmit)}>
           <NickNameContainer>
             <span>닉네임</span>
-            <input name="userNickName" defaultValue={data.User.userNickName || ""} ref={register({ maxLength: 20 })} />
+            <input name="userNickName" defaultValue={data.User.userNickName} ref={register({ maxLength: 20 })} />
           </NickNameContainer>
           <InstaContainer>
             <span>인스타</span>
