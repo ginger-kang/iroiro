@@ -5742,11 +5742,6 @@ react-is@^16.8.1:
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
 
-react-naver-login@^0.1.3-alpha1:
-  version "0.1.3-alpha1"
-  resolved "https://registry.yarnpkg.com/react-naver-login/-/react-naver-login-0.1.3-alpha1.tgz#16283a9885129ba9c93c0a4c13c7e5df086522d4"
-  integrity sha512-33QkCNKAmGud2jbcWKABze4hIJDtgxvqy8yPYM9040BlXRmElkFGWvYyjsP7U4VnOjJb8VQTdcXHgVaRPMIMLQ==
-
 read-pkg@^4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/read-pkg/-/read-pkg-4.0.1.tgz#963625378f3e1c4d48c85872b5a6ec7d5d093237"

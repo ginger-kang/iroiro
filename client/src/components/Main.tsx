@@ -7,7 +7,7 @@ import { USER_EXIST, PHOTOS, CREATE_USER } from '../query';
 import client from '../apollo';
 import SittingDoodle from '../Images/doodle/GroovySittingDoodlee.svg';
 import { AiFillRocket } from 'react-icons/ai';
-import NaverLogin from 'react-naver-login';
+import NaverLogin from 'react-login-by-naver';
 
 const HomeContainer = styled('section')`
   height: 100vh;
@@ -436,6 +436,8 @@ function Main() {
   };
 
   const getCurrentScroll = () => {
+
+    
     if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
       100 >=
@@ -500,11 +502,10 @@ function Main() {
           onFailure={(res) => console.log('kakao login fail')}
           getProfile={true}
         />
-
         
         <NaverLogin
-          clientId="VFtyErnFdMS45iISw0Fy"
-          callbackUrl="http://127.0.0.1:3000/login"
+          clientId="_L3yUfmDgCWHvk7vDar5"
+          callbackUrl="http://localhost:5000/"
           render={(props) => <div onClick={props.onClick}>Naver Login</div>}
           onSuccess={(result) => console.log(result)}
           onFailure={() => console.error()}
