@@ -93,7 +93,6 @@ interface PrevImageProps {
 }
 
 function ImageUpload() {
-  
   const [uploadedFile, setUploadedFile] = useState({
     url: '',
     raw: '',
@@ -159,7 +158,6 @@ function ImageUpload() {
       alert('로그인 해주세요!');
     }
   };
-
 
   const handleChange = (e: any) => {
     var file = e.target.files[0];
