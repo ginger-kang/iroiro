@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import ErrorPage from './ErrorPage';
+import UserProfile from './UserProfile'
 import 'react-toastify/dist/ReactToastify.css';
 
 const UserModalContainer = styled.div`
@@ -17,7 +18,7 @@ const UserModalContainer = styled.div`
 `;
 
 const ModalOpenButton = styled.button`
-  width: 35px;
+  width: 100px;
   height: 35px;
   background: ${(props) => props.theme.textColor};
   border-radius: 100%;
@@ -167,8 +168,8 @@ function CreateUserInfo() {
   if (data.User == null) {
     data = {
       User: {
-        userNickName: '로그인 해주세요',
-        userInstagram: '로그인 해주세요',
+        userNickName: 'Guest',
+        userInstagram: 'Guest',
       },
     };
     
@@ -201,11 +202,12 @@ function CreateUserInfo() {
   return (
     <UserModalContainer>
       <ModalOpenButton onClick={() => setModalIsOpen(!modalIsOpen)}>
-        {data.userNickName}
+        {data.User.userNickName || 'Guest'}
       </ModalOpenButton>
       
       <UserModal isOpen={modalIsOpen}>
         <ModalCloseButton onClick={() => setModalIsOpen(!modalIsOpen)} />
+        <UserProfile/>
         <UserInfoForm onSubmit={handleSubmit(onSubmit)}>
           <NickNameContainer>
             <span>닉네임</span>
