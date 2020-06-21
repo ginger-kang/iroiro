@@ -508,13 +508,13 @@ function Main() {
           clientId="_L3yUfmDgCWHvk7vDar5"
           callbackUrl="http://localhost:5000/"
           render={(props) => <NaverButton onClick={props.onClick}><img
-          src={naver}
-          alt="naver"
-          style={{
-            width: '100%',
-            height: '100%',
-          }}          
-        /></NaverButton>}
+            src={naver}
+            alt="naver"
+            style={{
+              width: '100%',
+              height: '100%',
+            }}
+          /></NaverButton>}
           onSuccess={(res) => responseLogin(res, 'naver')}
           onFailure={() => console.log('naver login fail')}
         />
