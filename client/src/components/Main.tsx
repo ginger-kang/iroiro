@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import google from '../Images/google.png';
-import naver from '../Images/naver.PNG'
+import naver from '../Images/naver.png'
 import KakaoLogin from 'react-kakao-login';
 import { USER_EXIST, PHOTOS, CREATE_USER } from '../query';
 import client from '../apollo';
