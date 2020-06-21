@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import google from '../Images/google.png';
+import naver from '../Images/naver.PNG'
 import KakaoLogin from 'react-kakao-login';
 import { USER_EXIST, PHOTOS, CREATE_USER } from '../query';
 import client from '../apollo';
@@ -330,22 +331,18 @@ const BottomLineContainer = styled.div`
     }
   }
 `;
-
-
-const buttonStyle = {
-  backgroundColor: '#20c997',
-  width: '40px',
-  height: '32px',
-  padding: '16px',
-  margin: '0',
-  fontSize: '24px',
-  fontWeight: 600,
-  color: 'white',
-  textAlign: 'center',
-  cursor: 'pointer',
-  border: '1px solid #dee2e6',
-  borderRadius: '4px',
-}
+const NaverButton = styled.button`
+width: 90px;
+height: 80px;
+min-width: 70px;
+min-height: 70px;
+color: black;
+background-color: ${(props) => props.theme.borderColor};
+border-radius: 10px;
+font-size: 60px;
+text-align: center;
+    
+`;
 
 function Main() {
 
@@ -382,9 +379,7 @@ function Main() {
       setUserSocialId(userIdForQuery);
       setUserSocialName(userNameForQuery);
 
-      //setProvider('google');
-      //window.sessionStorage.setItem('id',response.googleId);
-      //localStorage.setItem('user',response.googleId);
+      
     } else if (tempProvider == 'kakao') {
       userIdForQuery = String(response.profile.id);
       userNameForQuery = response.profile.kakao_account.profile.nickname;
@@ -393,11 +388,17 @@ function Main() {
       setUserSocialName(userNameForQuery);
       setUserSocialId(userIdForQuery);
       setLoginButtonClick(!loginButtonClick);
-      //window.location.reload();
-
-      //localStorage.setItem('user',response.profile.id);
-      //window.sessionStorage.setItem('id',response.profile.id);
-      //setProvider('kakao');
+      
+    }else if (tempProvider == 'naver') {
+      
+      userIdForQuery = String(response.id);
+      userNameForQuery = response.name;
+      window.sessionStorage.setItem('userId', userIdForQuery);
+      window.sessionStorage.setItem('userName', userNameForQuery);
+      setUserSocialName(userNameForQuery);
+      setUserSocialId(userIdForQuery);
+      setLoginButtonClick(!loginButtonClick);
+      
     }
 
     client
@@ -506,9 +507,16 @@ function Main() {
         <NaverLogin
           clientId="_L3yUfmDgCWHvk7vDar5"
           callbackUrl="http://localhost:5000/"
-          render={(props) => <div onClick={props.onClick}>Naver Login</div>}
-          onSuccess={(result) => console.log(result)}
-          onFailure={() => console.error()}
+          render={(props) => <NaverButton onClick={props.onClick}><img
+          src={naver}
+          alt="naver"
+          style={{
+            width: '100%',
+            height: '100%',
+          }}          
+        /></NaverButton>}
+          onSuccess={(res) => responseLogin(res, 'naver')}
+          onFailure={() => console.log('naver login fail')}
         />
         <LoginCancelButton
           onClick={() => setLoginButtonClick(!loginButtonClick)}
