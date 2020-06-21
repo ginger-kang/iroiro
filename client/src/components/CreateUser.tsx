@@ -171,9 +171,9 @@ function CreateUserInfo() {
         userInstagram: '로그인 해주세요',
       },
     };
-    console.log(data);
+    
   }
-  console.log(data);
+  
   const onSubmit = (data: any) => {
     client
       .mutate({
@@ -201,8 +201,9 @@ function CreateUserInfo() {
   return (
     <UserModalContainer>
       <ModalOpenButton onClick={() => setModalIsOpen(!modalIsOpen)}>
-        이름
+        {data.userNickName}
       </ModalOpenButton>
+      
       <UserModal isOpen={modalIsOpen}>
         <ModalCloseButton onClick={() => setModalIsOpen(!modalIsOpen)} />
         <UserInfoForm onSubmit={handleSubmit(onSubmit)}>
