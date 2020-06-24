@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import google from '../Images/google.png';
-import naver from '../Images/naver.png'
+import naver from '../Images/naver.png';
 import KakaoLogin from 'react-kakao-login';
 import { USER_EXIST, PHOTOS, CREATE_USER } from '../query';
 import client from '../apollo';
@@ -50,7 +50,7 @@ interface LoginBoxProps {
   loginState: boolean;
 }
 
-const LoginBox = styled('div') <LoginBoxProps>`
+const LoginBox = styled('div')<LoginBoxProps>`
   position: fixed;
   top: 50%;
   left: 50%;
@@ -116,7 +116,7 @@ interface scrollPercentage {
   scrollPos: number;
 }
 
-const HomeContentContainer = styled('div') <scrollPercentage>`
+const HomeContentContainer = styled('div')<scrollPercentage>`
   color: black;
   padding: 10px;
   display: flex;
@@ -240,7 +240,7 @@ interface LogoutBoxProps {
   logoutState: boolean;
 }
 
-const LogoutBox = styled('div') <LogoutBoxProps>`
+const LogoutBox = styled('div')<LogoutBoxProps>`
   position: fixed;
   top: 48%;
   left: 50%;
@@ -290,13 +290,24 @@ const LogoutButtonContainer = styled.div`
   }
 `;
 
-const ScrollController = styled.button`
+interface displayRocket {
+  dpRocket: number;
+}
+
+const ScrollController = styled('button')<displayRocket>`
   position: fixed;
   left: 10px;
   bottom: 10px;
   cursor: pointer;
   transition: 1s ease;
   background: none;
+  display: ${({ dpRocket }) => {
+    if (dpRocket != 0) {
+      return 'flex';
+    } else {
+      return 'none';
+    }
+  }};
   color: ${(props) => props.theme.textColor};
   z-index: 300;
   &:hover {
@@ -317,20 +328,18 @@ const BottomLineContainer = styled.div`
   }
 `;
 const NaverButton = styled.button`
-width: 90px;
-height: 80px;
-min-width: 70px;
-min-height: 70px;
-color: black;
-background-color: ${(props) => props.theme.borderColor};
-border-radius: 10px;
-font-size: 60px;
-text-align: center;
-    
+  width: 90px;
+  height: 80px;
+  min-width: 70px;
+  min-height: 70px;
+  color: black;
+  background-color: ${(props) => props.theme.borderColor};
+  border-radius: 10px;
+  font-size: 60px;
+  text-align: center;
 `;
 
 function Main() {
-
   const [loginButtonClick, setLoginButtonClick] = useState<boolean>(false);
   const [logoutButtonClick, setLogoutButtonClick] = useState<boolean>(false);
   const [isLoggedIn, setisLoggedIn] = useState<any>(null);
@@ -363,8 +372,6 @@ function Main() {
       window.sessionStorage.setItem('userName', userNameForQuery);
       setUserSocialId(userIdForQuery);
       setUserSocialName(userNameForQuery);
-
-      
     } else if (tempProvider == 'kakao') {
       userIdForQuery = String(response.profile.id);
       userNameForQuery = response.profile.kakao_account.profile.nickname;
@@ -373,9 +380,7 @@ function Main() {
       setUserSocialName(userNameForQuery);
       setUserSocialId(userIdForQuery);
       setLoginButtonClick(!loginButtonClick);
-      
-    }else if (tempProvider == 'naver') {
-      
+    } else if (tempProvider == 'naver') {
       userIdForQuery = String(response.id);
       userNameForQuery = response.name;
       window.sessionStorage.setItem('userId', userIdForQuery);
@@ -383,7 +388,6 @@ function Main() {
       setUserSocialName(userNameForQuery);
       setUserSocialId(userIdForQuery);
       setLoginButtonClick(!loginButtonClick);
-      
     }
 
     client
@@ -422,17 +426,15 @@ function Main() {
   };
 
   const getCurrentScroll = () => {
-
-    
     if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-      100 >=
+        100 >=
       28
     ) {
       setScrollPosition(13);
     } else if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-      100 <
+        100 <
       28
     ) {
       setScrollPosition(0);
@@ -448,10 +450,10 @@ function Main() {
           로그인
         </LoginButton>
       ) : (
-          <LogoutButton onClick={() => setLogoutButtonClick(!logoutButtonClick)}>
-            로그아웃
-          </LogoutButton>
-        )}
+        <LogoutButton onClick={() => setLogoutButtonClick(!logoutButtonClick)}>
+          로그아웃
+        </LogoutButton>
+      )}
       <LoginBox loginState={loginButtonClick}>
         <GoogleLogin
           clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
@@ -488,26 +490,28 @@ function Main() {
           onFailure={(res) => console.log('kakao login fail')}
           getProfile={true}
         />
-        
+
         <NaverLogin
           clientId="_L3yUfmDgCWHvk7vDar5"
           callbackUrl="https://showmethestyle.herokuapp.com/"
-          render={(props) => <NaverButton onClick={props.onClick}><img
-            src={naver}
-            alt="naver"
-            style={{
-              width: '100%',
-              height: '100%',
-            }}
-          /></NaverButton>}
+          render={(props) => (
+            <NaverButton onClick={props.onClick}>
+              <img
+                src={naver}
+                alt="naver"
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
+            </NaverButton>
+          )}
           onSuccess={(res) => responseLogin(res, 'naver')}
           onFailure={() => console.log('naver login fail')}
         />
         <LoginCancelButton
           onClick={() => setLoginButtonClick(!loginButtonClick)}
         />
-
-
       </LoginBox>
 
       <LogoutBox logoutState={logoutButtonClick}>
@@ -558,7 +562,10 @@ function Main() {
           </span>
         </ContentContatiner>
       </HomeContentContainer>
-      <ScrollController onClick={handleScrollControll}>
+      <ScrollController
+        onClick={handleScrollControll}
+        dpRocket={scrollPosition}
+      >
         <AiFillRocket
           size={40}
           color={`${({ props }: { props: any }) => props.theme.textColor}`}
