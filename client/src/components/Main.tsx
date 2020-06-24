@@ -491,7 +491,7 @@ function Main() {
         
         <NaverLogin
           clientId="_L3yUfmDgCWHvk7vDar5"
-          callbackUrl="http://localhost:5000/"
+          callbackUrl="https://showmethestyle.herokuapp.com/"
           render={(props) => <NaverButton onClick={props.onClick}><img
             src={naver}
             alt="naver"
