@@ -37,7 +37,7 @@ const StartButton = styled.button`
   }
 `;
 
-const ImageContainer = styled.div`
+const ImageContainer = styled.section`
   width: 50%;
   display: flex;
   flex-direction: row;
@@ -49,7 +49,7 @@ interface scrollPosition {
   scrollPos: number;
 }
 
-const ManContainer = styled('div')<scrollPosition>`
+const ManContainer = styled('section')<scrollPosition>`
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -68,7 +68,7 @@ const ManContainer = styled('div')<scrollPosition>`
   }
 `;
 
-const WomanContainer = styled('div')<scrollPosition>`
+const WomanContainer = styled('section')<scrollPosition>`
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -87,7 +87,7 @@ const WomanContainer = styled('div')<scrollPosition>`
   }
 `;
 
-const ContentContainer = styled.div`
+const ContentContainer = styled.article`
   width: 30%;
   display: flex;
   justify-content: center;

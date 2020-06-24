@@ -65,7 +65,7 @@ const HomeButton = styled.div`
   text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 `;
 
-const GameContainer = styled.div`
+const GameContainer = styled.main`
   position: absolute;
   top: 0;
   bottom: 0;
@@ -96,7 +96,7 @@ interface ImageBoxProps {
   state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
 }
 
-const LeftImageBox = styled('div')<ImageBoxProps>`
+const LeftImageBox = styled('figure')<ImageBoxProps>`
   position: absolute;
   top: 11%;
   left: 11%;
@@ -212,7 +212,7 @@ interface ImageBoxProps {
   state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
 }
 
-const RightImageBox = styled('div')<ImageBoxProps>`
+const RightImageBox = styled('figure')<ImageBoxProps>`
   position: absolute;
   top: 11%;
   left: 11%;

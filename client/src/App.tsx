@@ -17,7 +17,7 @@ interface ToggleProps {
   theme: any;
 }
 
-const DarkModeToggleButton = styled('div')<ToggleProps>`
+const DarkModeToggleButton = styled('figure')<ToggleProps>`
   background: ${({ isLight }) => {
     if (isLight) {
       return 'linear-gradient(#39598A, #79D7ED)';
