@@ -5,6 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 import GameLoading from './GameLoading';
 import ErrorPage from './ErrorPage';
 import instagram from '../Images/instagram.png';
+import instagramlogo from '../Images/instagramlogo.png';
 
 const WinnersContainer = styled('div')`
   width: 70%;
@@ -99,7 +100,7 @@ function Contest() {
             }
           >
             <img
-              src={instagram}
+              src={instagramlogo}
               alt="instagram"
               style={{
                 width: '23px',
@@ -133,7 +134,7 @@ function Contest() {
             }
           >
             <img
-              src={instagram}
+              src={instagramlogo}
               alt="instagram"
               style={{
                 width: '23px',
