@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import ImageUpload from './ImageUpload';
 import DancingDoodle from '../Images/doodle/DancingDoodle.svg';
 import BottomLine from '../Images/BottomLine.svg';
+import blackDancingDoodle from '../Images/doodle/BlackDancingDoodle.svg';
 
 const WinnerContainer = styled.section`
   width: 100%;
@@ -66,6 +67,7 @@ const BottomLineContainer = styled.div`
 
 function Winner() {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
+  const themeContext = useContext(ThemeContext);
 
   const getCurrentScroll = () => {
     if (
@@ -98,11 +100,19 @@ function Winner() {
             자신의 스타일을 뽐내보세요
           </span>
           <ImageUploadContainer scrollPos={scrollPosition}>
-            <img
-              src={DancingDoodle}
-              alt="dancingdoodle"
-              style={{ width: '70%', minWidth: '300px' }}
-            />
+            {themeContext.bgColor === '#ffffff' ? (
+              <img
+                src={blackDancingDoodle}
+                alt="blackdancingdoodle"
+                style={{ width: '100%', minWidth: '100px' }}
+              />
+            ) : (
+              <img
+                src={DancingDoodle}
+                alt="dancingdoodle"
+                style={{ width: '70%', minWidth: '300px' }}
+              />
+            )}
             <ImageUpload />
           </ImageUploadContainer>
         </UserInputContainer>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './global-styles';
 import Router from './Router';
@@ -7,76 +7,49 @@ import client from './apollo';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
 
-import DarkMode from './Images/darkMode.svg';
-import LightMode from './Images/lightMode.svg';
-
 const AppContainer = styled.div``;
 
 interface ToggleProps {
   isLight: boolean;
-  theme: any;
 }
 
-const DarkModeToggleButton = styled('div')<ToggleProps>`
+const ToggleButtonContainer = styled('div')<ToggleProps>`
   background: ${({ isLight }) => {
     if (isLight) {
-      return 'linear-gradient(#39598A, #79D7ED)';
+      return 'linear-gradient(#331679,#716a6a)';
     } else {
-      return 'linear-gradient(#091236, #1E215D)';
+      return 'linear-gradient(#3c93ff,#b8bbff)';
     }
   }};
-  border: 2px solid
-    ${({ isLight }) => {
-      if (isLight) {
-        return '#FFF';
-      } else {
-        return '#6B8096';
-      }
-    }};
-  top: 5px;
-  left: 5px;
+  top: 3px;
+  left: 3px;
   border-radius: 30px;
   display: flex;
-  font-size: 0.5rem;
-  justify-content: space-between;
-  margin: 0 auto;
-  overflow: hidden;
-  padding: 0.5rem;
+  align-items: center;
   position: absolute;
   z-index: 600;
-  width: 8vw;
-  min-width: 66px;
-  min-height: 40px;
+  width: 64px;
+  height: 36px;
+  transition: all 0.5s ease;
+`;
 
-  img {
-    height: 2.5vw;
-    width: 3vw;
-    min-width: 27px;
-    min-height: 22px;
-    transition: all 0.5s linear;
-    cursor: pointer;
+const ToggleButton = styled('button')<ToggleProps>`
+  position: absolute;
+  left: 4px;
+  top: 4px;
+  background: white;
+  width: 28px;
+  height: 28px;
+  border-radius: 100%;
+  transition: all 0.5s ease;
 
-    // sun
-    &:nth-child(1) {
-      transform: ${({ isLight }) => {
-        if (isLight) {
-          return 'translateY(-45px)';
-        } else {
-          return 'translateY(0)';
-        }
-      }};
+  transform: ${({ isLight }) => {
+    if (isLight) {
+      return 'translateX(29px)';
+    } else {
+      return 'translateX(0)';
     }
-    // moon
-    &:nth-child(2) {
-      transform: ${({ isLight }) => {
-        if (isLight) {
-          return 'translateY(0)';
-        } else {
-          return 'translateY(-45px)';
-        }
-      }};
-    }
-  }
+  }};
 `;
 
 function App() {
@@ -84,20 +57,33 @@ function App() {
 
   const isLight = theme === 'light';
 
+  useEffect(() => {
+    const localTheme = window.localStorage.getItem('theme');
+    if (localTheme) {
+      setTheme(localTheme);
+    } else {
+      setMode(theme);
+    }
+  }, []);
+
+  const setMode = (mode: string) => {
+    window.localStorage.setItem('theme', mode);
+    setTheme(mode);
+  };
+
   const toggleTheme = () => {
     if (theme === 'light') {
-      setTheme('dark');
+      setMode('dark');
     } else {
-      setTheme('light');
+      setMode('light');
     }
   };
 
   return (
     <AppContainer>
-      <DarkModeToggleButton isLight={isLight}>
-        <img src={LightMode} alt="sun" onClick={toggleTheme} />
-        <img src={DarkMode} alt="moon" onClick={toggleTheme} />
-      </DarkModeToggleButton>
+      <ToggleButtonContainer isLight={isLight}>
+        <ToggleButton isLight={isLight} onClick={toggleTheme} />
+      </ToggleButtonContainer>
       {/* <div style={{width: '300px', height: '200px', backgroundColor: 'tomato'}}>테스트</div> */}
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>

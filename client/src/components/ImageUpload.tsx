@@ -5,21 +5,13 @@ import client from '../apollo';
 import { UPLOAD_PHOTO, USER_EXIST } from '../query';
 import axios from 'axios';
 
-const FileUploadContainer = styled.div`
+const FileUploadContainer = styled.section`
   width: 50%;
   height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Upload = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 90%;
 `;
 
 const Input = styled.input`
@@ -173,15 +165,13 @@ function ImageUpload() {
 
   return (
     <FileUploadContainer>
-      <Upload>
-        <Preview htmlFor="imageUpload">
-          <PreviewP url={uploadedFile.url}>
-            <AiOutlineUpload size={50} />
-          </PreviewP>
-        </Preview>
-        <Input type="file" id="imageUpload" onChange={handleChange} />
-        <ImageSubmitButton onClick={handleSubmit}>Upload</ImageSubmitButton>
-      </Upload>
+      <Preview htmlFor="imageUpload">
+        <PreviewP url={uploadedFile.url}>
+          <AiOutlineUpload size={50} />
+        </PreviewP>
+      </Preview>
+      <Input type="file" id="imageUpload" onChange={handleChange} />
+      <ImageSubmitButton onClick={handleSubmit}>Upload</ImageSubmitButton>
     </FileUploadContainer>
   );
 }

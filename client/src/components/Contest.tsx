@@ -7,7 +7,7 @@ import ErrorPage from './ErrorPage';
 import instagram from '../Images/instagram.png';
 import instagramlogo from '../Images/instagramlogo.png';
 
-const WinnersContainer = styled('div')`
+const WinnersContainer = styled('main')`
   width: 70%;
   height: 60%;
   display: flex;
@@ -47,14 +47,14 @@ const WinnersContainer = styled('div')`
   }
 `;
 
-const ManWinner = styled.div`
+const ManWinner = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-const WomanWinner = styled.div`
+const WomanWinner = styled.section`
   display: flex;
   flex-direction: column;
   justify-content: center;
