@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
+import React, { useState, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 import ManDoodle from '../Images/doodle/DumpingDoodle.svg';
+import blackManDoodle from '../Images/doodle/BlackDumpingDoodle.svg';
 import WomanDoodle from '../Images/doodle/SprintingDoodle.svg';
+import blackWomanDoodle from '../Images/doodle/BlackSprintingDoodle.svg';
 
 const SelectPageContainer = styled.section`
   width: 100%;
@@ -120,9 +122,7 @@ function SelectMenu() {
   // let userId = window.sessionStorage.getItem('userId');
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
-  // useEffect(() => {
-  //   window.addEventListener('scroll', getCurrentScroll);
-  // });
+  const themeContext = useContext(ThemeContext);
 
   const getCurrentScroll = () => {
     if (
@@ -161,21 +161,37 @@ function SelectMenu() {
       </ContentContainer>
       <ImageContainer>
         <ManContainer scrollPos={scrollPosition}>
-          <img
-            src={ManDoodle}
-            alt="manDoodle"
-            style={{ width: '100%', minWidth: '100px' }}
-          />
+          {themeContext.bgColor === '#ffffff' ? (
+            <img
+              src={blackManDoodle}
+              alt="blackmandoodle"
+              style={{ width: '100%', minWidth: '100px' }}
+            />
+          ) : (
+            <img
+              src={ManDoodle}
+              alt="mandoodle"
+              style={{ width: '100%', minWidth: '100px' }}
+            />
+          )}
           <Link to="/game">
             <StartButton>MAN</StartButton>
           </Link>
         </ManContainer>
         <WomanContainer scrollPos={scrollPosition}>
-          <img
-            src={WomanDoodle}
-            alt="womanDoodle"
-            style={{ width: '100%', minWidth: '100px' }}
-          />
+          {themeContext.bgColor === '#ffffff' ? (
+            <img
+              src={blackWomanDoodle}
+              alt="blackwomandoodle"
+              style={{ width: '100%', minWidth: '100px' }}
+            />
+          ) : (
+            <img
+              src={WomanDoodle}
+              alt="womandoodle"
+              style={{ width: '100%', minWidth: '100px' }}
+            />
+          )}
           <Link to="/game">
             <StartButton>WOMAN</StartButton>
           </Link>

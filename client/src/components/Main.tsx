@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import google from '../Images/google.png';
 import naver from '../Images/naver.png';
 import KakaoLogin from 'react-kakao-login';
 import { USER_EXIST, PHOTOS, CREATE_USER } from '../query';
 import client from '../apollo';
-import SittingDoodle from '../Images/doodle/GroovySittingDoodlee.svg';
+import SittingDoodle from '../Images/doodle/GroovySittingDoodle.svg';
+import blackSittingDoodle from '../Images/doodle/BlackGroovySittingDoodle.svg';
 import { AiFillRocket } from 'react-icons/ai';
 import NaverLogin from 'react-login-by-naver';
 
@@ -132,6 +133,10 @@ const HomeContentContainer = styled('article')<scrollPercentage>`
     transform-style: preserve-3d;
     transition: all 1.5s ease;
   }
+`;
+
+const DoodleContainer = styled.img`
+  width: 60%;
 `;
 
 // const MainImageContainer = styled.img.attrs(props => ({
@@ -354,6 +359,10 @@ function Main() {
   );
   const [provider, setProvider] = useState('');
 
+  const themeContext = useContext(ThemeContext);
+
+  //console.log(themeContext);
+
   useEffect(() => {
     setisLoggedIn(window.sessionStorage.getItem('userId'));
   }, []);
@@ -530,8 +539,19 @@ function Main() {
         </LogoutButtonContainer>
       </LogoutBox>
       <HomeContentContainer scrollPos={scrollPosition}>
-        {/* <MainImageContainer /> */}
-        <img src={SittingDoodle} alt="sittingDoodle" style={{ width: '60%' }} />
+        {themeContext.bgColor === '#ffffff' ? (
+          <img
+            src={blackSittingDoodle}
+            alt="sittingdoodle"
+            style={{ width: '60%' }}
+          />
+        ) : (
+          <img
+            src={SittingDoodle}
+            alt="sittingdoodle"
+            style={{ width: '60%' }}
+          />
+        )}
         <MainTitleImage>
           <svg
             width="626"
