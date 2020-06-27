@@ -209,8 +209,7 @@ const ResultContainer = styled('div') <ResultProps>`
   position: absolute;
   width:30%;
   height:30%;
-  vertical-align:middle;
-  font-size: 40px
+  vertical-align:middle;  
   display: none;
   z-index:3;
   background-image: url(${({ state }) => {
@@ -259,7 +258,7 @@ const RightPriceContainer = styled('div') <ResultProps>`
 
   position: absolute;
   top: 30%;
-  right: 80%;
+  right: 75%;
   display: ${({ state }) => {
     if (state != 0) {
       return 'flex';
@@ -268,6 +267,14 @@ const RightPriceContainer = styled('div') <ResultProps>`
     }
   }};
  
+`;
+
+const ScoreContainer = styled('div')`
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  font-size:100px;
+  z-index:6;
 `;
 
 interface gProps {
@@ -279,6 +286,8 @@ interface gProps {
   //RightClick: any;
   ClickImage: any;
   NextClick: any;
+  Score: any;
+  TotalScore: any;
 }
 
 function Game({
@@ -288,6 +297,8 @@ function Game({
   RightData,
   ClickImage,
   NextClick,
+  Score,
+  TotalScore
 }: gProps) {
   const [navState, setNavState] = useState(false);
   
@@ -303,6 +314,7 @@ function Game({
           <NavButton url={arrowIcon} onClick={() => setNavState(!navState)} />
         </NavButtonContainer>
       </NavigationContainer>
+      <ScoreContainer>{Score}/{TotalScore}</ScoreContainer>
       <GameContainer>
         <ResultContainer state={clickState}>
         </ResultContainer>
@@ -315,7 +327,7 @@ function Game({
             />
           </LeftImageBox>
           <LeftPriceContainer state={clickState}>
-            <Price detail={LeftData.detail}/>
+            <Price detail={LeftData.detail} instagram = {LeftData.instagram}/>
           </LeftPriceContainer>
         </LeftImageContainer>
         <NextImageContainer state={clickState} >
@@ -329,7 +341,7 @@ function Game({
             />
           </RightImageBox>
           <RightPriceContainer state={clickState}>
-            <Price detail={RightData.detail} />
+            <Price detail={RightData.detail} instagram = {RightData.instagram} />
           </RightPriceContainer>
         </RightImageContainer>
       </GameContainer>

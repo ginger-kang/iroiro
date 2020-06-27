@@ -109,3 +109,32 @@ export const UPLOAD_PHOTO = gql`
     }
   }
 `;
+export const UPLOAD_PHOTO_FOR_GAME = gql`
+  mutation UploadPhotoForGame(
+    $owner: String!
+    $category: String!   
+    
+    $instagram: String!
+    $top1:String!
+    $top2:String!
+    $bottom1:String!
+    $bottom2:String!
+    $shoes1:String!
+    $shoes2:String!   
+  ) {
+    UploadPhotoForGame(
+      owner: $owner
+      category: $category      
+      
+      top1:$top1
+      top2:$top2
+      bottom1:$bottom1
+      bottom2:$bottom2
+      shoes1:$shoes1
+      shoes2:$shoes2
+      instagram:$instagram
+    ) {
+      owner
+    }
+  }
+`;

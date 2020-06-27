@@ -228,6 +228,44 @@ const RootMutation = new GraphQLObjectType({
           .then((res) => res);
       },
     },
+    UploadPhotoForGame: {
+      type: PhotoType,
+      args: {
+        owner: { type: GraphQLString },
+        category: { type: GraphQLString },        
+        uploadDate: { type: GraphQLString },
+        instagram: { type: GraphQLString },
+        top1: { type: GraphQLString},
+        top2: { type: GraphQLInt},
+        bottom1: { type: GraphQLString},
+        bottom2: { type: GraphQLInt},
+        shoes1: { type: GraphQLString},
+        shoes2: { type: GraphQLInt},
+        url:{type:GraphQLString},
+        id:{type:GraphQLString}
+      },
+      resolve(parent, args) {
+        params = {
+          TableName: "showmethestyle",
+          Item: {
+            id: args.id,            
+            owner: args.owner,
+            url:args.url,              
+            category: args.category,
+            detail:{
+              top:{name:args.top1,price:Number(args.top2)},
+              bottom:{name:args.bottom1,price:Number(args.bottom2)},
+              shoes:{name:args.shoes1,price:Number(args.shoes2)}
+            }
+          },
+        };
+
+        return db
+          .put(params)
+          .promise()
+          .then((res) => res);
+      },
+    },
   },
 });
 
