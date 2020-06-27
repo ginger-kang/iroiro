@@ -32,6 +32,24 @@ const UserType = new GraphQLObjectType({
     userInstagram: { type: GraphQLString },
   }),
 });
+
+
+const Price = new GraphQLObjectType({
+  name:"Price",
+  fields: () => ({
+    name: { type: GraphQLString },
+    price:  { type: GraphQLInt },    
+  }),
+})
+
+const Detail = new GraphQLObjectType({
+  name: "Detail",
+  fields: () => ({
+    top: { type: Price },
+    bottom:  { type: Price },
+    shoes:  { type: Price }
+  }),
+});
 const PhotoType = new GraphQLObjectType({
   name: "Photo",
   fields: () => ({
@@ -39,10 +57,8 @@ const PhotoType = new GraphQLObjectType({
     url: { type: GraphQLString },
     category: { type: GraphQLString },
     owner: { type: GraphQLString },
-    uploadDate: { type: GraphQLString },
-    originalname: { type: GraphQLString },
-
-    round:{type: GraphQLInt},
+    uploadDate: { type: GraphQLString },    
+    detail:{type:Detail},
     instagram:{ type: GraphQLString },
 
   }),

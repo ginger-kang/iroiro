@@ -6,6 +6,20 @@ export const PHOTOS = gql`
       url
       category
       owner
+      detail{
+        top{
+          name
+          price
+        }
+        bottom{
+          name
+          price
+        }
+        shoes{
+          name
+          price
+        }
+      } 
     }
   }
 `;

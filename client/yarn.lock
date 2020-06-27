@@ -9651,9 +9651,9 @@ react-kakao-login@^1.2.2:
   integrity sha512-FCihO3m+Z/N8W0pdwsitvn9fbGa1m7xtbdHvyupJhHBuS9mzS+wzbZUGhNipI2qYmh277umX3HT5/pFxey4GOg==
 
 react-login-by-naver@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/react-login-by-naver/-/react-login-by-naver-0.1.5.tgz#4c61a1d844673ecd03fc01dea92432f8558fbc6c"
-  integrity sha512-klcPQC17Mpq2rSSOaTZm4NXNi4eTFL6t96bUBWWeDnez1f6W+nywivwlkcFM69Soxv7fRm07963u7OPAkduXOA==
+  version "0.1.8"
+  resolved "https://registry.yarnpkg.com/react-login-by-naver/-/react-login-by-naver-0.1.8.tgz#f7b47affb08d7b58f33519206a019c5728ebb3ff"
+  integrity sha512-+6klp2mKVIy69ms6KIyAVt8h3tA7De0fzyHhKtev6I+um3ey5nFhsB4qSJJX7nOwgJZKqpBnmdnvuw8QHGoSNA==
 
 react-router-dom@^5.2.0:
   version "5.2.0"
