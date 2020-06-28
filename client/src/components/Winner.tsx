@@ -91,14 +91,6 @@ function Winner() {
     <>
       <WinnerContainer>
         <UserInputContainer>
-          <span
-            style={{
-              color: `${({ props }: { props: any }) => props.theme.textColor}`,
-              fontSize: '2vw',
-            }}
-          >
-            자신의 스타일을 뽐내보세요
-          </span>
           <ImageUploadContainer scrollPos={scrollPosition}>
             {themeContext.bgColor === '#ffffff' ? (
               <img

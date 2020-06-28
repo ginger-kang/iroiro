@@ -5,13 +5,82 @@ import client from '../apollo';
 import { UPLOAD_PHOTO, USER_EXIST } from '../query';
 import axios from 'axios';
 
-const FileUploadContainer = styled.section`
+interface DescriptionVisibility {
+  isParticipation: boolean;
+}
+
+const DescriptionContainer = styled('section')<DescriptionVisibility>`
   width: 50%;
   height: 100%;
-  display: flex;
+  display: ${({ isParticipation }) => {
+    if (isParticipation) {
+      return 'none';
+    } else {
+      return 'flex';
+    }
+  }};
   flex-direction: column;
   justify-content: center;
   align-items: center;
+`;
+
+const DescriptionContent = styled.p`
+  color: ${(props) => props.theme.textColor};
+`;
+
+const ParticipationButton = styled.button`
+  width: 8vw;
+  padding: 10px;
+  min-width: 62px;
+  border-radius: 6px;
+  color: ${(props) => props.theme.bgColor};
+  background: ${(props) => props.theme.textColor};
+  font-size: 1.1vw;
+  margin-top: 40px;
+
+  &:hover {
+    color: white;
+    background: ${(props) => props.theme.pointColor};
+  }
+`;
+
+const FileUploadContainer = styled('section')<DescriptionVisibility>`
+  width: 50%;
+  height: 100%;
+  display: ${({ isParticipation }) => {
+    if (isParticipation) {
+      return 'flex';
+    } else {
+      return 'none';
+    }
+  }};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s ease;
+  transform: ${({ isParticipation }) => {
+    if (isParticipation) {
+      return 'translateX(0)';
+    } else {
+      return 'translateX(150%)';
+    }
+  }};
+`;
+
+const FileUploadCloseFButton = styled.button`
+  width: 8vw;
+  padding: 10px;
+  min-width: 62px;
+  border-radius: 6px;
+  color: ${(props) => props.theme.bgColor};
+  background: ${(props) => props.theme.textColor};
+  font-size: 1.1vw;
+  margin-top: 40px;
+
+  &:hover {
+    color: white;
+    background: red;
+  }
 `;
 
 const Input = styled.input`
@@ -64,6 +133,14 @@ const PreviewP = styled('div')<PrevImageProps>`
   background-position: center;
 `;
 
+const ImageSubmitButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
 const ImageSubmitButton = styled.button`
   width: 8vw;
   padding: 10px;
@@ -85,6 +162,7 @@ interface PrevImageProps {
 }
 
 function ImageUpload() {
+  const [isParticipation, setIsParticipation] = useState(false);
   const [uploadedFile, setUploadedFile] = useState({
     url: '',
     raw: '',
@@ -164,15 +242,44 @@ function ImageUpload() {
   const uploadInput = useRef(null);
 
   return (
-    <FileUploadContainer>
-      <Preview htmlFor="imageUpload">
-        <PreviewP url={uploadedFile.url}>
-          <AiOutlineUpload size={50} />
-        </PreviewP>
-      </Preview>
-      <Input type="file" id="imageUpload" onChange={handleChange} />
-      <ImageSubmitButton onClick={handleSubmit}>Upload</ImageSubmitButton>
-    </FileUploadContainer>
+    <>
+      <DescriptionContainer isParticipation={isParticipation}>
+        <h1
+          style={{
+            color: `${({ props }: { props: any }) => props.theme.textColor}`,
+            fontSize: '2vw',
+          }}
+        >
+          자신의 스타일을 뽐내보세요
+        </h1>
+        <DescriptionContent>
+          자기 스타일 사진을 올려 다른 사람에게 보여주세요. 매일 토너먼트
+          형식으로 진행되는 게임으로 자기 스타일에 대한 다른 사람들의 선호도를
+          알 수 있습니다.
+        </DescriptionContent>
+        <ParticipationButton
+          onClick={() => setIsParticipation(!isParticipation)}
+        >
+          참가하기
+        </ParticipationButton>
+      </DescriptionContainer>
+      <FileUploadContainer isParticipation={isParticipation}>
+        <Preview htmlFor="imageUpload">
+          <PreviewP url={uploadedFile.url}>
+            <AiOutlineUpload size={50} />
+          </PreviewP>
+        </Preview>
+        <Input type="file" id="imageUpload" onChange={handleChange} />
+        <ImageSubmitButtonContainer>
+          <ImageSubmitButton onClick={handleSubmit}>Upload</ImageSubmitButton>
+          <FileUploadCloseFButton
+            onClick={() => setIsParticipation(!isParticipation)}
+          >
+            취소
+          </FileUploadCloseFButton>
+        </ImageSubmitButtonContainer>
+      </FileUploadContainer>
+    </>
   );
 }
 
