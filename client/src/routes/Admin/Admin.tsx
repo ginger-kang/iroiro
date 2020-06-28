@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import styled, { ThemeContext } from 'styled-components';
 import client from '../../apollo';
 import {UPLOAD_PHOTO_FOR_GAME} from '../../query'
+import axios from 'axios';
 
 const AdminContainer = styled('div')`
     margin-top:100px;
@@ -18,7 +19,7 @@ type FormData = {
     shoesName: string;
     shoesPrice: string;
     instagram: string;
-    photo:string;
+    photo:any;
   };
 
 function Admin() {
@@ -28,7 +29,25 @@ function Admin() {
         var today = new Date();
         var date = today.getFullYear() +  ':' +(today.getMonth() + 1) +':' + today.getDate() + ':' +  today.getHours() +
           ':' + today.getMinutes() +  ':' +  today.getSeconds();
-        var name2 = date+"-"+photo;
+        var name2 = date+"-"+photo[0].name;
+        var imageData = new FormData();
+
+        imageData.append('image',photo[0])
+        imageData.append('imageId',name2)
+        
+        const config = {
+          headers: { 'Content-type': 'multipart/form-data' },
+        };
+
+        axios
+        .post('/upload', imageData, config)
+        .then(function (response) {
+          alert('이미지 업로드 성공');
+        })
+        .catch(function (error) {
+          alert('업로드 실패');
+        });
+    
         
         client.mutate({
             variables: {
@@ -36,11 +55,11 @@ function Admin() {
               category: 'man',                            
               instagram:instagram,
               top1:topName,
-              top2:topPrice,
+              top2:Number(topPrice),
               bottom1:bottomName,
-              bottom2:bottomPrice,
+              bottom2:Number(bottomPrice),
               shoes1:shoesName,
-              shoes2:shoesPrice,
+              shoes2:Number(shoesPrice),
               url:"https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/man/" +name2,
               id:name2
             },
@@ -50,7 +69,7 @@ function Admin() {
 
     return (
         <AdminContainer>
-        <form onSubmit={(onSubmit)}>
+        <form onSubmit={(onSubmit)} >
                 상의
                 <input type="text" id="topName" name="topName" ref={register}/>                
                 <input type="text" id="topPrice" name="topPrice" ref={register}/>
@@ -66,7 +85,7 @@ function Admin() {
                 인스타
                 <input type="text" id="instagram" name="instagram" ref={register}/>
                 <br></br>
-                <input type="file" id="photo" name="photo"  />
+                <input type="file" id="photo" name="photo" ref={register} />
            <input type="submit" value="Submit"/>
         </form> 
         </AdminContainer>

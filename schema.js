@@ -232,8 +232,7 @@ const RootMutation = new GraphQLObjectType({
       type: PhotoType,
       args: {
         owner: { type: GraphQLString },
-        category: { type: GraphQLString },        
-        uploadDate: { type: GraphQLString },
+        category: { type: GraphQLString },                
         instagram: { type: GraphQLString },
         top1: { type: GraphQLString},
         top2: { type: GraphQLInt},
@@ -252,10 +251,11 @@ const RootMutation = new GraphQLObjectType({
             owner: args.owner,
             url:args.url,              
             category: args.category,
+            instagram: args.instagram,
             detail:{
-              top:{name:args.top1,price:Number(args.top2)},
-              bottom:{name:args.bottom1,price:Number(args.bottom2)},
-              shoes:{name:args.shoes1,price:Number(args.shoes2)}
+              top:{name:args.top1,price:(args.top2)},
+              bottom:{name:args.bottom1,price:(args.bottom2)},
+              shoes:{name:args.shoes1,price:(args.shoes2)}
             }
           },
         };

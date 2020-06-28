@@ -111,21 +111,23 @@ export const UPLOAD_PHOTO = gql`
 `;
 export const UPLOAD_PHOTO_FOR_GAME = gql`
   mutation UploadPhotoForGame(
+    $id: String!
     $owner: String!
-    $category: String!   
-    
+    $category: String!       
     $instagram: String!
+    $url: String!
     $top1:String!
-    $top2:String!
+    $top2:Int!
     $bottom1:String!
-    $bottom2:String!
+    $bottom2:Int!
     $shoes1:String!
-    $shoes2:String!   
+    $shoes2:Int!   
   ) {
     UploadPhotoForGame(
       owner: $owner
       category: $category      
-      
+      id: $id
+      url: $url
       top1:$top1
       top2:$top2
       bottom1:$bottom1
