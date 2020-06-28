@@ -1,12 +1,29 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 
-const StylesPhotoContainer = styled.figure`
-  width: 90%;
+interface gridLayoutProps {
+  layoutNumber: number;
+}
+
+const StylesPhotoContainer = styled('figure')<gridLayoutProps>`
+  @media screen and (max-width: 1500px) {
+    width: 300px;
+    height: 300px;
+  }
+
+  @media screen and (max-width: 1040px) {
+    width: 400px;
+    height: 400px;
+  }
+
+  @media screen and (max-width: 845px) {
+    width: 500px;
+    height: 500px;
+  }
 
   & img {
     width: 100%;
-    height: 300px;
+    height: 100%;
   }
 `;
 
@@ -28,7 +45,7 @@ const shuffleImageData = (a: any) => {
 export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
   useEffect(() => {
     const orderArray: any = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 10; i++) {
       orderArray.push(i);
     }
     shuffledData = shuffleImageData(orderArray);
@@ -36,8 +53,8 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
   }, []);
 
   return (
-    <StylesPhotoContainer>
-      <img src={PhotoData.url} alt="1" />
+    <StylesPhotoContainer layoutNumber={layoutNumber}>
+      <img src={PhotoData.url} alt="photo"></img>
     </StylesPhotoContainer>
   );
 }
