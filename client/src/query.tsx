@@ -6,6 +6,7 @@ export const PHOTOS = gql`
       url
       category
       owner
+      instagram
       detail{
         top{
           name

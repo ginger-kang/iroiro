@@ -26,6 +26,8 @@ function Admin() {
     const { register, setValue, handleSubmit, errors } = useForm<FormData>();
     
     const onSubmit = handleSubmit(({ topName,topPrice,bottomName,bottomPrice,shoesName,shoesPrice,instagram,photo}) => {
+
+        console.log
         var today = new Date();
         var date = today.getFullYear() +  ':' +(today.getMonth() + 1) +':' + today.getDate() + ':' +  today.getHours() +
           ':' + today.getMinutes() +  ':' +  today.getSeconds();

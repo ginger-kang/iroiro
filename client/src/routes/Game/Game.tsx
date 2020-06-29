@@ -301,7 +301,7 @@ function Game({
   TotalScore
 }: gProps) {
   const [navState, setNavState] = useState(false);
-  
+  console.log(LeftData,RightData)
   return (
     <>
       <NavigationContainer>

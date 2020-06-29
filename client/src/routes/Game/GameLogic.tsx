@@ -28,7 +28,7 @@ function GameLogic<lState>() {
 
   useEffect(() => {
     const orderArray: any = [];
-    for (let i = 0; i < 12; i++) {
+    for (let i = 0; i < 6; i++) {
       orderArray.push(i);
     }
     shuffledData = shuffleImageData(orderArray);

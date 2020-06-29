@@ -6,7 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import ErrorPage from './ErrorPage';
-import UserProfile from './UserProfile'
+
 import 'react-toastify/dist/ReactToastify.css';
 
 const UserModalContainer = styled.div`
@@ -207,7 +207,7 @@ function CreateUserInfo() {
       
       <UserModal isOpen={modalIsOpen}>
         <ModalCloseButton onClick={() => setModalIsOpen(!modalIsOpen)} />
-        <UserProfile/>
+        
         <UserInfoForm onSubmit={handleSubmit(onSubmit)}>
           <NickNameContainer>
             <span>닉네임</span>

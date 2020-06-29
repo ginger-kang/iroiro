@@ -11,11 +11,12 @@ export const lightTheme = {
   secondBgColor: '#feffbd12',
   thirdBgColor: '#8eefff14',
   fourthBgColor: '#ffb0b014',
+  compareBgColor:'#EFFBEF',
   modalBgColor: 'rgba(10,10,10,.95)',
   textColor: '#000000',
   toggleBorder: '#FFF',
   gradient: 'linear-gradient(#39598A, #79D7ED)',
-  borderColor: '#00000000',
+  //borderColor: '#00000000', -> light에서 섹션 구분이 안됨
 };
 
 export const darkTheme = {
