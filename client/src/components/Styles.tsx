@@ -40,6 +40,18 @@ const StylesNavContainer = styled.nav`
   background: ${(props) => props.theme.styleNavColor};
   border-bottom: 0.1px solid rgba(0, 0, 0, 0.01);
 
+  & a {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:hover {
+      border-bottom: 1px solid ${(props) => props.theme.linkHoverBorderColor};
+    }
+  }
+
   & svg {
     color: ${(props) => props.theme.textColor};
   }
@@ -78,14 +90,17 @@ const StylePhotoWrapper = styled('section')<gridLayoutProps>`
 `;
 
 const LayoutButtonContainer = styled.div`
-  width: 40px;
-  height: 40px;
+  width: 50px;
+  height: 50px;
   background: none;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 100%;
   cursor: pointer;
+
+  &:hover {
+    border-bottom: 1px solid ${(props) => props.theme.linkHoverBorderColor};
+  }
 `;
 
 function Styles() {

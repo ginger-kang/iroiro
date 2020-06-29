@@ -16,7 +16,8 @@ export const lightTheme = {
   toggleBorder: '#FFF',
   gradient: 'linear-gradient(#39598A, #79D7ED)',
   borderColor: '#00000000',
-  styleNavColor: '#f9f9f9',
+  styleNavColor: '#ffffff',
+  linkHoverBorderColor: 'rgba(0,0,0,.5)',
 };
 
 export const darkTheme = {
@@ -33,6 +34,7 @@ export const darkTheme = {
   gradient: 'linear-gradient(#091236, #1E215D)',
   borderColor: '#1549E8',
   styleNavColor: '#060606',
+  linkHoverBorderColor: '#fefefe',
 };
 
 export const theme = {

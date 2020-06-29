@@ -7,72 +7,56 @@ import discorrectIcon from '../../Images/discorrect.png';
 import nextIcon from '../../Images/next.png';
 import homeIcon from '../../Images/home.png';
 import Price from './PriceContainer';
-interface NavigationStateProps {
-  navState: any;
-}
+import { TiArrowBackOutline } from 'react-icons/ti';
+import { AiOutlineHome } from 'react-icons/ai';
 
 const NavigationContainer = styled.nav`
   width: 100%;
-  height: auto;
+  height: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 11;
   display: flex;
+  justify-content: space-evenly;
   align-items: center;
-  flex-direction: column;
-  justify-content: center;
-  z-index: 0;
-`;
+  background: ${(props) => props.theme.styleNavColor};
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.01);
 
-interface NavButtonProps {
-  url: any;
-}
+  & a {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-const NavButton = styled('button')<NavButtonProps>`
-  width: 50px;
-  z-index: 2;
-  background: url(${({ url }) => url});
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
-`;
-
-const NavButtonContainer = styled('div')`
-  width: 100%;
-  height: 55px;
-  display: flex;
-  justify-content: center;
-`;
-
-const NavLinkContainer = styled('div')<NavigationStateProps>`
-  width: 70%;
-  height: ${({ navState }) => {
-    if (navState) {
-      return '60px';
-    } else {
-      return '0';
+    &:hover {
+      border-bottom: 1px solid ${(props) => props.theme.linkHoverBorderColor};
     }
-  }};
-  display: flex;
-  justify-content: center;
-  transition: 0.5s ease;
-  z-index: ${({ navState }) => {
-    if (navState) {
-      return '1';
-    } else {
-      return '0';
-    }
-  }};
+  }
+
+  & svg {
+    color: ${(props) => props.theme.textColor};
+  }
 `;
 
 const GameContainer = styled.main`
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: ${(props) => props.theme.bgColor};
+`;
+
+const ImageContainer = styled.section`
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-evenly;
-  background: ${(props) => props.theme.bgColor};
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 `;
 
 const LeftImageContainer = styled.section`
@@ -247,12 +231,23 @@ const RightPriceContainer = styled('div')<ResultProps>`
   }};
 `;
 
-const ScoreContainer = styled('div')`
+const ScoreContainer = styled('article')`
+  width: 50px;
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2vw;
+  border-radius: 100%;
+  border: 1px solid rgba(0, 0, 0, 0.2);
   position: absolute;
-  top: 0%;
-  right: 0%;
-  font-size: 100px;
-  z-index: 6;
+  top: 50%;
+  left: 50%;
+  transition: all .5s ease;
+  transform: translateX(-50%) translateY(-50%);
+}
+
+
 `;
 
 interface gProps {
@@ -278,51 +273,51 @@ function Game({
   Score,
   TotalScore,
 }: gProps) {
-  const [navState, setNavState] = useState(false);
   console.log(LeftData, RightData);
   return (
     <>
-      <NavigationContainer>
-        <NavLinkContainer navState={navState}>
-          <Link to={'/'}>
-            <img src={homeIcon}></img>
-          </Link>
-        </NavLinkContainer>
-        <NavButtonContainer>
-          <NavButton url={arrowIcon} onClick={() => setNavState(!navState)} />
-        </NavButtonContainer>
-      </NavigationContainer>
-      <ScoreContainer>
-        {Score}/{TotalScore}
-      </ScoreContainer>
       <GameContainer>
+        <ScoreContainer>{Score}</ScoreContainer>
+        <NavigationContainer>
+          <Link to={'/select'}>
+            <TiArrowBackOutline size={30} />
+          </Link>
+          <Link to={'/'}>
+            <AiOutlineHome size={30} />
+          </Link>
+        </NavigationContainer>
         <ResultContainer state={clickState}></ResultContainer>
-        <LeftImageContainer>
-          <LeftImageBox state={clickState}>
-            <LeftImage
-              url={LeftData.url}
-              state={clickState}
-              onClick={() => ClickImage('left', LeftData, RightData)}
-            />
-          </LeftImageBox>
-          <LeftPriceContainer state={clickState}>
-            <Price detail={LeftData.detail} instagram={LeftData.instagram} />
-          </LeftPriceContainer>
-        </LeftImageContainer>
+        <ImageContainer>
+          <LeftImageContainer>
+            <LeftImageBox state={clickState}>
+              <LeftImage
+                url={LeftData.url}
+                state={clickState}
+                onClick={() => ClickImage('left', LeftData, RightData)}
+              />
+            </LeftImageBox>
+            <LeftPriceContainer state={clickState}>
+              <Price detail={LeftData.detail} instagram={LeftData.instagram} />
+            </LeftPriceContainer>
+          </LeftImageContainer>
+          <RightImageContainer>
+            <RightImageBox state={clickState}>
+              <RightImage
+                url={RightData.url}
+                onClick={() => ClickImage('right', LeftData, RightData)}
+              />
+            </RightImageBox>
+            <RightPriceContainer state={clickState}>
+              <Price
+                detail={RightData.detail}
+                instagram={RightData.instagram}
+              />
+            </RightPriceContainer>
+          </RightImageContainer>
+        </ImageContainer>
         <NextImageContainer state={clickState}>
           <img src={nextIcon} onClick={() => NextClick()}></img>
         </NextImageContainer>
-        <RightImageContainer>
-          <RightImageBox state={clickState}>
-            <RightImage
-              url={RightData.url}
-              onClick={() => ClickImage('right', LeftData, RightData)}
-            />
-          </RightImageBox>
-          <RightPriceContainer state={clickState}>
-            <Price detail={RightData.detail} instagram={RightData.instagram} />
-          </RightPriceContainer>
-        </RightImageContainer>
       </GameContainer>
     </>
   );
