@@ -6,7 +6,7 @@ import correctIcon from '../../Images/correct.png';
 import discorrectIcon from '../../Images/discorrect.png';
 import nextIcon from '../../Images/next.png';
 import homeIcon from '../../Images/home.png';
-import Price from './PriceContainer'
+import Price from './PriceContainer';
 interface NavigationStateProps {
   navState: any;
 }
@@ -25,7 +25,7 @@ interface NavButtonProps {
   url: any;
 }
 
-const NavButton = styled('button') <NavButtonProps>`
+const NavButton = styled('button')<NavButtonProps>`
   width: 50px;
   z-index: 2;
   background: url(${({ url }) => url});
@@ -41,7 +41,7 @@ const NavButtonContainer = styled('div')`
   justify-content: center;
 `;
 
-const NavLinkContainer = styled('div') <NavigationStateProps>`
+const NavLinkContainer = styled('div')<NavigationStateProps>`
   width: 70%;
   height: ${({ navState }) => {
     if (navState) {
@@ -61,8 +61,6 @@ const NavLinkContainer = styled('div') <NavigationStateProps>`
     }
   }};
 `;
-
-
 
 const GameContainer = styled.main`
   position: absolute;
@@ -95,7 +93,7 @@ interface ImageBoxProps {
   state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
 }
 
-const LeftImageBox = styled('figure') <ImageBoxProps>`
+const LeftImageBox = styled('figure')<ImageBoxProps>`
   position: absolute;
   top: 11%;
   left: 11%;
@@ -107,12 +105,12 @@ const LeftImageBox = styled('figure') <ImageBoxProps>`
   transition: all 1s ease;
 `;
 
-const LeftImage = styled('div') <LeftImageProps>`
+const LeftImage = styled('div')<LeftImageProps>`
   width: 100%;
   height: 100%;
   cursor: pointer;
   transition: all 0.3s;
-  background: url(${({ url }) => url});
+  background-image: url(${({ url }) => url});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -138,9 +136,7 @@ interface RightImageProps {
   url: string;
 }
 
-
-
-const RightImageBox = styled('figure') <ImageBoxProps>`
+const RightImageBox = styled('figure')<ImageBoxProps>`
   position: absolute;
   top: 11%;
   left: 11%;
@@ -152,12 +148,12 @@ const RightImageBox = styled('figure') <ImageBoxProps>`
   transition: all 0.3s ease;
 `;
 
-const RightImage = styled('div') <RightImageProps>`
+const RightImage = styled('div')<RightImageProps>`
   width: 100%;
   height: 100%;
   cursor: pointer;
   transition: all 0.3s;
-  background: url(${({ url }) => url});
+  background-image: url(${({ url }) => url});
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -169,7 +165,7 @@ const RightImage = styled('div') <RightImageProps>`
     // transform: scale(1.06);
   }
 `;
-const NextImageContainer = styled('div') <ResultProps>`
+const NextImageContainer = styled('div')<ResultProps>`
 position: absolute;
 cursor: pointer;
 top:85%;
@@ -183,30 +179,25 @@ z-index:5;
 }
 
 display: ${({ state }) => {
-
-    if (state != 0) {
-      return 'flex';
-    } else {
-      return 'none';
-    }
-  }};
+  if (state != 0) {
+    return 'flex';
+  } else {
+    return 'none';
+  }
+}};
 `;
-
-
-
-
 
 interface ResultProps {
   state: 0 | 1 | 2;
 }
-const ResultContainer = styled('div') <ResultProps>`
+const ResultContainer = styled('div')<ResultProps>`
   position: absolute;
-  top:5%;
-  width:30%;
-  height:10%;
-  vertical-align:middle;  
+  top: 5%;
+  width: 30%;
+  height: 10%;
+  vertical-align: middle;
   display: none;
-  z-index:3;
+  z-index: 3;
   background-image: url(${({ state }) => {
     if (state == 1) {
       return correctIcon;
@@ -215,12 +206,9 @@ const ResultContainer = styled('div') <ResultProps>`
     }
   }});
   background-repeat: no-repeat;
-  
   background-size: contain;
-  
-  background-position:center;
+  background-position: center;
   display: ${({ state }) => {
-
     if (state != 0) {
       return 'flex';
     } else {
@@ -229,10 +217,9 @@ const ResultContainer = styled('div') <ResultProps>`
   }};
 `;
 
-
-const LeftPriceContainer = styled('div') <ResultProps>`
-background: #111d27;
-color: #111;
+const LeftPriceContainer = styled('div')<ResultProps>`
+  background: #111d27;
+  color: #111;
 
   position: absolute;
   top: 20%;
@@ -244,10 +231,8 @@ color: #111;
       return 'none';
     }
   }};
- 
- 
 `;
-const RightPriceContainer = styled('div') <ResultProps>`
+const RightPriceContainer = styled('div')<ResultProps>`
   background: #111d27;
   color: #111;
   position: absolute;
@@ -260,15 +245,14 @@ const RightPriceContainer = styled('div') <ResultProps>`
       return 'none';
     }
   }};
- 
 `;
 
 const ScoreContainer = styled('div')`
   position: absolute;
   top: 0%;
   right: 0%;
-  font-size:100px;
-  z-index:6;
+  font-size: 100px;
+  z-index: 6;
 `;
 
 interface gProps {
@@ -292,50 +276,51 @@ function Game({
   ClickImage,
   NextClick,
   Score,
-  TotalScore
+  TotalScore,
 }: gProps) {
   const [navState, setNavState] = useState(false);
-  console.log(LeftData,RightData)
+  console.log(LeftData, RightData);
   return (
     <>
       <NavigationContainer>
         <NavLinkContainer navState={navState}>
-          <Link to={'/'}>      
-            <img src={homeIcon}></img>     
+          <Link to={'/'}>
+            <img src={homeIcon}></img>
           </Link>
         </NavLinkContainer>
         <NavButtonContainer>
           <NavButton url={arrowIcon} onClick={() => setNavState(!navState)} />
         </NavButtonContainer>
       </NavigationContainer>
-      <ScoreContainer>{Score}/{TotalScore}</ScoreContainer>
+      <ScoreContainer>
+        {Score}/{TotalScore}
+      </ScoreContainer>
       <GameContainer>
-        <ResultContainer state={clickState}>
-        </ResultContainer>
+        <ResultContainer state={clickState}></ResultContainer>
         <LeftImageContainer>
           <LeftImageBox state={clickState}>
             <LeftImage
               url={LeftData.url}
               state={clickState}
-              onClick={() => ClickImage('left',LeftData,RightData)}
+              onClick={() => ClickImage('left', LeftData, RightData)}
             />
           </LeftImageBox>
           <LeftPriceContainer state={clickState}>
-            <Price detail={LeftData.detail} instagram = {LeftData.instagram}/>
+            <Price detail={LeftData.detail} instagram={LeftData.instagram} />
           </LeftPriceContainer>
         </LeftImageContainer>
-        <NextImageContainer state={clickState} >
+        <NextImageContainer state={clickState}>
           <img src={nextIcon} onClick={() => NextClick()}></img>
         </NextImageContainer>
         <RightImageContainer>
           <RightImageBox state={clickState}>
             <RightImage
               url={RightData.url}
-              onClick={() => ClickImage('right',LeftData,RightData)}
+              onClick={() => ClickImage('right', LeftData, RightData)}
             />
           </RightImageBox>
           <RightPriceContainer state={clickState}>
-            <Price detail={RightData.detail} instagram = {RightData.instagram} />
+            <Price detail={RightData.detail} instagram={RightData.instagram} />
           </RightPriceContainer>
         </RightImageContainer>
       </GameContainer>

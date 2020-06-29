@@ -21,16 +21,16 @@ const GameSelectContainer = styled.main`
 const GameSelectNavContainer = styled.nav`
   width: 100%;
   height: 50px;
-  background: #000000;
+  background: #ffffff;
   position: relative;
   z-index: 11;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${(props) => props.theme.bgColor};
+  border-bottom: 0.1px solid rgba(0, 0, 0, 0.01);
 
-  & a {
-    color: white;
+  & svg {
+    color: ${(props) => props.theme.textColor};
   }
 `;
 
