@@ -174,7 +174,7 @@ function SelectMenu() {
               style={{ width: '100%', minWidth: '100px' }}
             />
           )}
-          <Link to="/game">
+          <Link to="/style">
             <StartButton>MAN</StartButton>
           </Link>
         </ManContainer>
