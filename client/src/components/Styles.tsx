@@ -96,10 +96,6 @@ const LayoutButtonContainer = styled.div`
   align-items: center;
   border-radius: 100%;
   cursor: pointer;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.1);
-  }
 `;
 
 function Styles() {

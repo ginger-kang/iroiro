@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import priceTag from '../../Images/priceTag.png';
 import blackFloatDoodle from '../../Images/doodle/BlackFloatDoodle.svg';
 import FloatDoodle from '../../Images/doodle/FloatDoodle.svg';
+import { AiOutlineHome } from 'react-icons/ai';
 
 const GameSelectContainer = styled.main`
   width: 100%;
@@ -12,19 +13,29 @@ const GameSelectContainer = styled.main`
   position: relative;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   overflow: hidden;
 `;
 
 const GameSelectNavContainer = styled.nav`
   width: 100%;
   height: 50px;
-  background: rgba(0, 0, 0, 0.9);
+  background: #000000;
   position: relative;
   z-index: 11;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: ${(props) => props.theme.bgColor};
+
+  & a {
+    color: white;
+  }
 `;
 
 const SelectGame = styled.section`
-  width: 100%;
+  width: 90%;
   height: 100%;
   display: flex;
   flex-direction: row;
@@ -85,16 +96,17 @@ const PriceStartButton = styled.button`
 `;
 
 const PriceTagImageContainer = styled.figure`
-  width: 80%;
+  width: 330px;
+  height: 260px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: all 1s ease;
 
-  & img {
-    margin-bottom: 15px;
-    will-change: transform;
-    transition: all 1s ease;
+  @media screen and (min-width: 1100px) {
+    width: 600px;
+    height: 435px;
   }
 `;
 
@@ -104,10 +116,17 @@ const PriceTitle = styled.h1`
 `;
 
 const StyleDoodleContainer = styled.figure`
-  width: 80%;
+  width: 330px;
+  height: 260px;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: all 1s ease;
+
+  @media screen and (min-width: 1100px) {
+    width: 600px;
+    height: 435px;
+  }
 `;
 
 const StyleContentContainer = styled.article`
@@ -143,12 +162,21 @@ const StyleStartButton = styled.button`
   }
 `;
 
+const StyleTitle = styled.h1`
+  font-size: 2.5vw;
+  color: ${(props) => props.theme.textColor};
+`;
+
 export default function GameSelect() {
   const themeContext = useContext(ThemeContext);
 
   return (
     <GameSelectContainer>
-      <GameSelectNavContainer></GameSelectNavContainer>
+      <GameSelectNavContainer>
+        <Link to="/">
+          <AiOutlineHome size={30} />
+        </Link>
+      </GameSelectNavContainer>
       <SelectGame>
         <StyleGameContainer>
           <StyleDoodleContainer>
@@ -156,27 +184,30 @@ export default function GameSelect() {
               <img
                 src={blackFloatDoodle}
                 alt="blackfloatdoodle"
-                style={{ width: '100%', minWidth: '200px' }}
+                style={{ width: '100%', height: '100%', minWidth: '200px' }}
               />
             ) : (
               <img
                 src={FloatDoodle}
                 alt="floatdoodle"
-                style={{ width: '100%', minWidth: '200px' }}
+                style={{ width: '100%', height: '100%', minWidth: '200px' }}
               />
             )}
           </StyleDoodleContainer>
-          <StyleContentContainer>스타일을 찾아라</StyleContentContainer>
-          <Link to="/style">
-            <StyleStartButton>시작</StyleStartButton>
-          </Link>
+          <StyleContentContainer>
+            <StyleTitle>제목</StyleTitle>
+            <p>스타일을 찾아라</p>
+            <Link to="/style">
+              <StyleStartButton>시작</StyleStartButton>
+            </Link>
+          </StyleContentContainer>
         </StyleGameContainer>
         <PriceGameContainer>
           <PriceTagImageContainer>
             <img
               src={priceTag}
               alt="priceTag"
-              style={{ width: '80%', minWidth: '100px' }}
+              style={{ width: '60%', minWidth: '100px' }}
             />
           </PriceTagImageContainer>
           <PriceContentContainer>
