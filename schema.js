@@ -32,6 +32,24 @@ const UserType = new GraphQLObjectType({
     userInstagram: { type: GraphQLString },
   }),
 });
+
+
+const Price = new GraphQLObjectType({
+  name:"Price",
+  fields: () => ({
+    name: { type: GraphQLString },
+    price:  { type: GraphQLInt },    
+  }),
+})
+
+const Detail = new GraphQLObjectType({
+  name: "Detail",
+  fields: () => ({
+    top: { type: Price },
+    bottom:  { type: Price },
+    shoes:  { type: Price }
+  }),
+});
 const PhotoType = new GraphQLObjectType({
   name: "Photo",
   fields: () => ({
@@ -39,10 +57,8 @@ const PhotoType = new GraphQLObjectType({
     url: { type: GraphQLString },
     category: { type: GraphQLString },
     owner: { type: GraphQLString },
-    uploadDate: { type: GraphQLString },
-    originalname: { type: GraphQLString },
-
-    round:{type: GraphQLInt},
+    uploadDate: { type: GraphQLString },    
+    detail:{type:Detail},
     instagram:{ type: GraphQLString },
 
   }),
@@ -203,6 +219,44 @@ const RootMutation = new GraphQLObjectType({
               "-" +
               args.originalname,
             category: args.category,
+          },
+        };
+
+        return db
+          .put(params)
+          .promise()
+          .then((res) => res);
+      },
+    },
+    UploadPhotoForGame: {
+      type: PhotoType,
+      args: {
+        owner: { type: GraphQLString },
+        category: { type: GraphQLString },                
+        instagram: { type: GraphQLString },
+        top1: { type: GraphQLString},
+        top2: { type: GraphQLInt},
+        bottom1: { type: GraphQLString},
+        bottom2: { type: GraphQLInt},
+        shoes1: { type: GraphQLString},
+        shoes2: { type: GraphQLInt},
+        url:{type:GraphQLString},
+        id:{type:GraphQLString}
+      },
+      resolve(parent, args) {
+        params = {
+          TableName: "showmethestyle",
+          Item: {
+            id: args.id,            
+            owner: args.owner,
+            url:args.url,              
+            category: args.category,
+            instagram: args.instagram,
+            detail:{
+              top:{name:args.top1,price:(args.top2)},
+              bottom:{name:args.bottom1,price:(args.bottom2)},
+              shoes:{name:args.shoes1,price:(args.shoes2)}
+            }
           },
         };
 

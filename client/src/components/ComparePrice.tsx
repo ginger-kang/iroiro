@@ -2,21 +2,23 @@ import React, { useState, useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-import ManDoodle from '../Images/doodle/DumpingDoodle.svg';
-import blackManDoodle from '../Images/doodle/BlackDumpingDoodle.svg';
-import WomanDoodle from '../Images/doodle/SprintingDoodle.svg';
-import blackWomanDoodle from '../Images/doodle/BlackSprintingDoodle.svg';
+import priceTag from '../Images/priceTag.png';
+
 
 const SelectPageContainer = styled.section`
   width: 100%;
   height: 100vh;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
-  background: ${(props) => props.theme.secondBgColor};
+  background: ${(props) => props.theme.compareBgColor};
   overflow: hidden;
   position: relative;
+
+  @media screen and (max-width: 710px) {
+    flex-direction: column;
+  }
 `;
 
 const StartButton = styled.button`
@@ -36,7 +38,7 @@ const StartButton = styled.button`
 `;
 
 const ImageContainer = styled.section`
-  width: 70%;
+  width: 50%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -66,33 +68,16 @@ const ManContainer = styled('section')<scrollPosition>`
   }
 `;
 
-const WomanContainer = styled('section')<scrollPosition>`
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 
-  & img {
-    margin-bottom: 25px;
-    will-change: transform;
-    transform: translate3d(0px, ${({ scrollPos }) => scrollPos}px, 0px)
-      scale3d(1, 1, 1) rotateX(0deg) rotateY(0deg) rotateZ(0deg)
-      skew(0deg, 0deg);
-    transform-style: preserve-3d;
-
-    transition: all 1s ease;
-  }
-`;
 
 const ContentContainer = styled.article`
-  width: auto;
+  width: 30%;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   margin-right: 30px;
-  line-height: 1.25;
+  line-height: 1.3;
 
   & p {
     font-size: 1vw;
@@ -104,6 +89,7 @@ const BottomLineContainer = styled.div`
   left: 50%;
   bottom: 0;
   transition: 0.1s ease;
+
   transform: translateX(-50%);
 
   & svg {
@@ -113,24 +99,19 @@ const BottomLineContainer = styled.div`
   }
 `;
 
-function SelectMenu() {
+function ComparePrice() {
   // let userId = window.sessionStorage.getItem('userId');
   const [scrollPosition, setScrollPosition] = useState<number>(0);
 
   const themeContext = useContext(ThemeContext);
 
   const getCurrentScroll = () => {
+    
     if (
-      ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-        100 >=
-      40
-    ) {
+      ((window.scrollY + window.innerHeight) / document.body.clientHeight) * 100 >= 60 ) {
       setScrollPosition(39);
     } else if (
-      ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-        100 <
-      40
-    ) {
+      ((window.scrollY + window.innerHeight) / document.body.clientHeight) * 100 < 60 ) {
       setScrollPosition(-40);
     }
   };
@@ -139,6 +120,18 @@ function SelectMenu() {
 
   return (
     <SelectPageContainer>
+      
+      <ImageContainer>
+        <ManContainer scrollPos={scrollPosition}>
+          
+            <img
+              src={priceTag}
+              alt="priceTag"
+              style={{ width: '100%', minWidth: '100px' }}
+            />
+                    
+        </ManContainer>        
+      </ImageContainer>
       <ContentContainer>
         <span
           style={{
@@ -146,52 +139,18 @@ function SelectMenu() {
             color: `${({ props }: { props: any }) => props.theme.textColor}`,
           }}
         >
-          어떤 스타일을 선호하시나요?
+          뭐가 더 비쌀까
         </span>
-        <p>소개팅 자리에 나갈 때 무슨 옷을 입고가실지 고민하고 있으신가요?</p>
+        <br></br>
+        <p>더 비싼 옷을 맞춰보세요</p>
         <p>
-          자신의 여자친구, 남자친구를 친한 친구들 한테 소개시켜 줄 때 어떤 옷을
-          입히고 싶으신가요.
+          옷 정보와 가격도 알아보세요!
         </p>
+        <br></br>
+        <Link to="/game">
+            <StartButton>시작</StartButton>
+          </Link>
       </ContentContainer>
-      <ImageContainer>
-        <ManContainer scrollPos={scrollPosition}>
-          {themeContext.bgColor === '#ffffff' ? (
-            <img
-              src={blackManDoodle}
-              alt="blackmandoodle"
-              style={{ width: '100%', minWidth: '100px' }}
-            />
-          ) : (
-            <img
-              src={ManDoodle}
-              alt="mandoodle"
-              style={{ width: '100%', minWidth: '100px' }}
-            />
-          )}
-          <Link to="/style">
-            <StartButton>MAN</StartButton>
-          </Link>
-        </ManContainer>
-        <WomanContainer scrollPos={scrollPosition}>
-          {themeContext.bgColor === '#ffffff' ? (
-            <img
-              src={blackWomanDoodle}
-              alt="blackwomandoodle"
-              style={{ width: '100%', minWidth: '100px' }}
-            />
-          ) : (
-            <img
-              src={WomanDoodle}
-              alt="womandoodle"
-              style={{ width: '100%', minWidth: '100px' }}
-            />
-          )}
-          <Link to="/game">
-            <StartButton>WOMAN</StartButton>
-          </Link>
-        </WomanContainer>
-      </ImageContainer>
       <BottomLineContainer>
         <svg
           width="159"
@@ -214,4 +173,4 @@ function SelectMenu() {
   );
 }
 
-export default SelectMenu;
+export default ComparePrice;

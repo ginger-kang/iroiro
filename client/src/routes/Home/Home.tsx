@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import SelectMenu from '../../components/Select';
 import Winner from '../../components/Winner';
 import Awarded from '../../components/Awarded';
+import ComparePrice from '../../components/ComparePrice';
 import Main from '../../components/Main';
 import CreateUserInfo from '../../components/CreateUser';
 
@@ -17,7 +18,7 @@ const LoginNavContainer = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 500;
+  z-index: 5;
 `;
 
 const UserContainer = styled.div`
@@ -38,6 +39,7 @@ export default function Home() {
       </LoginNavContainer>
       <Main />
       <SelectMenu />
+      <ComparePrice />
       <Winner />
       <Awarded />
     </>

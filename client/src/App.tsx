@@ -27,9 +27,9 @@ const ToggleButtonContainer = styled('div')<ToggleProps>`
   display: flex;
   align-items: center;
   position: absolute;
-  z-index: 600;
   width: 64px;
   height: 36px;
+  z-index: 10;
   transition: all 0.5s ease;
 `;
 
@@ -84,7 +84,6 @@ function App() {
       <ToggleButtonContainer isLight={isLight}>
         <ToggleButton isLight={isLight} onClick={toggleTheme} />
       </ToggleButtonContainer>
-      {/* <div style={{width: '300px', height: '200px', backgroundColor: 'tomato'}}>테스트</div> */}
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
           <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
