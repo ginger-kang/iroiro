@@ -91,7 +91,7 @@ const ContentContainer = styled.article`
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
-  margin-right: 30px;
+  margin-bottom: 7vw;
   line-height: 1.25;
 
   & p {
@@ -146,12 +146,15 @@ function SelectMenu() {
             color: `${({ props }: { props: any }) => props.theme.textColor}`,
           }}
         >
-          어떤 스타일을 선호하시나요?
+          소제목
         </span>
-        <p>소개팅 자리에 나갈 때 무슨 옷을 입고가실지 고민하고 있으신가요?</p>
         <p>
-          자신의 여자친구, 남자친구를 친한 친구들 한테 소개시켜 줄 때 어떤 옷을
-          입히고 싶으신가요.
+          찾고있는 스타일이 있으신가요? 자신의 여자친구, 남자친구를 친한 친구들
+          한테 소개시켜 줄 때 어떤 옷을 입히고 싶으신가요....
+        </p>
+        <p>
+          두 개의 사진을 보고, 어느 쪽이 더 비싼 옷을 입고 있는지 맞춰보는
+          게임을 즐겨보세요....
         </p>
       </ContentContainer>
       <ImageContainer>
@@ -169,7 +172,7 @@ function SelectMenu() {
               style={{ width: '100%', minWidth: '100px' }}
             />
           )}
-          <Link to="/style">
+          <Link to="/select">
             <StartButton>MAN</StartButton>
           </Link>
         </ManContainer>
@@ -187,7 +190,7 @@ function SelectMenu() {
               style={{ width: '100%', minWidth: '100px' }}
             />
           )}
-          <Link to="/game">
+          <Link to="/select">
             <StartButton>WOMAN</StartButton>
           </Link>
         </WomanContainer>
