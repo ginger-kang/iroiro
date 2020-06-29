@@ -27,6 +27,7 @@ export const darkTheme = {
   secondBgColor: '#060606',
   thirdBgColor: '#060606',
   fourthBgColor: '#060606',
+  compareBgColor:'#060606',
   modalBgColor: 'rgba(190,190,190,0.99)',
   textColor: '#FFFFFF',
   toggleBorder: '#6B8096',

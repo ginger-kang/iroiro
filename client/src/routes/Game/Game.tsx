@@ -5,6 +5,7 @@ import arrowIcon from '../../Images/arrowIcon.png';
 import correctIcon from '../../Images/correct.png';
 import discorrectIcon from '../../Images/discorrect.png';
 import nextIcon from '../../Images/next.png';
+import homeIcon from '../../Images/home.png';
 import Price from './PriceContainer'
 interface NavigationStateProps {
   navState: any;
@@ -61,11 +62,7 @@ const NavLinkContainer = styled('div') <NavigationStateProps>`
   }};
 `;
 
-const HomeButton = styled.div`
-  color: white;
-  font-size: 40px;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-`;
+
 
 const GameContainer = styled.main`
   position: absolute;
@@ -306,8 +303,8 @@ function Game({
     <>
       <NavigationContainer>
         <NavLinkContainer navState={navState}>
-          <Link to={'/'}>
-            <HomeButton>HOME</HomeButton>
+          <Link to={'/'}>      
+            <img src={homeIcon}></img>     
           </Link>
         </NavLinkContainer>
         <NavButtonContainer>
