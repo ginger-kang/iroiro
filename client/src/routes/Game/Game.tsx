@@ -5,6 +5,7 @@ import arrowIcon from '../../Images/arrowIcon.png';
 import correctIcon from '../../Images/correct.png';
 import discorrectIcon from '../../Images/discorrect.png';
 import nextIcon from '../../Images/next.png';
+import homeIcon from '../../Images/home.png';
 import Price from './PriceContainer'
 interface NavigationStateProps {
   navState: any;
@@ -61,11 +62,7 @@ const NavLinkContainer = styled('div') <NavigationStateProps>`
   }};
 `;
 
-const HomeButton = styled.div`
-  color: white;
-  font-size: 40px;
-  text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
-`;
+
 
 const GameContainer = styled.main`
   position: absolute;
@@ -174,7 +171,7 @@ const RightImage = styled('div') <RightImageProps>`
 `;
 const NextImageContainer = styled('div') <ResultProps>`
 position: absolute;
-
+cursor: pointer;
 top:85%;
 vertical-align:middle;
 font-size: 40px
@@ -182,10 +179,7 @@ display: none;
 z-index:5;
 
 &:hover {
-  box-shadow: 0px 0px 12px 5px ${(props) => props.theme.hoverColor};
-  // -ms-transform: scale(1.06);
-  // -webkit-transform: scale(1.06);
-  // transform: scale(1.06);
+  
 }
 
 display: ${({ state }) => {
@@ -207,8 +201,9 @@ interface ResultProps {
 }
 const ResultContainer = styled('div') <ResultProps>`
   position: absolute;
+  top:5%;
   width:30%;
-  height:30%;
+  height:10%;
   vertical-align:middle;  
   display: none;
   z-index:3;
@@ -240,7 +235,7 @@ background: #111d27;
 color: #111;
 
   position: absolute;
-  top: 30%;
+  top: 20%;
   left: 75%;
   display: ${({ state }) => {
     if (state != 0) {
@@ -255,9 +250,8 @@ color: #111;
 const RightPriceContainer = styled('div') <ResultProps>`
   background: #111d27;
   color: #111;
-
   position: absolute;
-  top: 30%;
+  top: 20%;
   right: 75%;
   display: ${({ state }) => {
     if (state != 0) {
@@ -306,8 +300,8 @@ function Game({
     <>
       <NavigationContainer>
         <NavLinkContainer navState={navState}>
-          <Link to={'/'}>
-            <HomeButton>HOME</HomeButton>
+          <Link to={'/'}>      
+            <img src={homeIcon}></img>     
           </Link>
         </NavLinkContainer>
         <NavButtonContainer>

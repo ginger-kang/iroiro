@@ -1,6 +1,11 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
 
 
+a:link { color: rgb(0, 140, 255); text-decoration: none;}
+ a:visited { color: rgb(0, 140, 255); text-decoration: none;}
+ a:hover { color: rgb(0, 140, 255); text-decoration: underline;}
+
+
 
 .pricing {
 	text-align: center;

@@ -15,12 +15,16 @@ function Price({ detail, instagram }: pProps) {
 
         <ul className="pricing p-green">
             <li>
-                <h3>{detail.top.name}</h3>
+                <h3><a href={"https://www.google.com/search?tbm=shop&q="+detail.top.name}>{detail.top.name}</a></h3>
             </li>
             <li>{detail.top.price}</li>
-            <li><h3>{detail.bottom.name}</h3></li>
+            <li>
+                <h3><a href={"https://www.google.com/search?tbm=shop&q="+detail.bottom.name}>{detail.bottom.name}</a></h3>
+            </li>
             <li>{detail.bottom.price}</li>
-            <li><h3>{detail.shoes.name}</h3></li>
+            <li>
+                <h3><a href={"https://www.google.com/search?tbm=shop&q="+detail.shoes.name}>{detail.shoes.name}</a></h3>
+            </li>
             <li>{detail.shoes.price}</li>
             <li>
                 <h3>총합</h3>
