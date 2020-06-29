@@ -1,8 +1,9 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { Link } from 'react-router-dom';
 import priceTag from '../../Images/priceTag.png';
-import { AiOutlineInfoCircle } from 'react-icons/ai';
+import blackFloatDoodle from '../../Images/doodle/BlackFloatDoodle.svg';
+import FloatDoodle from '../../Images/doodle/FloatDoodle.svg';
 
 const GameSelectContainer = styled.main`
   width: 100%;
@@ -37,7 +38,6 @@ const StyleGameContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.2);
   overflow: hidden;
 `;
 
@@ -48,18 +48,16 @@ const PriceGameContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: tomato;
   overflow: hidden;
 `;
 
 const PriceContentContainer = styled.article`
-  width: 30%;
+  width: 80%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-right: 30px;
-  line-height: 1.3;
+  line-height: 1.25;
   text-align: center;
   color: ${(props) => props.theme.textColor};
 
@@ -72,8 +70,10 @@ const PriceStartButton = styled.button`
   padding: 10px;
   margin-top: 20px;
   font-size: 1.1vw;
-  width: 8vw;
-  min-width: 62px;
+  width: 9vw;
+  height: 3.5vw;
+  min-width: 80px;
+  min-height: 35px;
   border-radius: 6px;
   -webkit-transition: all 0.1s;
   transition: all 0.1s;
@@ -90,7 +90,6 @@ const PriceTagImageContainer = styled.figure`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 2vw;
 
   & img {
     margin-bottom: 15px;
@@ -102,30 +101,91 @@ const PriceTagImageContainer = styled.figure`
 const PriceTitle = styled.h1`
   font-size: 2.5vw;
   color: ${(props) => props.theme.textColor};
-  margin-bottom: 2vw;
+`;
+
+const StyleDoodleContainer = styled.figure`
+  width: 80%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StyleContentContainer = styled.article`
+  width: 65%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  line-height: 1.25;
+  text-align: center;
+  color: ${(props) => props.theme.textColor};
+
+  & p {
+    font-size: 1.2vw;
+  }
+`;
+
+const StyleStartButton = styled.button`
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 1.1vw;
+  width: 9vw;
+  height: 3.5vw;
+  min-width: 80px;
+  min-height: 35px;
+  border-radius: 6px;
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+
+  &:hover {
+    background: ${(props) => props.theme.pointColor};
+    color: white;
+  }
 `;
 
 export default function GameSelect() {
+  const themeContext = useContext(ThemeContext);
+
   return (
     <GameSelectContainer>
       <GameSelectNavContainer></GameSelectNavContainer>
       <SelectGame>
-        <StyleGameContainer></StyleGameContainer>
+        <StyleGameContainer>
+          <StyleDoodleContainer>
+            {themeContext.bgColor === '#ffffff' ? (
+              <img
+                src={blackFloatDoodle}
+                alt="blackfloatdoodle"
+                style={{ width: '100%', minWidth: '200px' }}
+              />
+            ) : (
+              <img
+                src={FloatDoodle}
+                alt="floatdoodle"
+                style={{ width: '100%', minWidth: '200px' }}
+              />
+            )}
+          </StyleDoodleContainer>
+          <StyleContentContainer>스타일을 찾아라</StyleContentContainer>
+          <Link to="/style">
+            <StyleStartButton>시작</StyleStartButton>
+          </Link>
+        </StyleGameContainer>
         <PriceGameContainer>
-          <PriceTitle>뭐가 더 비쌀까</PriceTitle>
           <PriceTagImageContainer>
             <img
               src={priceTag}
               alt="priceTag"
-              style={{ width: '70%', minWidth: '100px' }}
+              style={{ width: '80%', minWidth: '100px' }}
             />
           </PriceTagImageContainer>
           <PriceContentContainer>
+            <PriceTitle>뭐가 더 비쌀까</PriceTitle>
             <p>더 비싼 옷을 맞춰보세요. 옷 정보와 가격도 알아보세요!</p>
+            <Link to="/game">
+              <PriceStartButton>시작</PriceStartButton>
+            </Link>
           </PriceContentContainer>
-          <Link to="/game">
-            <PriceStartButton>시작</PriceStartButton>
-          </Link>
         </PriceGameContainer>
       </SelectGame>
     </GameSelectContainer>

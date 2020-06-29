@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import SelectMenu from '../../components/Select';
 import Winner from '../../components/Winner';
 import Awarded from '../../components/Awarded';
-import ComparePrice from '../../components/ComparePrice';
 import Main from '../../components/Main';
 import CreateUserInfo from '../../components/CreateUser';
 
@@ -39,7 +38,6 @@ export default function Home() {
       </LoginNavContainer>
       <Main />
       <SelectMenu />
-      <ComparePrice />
       <Winner />
       <Awarded />
     </>
