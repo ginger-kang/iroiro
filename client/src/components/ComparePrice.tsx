@@ -106,17 +106,12 @@ function ComparePrice() {
   const themeContext = useContext(ThemeContext);
 
   const getCurrentScroll = () => {
+    
     if (
-      ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-        100 >=
-      40
-    ) {
+      ((window.scrollY + window.innerHeight) / document.body.clientHeight) * 100 >= 60 ) {
       setScrollPosition(39);
     } else if (
-      ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
-        100 <
-      40
-    ) {
+      ((window.scrollY + window.innerHeight) / document.body.clientHeight) * 100 < 60 ) {
       setScrollPosition(-40);
     }
   };
