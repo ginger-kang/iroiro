@@ -62,7 +62,7 @@ router.route("/upload").post((req, res, next) => {
     fs.readFile(file.path, function (err, data) {
       if (err) throw err; // Something went wrong!
       var s3bucket = new AWS.S3({
-        params: { Bucket: "showmethestyle.com/temp" },
+        params: { Bucket: "showmethestyle.com/man" },
       });
       s3bucket.createBucket(function () {
         var params = {

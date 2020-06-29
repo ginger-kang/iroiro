@@ -6,6 +6,21 @@ export const PHOTOS = gql`
       url
       category
       owner
+      instagram
+      detail{
+        top{
+          name
+          price
+        }
+        bottom{
+          name
+          price
+        }
+        shoes{
+          name
+          price
+        }
+      } 
     }
   }
 `;
@@ -90,6 +105,37 @@ export const UPLOAD_PHOTO = gql`
       category: $category
       originalname: $originalname
       uploadDate: $uploadDate
+    ) {
+      owner
+    }
+  }
+`;
+export const UPLOAD_PHOTO_FOR_GAME = gql`
+  mutation UploadPhotoForGame(
+    $id: String!
+    $owner: String!
+    $category: String!       
+    $instagram: String!
+    $url: String!
+    $top1:String!
+    $top2:Int!
+    $bottom1:String!
+    $bottom2:Int!
+    $shoes1:String!
+    $shoes2:Int!   
+  ) {
+    UploadPhotoForGame(
+      owner: $owner
+      category: $category      
+      id: $id
+      url: $url
+      top1:$top1
+      top2:$top2
+      bottom1:$bottom1
+      bottom2:$bottom2
+      shoes1:$shoes1
+      shoes2:$shoes2
+      instagram:$instagram
     ) {
       owner
     }

@@ -2,8 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import arrowIcon from '../../Images/arrowIcon.png';
-import { AiFillStar } from 'react-icons/ai';
-
+import correctIcon from '../../Images/correct.png';
+import discorrectIcon from '../../Images/discorrect.png';
+import nextIcon from '../../Images/next.png';
+import Price from './PriceContainer'
 interface NavigationStateProps {
   navState: any;
 }
@@ -22,7 +24,7 @@ interface NavButtonProps {
   url: any;
 }
 
-const NavButton = styled('button')<NavButtonProps>`
+const NavButton = styled('button') <NavButtonProps>`
   width: 50px;
   z-index: 2;
   background: url(${({ url }) => url});
@@ -38,7 +40,7 @@ const NavButtonContainer = styled('div')`
   justify-content: center;
 `;
 
-const NavLinkContainer = styled('div')<NavigationStateProps>`
+const NavLinkContainer = styled('div') <NavigationStateProps>`
   width: 70%;
   height: ${({ navState }) => {
     if (navState) {
@@ -96,7 +98,7 @@ interface ImageBoxProps {
   state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
 }
 
-const LeftImageBox = styled('figure')<ImageBoxProps>`
+const LeftImageBox = styled('figure') <ImageBoxProps>`
   position: absolute;
   top: 11%;
   left: 11%;
@@ -108,7 +110,7 @@ const LeftImageBox = styled('figure')<ImageBoxProps>`
   transition: all 1s ease;
 `;
 
-const LeftImage = styled('div')<LeftImageProps>`
+const LeftImage = styled('div') <LeftImageProps>`
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -126,75 +128,6 @@ const LeftImage = styled('div')<LeftImageProps>`
     // transform: scale(1.06);
   }
 `;
-
-const LeftResultModal = styled('div')<ImageBoxProps>`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  color: yellow;
-  font-size: 50px;
-  display: flex;
-  background: rgba(0, 0, 0, 0.5);
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-
-  display: ${({ state }) => {
-    switch (state) {
-      case 'WAIT':
-        return 'none';
-      case 'LEFTCLICK':
-        return 'none';
-      case 'RIGHTCLICK':
-        return 'none';
-      case 'CLICKRESULT':
-        return 'flex';
-    }
-  }};
-`;
-
-const LeftClickEffectContainer = styled('div')<ImageBoxProps>`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  color: yellow;
-  font-size: 50px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  display: ${({ state }) => {
-    switch (state) {
-      case 'WAIT':
-        return 'none';
-      case 'LEFTCLICK':
-        return 'flex';
-      case 'RIGHTCLICK':
-        return 'none';
-      case 'CLICKRESULT':
-        return 'none';
-    }
-  }};
-  animation: bounce 1.3s infinite alternate;
-  -webkit-animation: bounce 1.3s infinite alternate;
-
-  @keyframes bounce {
-    from {
-      transform: translateY(0px);
-    }
-    to {
-      transform: translateY(-15px);
-    }
-  }
-  @-webkit-keyframes bounce {
-    from {
-      transform: translateY(0px);
-    }
-    to {
-      transform: translateY(-15px);
-    }
-  }
-`;
-
 const RightImageContainer = styled.section`
   position: relative;
   width: 50%;
@@ -208,11 +141,9 @@ interface RightImageProps {
   url: string;
 }
 
-interface ImageBoxProps {
-  state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
-}
 
-const RightImageBox = styled('figure')<ImageBoxProps>`
+
+const RightImageBox = styled('figure') <ImageBoxProps>`
   position: absolute;
   top: 11%;
   left: 11%;
@@ -221,10 +152,10 @@ const RightImageBox = styled('figure')<ImageBoxProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 1s ease;
+  transition: all 0.3s ease;
 `;
 
-const RightImage = styled('div')<RightImageProps>`
+const RightImage = styled('div') <RightImageProps>`
   width: 100%;
   height: 100%;
   cursor: pointer;
@@ -241,118 +172,136 @@ const RightImage = styled('div')<RightImageProps>`
     // transform: scale(1.06);
   }
 `;
+const NextImageContainer = styled('div') <ResultProps>`
+position: absolute;
 
-const RightResultModal = styled('div')<ImageBoxProps>`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  color: yellow;
-  font-size: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
-  background: rgba(0, 0, 0, 0.5);
-  transition: all 1s ease;
+top:85%;
+vertical-align:middle;
+font-size: 40px
+display: none;
+z-index:5;
 
-  display: ${({ state }) => {
-    switch (state) {
-      case 'WAIT':
-        return 'none';
-      case 'LEFTCLICK':
-        return 'none';
-      case 'RIGHTCLICK':
-        return 'none';
-      case 'CLICKRESULT':
-        return 'flex';
+&:hover {
+  box-shadow: 0px 0px 12px 5px ${(props) => props.theme.hoverColor};
+  // -ms-transform: scale(1.06);
+  // -webkit-transform: scale(1.06);
+  // transform: scale(1.06);
+}
+
+display: ${({ state }) => {
+
+    if (state != 0) {
+      return 'flex';
+    } else {
+      return 'none';
     }
   }};
 `;
 
-const RightClickEffectContainer = styled('div')<ImageBoxProps>`
+
+
+
+
+interface ResultProps {
+  state: 0 | 1 | 2;
+}
+const ResultContainer = styled('div') <ResultProps>`
   position: absolute;
-  width: 100%;
-  height: 100%;
-  color: yellow;
-  font-size: 50px;
-  justify-content: center;
-  align-items: center;
-  border-radius: 10px;
+  width:30%;
+  height:30%;
+  vertical-align:middle;  
+  display: none;
+  z-index:3;
+  background-image: url(${({ state }) => {
+    if (state == 1) {
+      return correctIcon;
+    } else {
+      return discorrectIcon;
+    }
+  }});
+  background-repeat: no-repeat;
+  
+  background-size: contain;
+  
+  background-position:center;
   display: ${({ state }) => {
-    switch (state) {
-      case 'WAIT':
-        return 'none';
-      case 'LEFTCLICK':
-        return 'none';
-      case 'RIGHTCLICK':
-        return 'flex';
-      case 'CLICKRESULT':
-        return 'none';
+
+    if (state != 0) {
+      return 'flex';
+    } else {
+      return 'none';
     }
   }};
-  animation: bounce 1.3s infinite alternate;
-  -webkit-animation: bounce 1.3s infinite alternate;
-
-  @keyframes bounce {
-    from {
-      transform: translateY(0px);
-    }
-    to {
-      transform: translateY(-15px);
-    }
-  }
-  @-webkit-keyframes bounce {
-    from {
-      transform: translateY(0px);
-    }
-    to {
-      transform: translateY(-15px);
-    }
-  }
 `;
 
-const VersusImageContainer = styled.div`
+
+const LeftPriceContainer = styled('div') <ResultProps>`
+background: #111d27;
+color: #111;
+
   position: absolute;
-  top: 40%;
-  font-size: 70px;
-  font-weight: 700;
-  border-radius: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  top: 30%;
+  left: 75%;
+  display: ${({ state }) => {
+    if (state != 0) {
+      return 'flex';
+    } else {
+      return 'none';
+    }
+  }};
+ 
+ 
+`;
+const RightPriceContainer = styled('div') <ResultProps>`
+  background: #111d27;
+  color: #111;
+
+  position: absolute;
+  top: 30%;
+  right: 75%;
+  display: ${({ state }) => {
+    if (state != 0) {
+      return 'flex';
+    } else {
+      return 'none';
+    }
+  }};
+ 
 `;
 
-const VersusIcon = styled.div`
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border-radius: 100%;
-
-  & img {
-    width: 10vw;
-    height: 10vw;
-  }
+const ScoreContainer = styled('div')`
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  font-size:100px;
+  z-index:6;
 `;
 
 interface gProps {
   clickState: any;
   // ClickState: any;
-  LeftStyleImages: any;
-  RightStyleImages: any;
-  LeftClick: any;
-  RightClick: any;
+  LeftData: any;
+  RightData: any;
+  //LeftClick: any;
+  //RightClick: any;
+  ClickImage: any;
+  NextClick: any;
+  Score: any;
+  TotalScore: any;
 }
 
 function Game({
   clickState,
   // ClickState,
-  LeftStyleImages,
-  RightStyleImages,
-  LeftClick,
-  RightClick,
+  LeftData,
+  RightData,
+  ClickImage,
+  NextClick,
+  Score,
+  TotalScore
 }: gProps) {
   const [navState, setNavState] = useState(false);
-
+  console.log(LeftData,RightData)
   return (
     <>
       <NavigationContainer>
@@ -365,42 +314,35 @@ function Game({
           <NavButton url={arrowIcon} onClick={() => setNavState(!navState)} />
         </NavButtonContainer>
       </NavigationContainer>
+      <ScoreContainer>{Score}/{TotalScore}</ScoreContainer>
       <GameContainer>
+        <ResultContainer state={clickState}>
+        </ResultContainer>
         <LeftImageContainer>
           <LeftImageBox state={clickState}>
             <LeftImage
-              url={LeftStyleImages.url}
+              url={LeftData.url}
               state={clickState}
-              onClick={() => LeftClick()}
+              onClick={() => ClickImage('left',LeftData,RightData)}
             />
-            <LeftResultModal state={clickState}>
-              <AiFillStar size={47} />
-              50
-            </LeftResultModal>
-            <LeftClickEffectContainer state={clickState}>
-              <AiFillStar size={47} />
-            </LeftClickEffectContainer>
           </LeftImageBox>
+          <LeftPriceContainer state={clickState}>
+            <Price detail={LeftData.detail} instagram = {LeftData.instagram}/>
+          </LeftPriceContainer>
         </LeftImageContainer>
-        <VersusImageContainer>
-          <VersusIcon>
-            {/* <img src={MeditatingDoodle} alt='meditatingDoodle' /> */}vs
-          </VersusIcon>
-        </VersusImageContainer>
+        <NextImageContainer state={clickState} >
+          <img src={nextIcon} onClick={() => NextClick()}></img>
+        </NextImageContainer>
         <RightImageContainer>
           <RightImageBox state={clickState}>
             <RightImage
-              url={RightStyleImages.url}
-              onClick={() => RightClick()}
+              url={RightData.url}
+              onClick={() => ClickImage('right',LeftData,RightData)}
             />
-            <RightResultModal state={clickState}>
-              <AiFillStar size={47} />
-              30
-            </RightResultModal>
-            <RightClickEffectContainer state={clickState}>
-              <AiFillStar size={47} />
-            </RightClickEffectContainer>
           </RightImageBox>
+          <RightPriceContainer state={clickState}>
+            <Price detail={RightData.detail} instagram = {RightData.instagram} />
+          </RightPriceContainer>
         </RightImageContainer>
       </GameContainer>
     </>
