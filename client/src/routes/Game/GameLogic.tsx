@@ -6,8 +6,6 @@ import GameLoading from '../../components/GameLoading';
 import ErrorPage from '../../components/ErrorPage';
 import { isNullOrUndefined } from 'util';
 
-
-
 let shuffledData: any = [];
 
 const shuffleImageData = (a: any) => {
@@ -34,11 +32,7 @@ function GameLogic<lState>() {
     shuffledData = shuffleImageData(orderArray);
   }, []);
 
-
-
   const ShowResult = (side: String, LPrice: any, RPrice: any) => {
-
-
     if (side == 'left') {
       if (LPrice > RPrice) {
         //correct
@@ -47,7 +41,7 @@ function GameLogic<lState>() {
       } else {
         setClickState(2);
       }
-      setTotalScore(TotalScore + 1)
+      setTotalScore(TotalScore + 1);
     } else {
       if (LPrice > RPrice) {
         setClickState(2);
@@ -56,15 +50,20 @@ function GameLogic<lState>() {
         setClickState(1);
         setScore(Score + 1);
       }
-      setTotalScore(TotalScore + 1)
+      setTotalScore(TotalScore + 1);
     }
-  }
-
-
+  };
 
   const ClickImage = (side: any, LPrice: any, RPrice: any) => {
-    LPrice = LPrice.detail.top.price + LPrice.detail.bottom.price + LPrice.detail.shoes.price + 2222222
-    RPrice = RPrice.detail.top.price + RPrice.detail.bottom.price + RPrice.detail.shoes.price
+    LPrice =
+      LPrice.detail.top.price +
+      LPrice.detail.bottom.price +
+      LPrice.detail.shoes.price +
+      2222222;
+    RPrice =
+      RPrice.detail.top.price +
+      RPrice.detail.bottom.price +
+      RPrice.detail.shoes.price;
 
     if (clickState == 0) {
       if (side == 'left') {
@@ -75,7 +74,7 @@ function GameLogic<lState>() {
         } else {
           setClickState(2);
         }
-        setTotalScore(TotalScore + 1)
+        setTotalScore(TotalScore + 1);
       } else {
         if (LPrice > RPrice) {
           setClickState(2);
@@ -84,26 +83,16 @@ function GameLogic<lState>() {
           setClickState(1);
           setScore(Score + 1);
         }
-        setTotalScore(TotalScore + 1)
+        setTotalScore(TotalScore + 1);
       }
     }
-
-
-
-
   };
 
   const NextClick = () => {
-
-
     setClickState(0);
     setLeftImageIndex(LeftImageindex + 2);
     setRightImageIndex(RightImageindex + 2);
-
-
   };
-
-
 
   return (
     <Query

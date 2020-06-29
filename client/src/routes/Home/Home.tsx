@@ -18,7 +18,7 @@ const LoginNavContainer = styled.nav`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 500;
+  z-index: 5;
 `;
 
 const UserContainer = styled.div`

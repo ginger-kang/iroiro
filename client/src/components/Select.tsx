@@ -11,16 +11,12 @@ const SelectPageContainer = styled.section`
   width: 100%;
   height: 100vh;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   background: ${(props) => props.theme.secondBgColor};
   overflow: hidden;
   position: relative;
-
-  @media screen and (max-width: 710px) {
-    flex-direction: column;
-  }
 `;
 
 const StartButton = styled.button`
@@ -40,7 +36,7 @@ const StartButton = styled.button`
 `;
 
 const ImageContainer = styled.section`
-  width: 50%;
+  width: 70%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -90,13 +86,13 @@ const WomanContainer = styled('section')<scrollPosition>`
 `;
 
 const ContentContainer = styled.article`
-  width: 30%;
+  width: auto;
   display: flex;
   justify-content: center;
   align-items: flex-start;
   flex-direction: column;
   margin-right: 30px;
-  line-height: 1.3;
+  line-height: 1.25;
 
   & p {
     font-size: 1vw;
@@ -108,7 +104,6 @@ const BottomLineContainer = styled.div`
   left: 50%;
   bottom: 0;
   transition: 0.1s ease;
-
   transform: translateX(-50%);
 
   & svg {
