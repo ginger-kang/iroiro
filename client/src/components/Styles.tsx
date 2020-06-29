@@ -73,6 +73,7 @@ const BackButtonContainer = styled.figure`
   justify-content: center;
   align-items: center;
   border-radius: 100%;
+  cursor: pointer;
 
   & a {
     width: 12px;
@@ -94,6 +95,7 @@ const LayoutButtonContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 100%;
+  cursor: pointer;
 
   &:hover {
     background: rgba(0, 0, 0, 0.1);

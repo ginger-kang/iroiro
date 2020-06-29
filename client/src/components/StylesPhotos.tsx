@@ -17,13 +17,20 @@ const StylesPhotoContainer = styled('figure')<gridLayoutProps>`
   }
 
   @media screen and (max-width: 845px) {
-    width: 500px;
-    height: 500px;
+    width: 80vw;
+    height: 80vw;
   }
 
   & img {
     width: 100%;
     height: 100%;
+    cursor: pointer;
+    box-shadow: 2.5px 2.5px 5.5px rgba(0, 0, 0, 0.3);
+
+    &:hover {
+      transition: all 0.5s ease;
+      transform: scale(1.03);
+    }
   }
 `;
 
@@ -49,7 +56,6 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
       orderArray.push(i);
     }
     shuffledData = shuffleImageData(orderArray);
-    console.log(PhotoData);
   }, []);
 
   return (
