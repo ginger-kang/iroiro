@@ -231,9 +231,9 @@ const ResultContainer = styled('div') <ResultProps>`
 
 
 const LeftPriceContainer = styled('div') <ResultProps>`
-background: #111d27;
-color: #111;
-
+  background: #111d27;
+  color: #111;
+  
   position: absolute;
   top: 20%;
   left: 75%;
@@ -251,6 +251,7 @@ const RightPriceContainer = styled('div') <ResultProps>`
   background: #111d27;
   color: #111;
   position: absolute;
+  
   top: 20%;
   right: 75%;
   display: ${({ state }) => {
@@ -267,7 +268,7 @@ const ScoreContainer = styled('div')`
   position: absolute;
   top: 0%;
   right: 0%;
-  font-size:100px;
+  font-size:9vh;
   z-index:6;
 `;
 
