@@ -14,6 +14,7 @@ const LoadingContainer = styled.div`
   justify-content: center;
   align-items: center;
   background: ${(props) => props.theme.bgColor};
+  z-index: 20;
 `;
 
 const LoadingBox = styled.div`

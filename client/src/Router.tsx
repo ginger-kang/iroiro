@@ -4,6 +4,7 @@ import Home from './routes/Home/Home';
 import Game from './routes/Game/GameLogic';
 import Admin from './routes/Admin/Admin';
 import Styles from './components/Styles';
+import GameSelect from './routes/Select/GameSelect';
 
 export default function Router() {
   return (
@@ -14,6 +15,7 @@ export default function Router() {
           <Route path="/game" component={Game} />
           <Route path="/admin" component={Admin} />
           <Route path="/style" component={Styles} />
+          <Route path="/select" component={GameSelect} />
         </Switch>
       </BrowserRouter>
     </>

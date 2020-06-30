@@ -58,8 +58,7 @@ function GameLogic<lState>() {
     LPrice =
       LPrice.detail.top.price +
       LPrice.detail.bottom.price +
-      LPrice.detail.shoes.price +
-      2222222;
+      LPrice.detail.shoes.price;
     RPrice =
       RPrice.detail.top.price +
       RPrice.detail.bottom.price +
