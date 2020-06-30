@@ -6,28 +6,28 @@ a:link { color: rgb(0, 140, 255); text-decoration: none;}
  a:hover { color: rgb(0, 140, 255); text-decoration: underline;}
 
 
+ .img{
+	width:auto;
+	height:100%;
+ }
 
 .pricing {
 	text-align: center;
-	border: 1px solid #f0f0f0;
+	
 	color: #777;
 	
 	padding-left: 0;
 	
   font-family: 'Lato';
 }
-.pricing img {
-	display: block;
-	margin: auto;
-	width: 32px;
-}
+
 
 .pricing li {
 	list-style: none;
-	padding: 13px;
+	padding: 5px;
 }
 .pricing li + li {
-	border-top: 1px solid #f0f0f0;
+	border-top: 1px dashed #3f4bb8;
 }
 .pricing big {
 	font-size: 32px;

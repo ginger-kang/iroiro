@@ -7,6 +7,7 @@ import discorrectIcon from '../../Images/discorrect.png';
 import nextIcon from '../../Images/next.png';
 import homeIcon from '../../Images/home.png';
 import Price from './PriceContainer'
+import '../../css/price';
 interface NavigationStateProps {
   navState: any;
 }
@@ -77,14 +78,7 @@ const GameContainer = styled.main`
   background: ${(props) => props.theme.bgColor};
 `;
 
-const LeftImageContainer = styled.section`
-  position: relative;
-  width: 50%;
-  height: 100%;
-  color: white;
-  display: flex;
-  flex-direction: column;
-`;
+
 
 interface LeftImageProps {
   url: any;
@@ -94,6 +88,15 @@ interface LeftImageProps {
 interface ImageBoxProps {
   state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
 }
+
+const LeftImageContainer = styled.section`
+  position: relative;
+  width: 50%;
+  height: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+`;
 
 const LeftImageBox = styled('figure') <ImageBoxProps>`
   position: absolute;
@@ -138,8 +141,6 @@ interface RightImageProps {
   url: string;
 }
 
-
-
 const RightImageBox = styled('figure') <ImageBoxProps>`
   position: absolute;
   top: 11%;
@@ -172,6 +173,7 @@ const RightImage = styled('div') <RightImageProps>`
 const NextImageContainer = styled('div') <ResultProps>`
 position: absolute;
 cursor: pointer;
+
 top:85%;
 vertical-align:middle;
 font-size: 40px
@@ -326,7 +328,7 @@ function Game({
           </LeftPriceContainer>
         </LeftImageContainer>
         <NextImageContainer state={clickState} >
-          <img src={nextIcon} onClick={() => NextClick()}></img>
+          <img className="img" src={nextIcon} onClick={() => NextClick()}></img>
         </NextImageContainer>
         <RightImageContainer>
           <RightImageBox state={clickState}>
