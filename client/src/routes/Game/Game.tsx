@@ -93,24 +93,6 @@ const LeftImageBox = styled('figure')<ImageBoxProps>`
   }
 `;
 
-// const LeftImage = styled('div')<LeftImageProps>`
-//   width: 100%;
-//   height: 100%;
-//   cursor: pointer;
-//   transition: all 0.3s;
-//   background-image: url(${({ url }) => url});
-//   background-size: cover;
-//   background-position: center;
-//   background-repeat: no-repeat;
-//   border-radius: 10px;
-
-//   &:hover {
-//     box-shadow: 0px 0px 12px 5px ${(props) => props.theme.hoverColor};
-//     // -ms-transform: scale(1.06);
-//     // -webkit-transform: scale(1.06);
-//     // transform: scale(1.06);
-//   }
-// `;
 const RightImageContainer = styled.section`
   position: relative;
   width: 50%;
@@ -145,43 +127,30 @@ const RightImageBox = styled('figure')<ImageBoxProps>`
   }
 `;
 
-// const RightImage = styled('div')<RightImageProps>`
-//   width: 100%;
-//   height: 100%;
-//   cursor: pointer;
-//   transition: all 0.3s;
-//   background-image: url(${({ url }) => url});
-//   background-size: cover;
-//   background-position: center;
-//   background-repeat: no-repeat;
-//   border-radius: 10px;
-//   &:hover {
-//     box-shadow: 5px 5px 12px 5px ${(props) => props.theme.hoverColor};
-//     // -ms-transform: scale(1.06);
-//     // -webkit-transform: scale(1.06);
-//     // transform: scale(1.06);
-//   }
-// `;
 const NextImageContainer = styled('div')<ResultProps>`
-position: absolute;
-cursor: pointer;
+  position: absolute;
+  cursor: pointer;
+  left: 50%;
+  bottom: 0;
+  width: 7vw;
+  vertical-align: middle;
+  transition: all 0.5s ease;
+  transform: translateX(-50%);
+  display: ${({ state }) => {
+    if (state != 0) {
+      return 'flex';
+    } else {
+      return 'none';
+    }
+  }};
 
-top:85%;
-vertical-align:middle;
-font-size: 40px
-display: none;
-
-&:hover {
-  
-}
-
-display: ${({ state }) => {
-  if (state != 0) {
-    return 'flex';
-  } else {
-    return 'none';
+  & img {
+    width: 100%;
   }
-}};
+
+  &:hover {
+    transform: translateX(-40%);
+  }
 `;
 
 interface ResultProps {
@@ -189,11 +158,11 @@ interface ResultProps {
 }
 const ResultContainer = styled('div')<ResultProps>`
   position: absolute;
-  top: 5%;
-  width: 30%;
-  height: 10%;
+  top: 50%;
+  left: 50%;
+  width: 13vw;
+  height: 13vw;
   vertical-align: middle;
-  display: none;
   z-index: 3;
   background-image: url(${({ state }) => {
     if (state == 1) {
@@ -212,6 +181,8 @@ const ResultContainer = styled('div')<ResultProps>`
       return 'none';
     }
   }};
+  transition: all 0.3s ease;
+  transform: translateX(-50%) translateY(-50%);
 `;
 
 const LeftPriceContainer = styled('ul')<ResultProps>`
@@ -252,19 +223,15 @@ const RightPriceContainer = styled('ul')<ResultProps>`
 `;
 
 const ScoreContainer = styled('div')`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
-  font-size: 2vw;
+  font-size: 1.8vw;
   border-radius: 100%;
   border: 1px solid rgba(0, 0, 0, 0.2);
-  position: absolute;
-  top: 50%;
-  left: 50%;
   transition: all .5s ease;
-  transform: translateX(-50%) translateY(-50%);
 }
 
 
@@ -272,11 +239,8 @@ const ScoreContainer = styled('div')`
 
 interface gProps {
   clickState: any;
-  // ClickState: any;
   LeftData: any;
   RightData: any;
-  //LeftClick: any;
-  //RightClick: any;
   ClickImage: any;
   NextClick: any;
   Score: any;
@@ -285,7 +249,6 @@ interface gProps {
 
 function Game({
   clickState,
-  // ClickState,
   LeftData,
   RightData,
   ClickImage,
@@ -297,7 +260,6 @@ function Game({
   return (
     <>
       <GameContainer>
-        <ScoreContainer>{Score}</ScoreContainer>
         <NavigationContainer>
           <Link to={'/select'}>
             <TiArrowBackOutline size={30} />
@@ -305,6 +267,7 @@ function Game({
           <Link to={'/'}>
             <AiOutlineHome size={30} />
           </Link>
+          <ScoreContainer>{Score}</ScoreContainer>
         </NavigationContainer>
         <ResultContainer state={clickState}></ResultContainer>
         <ImageContainer>
@@ -315,11 +278,6 @@ function Game({
                 alt="left"
                 onClick={() => ClickImage('left', LeftData, RightData)}
               />
-              {/* <LeftImage
-                url={LeftData.url}
-                state={clickState}
-                onClick={() => ClickImage('left', LeftData, RightData)}
-              /> */}
             </LeftImageBox>
             <LeftPriceContainer state={clickState}>
               <Price detail={LeftData.detail} instagram={LeftData.instagram} />
@@ -332,10 +290,6 @@ function Game({
                 alt="right"
                 onClick={() => ClickImage('right', LeftData, RightData)}
               />
-              {/* <RightImage
-                url={RightData.url}
-                onClick={() => ClickImage('right', LeftData, RightData)}
-              /> */}
             </RightImageBox>
             <RightPriceContainer state={clickState}>
               <Price
