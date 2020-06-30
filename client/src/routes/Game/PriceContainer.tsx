@@ -114,7 +114,7 @@ function Price({ detail, instagram }: pProps) {
   return (
     <>
       <TopContainer>
-        <h2>상의👕</h2>
+        <h2>👕</h2>
         <TopDetailContainer>
           <p>
             {detail.top.name}
@@ -133,7 +133,7 @@ function Price({ detail, instagram }: pProps) {
         </TopDetailContainer>
       </TopContainer>
       <BottomContainer>
-        <h2>하의👖</h2>
+        <h2>👖</h2>
         <BottomDetailContainer>
           <p>
             {detail.bottom.name}
@@ -153,7 +153,7 @@ function Price({ detail, instagram }: pProps) {
         </BottomDetailContainer>
       </BottomContainer>
       <ShoesContainer>
-        <h2>신발👟</h2>
+        <h2>👟</h2>
         <ShoesDetailContainer>
           <p>
             {detail.shoes.name}

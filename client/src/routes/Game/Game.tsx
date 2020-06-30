@@ -61,6 +61,7 @@ const ImageContainer = styled.section`
 
 interface ImageBoxProps {
   state: 0 | 1 | 2;
+
 }
 
 const LeftImageContainer = styled.section`
@@ -74,14 +75,20 @@ const LeftImageContainer = styled.section`
   align-items: center;
 `;
 
-const LeftImageBox = styled('figure')<ImageBoxProps>`
+const LeftImageBox = styled('figure') <ImageBoxProps>`
   width: 35vw;
   height: 35vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: all 0.5s ease;
+  & button{
+    width: 3%;
+    height: 2%;
+    top: 27%;
+    left: 80%;
 
+  }
   & img {
     width: 100%;
     height: 100%;
@@ -108,14 +115,20 @@ interface RightImageProps {
   url: string;
 }
 
-const RightImageBox = styled('figure')<ImageBoxProps>`
+const RightImageBox = styled('figure') <ImageBoxProps>`
   width: 35vw;
   height: 35vw;
   display: flex;
   flex-direction: column;
   align-items: center;
   transition: all 0.5s ease;
+  & button{
+    width: 3%;
+    height: 2%;
+    top: 27%;
+    left: 80%;
 
+  }
   & img {
     width: 100%;
     height: 100%;
@@ -127,7 +140,7 @@ const RightImageBox = styled('figure')<ImageBoxProps>`
   }
 `;
 
-const NextImageContainer = styled('div')<ResultProps>`
+const NextImageContainer = styled('div') <ResultProps>`
   position: absolute;
   cursor: pointer;
   left: 50%;
@@ -156,7 +169,11 @@ const NextImageContainer = styled('div')<ResultProps>`
 interface ResultProps {
   state: 0 | 1 | 2;
 }
-const ResultContainer = styled('div')<ResultProps>`
+
+interface ViewTagProps {
+  view: true | false;
+}
+const ResultContainer = styled('div') <ResultProps>`
   position: absolute;
   top: 50%;
   left: 50%;
@@ -185,15 +202,15 @@ const ResultContainer = styled('div')<ResultProps>`
   transform: translateX(-50%) translateY(-50%);
 `;
 
-const LeftPriceContainer = styled('ul')<ResultProps>`
+const LeftPriceContainer = styled('ul') <ViewTagProps>`
   position: absolute;
   width: 35vw;
   height: 35vw;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  display: ${({ state }) => {
-    if (state != 0) {
+  display: ${({ view }) => {
+    if (view) {
       return 'flex';
     } else {
       return 'none';
@@ -202,16 +219,23 @@ const LeftPriceContainer = styled('ul')<ResultProps>`
   background: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   transition: all 0.5s ease;
+  & button{
+    width: 5%;
+    height: 4.7%;
+    top: 2%;
+    left: 92%;
+
+  }
 `;
-const RightPriceContainer = styled('ul')<ResultProps>`
+const RightPriceContainer = styled('ul') <ViewTagProps>`
   position: absolute;
   width: 35vw;
   height: 35vw;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  display: ${({ state }) => {
-    if (state != 0) {
+  display: ${({ view }) => {
+    if (view) {
       return 'flex';
     } else {
       return 'none';
@@ -220,6 +244,13 @@ const RightPriceContainer = styled('ul')<ResultProps>`
   background: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
   transition: all 0.5s ease;
+  & button{
+    width: 5%;
+    height: 4.7%;
+    top: 2%;
+    left: 93%;
+
+  }
 `;
 
 const ScoreContainer = styled('div')`
@@ -233,8 +264,20 @@ const ScoreContainer = styled('div')`
   border: 1px solid rgba(0, 0, 0, 0.2);
   transition: all .5s ease;
 }
+`;
 
+const ModalCloseButton = styled.button`
+  position: absolute;
+  left: 5px;
+  top: 5px;
+  width: 15px;
+  height: 15px;
+  background: white;
+  border-radius: 100%;
 
+  &:hover {
+    background: red;
+  }
 `;
 
 interface gProps {
@@ -245,6 +288,7 @@ interface gProps {
   NextClick: any;
   Score: any;
   TotalScore: any;
+  ViewTag: any;
 }
 
 function Game({
@@ -255,8 +299,9 @@ function Game({
   NextClick,
   Score,
   TotalScore,
+  ViewTag
 }: gProps) {
-  console.log(LeftData, RightData);
+
   return (
     <>
       <GameContainer>
@@ -273,25 +318,31 @@ function Game({
         <ImageContainer>
           <LeftImageContainer>
             <LeftImageBox state={clickState}>
+              <ModalCloseButton/>
               <img
                 src={LeftData.url}
                 alt="left"
                 onClick={() => ClickImage('left', LeftData, RightData)}
               />
             </LeftImageBox>
-            <LeftPriceContainer state={clickState}>
+            <LeftPriceContainer view={ViewTag}>
+              <ModalCloseButton />
               <Price detail={LeftData.detail} instagram={LeftData.instagram} />
             </LeftPriceContainer>
           </LeftImageContainer>
           <RightImageContainer>
+
             <RightImageBox state={clickState}>
+              <ModalCloseButton />
               <img
                 src={RightData.url}
                 alt="right"
                 onClick={() => ClickImage('right', LeftData, RightData)}
               />
             </RightImageBox>
-            <RightPriceContainer state={clickState}>
+
+            <RightPriceContainer view={ViewTag}>
+              <ModalCloseButton />
               <Price
                 detail={RightData.detail}
                 instagram={RightData.instagram}

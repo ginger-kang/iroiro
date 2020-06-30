@@ -11,6 +11,7 @@ import { useForm } from 'react-hook-form';
 import ParseDateString from '../../Services/ParseDateString';
 import axios from 'axios';
 import client from '../../apollo';
+import CheckUser from '../../Services/CheckUser';
 
 const GameSelectContainer = styled.main`
   width: 100%;
@@ -403,7 +404,7 @@ export default function GameSelect() {
   };
 
   const onSubmit = handleSubmit(
-    ({
+    async ({
       topName,
       topPrice,
       bottomName,
@@ -411,15 +412,9 @@ export default function GameSelect() {
       shoesName,
       shoesPrice,      
       photo,
-    }) => {
-      
-      console.log(topName,
-        topPrice,
-        bottomName,
-        bottomPrice,
-        shoesName,
-        shoesPrice,        
-        photo)
+    }) => {      
+     
+      if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {
       var date = ParseDateString();
       var instagram = 'temp'
       var name2 = date + '-' + photo[0].name;
@@ -459,6 +454,7 @@ export default function GameSelect() {
         },
         mutation: UPLOAD_PHOTO_FOR_GAME,
       });
+    };
     },
   );
 

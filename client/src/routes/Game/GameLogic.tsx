@@ -22,7 +22,8 @@ function GameLogic<lState>() {
     [LeftImageindex, setLeftImageIndex] = useState<number>(0),
     [RightImageindex, setRightImageIndex] = useState<number>(1),
     [Score, setScore] = useState<number>(0),
-    [TotalScore, setTotalScore] = useState<number>(0);
+    [TotalScore, setTotalScore] = useState<number>(0),
+    [ViewTag, setViewTag] = useState(false);
 
   useEffect(() => {
     const orderArray: any = [];
@@ -55,6 +56,7 @@ function GameLogic<lState>() {
   };
 
   const ClickImage = (side: any, LPrice: any, RPrice: any) => {
+    console.log(ViewTag)
     LPrice =
       LPrice.detail.top.price +
       LPrice.detail.bottom.price +
@@ -65,6 +67,7 @@ function GameLogic<lState>() {
       RPrice.detail.shoes.price;
 
     if (clickState == 0) {
+      setViewTag(true);
       if (side == 'left') {
         if (LPrice > RPrice) {
           //correct
@@ -89,6 +92,7 @@ function GameLogic<lState>() {
 
   const NextClick = () => {
     setClickState(0);
+    setViewTag(false);
     setLeftImageIndex(LeftImageindex + 2);
     setRightImageIndex(RightImageindex + 2);
   };
@@ -115,6 +119,7 @@ function GameLogic<lState>() {
             RightData={data.Photos[shuffledData[RightImageindex]]}
             ClickImage={ClickImage}
             NextClick={NextClick}
+            ViewTag={ViewTag}
             Score={Score}
             TotalScore={TotalScore}
           />
