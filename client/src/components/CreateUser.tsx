@@ -8,6 +8,7 @@ import { useForm } from 'react-hook-form';
 import ErrorPage from './ErrorPage';
 
 import 'react-toastify/dist/ReactToastify.css';
+import CheckUser from '../Services/CheckUser';
 
 const UserModalContainer = styled.div`
   width: auto;
@@ -119,7 +120,7 @@ const NickNameContainer = styled.section`
     color: white;
   }
 `;
-const UserModal = styled('div')<UserModalState>`
+const UserModal = styled('div') <UserModalState>`
   position: fixed;
   top: 48%;
   left: 50%;
@@ -145,7 +146,7 @@ const UserModal = styled('div')<UserModalState>`
 
 function CreateUserInfo() {
 
-  const [modalIsOpen, setModalIsOpen] = useState(false);  
+  const [modalIsOpen, setModalIsOpen] = useState(false);
 
 
   const { register, handleSubmit } = useForm();
@@ -172,31 +173,34 @@ function CreateUserInfo() {
         userInstagram: 'Guest',
       },
     };
-    
+
   }
-  
-  const onSubmit = (data: any) => {
-    client
-      .mutate({
-        mutation: SET_USER_INFO,
-        variables: {
-          userId: window.sessionStorage.getItem('userId'),
-          userNickName: data.userNickName,
-          userInstagram: data.userInstagram,
-        },
-      })
-      .then((res) => {
-        toast.dark('👩‍🔧닉네임 변경 완료👨‍🔧', {
-          transition: Slide,
-          position: 'top-right',
-          autoClose: 2000,
-          hideProgressBar: true,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+
+  async function onSubmit(data: any){
+
+    if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {
+      client
+        .mutate({
+          mutation: SET_USER_INFO,
+          variables: {
+            userId: window.sessionStorage.getItem('userId'),
+            userNickName: data.userNickName,
+            userInstagram: data.userInstagram,
+          },
+        })
+        .then((res) => {
+          toast.dark('👩‍🔧닉네임 변경 완료👨‍🔧', {
+            transition: Slide,
+            position: 'top-right',
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+          });
         });
-      });
+    }
   };
 
   return (
@@ -204,10 +208,10 @@ function CreateUserInfo() {
       <ModalOpenButton onClick={() => setModalIsOpen(!modalIsOpen)}>
         {data.User.userNickName || 'Guest'}
       </ModalOpenButton>
-      
+
       <UserModal isOpen={modalIsOpen}>
         <ModalCloseButton onClick={() => setModalIsOpen(!modalIsOpen)} />
-        
+
         <UserInfoForm onSubmit={handleSubmit(onSubmit)}>
           <NickNameContainer>
             <span>닉네임</span>
