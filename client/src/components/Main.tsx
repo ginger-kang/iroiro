@@ -371,9 +371,10 @@ function Main() {
 
   //set google-user Info
   const responseLogin = (response: any, tempProvider: any) => {
+    console.log(response.wc,response.tokenObj)
     let userIdForQuery: any;
     let userNameForQuery: any;
-    console.log('responseLogin');
+    
     if (tempProvider == 'google') {
       userIdForQuery = response.googleId;
       userNameForQuery = response.profileObj.name;

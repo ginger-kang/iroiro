@@ -18,6 +18,7 @@ export const lightTheme = {
   borderColor: '#00000000',
   styleNavColor: '#ffffff',
   linkHoverBorderColor: 'rgba(0,0,0,.5)',
+  imageHoverColor: '#dadada',
 };
 
 export const darkTheme = {
@@ -35,6 +36,7 @@ export const darkTheme = {
   borderColor: '#1549E8',
   styleNavColor: '#060606',
   linkHoverBorderColor: '#fefefe',
+  imageHoverColor: '#EFEFEF',
 };
 
 export const theme = {

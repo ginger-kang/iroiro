@@ -59,6 +59,10 @@ const ImageContainer = styled.section`
   align-items: center;
 `;
 
+interface ImageBoxProps {
+  state: 0 | 1 | 2;
+}
+
 const LeftImageContainer = styled.section`
   position: relative;
   width: 50%;
@@ -66,47 +70,47 @@ const LeftImageContainer = styled.section`
   color: white;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-interface LeftImageProps {
-  url: any;
-  state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
-}
-
-interface ImageBoxProps {
-  state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
-}
-
 const LeftImageBox = styled('figure')<ImageBoxProps>`
-  position: absolute;
-  top: 11%;
-  left: 11%;
-  width: 77%;
-  height: 75%;
+  width: 35vw;
+  height: 35vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 1s ease;
-`;
+  transition: all 0.5s ease;
 
-const LeftImage = styled('div')<LeftImageProps>`
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  transition: all 0.3s;
-  background-image: url(${({ url }) => url});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 10px;
-
-  &:hover {
-    box-shadow: 0px 0px 12px 5px ${(props) => props.theme.hoverColor};
-    // -ms-transform: scale(1.06);
-    // -webkit-transform: scale(1.06);
-    // transform: scale(1.06);
+  & img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 10px;
+    &:hover {
+      box-shadow: 1px 1px 13px 10px ${(props) => props.theme.imageHoverColor};
+    }
   }
 `;
+
+// const LeftImage = styled('div')<LeftImageProps>`
+//   width: 100%;
+//   height: 100%;
+//   cursor: pointer;
+//   transition: all 0.3s;
+//   background-image: url(${({ url }) => url});
+//   background-size: cover;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   border-radius: 10px;
+
+//   &:hover {
+//     box-shadow: 0px 0px 12px 5px ${(props) => props.theme.hoverColor};
+//     // -ms-transform: scale(1.06);
+//     // -webkit-transform: scale(1.06);
+//     // transform: scale(1.06);
+//   }
+// `;
 const RightImageContainer = styled.section`
   position: relative;
   width: 50%;
@@ -114,6 +118,8 @@ const RightImageContainer = styled.section`
   color: white;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 interface RightImageProps {
@@ -121,42 +127,49 @@ interface RightImageProps {
 }
 
 const RightImageBox = styled('figure')<ImageBoxProps>`
-  position: absolute;
-  top: 11%;
-  left: 11%;
-  width: 77%;
-  height: 75%;
+  width: 35vw;
+  height: 35vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: all 0.3s ease;
-`;
+  transition: all 0.5s ease;
 
-const RightImage = styled('div')<RightImageProps>`
-  width: 100%;
-  height: 100%;
-  cursor: pointer;
-  transition: all 0.3s;
-  background-image: url(${({ url }) => url});
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  border-radius: 10px;
-  &:hover {
-    box-shadow: 0px 0px 12px 5px ${(props) => props.theme.hoverColor};
-    // -ms-transform: scale(1.06);
-    // -webkit-transform: scale(1.06);
-    // transform: scale(1.06);
+  & img {
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    border-radius: 10px;
+    &:hover {
+      box-shadow: 1px 1px 13px 10px ${(props) => props.theme.imageHoverColor};
+    }
   }
 `;
+
+// const RightImage = styled('div')<RightImageProps>`
+//   width: 100%;
+//   height: 100%;
+//   cursor: pointer;
+//   transition: all 0.3s;
+//   background-image: url(${({ url }) => url});
+//   background-size: cover;
+//   background-position: center;
+//   background-repeat: no-repeat;
+//   border-radius: 10px;
+//   &:hover {
+//     box-shadow: 5px 5px 12px 5px ${(props) => props.theme.hoverColor};
+//     // -ms-transform: scale(1.06);
+//     // -webkit-transform: scale(1.06);
+//     // transform: scale(1.06);
+//   }
+// `;
 const NextImageContainer = styled('div')<ResultProps>`
 position: absolute;
 cursor: pointer;
+
 top:85%;
 vertical-align:middle;
 font-size: 40px
 display: none;
-z-index:5;
 
 &:hover {
   
@@ -202,12 +215,12 @@ const ResultContainer = styled('div')<ResultProps>`
 `;
 
 const LeftPriceContainer = styled('div')<ResultProps>`
-  background: #111d27;
-  color: #111;
-
   position: absolute;
-  top: 20%;
-  left: 75%;
+  width: 35vw;
+  height: 35vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   display: ${({ state }) => {
     if (state != 0) {
       return 'flex';
@@ -215,13 +228,16 @@ const LeftPriceContainer = styled('div')<ResultProps>`
       return 'none';
     }
   }};
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
 `;
 const RightPriceContainer = styled('div')<ResultProps>`
-  background: #111d27;
-  color: #111;
   position: absolute;
-  top: 20%;
-  right: 75%;
+  width: 35vw;
+  height: 35vw;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   display: ${({ state }) => {
     if (state != 0) {
       return 'flex';
@@ -229,6 +245,8 @@ const RightPriceContainer = styled('div')<ResultProps>`
       return 'none';
     }
   }};
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 10px;
 `;
 
 const ScoreContainer = styled('article')`
@@ -290,11 +308,16 @@ function Game({
         <ImageContainer>
           <LeftImageContainer>
             <LeftImageBox state={clickState}>
-              <LeftImage
+              <img
+                src={LeftData.url}
+                alt="left"
+                onClick={() => ClickImage('left', LeftData, RightData)}
+              />
+              {/* <LeftImage
                 url={LeftData.url}
                 state={clickState}
                 onClick={() => ClickImage('left', LeftData, RightData)}
-              />
+              /> */}
             </LeftImageBox>
             <LeftPriceContainer state={clickState}>
               <Price detail={LeftData.detail} instagram={LeftData.instagram} />
@@ -302,10 +325,15 @@ function Game({
           </LeftImageContainer>
           <RightImageContainer>
             <RightImageBox state={clickState}>
-              <RightImage
-                url={RightData.url}
+              <img
+                src={RightData.url}
+                alt="right"
                 onClick={() => ClickImage('right', LeftData, RightData)}
               />
+              {/* <RightImage
+                url={RightData.url}
+                onClick={() => ClickImage('right', LeftData, RightData)}
+              /> */}
             </RightImageBox>
             <RightPriceContainer state={clickState}>
               <Price

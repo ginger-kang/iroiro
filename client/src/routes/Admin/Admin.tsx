@@ -4,6 +4,7 @@ import styled, { ThemeContext } from 'styled-components';
 import client from '../../apollo';
 import { UPLOAD_PHOTO_FOR_GAME } from '../../query';
 import axios from 'axios';
+import ParseDateString from '../../Services/ParseDateString';
 
 const AdminContainer = styled('div')`
   margin-top: 100px;
@@ -36,20 +37,10 @@ function Admin() {
       instagram,
       photo,
     }) => {
-      console.log;
-      var today = new Date();
-      var date =
-        today.getFullYear() +
-        ':' +
-        (today.getMonth() + 1) +
-        ':' +
-        today.getDate() +
-        ':' +
-        today.getHours() +
-        ':' +
-        today.getMinutes() +
-        ':' +
-        today.getSeconds();
+      
+      
+      var date = ParseDateString();
+        
       var name2 = date + '-' + photo[0].name;
       var imageData = new FormData();
 
