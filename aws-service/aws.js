@@ -52,11 +52,12 @@ var date =
 router.route("/upload").post((req, res, next) => {
   const form = new formidable.IncomingForm();
   // Parse `req` and upload all associated files
+  
   form.parse(req, function (err, fields, files) {
     if (err) {
       return res.status(400).json({ error: err.message });
     }
-
+    
     const file = files.image;
 
     fs.readFile(file.path, function (err, data) {

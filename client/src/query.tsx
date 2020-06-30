@@ -27,8 +27,10 @@ export const PHOTOS = gql`
 
 export const USER_EXIST = gql`
   query getUser($userId: String) {
+    
     User(userId: $userId) {
       userId
+      userName
       userNickName
       userInstagram
     }

@@ -7,6 +7,7 @@ import discorrectIcon from '../../Images/discorrect.png';
 import nextIcon from '../../Images/next.png';
 import homeIcon from '../../Images/home.png';
 import Price from './PriceContainer'
+import '../../css/price';
 interface NavigationStateProps {
   navState: any;
 }
@@ -77,14 +78,7 @@ const GameContainer = styled.main`
   background: ${(props) => props.theme.bgColor};
 `;
 
-const LeftImageContainer = styled.section`
-  position: relative;
-  width: 50%;
-  height: 100%;
-  color: white;
-  display: flex;
-  flex-direction: column;
-`;
+
 
 interface LeftImageProps {
   url: any;
@@ -94,6 +88,15 @@ interface LeftImageProps {
 interface ImageBoxProps {
   state: 'WAIT' | 'LEFTCLICK' | 'RIGHTCLICK' | 'CLICKRESULT';
 }
+
+const LeftImageContainer = styled.section`
+  position: relative;
+  width: 50%;
+  height: 100%;
+  color: white;
+  display: flex;
+  flex-direction: column;
+`;
 
 const LeftImageBox = styled('figure') <ImageBoxProps>`
   position: absolute;
@@ -138,8 +141,6 @@ interface RightImageProps {
   url: string;
 }
 
-
-
 const RightImageBox = styled('figure') <ImageBoxProps>`
   position: absolute;
   top: 11%;
@@ -172,6 +173,7 @@ const RightImage = styled('div') <RightImageProps>`
 const NextImageContainer = styled('div') <ResultProps>`
 position: absolute;
 cursor: pointer;
+
 top:85%;
 vertical-align:middle;
 font-size: 40px
@@ -231,9 +233,9 @@ const ResultContainer = styled('div') <ResultProps>`
 
 
 const LeftPriceContainer = styled('div') <ResultProps>`
-background: #111d27;
-color: #111;
-
+  background: #111d27;
+  color: #111;
+  
   position: absolute;
   top: 20%;
   left: 75%;
@@ -251,6 +253,7 @@ const RightPriceContainer = styled('div') <ResultProps>`
   background: #111d27;
   color: #111;
   position: absolute;
+  
   top: 20%;
   right: 75%;
   display: ${({ state }) => {
@@ -267,7 +270,7 @@ const ScoreContainer = styled('div')`
   position: absolute;
   top: 0%;
   right: 0%;
-  font-size:100px;
+  font-size:9vh;
   z-index:6;
 `;
 
@@ -325,7 +328,7 @@ function Game({
           </LeftPriceContainer>
         </LeftImageContainer>
         <NextImageContainer state={clickState} >
-          <img src={nextIcon} onClick={() => NextClick()}></img>
+          <img className="img" src={nextIcon} onClick={() => NextClick()}></img>
         </NextImageContainer>
         <RightImageContainer>
           <RightImageBox state={clickState}>
