@@ -214,7 +214,7 @@ const ResultContainer = styled('div')<ResultProps>`
   }};
 `;
 
-const LeftPriceContainer = styled('div')<ResultProps>`
+const LeftPriceContainer = styled('ul')<ResultProps>`
   position: absolute;
   width: 35vw;
   height: 35vw;
@@ -230,8 +230,9 @@ const LeftPriceContainer = styled('div')<ResultProps>`
   }};
   background: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+  transition: all 0.5s ease;
 `;
-const RightPriceContainer = styled('div')<ResultProps>`
+const RightPriceContainer = styled('ul')<ResultProps>`
   position: absolute;
   width: 35vw;
   height: 35vw;
@@ -247,9 +248,10 @@ const RightPriceContainer = styled('div')<ResultProps>`
   }};
   background: rgba(0, 0, 0, 0.6);
   border-radius: 10px;
+  transition: all 0.5s ease;
 `;
 
-const ScoreContainer = styled('article')`
+const ScoreContainer = styled('div')`
   width: 50px;
   height: 50px;
   display: flex;
