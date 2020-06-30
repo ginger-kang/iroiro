@@ -1,10 +1,16 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { Link } from 'react-router-dom';
 import priceTag from '../../Images/priceTag.png';
 import blackFloatDoodle from '../../Images/doodle/BlackFloatDoodle.svg';
 import FloatDoodle from '../../Images/doodle/FloatDoodle.svg';
 import { AiOutlineHome } from 'react-icons/ai';
+import { AiOutlineUpload } from 'react-icons/ai';
+import { UPLOAD_PHOTO_FOR_GAME } from '../../query';
+import { useForm } from 'react-hook-form';
+import ParseDateString from '../../Services/ParseDateString';
+import axios from 'axios';
+import client from '../../apollo';
 
 const GameSelectContainer = styled.main`
   width: 100%;
@@ -75,8 +81,24 @@ const PriceGameContainer = styled.section`
   align-items: center;
   overflow: hidden;
 `;
+const PriceGameMain = styled('div') <DescriptionVisibility>`
+width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+display: ${({ isParticipation }) => {
+    if (!isParticipation) {
+      return 'flex';
+    } else {
+      return 'none';
+    }
+  }};
 
-const PriceContentContainer = styled.article`
+`;
+const PriceContentContainer = styled('article')`
   width: 80%;
   display: flex;
   justify-content: center;
@@ -85,7 +107,7 @@ const PriceContentContainer = styled.article`
   line-height: 1.25;
   text-align: center;
   color: ${(props) => props.theme.textColor};
-
+  
   & p {
     font-size: 1vw;
   }
@@ -181,9 +203,266 @@ const StyleTitle = styled.h1`
   color: ${(props) => props.theme.textColor};
 `;
 
+const UploadButton = styled.button`
+  padding: 10px;
+  margin-top: 20px;
+  font-size: 1.1vw;
+  width: 8vw;
+  min-width: 62px;
+  border-radius: 6px;
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+
+  &:hover {
+    background: ${(props) => props.theme.pointColor};
+    color: white;
+  }
+`;
+
+const InstaContainer = styled.div`
+  display: flex;
+  float: left;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 50%;
+
+  & span {
+    color: white;
+    font-size: 1.1vw;
+    margin-right: 15px;
+    margin-left: 15px;
+  }
+
+  & input {
+    padding: 6px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(190, 190, 190, 0.99);
+    border-radius: 6px;
+    outline: none;
+    color: white;
+    margin-left : 10px;
+  }
+`;
+
+
+
+interface DescriptionVisibility {
+  isParticipation: boolean;
+}
+
+const FileUploadContainer = styled('section') <DescriptionVisibility>`
+  width: 50%;
+  height: 100%;
+  display: ${({ isParticipation }) => {
+    if (isParticipation) {
+      return 'grid';
+    } else {
+      return 'none';
+    }
+  }};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: all 1s ease;
+  transform: ${({ isParticipation }) => {
+    if (isParticipation) {
+      return 'translateX(0)';
+    } else {
+      return 'translateX(150%)';
+    }
+  }};
+`;
+
+const FileUploadCloseFButton = styled.button`
+  width: 8vw;
+  padding: 10px;
+  min-width: 62px;
+  border-radius: 6px;
+  color: ${(props) => props.theme.bgColor};
+  background: ${(props) => props.theme.textColor};
+  font-size: 1.1vw;
+  margin-top: 40px;
+
+  &:hover {
+    color: white;
+    background: red;
+  }
+`;
+
+const Preview = styled.label`
+  display: inline-block;
+  width: 23vw;
+  height: 23vw;
+  min-width: 120px;
+  min-height: 120px;
+  margin-bottom: 0;
+  border-radius: 100%;
+  color: ${(props) => props.theme.bgColor};
+  background: ${(props) => props.theme.textColor};
+  border: 1px solid transparent;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  font-weight: normal;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background: ${(props) => props.theme.pointColor};
+    color: white;
+  }
+  &:after {
+    icon: ;
+    font-family: 'fontawesome';
+    color: #757575;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    text-align: center;
+    margin: auto;
+  }
+`;
+
+
+interface PrevImageProps {
+  url: string;
+}
+const PreviewP = styled('div') <PrevImageProps>`
+  background-image: url(${({ url }) => url});
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+`;
+
+const ImageSubmitButtonContainer = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+`;
+
+const ImageSubmitButton = styled.button`  
+  width: 8vw;
+  padding: 10px;
+  min-width: 62px;
+  border-radius: 6px;
+  color: ${(props) => props.theme.bgColor};
+  background: ${(props) => props.theme.textColor};
+  font-size: 1.1vw;
+  margin-top: 40px;
+
+  &:hover {
+    color: white;
+    background: ${(props) => props.theme.pointColor};
+  }
+`;
+
+const Input = styled.input`
+  display: none;
+`;
+
+const SubmitPriceContainer = styled.div`
+  height:50%;
+`;
+
+const PreviewContainer = styled.div`
+  text-align:center;
+`;
+
+type FormData = {
+  topName: string;
+  topPrice: string;
+  bottomName: string;
+  bottomPrice: string;
+  shoesName: string;
+  shoesPrice: string;
+  instagram: string;
+  photo: any;
+};
+
 export default function GameSelect() {
   const themeContext = useContext(ThemeContext);
+  const [isParticipation, setIsParticipation] = useState(false);
 
+  const [uploadedFileUrl, setUploadedFileUrl] = useState('');
+  const { register, setValue, handleSubmit, errors } = useForm<FormData>();
+
+
+  const handleChange = (e: any) => {
+    var file = e.target.files[0];
+
+    setUploadedFileUrl(URL.createObjectURL(file));
+  };
+
+  const onSubmit = handleSubmit(
+    ({
+      topName,
+      topPrice,
+      bottomName,
+      bottomPrice,
+      shoesName,
+      shoesPrice,      
+      photo,
+    }) => {
+      
+      console.log(topName,
+        topPrice,
+        bottomName,
+        bottomPrice,
+        shoesName,
+        shoesPrice,        
+        photo)
+      var date = ParseDateString();
+      var instagram = 'temp'
+      var name2 = date + '-' + photo[0].name;
+      var imageData = new FormData();
+
+      imageData.append('image', photo[0]);
+      imageData.append('imageId', name2);
+
+      const config = {
+        headers: { 'Content-type': 'multipart/form-data' },
+      };
+
+      axios
+        .post('/upload', imageData, config)
+        .then(function (response) {
+          alert('이미지 업로드 성공');
+        })
+        .catch(function (error) {
+          alert('업로드 실패');
+        });
+
+      client.mutate({
+        variables: {
+          owner: instagram,
+          category: 'man',
+          instagram: instagram,
+          top1: topName,
+          top2: Number(topPrice),
+          bottom1: bottomName,
+          bottom2: Number(bottomPrice),
+          shoes1: shoesName,
+          shoes2: Number(shoesPrice),
+          url:
+            'https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/man/' +
+            name2,
+          id: name2,
+        },
+        mutation: UPLOAD_PHOTO_FOR_GAME,
+      });
+    },
+  );
+
+  
   return (
     <GameSelectContainer>
       <GameSelectNavContainer>
@@ -201,12 +480,12 @@ export default function GameSelect() {
                 style={{ width: '100%', height: '100%', minWidth: '200px' }}
               />
             ) : (
-              <img
-                src={FloatDoodle}
-                alt="floatdoodle"
-                style={{ width: '100%', height: '100%', minWidth: '200px' }}
-              />
-            )}
+                <img
+                  src={FloatDoodle}
+                  alt="floatdoodle"
+                  style={{ width: '100%', height: '100%', minWidth: '200px' }}
+                />
+              )}
           </StyleDoodleContainer>
           <StyleContentContainer>
             <StyleTitle>제목</StyleTitle>
@@ -217,20 +496,85 @@ export default function GameSelect() {
           </StyleContentContainer>
         </StyleGameContainer>
         <PriceGameContainer>
-          <PriceTagImageContainer>
-            <img
-              src={priceTag}
-              alt="priceTag"
-              style={{ width: '60%', minWidth: '100px' }}
-            />
-          </PriceTagImageContainer>
-          <PriceContentContainer>
-            <PriceTitle>뭐가 더 비쌀까</PriceTitle>
-            <p>더 비싼 옷을 맞춰보세요. 옷 정보와 가격도 알아보세요!</p>
-            <Link to="/game">
-              <PriceStartButton>시작</PriceStartButton>
-            </Link>
-          </PriceContentContainer>
+          <PriceGameMain isParticipation={isParticipation} >
+            <PriceTagImageContainer>
+              <img
+                src={priceTag}
+                alt="priceTag"
+                style={{ width: '60%', minWidth: '100px' }}
+              />
+            </PriceTagImageContainer>
+            <PriceContentContainer>
+              <PriceTitle>뭐가 더 비쌀까</PriceTitle>
+              <p>더 비싼 옷을 맞춰보세요. 옷 정보와 가격도 알아보세요!</p>
+              <Link to="/game">
+                <PriceStartButton>시작</PriceStartButton>
+              </Link>
+              <UploadButton onClick={() => setIsParticipation(!isParticipation)}>내 착장 올리기</UploadButton>
+            </PriceContentContainer>
+          </PriceGameMain>
+          <FileUploadContainer isParticipation={isParticipation}>
+            <form onSubmit={onSubmit}>
+            <SubmitPriceContainer>
+              <InstaContainer>
+                Top
+            <input
+                  name="topName"
+                  placeholder="상의 정보"
+                  ref={register} 
+                />
+                <input
+                  name="topPrice"
+                  placeholder="가격 정보"
+                  ref={register} 
+                />
+              </InstaContainer>
+              <InstaContainer>
+                Bottom
+            <input
+                  name="bottomName"
+                  placeholder="하의 정보"
+                  ref={register} 
+                />
+                <input
+                  name="bottomPrice"
+                  placeholder="가격 정보"
+                  ref={register} 
+                />
+              </InstaContainer>
+              <InstaContainer>
+                Shoes
+            <input
+                  name="shoesName"
+                  placeholder="신발 정보"
+                  ref={register} 
+                />
+
+                <input
+                  name="shoesPrice"
+                  placeholder="가격 정보"
+                  ref={register} 
+                />
+              </InstaContainer>
+            </SubmitPriceContainer>
+            <PreviewContainer>
+              <Preview htmlFor="photo">
+                <PreviewP url={uploadedFileUrl}>
+                  <AiOutlineUpload size={50} />
+                </PreviewP>
+              </Preview>
+            </PreviewContainer>
+            <Input type="file" id="photo" name="photo" onChange={handleChange} ref={register}/>
+            <ImageSubmitButtonContainer>
+              <ImageSubmitButton type='submit'>착장 공유</ImageSubmitButton>
+              <FileUploadCloseFButton
+                onClick={() => setIsParticipation(!isParticipation)}
+              >
+                취소
+              </FileUploadCloseFButton>
+            </ImageSubmitButtonContainer>
+          </form>
+          </FileUploadContainer>
         </PriceGameContainer>
       </SelectGame>
     </GameSelectContainer>

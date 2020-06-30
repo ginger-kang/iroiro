@@ -70,7 +70,7 @@ interface scrollPosition {
   scrollPos: number;
 }
 
-const ManContainer = styled('section')<scrollPosition>`
+const ManContainer = styled('section') <scrollPosition>`
   width: 50%;
   display: flex;
   flex-direction: column;
@@ -91,7 +91,7 @@ const ManContainer = styled('section')<scrollPosition>`
 
 
 
-const ContentContainer = styled('article')<DescriptionVisibility>`
+const ContentContainer = styled('article') <DescriptionVisibility>`
   width: 30%;
   display: flex;
   justify-content: center;
@@ -126,32 +126,19 @@ const BottomLineContainer = styled.div`
   }
 `;
 
-const SubmitButton = styled.button`
-  position: absolute;
-  right: 5px;
-  bottom: 5px;
-  width: 55px;
-  height: 30px;
-  border-radius: 6px;
-  background: ${(props) => props.theme.pointColor};
-  color: white;
 
-  &:hover {
-    background: #072ea7;
-  }
-`;
 
 const UserInfoForm = styled.form`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 80%;
-  height: 50%;
+  
 `;
 
-const InstaContainer = styled.section`
+const InstaContainer = styled.div`
   display: flex;
+  float: left;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -162,6 +149,7 @@ const InstaContainer = styled.section`
     color: white;
     font-size: 1.1vw;
     margin-right: 15px;
+    margin-left: 15px;
   }
 
   & input {
@@ -171,43 +159,22 @@ const InstaContainer = styled.section`
     border-radius: 6px;
     outline: none;
     color: white;
+    margin-left : 10px;
   }
 `;
 
-const NickNameContainer = styled.section`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 50%;
 
-  & span {
-    color: white;
-    font-size: 1.1vw;
-    margin-right: 15px;
-  }
-
-  & input {
-    padding: 6px;
-    background: rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(190, 190, 190, 0.99);
-    border-radius: 6px;
-    outline: none;
-    color: white;
-  }
-`;
 
 interface DescriptionVisibility {
   isParticipation: boolean;
 }
 
-const FileUploadContainer = styled('section')<DescriptionVisibility>`
+const FileUploadContainer = styled('section') <DescriptionVisibility>`
   width: 50%;
   height: 100%;
   display: ${({ isParticipation }) => {
     if (isParticipation) {
-      return 'flex';
+      return 'grid';
     } else {
       return 'none';
     }
@@ -278,7 +245,7 @@ const Preview = styled.label`
 interface PrevImageProps {
   url: string;
 }
-const PreviewP = styled('div')<PrevImageProps>`
+const PreviewP = styled('div') <PrevImageProps>`
   background-image: url(${({ url }) => url});
   width: 100%;
   height: 100%;
@@ -319,6 +286,14 @@ const Input = styled.input`
   display: none;
 `;
 
+const SubmitPriceContainer = styled.div`
+  height:50%;
+`;
+
+const PreviewContainer = styled.div`
+  text-align:center;
+`;
+
 function ComparePrice() {
   // let userId = window.sessionStorage.getItem('userId');
   const [scrollPosition, setScrollPosition] = useState<number>(0);
@@ -330,12 +305,12 @@ function ComparePrice() {
   });
 
   const getCurrentScroll = () => {
-    
+
     if (
-      ((window.scrollY + window.innerHeight) / document.body.clientHeight) * 100 >= 60 ) {
+      ((window.scrollY + window.innerHeight) / document.body.clientHeight) * 100 >= 60) {
       setScrollPosition(39);
     } else if (
-      ((window.scrollY + window.innerHeight) / document.body.clientHeight) * 100 < 60 ) {
+      ((window.scrollY + window.innerHeight) / document.body.clientHeight) * 100 < 60) {
       setScrollPosition(-40);
     }
   };
@@ -343,9 +318,9 @@ function ComparePrice() {
   window.addEventListener('scroll', getCurrentScroll);
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
-    
-    
-    if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {      
+
+
+    if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {
       var date = ParseDateString();
 
       var originalname = uploadedFile.name;
@@ -389,22 +364,22 @@ function ComparePrice() {
     });
   };
 
-  
+
   return (
     <SelectPageContainer>
-      
+
       <ImageContainer>
         <ManContainer scrollPos={scrollPosition}>
-          
-            <img
-              src={priceTag}
-              alt="priceTag"
-              style={{ width: '100%', minWidth: '100px' }}
-            />
-                    
-        </ManContainer>        
+
+          <img
+            src={priceTag}
+            alt="priceTag"
+            style={{ width: '100%', minWidth: '100px' }}
+          />
+
+        </ManContainer>
       </ImageContainer>
-      
+
       <ContentContainer isParticipation={isParticipation}>
         <span
           style={{
@@ -421,47 +396,66 @@ function ComparePrice() {
         </p>
         <br></br>
         <Link to="/game">
-            <StartButton>시작</StartButton>
+          <StartButton>시작</StartButton>
         </Link>
         <UploadButton onClick={() => setIsParticipation(!isParticipation)}>내 착장 올리기</UploadButton>
-        </ContentContainer>
-        <FileUploadContainer isParticipation={isParticipation}>
-        <UserInfoForm>
-          <NickNameContainer>
-            <span>닉네임</span>
-            <input
-              name="userNickName"
-              
-              
-            />
-          </NickNameContainer>
+      </ContentContainer>
+      <FileUploadContainer isParticipation={isParticipation}>
+        <SubmitPriceContainer>
           <InstaContainer>
-            <span>인스타</span>
+            Top          
             <input
-              name="userInstagram"
-              
-              
+              name="topName"
+              placeholder="상의 정보"
+            />            
+            <input
+              name="topPrice"
+              placeholder="가격 정보"
             />
           </InstaContainer>
-
-          <SubmitButton type="submit">등록</SubmitButton>
-        </UserInfoForm>
+          <InstaContainer>
+            Bottom             
+            <input
+              name="bottomName"
+              placeholder="하의 정보"
+            />            
+            <input
+              name="bottomPrice"
+              placeholder="가격 정보"
+            />
+          </InstaContainer>
+          <InstaContainer>
+            Shoes              
+            <input
+              name="shoesName"
+              placeholder="신발 정보"
+            />
+            
+            <input
+              name="shoesName"
+              placeholder="가격 정보"
+            />
+          </InstaContainer>
+        </SubmitPriceContainer>     
+        <PreviewContainer>
         <Preview htmlFor="imageUpload">
           <PreviewP url={uploadedFile.url}>
             <AiOutlineUpload size={50} />
           </PreviewP>
         </Preview>
+        </PreviewContainer>   
         <Input type="file" id="imageUpload" onChange={handleChange} />
         <ImageSubmitButtonContainer>
-          <ImageSubmitButton onClick={handleSubmit}>Upload</ImageSubmitButton>
+          <ImageSubmitButton onClick={handleSubmit}>착장 공유</ImageSubmitButton>
           <FileUploadCloseFButton
             onClick={() => setIsParticipation(!isParticipation)}
           >
             취소
           </FileUploadCloseFButton>
         </ImageSubmitButtonContainer>
+        
       </FileUploadContainer>
-      
+
       <BottomLineContainer>
         <svg
           width="159"
