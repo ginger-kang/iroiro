@@ -457,6 +457,13 @@ export default function GameSelect() {
   };
 
 
+  const goToWritePrice = async () => {
+    if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName')) == false) {
+      setShowLoginBox(true);
+    } else {
+      setWriteState(true);
+    }
+  }
 
   const onSubmit = handleSubmit(
     async ({
@@ -470,53 +477,55 @@ export default function GameSelect() {
     }) => {
 
       if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {
-        var date = ParseDateString();
-        var instagram = 'temp'
-        var name2 = date + '-' + photo[0].name;
-        var imageData = new FormData();
+        if (photo[0] == undefined) {
+          alert('사진을 선택해주세요!')
+        } else {
+          var date = ParseDateString();
+          var instagram = 'temp'
+          var name2 = date + '-' + photo[0].name;
+          var imageData = new FormData();
 
-        imageData.append('image', photo[0]);
-        imageData.append('imageId', name2);
+          imageData.append('image', photo[0]);
+          imageData.append('imageId', name2);
 
-        const config = {
-          headers: { 'Content-type': 'multipart/form-data' },
-        };
+          const config = {
+            headers: { 'Content-type': 'multipart/form-data' },
+          };
 
-        axios
-          .post('/upload', imageData, config)
-          .then(function (response) {
-            alert('이미지 업로드 성공');
-            setIsParticipation(false);
-            setWriteState(false);
-          })
-          .catch(function (error) {
-            alert('업로드 실패');
-            setIsParticipation(false);
-            setWriteState(false);
+          axios
+            .post('/upload', imageData, config)
+            .then(function (response) {
+              alert('이미지 업로드 성공');
+              setIsParticipation(false);
+              setWriteState(false);
+            })
+            .catch(function (error) {
+              alert('업로드 실패');
+              setIsParticipation(false);
+              setWriteState(false);
 
+            });
+
+          client.mutate({
+            variables: {
+              owner: instagram,
+              category: 'man',
+              instagram: instagram,
+              top1: topName,
+              top2: Number(topPrice),
+              bottom1: bottomName,
+              bottom2: Number(bottomPrice),
+              shoes1: shoesName,
+              shoes2: Number(shoesPrice),
+              url:
+                'https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/man/' +
+                name2,
+              id: name2,
+            },
+            mutation: UPLOAD_PHOTO_FOR_GAME,
           });
-
-        client.mutate({
-          variables: {
-            owner: instagram,
-            category: 'man',
-            instagram: instagram,
-            top1: topName,
-            top2: Number(topPrice),
-            bottom1: bottomName,
-            bottom2: Number(bottomPrice),
-            shoes1: shoesName,
-            shoes2: Number(shoesPrice),
-            url:
-              'https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/man/' +
-              name2,
-            id: name2,
-          },
-          mutation: UPLOAD_PHOTO_FOR_GAME,
-        });
-      } else {
-        setShowLoginBox(true);
-      };
+        }
+      }
     },
   );
 
@@ -630,7 +639,7 @@ export default function GameSelect() {
               </PreviewContainer>
               <Input type="file" id="photo" name="photo" onChange={handleChange} ref={register} />
               <ImageSubmitButtonContainer>
-                <ImageSubmitButton type="button" writeState={!writeState} onClick={() => setWriteState(true)}>가격 작성</ImageSubmitButton>
+                <ImageSubmitButton type="button" writeState={!writeState} onClick={goToWritePrice}>가격 작성</ImageSubmitButton>
                 <ImageSubmitButton type="submit" writeState={writeState}>착장 공유</ImageSubmitButton>
                 <FileUploadCloseFButton type="button"
                   onClick={() => { if (writeState) { setWriteState(false) } else { setIsParticipation(!isParticipation) } }}
@@ -639,13 +648,13 @@ export default function GameSelect() {
               </FileUploadCloseFButton>
               </ImageSubmitButtonContainer>
             </form>
-            
+
           </FileUploadContainer>
         </PriceGameContainer>
       </SelectGame>
-      
-              <LoginBoxComponent loginButtonClick={showLoginBox} setLoginButtonClick={setLoginButtonClick} setUserSocialId={setUserSocialId} setUserSocialName={setUserSocialName} />
-      
+
+      <LoginBoxComponent loginButtonClick={showLoginBox} setLoginButtonClick={setLoginButtonClick} setUserSocialId={setUserSocialId} setUserSocialName={setUserSocialName} />
+
     </GameSelectContainer>
   );
 }
