@@ -13,6 +13,8 @@ import axios from 'axios';
 import client from '../../apollo';
 import CheckUser from '../../Services/CheckUser';
 import topShirt from '../../Images/clothes.png'
+import LoginBoxComponent from '../../components/LoginBox';
+
 const GameSelectContainer = styled.main`
   width: 100%;
   height: 100vh;
@@ -206,13 +208,12 @@ const StyleTitle = styled.h1`
   color: ${(props) => props.theme.textColor};
 `;
 
-const UploadButton = styled.button`
-  margin-left:70px;
+const UploadButton = styled.button` 
   background:transparent;
 
 
   & img{
-    height:20px;
+    height:15px;
   }
 `;
 
@@ -346,7 +347,7 @@ const ImageSubmitButtonContainer = styled.div`
   align-items: center;
 `;
 
-const ImageSubmitButton = styled.button`  
+const ImageSubmitButton = styled('button') <WritePriceProps>`
   width: 8vw;
   padding: 10px;
   min-width: 62px;
@@ -360,23 +361,69 @@ const ImageSubmitButton = styled.button`
     color: white;
     background: ${(props) => props.theme.pointColor};
   }
+
+  display: ${({ writeState }) => {
+    if (writeState) {
+      return 'grid';
+    } else {
+      return 'none';
+    }
+  }};
+  
 `;
 
 const Input = styled.input`
   display: none;
 `;
 
-const SubmitPriceContainer = styled.div`
+interface WritePriceProps {
+  writeState: Boolean;
+}
+
+const SubmitPriceContainer = styled('div') <WritePriceProps>`
   height:50%;
+  
+  & div {
+    margin-bottom:10px;
+  }
+
+  display: ${({ writeState }) => {
+    if (writeState) {
+      return 'grid';
+    } else {
+      return 'none';
+    }
+  }};
+  
 `;
 
-const PreviewContainer = styled.div`
+const PreviewContainer = styled('div') <WritePriceProps>`
   text-align:center;
+  display: ${({ writeState }) => {
+    if (!writeState) {
+      return 'grid';
+    } else {
+      return 'none';
+    }
+  }};
 `;
 
 const PriceButtons = styled.div`
+  display: inline-flex;
 `;
 
+interface ShowLoginProps {
+  showLoginBox: boolean
+}
+const LoginBoxBox = styled('div') <ShowLoginProps>`
+display: ${({ showLoginBox }) => {
+    if (showLoginBox) {
+      return 'flex';
+    } else {
+      return 'none';
+    }
+  }};
+`
 type FormData = {
   topName: string;
   topPrice: string;
@@ -389,18 +436,34 @@ type FormData = {
 };
 
 export default function GameSelect() {
+  const [showLoginBox, setShowLoginBox] = useState(false);
   const themeContext = useContext(ThemeContext);
   const [isParticipation, setIsParticipation] = useState(false);
-
+  const [writeState, setWriteState] = useState(false);
   const [uploadedFileUrl, setUploadedFileUrl] = useState('');
   const { register, setValue, handleSubmit, errors } = useForm<FormData>();
-
+  const [loginButtonClick, setLoginButtonClick] = useState<boolean>(false);
+  const [userSocialId, setUserSocialId] = useState(
+    window.sessionStorage.getItem('userId'),
+  );
+  const [userSocialName, setUserSocialName] = useState(
+    window.sessionStorage.getItem('userName'),
+  );
 
   const handleChange = (e: any) => {
     var file = e.target.files[0];
 
     setUploadedFileUrl(URL.createObjectURL(file));
   };
+
+
+  const goToWritePrice = async () => {
+    if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName')) == false) {
+      setShowLoginBox(true);
+    } else {
+      setWriteState(true);
+    }
+  }
 
   const onSubmit = handleSubmit(
     async ({
@@ -409,55 +472,64 @@ export default function GameSelect() {
       bottomName,
       bottomPrice,
       shoesName,
-      shoesPrice,      
+      shoesPrice,
       photo,
-    }) => {      
-     
+    }) => {
+
       if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {
-      var date = ParseDateString();
-      var instagram = 'temp'
-      var name2 = date + '-' + photo[0].name;
-      var imageData = new FormData();
+        if (photo[0] == undefined) {
+          alert('사진을 선택해주세요!')
+        } else {
+          var date = ParseDateString();
+          var instagram = 'temp'
+          var name2 = date + '-' + photo[0].name;
+          var imageData = new FormData();
 
-      imageData.append('image', photo[0]);
-      imageData.append('imageId', name2);
+          imageData.append('image', photo[0]);
+          imageData.append('imageId', name2);
 
-      const config = {
-        headers: { 'Content-type': 'multipart/form-data' },
-      };
+          const config = {
+            headers: { 'Content-type': 'multipart/form-data' },
+          };
 
-      axios
-        .post('/upload', imageData, config)
-        .then(function (response) {
-          alert('이미지 업로드 성공');
-        })
-        .catch(function (error) {
-          alert('업로드 실패');
-        });
+          axios
+            .post('/upload', imageData, config)
+            .then(function (response) {
+              alert('이미지 업로드 성공');
+              setIsParticipation(false);
+              setWriteState(false);
+            })
+            .catch(function (error) {
+              alert('업로드 실패');
+              setIsParticipation(false);
+              setWriteState(false);
 
-      client.mutate({
-        variables: {
-          owner: instagram,
-          category: 'man',
-          instagram: instagram,
-          top1: topName,
-          top2: Number(topPrice),
-          bottom1: bottomName,
-          bottom2: Number(bottomPrice),
-          shoes1: shoesName,
-          shoes2: Number(shoesPrice),
-          url:
-            'https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/man/' +
-            name2,
-          id: name2,
-        },
-        mutation: UPLOAD_PHOTO_FOR_GAME,
-      });
-    };
+            });
+
+          client.mutate({
+            variables: {
+              owner: instagram,
+              category: 'man',
+              instagram: instagram,
+              top1: topName,
+              top2: Number(topPrice),
+              bottom1: bottomName,
+              bottom2: Number(bottomPrice),
+              shoes1: shoesName,
+              shoes2: Number(shoesPrice),
+              url:
+                'https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/man/' +
+                name2,
+              id: name2,
+            },
+            mutation: UPLOAD_PHOTO_FOR_GAME,
+          });
+        }
+      }
     },
   );
 
-  
+
   return (
     <GameSelectContainer>
       <GameSelectNavContainer>
@@ -501,81 +573,88 @@ export default function GameSelect() {
             </PriceTagImageContainer>
             <PriceContentContainer>
               <PriceTitle>뭐가 더 비쌀까</PriceTitle>
-              <p>더 비싼 옷을 맞춰보세요. 옷 정보와 가격도 알아보세요!</p>
               <PriceButtons>
+                <p>더 비싼 옷을 맞춰보세요. 옷 정보와 가격도 알아보세요!</p>
+
+                <UploadButton onClick={() => setIsParticipation(!isParticipation)}><img src={topShirt} ></img></UploadButton>
+              </PriceButtons>
               <Link to="/game">
                 <PriceStartButton>시작</PriceStartButton>
               </Link>
-              <UploadButton onClick={() => setIsParticipation(!isParticipation)}><img src={topShirt} ></img></UploadButton>
 
-              </PriceButtons>
+
             </PriceContentContainer>
-            
+
           </PriceGameMain>
           <FileUploadContainer isParticipation={isParticipation}>
             <form onSubmit={onSubmit}>
-            <SubmitPriceContainer>
-              <InstaContainer>
-                Top
+              <SubmitPriceContainer writeState={writeState}>
+                <InstaContainer>
+                  Top
             <input
-                  name="topName"
-                  placeholder="상의 정보"
-                  ref={register} 
-                />
-                <input
-                  name="topPrice"
-                  placeholder="가격 정보"
-                  ref={register} 
-                />
-              </InstaContainer>
-              <InstaContainer>
-                Bottom
+                    name="topName"
+                    placeholder="상의 정보"
+                    ref={register}
+                  />
+                  <input
+                    name="topPrice"
+                    placeholder="가격 정보"
+                    ref={register}
+                  />
+                </InstaContainer>
+                <InstaContainer>
+                  Bottom
             <input
-                  name="bottomName"
-                  placeholder="하의 정보"
-                  ref={register} 
-                />
-                <input
-                  name="bottomPrice"
-                  placeholder="가격 정보"
-                  ref={register} 
-                />
-              </InstaContainer>
-              <InstaContainer>
-                Shoes
+                    name="bottomName"
+                    placeholder="하의 정보"
+                    ref={register}
+                  />
+                  <input
+                    name="bottomPrice"
+                    placeholder="가격 정보"
+                    ref={register}
+                  />
+                </InstaContainer>
+                <InstaContainer>
+                  Shoes
             <input
-                  name="shoesName"
-                  placeholder="신발 정보"
-                  ref={register} 
-                />
+                    name="shoesName"
+                    placeholder="신발 정보"
+                    ref={register}
+                  />
 
-                <input
-                  name="shoesPrice"
-                  placeholder="가격 정보"
-                  ref={register} 
-                />
-              </InstaContainer>
-            </SubmitPriceContainer>
-            <PreviewContainer>
-              <Preview htmlFor="photo">
-                <PreviewP url={uploadedFileUrl}>
-                  <AiOutlineUpload size={50} />
-                </PreviewP>
-              </Preview>
-            </PreviewContainer>
-            <Input type="file" id="photo" name="photo" onChange={handleChange} ref={register}/>
-            <ImageSubmitButtonContainer>
-              <ImageSubmitButton type='submit'>착장 공유</ImageSubmitButton>              
-              <FileUploadCloseFButton type="button"
-                onClick={() => setIsParticipation(!isParticipation)}
-              >
-                취소
+                  <input
+                    name="shoesPrice"
+                    placeholder="가격 정보"
+                    ref={register}
+                  />
+                </InstaContainer>
+              </SubmitPriceContainer>
+              <PreviewContainer writeState={writeState}>
+                <Preview htmlFor="photo">
+                  <PreviewP url={uploadedFileUrl}>
+                    <AiOutlineUpload size={50} />
+                  </PreviewP>
+                </Preview>
+              </PreviewContainer>
+              <Input type="file" id="photo" name="photo" onChange={handleChange} ref={register} />
+              <ImageSubmitButtonContainer>
+                <ImageSubmitButton type="button" writeState={!writeState} onClick={goToWritePrice}>가격 작성</ImageSubmitButton>
+                <ImageSubmitButton type="submit" writeState={writeState}>착장 공유</ImageSubmitButton>
+                <FileUploadCloseFButton type="button"
+                  onClick={() => { if (writeState) { setWriteState(false) } else { setIsParticipation(!isParticipation) } }}
+                >
+                  취소
               </FileUploadCloseFButton>
-            </ImageSubmitButtonContainer>
+              </ImageSubmitButtonContainer>
             </form>
+
           </FileUploadContainer>
         </PriceGameContainer>
       </SelectGame>
+
+      <LoginBoxComponent loginButtonClick={showLoginBox} setLoginButtonClick={setLoginButtonClick} setUserSocialId={setUserSocialId} setUserSocialName={setUserSocialName} />
+
     </GameSelectContainer>
   );
 }
