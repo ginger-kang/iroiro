@@ -12,7 +12,7 @@ import ParseDateString from '../../Services/ParseDateString';
 import axios from 'axios';
 import client from '../../apollo';
 import CheckUser from '../../Services/CheckUser';
-
+import topShirt from '../../Images/clothes.png'
 const GameSelectContainer = styled.main`
   width: 100%;
   height: 100vh;
@@ -81,6 +81,8 @@ const PriceGameContainer = styled.section`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
+  
 `;
 const PriceGameMain = styled('div') <DescriptionVisibility>`
 width: 100%;
@@ -205,18 +207,12 @@ const StyleTitle = styled.h1`
 `;
 
 const UploadButton = styled.button`
-  padding: 10px;
-  margin-top: 20px;
-  font-size: 1.1vw;
-  width: 8vw;
-  min-width: 62px;
-  border-radius: 6px;
-  -webkit-transition: all 0.1s;
-  transition: all 0.1s;
+  margin-left:70px;
+  background:transparent;
 
-  &:hover {
-    background: ${(props) => props.theme.pointColor};
-    color: white;
+
+  & img{
+    height:20px;
   }
 `;
 
@@ -378,6 +374,9 @@ const PreviewContainer = styled.div`
   text-align:center;
 `;
 
+const PriceButtons = styled.div`
+`;
+
 type FormData = {
   topName: string;
   topPrice: string;
@@ -503,11 +502,15 @@ export default function GameSelect() {
             <PriceContentContainer>
               <PriceTitle>뭐가 더 비쌀까</PriceTitle>
               <p>더 비싼 옷을 맞춰보세요. 옷 정보와 가격도 알아보세요!</p>
+              <PriceButtons>
               <Link to="/game">
                 <PriceStartButton>시작</PriceStartButton>
               </Link>
-              <UploadButton onClick={() => setIsParticipation(!isParticipation)}>내 착장 올리기</UploadButton>
+              <UploadButton onClick={() => setIsParticipation(!isParticipation)}><img src={topShirt} ></img></UploadButton>
+
+              </PriceButtons>
             </PriceContentContainer>
+            
           </PriceGameMain>
           <FileUploadContainer isParticipation={isParticipation}>
             <form onSubmit={onSubmit}>
