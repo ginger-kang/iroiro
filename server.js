@@ -8,11 +8,11 @@ const aws_router = require("./aws-service/aws");
 
 const { ApolloServer } = require("apollo-server-express");
 
-const server = new ApolloServer({ schema, graphiql: true });
+const server = new ApolloServer({ schema, cors:false,graphiql: true });
 
 app.use("/", aws_router);
 
-app.use(cors());
+
 app.use(express.static("dist"));
 app.use(
   "/graphql",
@@ -25,7 +25,7 @@ app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "dist", "index.html"));
 });
 
-server.applyMiddleware({ app, path: "/graphql" });
+server.applyMiddleware({ app, credentials:true,path: "/graphql" });
 
 const PORT = process.env.PORT || 5000 || 3000;
 
