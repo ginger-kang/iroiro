@@ -13,6 +13,8 @@ import axios from 'axios';
 import client from '../../apollo';
 import CheckUser from '../../Services/CheckUser';
 import topShirt from '../../Images/clothes.png'
+import LoginBoxComponent from '../../components/LoginBox';
+
 const GameSelectContainer = styled.main`
   width: 100%;
   height: 100vh;
@@ -410,6 +412,18 @@ const PriceButtons = styled.div`
   display: inline-flex;
 `;
 
+interface ShowLoginProps {
+  showLoginBox: boolean
+}
+const LoginBoxBox = styled('div') <ShowLoginProps>`
+display: ${({ showLoginBox }) => {
+    if (showLoginBox) {
+      return 'flex';
+    } else {
+      return 'none';
+    }
+  }};
+`
 type FormData = {
   topName: string;
   topPrice: string;
@@ -422,12 +436,19 @@ type FormData = {
 };
 
 export default function GameSelect() {
+  const [showLoginBox, setShowLoginBox] = useState(false);
   const themeContext = useContext(ThemeContext);
   const [isParticipation, setIsParticipation] = useState(false);
   const [writeState, setWriteState] = useState(false);
   const [uploadedFileUrl, setUploadedFileUrl] = useState('');
   const { register, setValue, handleSubmit, errors } = useForm<FormData>();
-
+  const [loginButtonClick, setLoginButtonClick] = useState<boolean>(false);
+  const [userSocialId, setUserSocialId] = useState(
+    window.sessionStorage.getItem('userId'),
+  );
+  const [userSocialName, setUserSocialName] = useState(
+    window.sessionStorage.getItem('userName'),
+  );
 
   const handleChange = (e: any) => {
     var file = e.target.files[0];
@@ -447,7 +468,7 @@ export default function GameSelect() {
       shoesPrice,
       photo,
     }) => {
-      
+
       if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {
         var date = ParseDateString();
         var instagram = 'temp'
@@ -472,7 +493,7 @@ export default function GameSelect() {
             alert('업로드 실패');
             setIsParticipation(false);
             setWriteState(false);
-            
+
           });
 
         client.mutate({
@@ -493,6 +514,8 @@ export default function GameSelect() {
           },
           mutation: UPLOAD_PHOTO_FOR_GAME,
         });
+      } else {
+        setShowLoginBox(true);
       };
     },
   );
@@ -607,18 +630,22 @@ export default function GameSelect() {
               </PreviewContainer>
               <Input type="file" id="photo" name="photo" onChange={handleChange} ref={register} />
               <ImageSubmitButtonContainer>
-                <ImageSubmitButton type="button" writeState={!writeState} onClick={()=>setWriteState(true)}>가격 작성</ImageSubmitButton>
+                <ImageSubmitButton type="button" writeState={!writeState} onClick={() => setWriteState(true)}>가격 작성</ImageSubmitButton>
                 <ImageSubmitButton type="submit" writeState={writeState}>착장 공유</ImageSubmitButton>
                 <FileUploadCloseFButton type="button"
-                  onClick={() => {if(writeState){setWriteState(false)}else{setIsParticipation(!isParticipation)}}}
+                  onClick={() => { if (writeState) { setWriteState(false) } else { setIsParticipation(!isParticipation) } }}
                 >
                   취소
               </FileUploadCloseFButton>
               </ImageSubmitButtonContainer>
             </form>
+            
           </FileUploadContainer>
         </PriceGameContainer>
       </SelectGame>
+      
+              <LoginBoxComponent loginButtonClick={showLoginBox} setLoginButtonClick={setLoginButtonClick} setUserSocialId={setUserSocialId} setUserSocialName={setUserSocialName} />
+      
     </GameSelectContainer>
   );
 }

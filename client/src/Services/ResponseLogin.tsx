@@ -2,17 +2,11 @@ import { USER_EXIST, PHOTOS, CREATE_USER } from '../query';
 import client from '../apollo';
 import React, { useState, useEffect, useContext } from 'react';
 
-const responseLogin = (response: any, tempProvider: any) => {
+const responseLogin = (response: any, tempProvider: any,setUserSocialId:any,setUserSocialName:any) => {
     
     let userIdForQuery: any;
     let userNameForQuery: any;
-    
-    const [userSocialId, setUserSocialId] = useState(
-        window.sessionStorage.getItem('userId'),
-      );
-      const [userSocialName, setUserSocialName] = useState(
-        window.sessionStorage.getItem('userName'),
-      );
+
 
     if (tempProvider == 'google') {
       userIdForQuery = response.googleId;

@@ -1,14 +1,8 @@
 import React, { useState, useEffect, useContext } from 'react';
 import styled, { ThemeContext } from 'styled-components';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
-import google from '../Images/google.png';
-import naver from '../Images/naver.png';
-import KakaoLogin from 'react-kakao-login';
-import client from '../apollo';
-import { USER_EXIST, PHOTOS, CREATE_USER } from '../query';
-//import responseLogin from '../Services/ResponseLogin'
 
-import NaverLogin from 'react-login-by-naver';
+import LoginBoxComponent from './LoginBox'
+
 
 
 interface LoginBoxProps {
@@ -42,20 +36,20 @@ const LogoutButton = styled.button`
 `;
 
 interface LogoutBoxProps {
-  logoutState: boolean;
+    logoutState: boolean;
 }
 
-const LogoutBox = styled('div')<LogoutBoxProps>`
+const LogoutBox = styled('div') <LogoutBoxProps>`
   position: fixed;
   top: 48%;
   left: 50%;
   display: ${({ logoutState }) => {
-    if (logoutState) {
-      return 'flex';
-    } else {
-      return 'none';
-    }
-  }};
+        if (logoutState) {
+            return 'flex';
+        } else {
+            return 'none';
+        }
+    }};
   width: 30vw;
   min-width: 300px;
   min-height: 140px;
@@ -157,7 +151,7 @@ const LoginCancelButton = styled.button`
     }
   `;
 
-  const LoginButton = styled.button`
+const LoginButton = styled.button`
   position: fixed;
   bottom: 10px;
   right: 10px;
@@ -183,92 +177,29 @@ const LoginCancelButton = styled.button`
   }
 `;
 
-const KakaoButton = styled(KakaoLogin)`
-    width: 80px;
-    height: 80px;
-    min-width: 70px;
-    min-height: 70px;
-    color: black;
-    background-color: #ffeb00;
-    border-radius: 10px;
-    font-size: 60px;
-    text-align: center;
-  `;
-
-  const responseLogout = () => {
+const responseLogout = () => {
     window.sessionStorage.clear();
     window.location.reload();
-  };
-
-  const responseLogin = (response: any, tempProvider: any,setUserSocialId:any,setUserSocialName:any) => {
-    
-    let userIdForQuery: any;
-    let userNameForQuery: any;
-    
+};
 
 
-    if (tempProvider == 'google') {
-      userIdForQuery = response.googleId;
-      userNameForQuery = response.profileObj.name;
-      window.sessionStorage.setItem('userId', userIdForQuery);
-      window.sessionStorage.setItem('userName', userNameForQuery);
-      setUserSocialId(userIdForQuery);
-      setUserSocialName(userNameForQuery);
-    } else if (tempProvider == 'kakao') {
-      userIdForQuery = String(response.profile.id);
-      userNameForQuery = response.profile.kakao_account.profile.nickname;
-      window.sessionStorage.setItem('userId', userIdForQuery);
-      window.sessionStorage.setItem('userName', userNameForQuery);
-      setUserSocialName(userNameForQuery);
-      setUserSocialId(userIdForQuery);
-      //setLoginButtonClick(!loginButtonClick);
-    } else if (tempProvider == 'naver') {
-      userIdForQuery = String(response.id);
-      userNameForQuery = response.name;
-      window.sessionStorage.setItem('userId', userIdForQuery);
-      window.sessionStorage.setItem('userName', userNameForQuery);
-      setUserSocialName(userNameForQuery);
-      setUserSocialId(userIdForQuery);
-      //setLoginButtonClick(!loginButtonClick);
-    }
 
-    client
-      .query({
-        query: USER_EXIST,
-        variables: { userId: userIdForQuery },
-      })
-      .then((res) => {
-        if (res.data.User === null) {
-          client.mutate({
-            variables: {
-              userId: userIdForQuery,
-              userName: userNameForQuery,
-              userNickName: null,
-              userInstagram: null,
-            },
-            mutation: CREATE_USER,
-          });
-        }
-      });
-    window.location.reload();
-  };
-  
 
 function Login() {
-    
+
     const [userSocialId, setUserSocialId] = useState(
         window.sessionStorage.getItem('userId'),
-      );
-      const [userSocialName, setUserSocialName] = useState(
+    );
+    const [userSocialName, setUserSocialName] = useState(
         window.sessionStorage.getItem('userName'),
-      );
-    
+    );
+
     const [loginButtonClick, setLoginButtonClick] = useState<boolean>(false);
     const [isLoggedIn, setisLoggedIn] = useState<any>(null);
     const [logoutButtonClick, setLogoutButtonClick] = useState<boolean>(false);
     useEffect(() => {
         setisLoggedIn(window.sessionStorage.getItem('userId'));
-      }, []);
+    }, []);
     return (
         <>
             {isLoggedIn === null ? (
@@ -281,83 +212,23 @@ function Login() {
                     </LogoutButton>
                 )}
 
-            <LoginBox loginState={loginButtonClick}>
-                <GoogleLogin
-                    clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
-                    render={(renderProps) => (
-                        <button
-                            onClick={renderProps.onClick}
-                            disabled={renderProps.disabled}
-                            style={{
-                                background: 'none',
-                                width: '85px',
-                                minWidth: '75px',
-                            }}
-                        >
-                            <img
-                                src={google}
-                                alt="google_logo"
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                }}
-                                onClick={() => setLoginButtonClick(!loginButtonClick)}
-                            />
-                        </button>
-                    )}
-                    buttonText="Login"
-                    onSuccess={(res) => responseLogin(res, 'google',setUserSocialId,setUserSocialName)}
-                    onFailure={(res) => console.log('google login fail')}
-                    cookiePolicy={'single_host_origin'}
-                />
-                <KakaoButton
-                    jsKey="0a72b63b122363029a9f28be03dc7b33"
-                    buttonText="K"
-                    onSuccess={(res) => responseLogin(res, 'kakao',setUserSocialId,setUserSocialName)}
-                    onFailure={(res) => console.log('kakao login fail')}
-                    getProfile={true}
-                />
+            <LoginBoxComponent loginButtonClick={loginButtonClick} setLoginButtonClick={setLoginButtonClick} setUserSocialId={setUserSocialId} setUserSocialName={setUserSocialName} />
 
-                <NaverLogin
-                    clientId="_L3yUfmDgCWHvk7vDar5"
-                    callbackUrl="https://showmethestyle.herokuapp.com/"
-                    render={(props) => (
-                        <NaverButton onClick={props.onClick}>
-                            <img
-                                src={naver}
-                                alt="naver"
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                }}
-                            />
-                        </NaverButton>
-                    )}
-                    onSuccess={(res) => responseLogin(res, 'naver',setUserSocialId,setUserSocialName)}
-                    onFailure={() => console.log('naver login fail')}
-                />
-                <LoginCancelButton
-                    onClick={() => setLoginButtonClick(!loginButtonClick)}
-                />
-            </LoginBox>
-
-
-
-            <LogoutBox logoutState={logoutButtonClick}>
-                <span
-                    style={{
-                        fontSize: '23px',
-                    }}
-                >
-                    로그아웃 하시겠습니까?
+                <LogoutBox logoutState={logoutButtonClick}>
+                    <span
+                        style={{
+                            fontSize: '23px',
+                        }}
+                    >
+                        로그아웃 하시겠습니까?
             </span>
-                <LogoutButtonContainer>
-                    <button onClick={responseLogout}>예</button>
-                    <button onClick={() => setLogoutButtonClick(!logoutButtonClick)}>
-                        아니요
+                    <LogoutButtonContainer>
+                        <button onClick={responseLogout}>예</button>
+                        <button onClick={() => setLogoutButtonClick(!logoutButtonClick)}>
+                            아니요
               </button>
-                </LogoutButtonContainer>
-            </LogoutBox>
+                    </LogoutButtonContainer>
+                </LogoutBox>
         </>
     );
 
