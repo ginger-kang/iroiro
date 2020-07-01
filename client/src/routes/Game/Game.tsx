@@ -302,6 +302,7 @@ function Game({
   ViewTag
 }: gProps) {
 
+  
   return (
     <>
       <GameContainer>
@@ -318,7 +319,7 @@ function Game({
         <ImageContainer>
           <LeftImageContainer>
             <LeftImageBox state={clickState}>
-              <ModalCloseButton/>
+              
               <img
                 src={LeftData.url}
                 alt="left"
@@ -326,14 +327,14 @@ function Game({
               />
             </LeftImageBox>
             <LeftPriceContainer view={ViewTag}>
-              <ModalCloseButton />
+              <ModalCloseButton onClick={()=>ClickImage('t',0,0)}/>
               <Price detail={LeftData.detail} instagram={LeftData.instagram} />
             </LeftPriceContainer>
           </LeftImageContainer>
           <RightImageContainer>
 
             <RightImageBox state={clickState}>
-              <ModalCloseButton />
+              
               <img
                 src={RightData.url}
                 alt="right"
@@ -342,7 +343,7 @@ function Game({
             </RightImageBox>
 
             <RightPriceContainer view={ViewTag}>
-              <ModalCloseButton />
+            <ModalCloseButton onClick={()=>ClickImage('t',0,0)}/>
               <Price
                 detail={RightData.detail}
                 instagram={RightData.instagram}

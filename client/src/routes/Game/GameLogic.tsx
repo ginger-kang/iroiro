@@ -56,7 +56,8 @@ function GameLogic<lState>() {
   };
 
   const ClickImage = (side: any, LPrice: any, RPrice: any) => {
-    console.log(ViewTag)
+    
+    if(LPrice != 0 && RPrice != 0){
     LPrice =
       LPrice.detail.top.price +
       LPrice.detail.bottom.price +
@@ -65,7 +66,7 @@ function GameLogic<lState>() {
       RPrice.detail.top.price +
       RPrice.detail.bottom.price +
       RPrice.detail.shoes.price;
-
+    }
     if (clickState == 0) {
       setViewTag(true);
       if (side == 'left') {
@@ -87,6 +88,8 @@ function GameLogic<lState>() {
         }
         setTotalScore(TotalScore + 1);
       }
+    }else{
+      setViewTag(!ViewTag);
     }
   };
 

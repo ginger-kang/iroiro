@@ -128,14 +128,6 @@ const BottomLineContainer = styled.div`
 
 
 
-const UserInfoForm = styled.form`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  
-`;
-
 const InstaContainer = styled.div`
   display: flex;
   float: left;
@@ -317,8 +309,8 @@ function ComparePrice() {
 
   window.addEventListener('scroll', getCurrentScroll);
 
-  const handleSubmit = async (e: { preventDefault: () => void }) => {
-
+  const handleSubmit = async () => {
+    console.log(2323)
 
     if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {
       var date = ParseDateString();
@@ -451,7 +443,7 @@ function ComparePrice() {
             onClick={() => setIsParticipation(!isParticipation)}
           >
             취소
-          </FileUploadCloseFButton>
+        </FileUploadCloseFButton>  
         </ImageSubmitButtonContainer>
         
       </FileUploadContainer>

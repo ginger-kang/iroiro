@@ -562,14 +562,14 @@ export default function GameSelect() {
             </PreviewContainer>
             <Input type="file" id="photo" name="photo" onChange={handleChange} ref={register}/>
             <ImageSubmitButtonContainer>
-              <ImageSubmitButton type='submit'>착장 공유</ImageSubmitButton>
-              <FileUploadCloseFButton
+              <ImageSubmitButton type='submit'>착장 공유</ImageSubmitButton>              
+              <FileUploadCloseFButton type="button"
                 onClick={() => setIsParticipation(!isParticipation)}
               >
                 취소
               </FileUploadCloseFButton>
             </ImageSubmitButtonContainer>
-          </form>
+            </form>
           </FileUploadContainer>
         </PriceGameContainer>
       </SelectGame>
