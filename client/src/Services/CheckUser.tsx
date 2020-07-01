@@ -14,7 +14,9 @@ function CheckUser(userId:any,userName:any){
           variables: { userId: userId},
         })
         .then((res)=>{
-            
+            if(res.data.User==null){
+                return false;
+            }
             if(res.data.User.userName!=userName){
                 alert("다시 로그인 해주세요");
                 return false;

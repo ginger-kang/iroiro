@@ -163,7 +163,7 @@ function LoginBoxComponent({loginButtonClick,setLoginButtonClick,setUserSocialId
 
                 <NaverLogin
                     clientId="_L3yUfmDgCWHvk7vDar5"
-                    callbackUrl="https://showmethestyle.herokuapp.com/"
+                    callbackUrl="http://localhost:5000/select"
                     render={(props) => (
                         <NaverButton onClick={props.onClick}>
                             <img

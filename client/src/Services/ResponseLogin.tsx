@@ -1,12 +1,13 @@
 import { USER_EXIST, PHOTOS, CREATE_USER } from '../query';
 import client from '../apollo';
-import React, { useState, useEffect, useContext } from 'react';
+import CheckUser from './CheckUser';
 
-const responseLogin = (response: any, tempProvider: any,setUserSocialId:any,setUserSocialName:any) => {
+
+const responseLogin = async (response: any, tempProvider: any,setUserSocialId:any,setUserSocialName:any) => {
     
     let userIdForQuery: any;
     let userNameForQuery: any;
-
+    
 
     if (tempProvider == 'google') {
       userIdForQuery = response.googleId;
@@ -24,6 +25,7 @@ const responseLogin = (response: any, tempProvider: any,setUserSocialId:any,setU
       setUserSocialId(userIdForQuery);
       //setLoginButtonClick(!loginButtonClick);
     } else if (tempProvider == 'naver') {
+      
       userIdForQuery = String(response.id);
       userNameForQuery = response.name;
       window.sessionStorage.setItem('userId', userIdForQuery);
@@ -32,26 +34,22 @@ const responseLogin = (response: any, tempProvider: any,setUserSocialId:any,setU
       setUserSocialId(userIdForQuery);
       //setLoginButtonClick(!loginButtonClick);
     }
-
-    client
-      .query({
-        query: USER_EXIST,
-        variables: { userId: userIdForQuery },
-      })
-      .then((res) => {
-        if (res.data.User === null) {
+    console.log(userIdForQuery)
+    if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))==false)  {
+                 
           client.mutate({
             variables: {
               userId: userIdForQuery,
               userName: userNameForQuery,
-              userNickName: null,
-              userInstagram: null,
+              userNickName: '',
+              userInstagram: '',
             },
             mutation: CREATE_USER,
           });
-        }
-      });
-    window.location.reload();
+        
+      }
+      
+      window.location.reload();
   };
 
 
