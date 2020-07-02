@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AiOutlineAppstore } from 'react-icons/ai';
-import { PHOTOS } from '../query';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { PHOTOS } from '../../query';
 import { Query, Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
-import GameLoading from '../components/GameLoading';
-import ErrorPage from '../components/ErrorPage';
+import GameLoading from '../../components/GameLoading';
+import ErrorPage from '../../components/ErrorPage';
 import StylesPhotos from './StylesPhotos';
 import BackButton from '../Images/BackButton.svg';
 import { TiArrowBackOutline } from 'react-icons/ti';
@@ -14,6 +14,7 @@ import { AiOutlineHome } from 'react-icons/ai';
 const StylesContainer = styled.section`
   width: 100%;
   height: 100vh;
+  overflow: auto;
   background: ${(props) => props.theme.bgColor};
   color: ${(props) => props.theme.textColor};
   display: flex;
@@ -21,10 +22,7 @@ const StylesContainer = styled.section`
   justify-content: center;
   align-items: center;
   position: relative;
-
-  @media screen and (max-width: 1040px) {
-    height: auto;
-  }
+  z-index: 11;
 `;
 
 const StylesNavContainer = styled.nav`
@@ -38,6 +36,14 @@ const StylesNavContainer = styled.nav`
   justify-content: space-evenly;
   align-items: center;
   background: ${(props) => props.theme.styleNavColor};
+`;
+
+const NavLinkContainer = styled.section`
+  width: 60%;
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
   border-bottom: 0.1px solid rgba(0, 0, 0, 0.01);
 
   & a {
@@ -62,19 +68,13 @@ interface gridLayoutProps {
 }
 
 const StylePhotoWrapper = styled('section')<gridLayoutProps>`
+  position: absolute;
+  top: 90px;
   width: auto;
+  margin-bottom: 40px;
   display: grid;
   grid-row-gap: 20px;
   grid-column-gap: 20px;
-  grid-template-columns: ${({ layoutNumber }) => {
-    if (layoutNumber === 3) {
-      return 'repeat(3, 1fr)';
-    } else if (layoutNumber === 2) {
-      return 'repeat(2, 1fr)';
-    } else {
-      return 'repeat(1, 1fr);';
-    }
-  }};
 
   @media screen and (max-width: 1500px) {
     grid-template-columns: repeat(3, 1fr);
@@ -89,7 +89,7 @@ const StylePhotoWrapper = styled('section')<gridLayoutProps>`
   }
 `;
 
-const LayoutButtonContainer = styled.div`
+const LikedButtonContainer = styled.div`
   width: 50px;
   height: 50px;
   background: none;
@@ -125,21 +125,20 @@ function Styles() {
         return (
           <StylesContainer>
             <StylesNavContainer>
-              <Link to="/select">
-                <TiArrowBackOutline size={30} />
-              </Link>
-              <Link to="/">
-                <AiOutlineHome size={30} />
-              </Link>
-              <LayoutButtonContainer>
-                <AiOutlineAppstore size={30} />
-              </LayoutButtonContainer>
+              <NavLinkContainer>
+                <Link to="/select">
+                  <TiArrowBackOutline size={30} />
+                </Link>
+                <Link to="/">
+                  <AiOutlineHome size={30} />
+                </Link>
+                <LikedButtonContainer>
+                  <AiOutlineHeart size={30} />
+                </LikedButtonContainer>
+              </NavLinkContainer>
             </StylesNavContainer>
             <StylePhotoWrapper layoutNumber={layoutNumber}>
-              {data &&
-                data.Photos.map((photo: any) => (
-                  <StylesPhotos PhotoData={photo} layoutNumber={layoutNumber} />
-                ))}
+              <StylesPhotos PhotoData={data} layoutNumber={layoutNumber} />
             </StylePhotoWrapper>
           </StylesContainer>
         );

@@ -3,9 +3,7 @@ import styled, { ThemeContext } from 'styled-components';
 import SittingDoodle from '../Images/doodle/GroovySittingDoodle.svg';
 import blackSittingDoodle from '../Images/doodle/BlackGroovySittingDoodle.svg';
 import { AiFillRocket } from 'react-icons/ai';
-import Login from './Login'
-
-
+import Login from './Login';
 
 const HomeContainer = styled('header')`
   height: 100vh;
@@ -16,12 +14,6 @@ const HomeContainer = styled('header')`
   overflow: hidden;
   background: ${(props) => props.theme.firstBgColor};
 `;
-
-
-
-
-
-
 
 interface scrollPercentage {
   scrollPos: number;
@@ -48,8 +40,6 @@ const HomeContentContainer = styled('article')<scrollPercentage>`
 const DoodleContainer = styled.img`
   width: 60%;
 `;
-
-
 
 const MainTitleImage = styled.figure`
   font-size: 7vw;
@@ -119,8 +109,6 @@ const ContentContatiner = styled.p`
   color: ${(props) => props.theme.textColor};
 `;
 
-
-
 interface displayRocket {
   dpRocket: number;
 }
@@ -159,21 +147,9 @@ const BottomLineContainer = styled.div`
   }
 `;
 
-
-
 function Main() {
-  
-  
-  
   const [scrollPosition, setScrollPosition] = useState(0);
-
-  //total-user Info
-  
-
   const themeContext = useContext(ThemeContext);
-
-  
-  
 
   const handleScrollControll = () => {
     window.scrollTo({
@@ -198,12 +174,11 @@ function Main() {
       setScrollPosition(0);
     }
   };
-
   window.addEventListener('scroll', getCurrentScroll);
 
   return (
-    <HomeContainer>  
-      <Login/>
+    <HomeContainer>
+      <Login />
       <HomeContentContainer scrollPos={scrollPosition}>
         {themeContext.bgColor === '#ffffff' ? (
           <img
@@ -234,10 +209,6 @@ function Main() {
           </svg>
         </MainTitleImage>
         <ContentContatiner>
-          {/* 
-                        google user info test view
-                    */}
-
           <span
             style={{
               color: `${({ props }: { props: any }) => props.theme.textColor}`,

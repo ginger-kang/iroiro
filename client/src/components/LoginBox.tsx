@@ -4,40 +4,35 @@ import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import google from '../Images/google.png';
 import naver from '../Images/naver.png';
 import KakaoLogin from 'react-kakao-login';
-
-import responseLogin from '../Services/ResponseLogin'
-
+import responseLogin from '../Services/ResponseLogin';
 import NaverLogin from 'react-login-by-naver';
 
-
-
 const NaverButton = styled.button`
-width: 90px;
-height: 80px;
-min-width: 70px;
-min-height: 70px;
-color: black;
-background-color: transparent;
-border-radius: 10px;
-font-size: 60px;
-text-align: center;
+  width: 90px;
+  height: 80px;
+  min-width: 70px;
+  min-height: 70px;
+  color: black;
+  background-color: transparent;
+  border-radius: 10px;
+  font-size: 60px;
+  text-align: center;
 `;
 
-
 interface LoginBoxProps {
-    loginState: boolean;
+  loginState: boolean;
 }
 
-const LoginBox = styled('div') <LoginBoxProps>`
+const LoginBox = styled('div')<LoginBoxProps>`
   position: fixed;
   top: 48%;
   left: 50%;
   display: ${({ loginState }) => {
-      if (loginState) {
-          return 'flex';
-      } else {
-          return 'none';
-      }
+    if (loginState) {
+      return 'flex';
+    } else {
+      return 'none';
+    }
   }};
   width: 30vw;
   min-width: 300px;
@@ -79,29 +74,29 @@ const LoginCancelButton = styled.button`
 `;
 
 const LoginButton = styled.button`
-position: fixed;
-bottom: 10px;
-right: 10px;
-width: 9vw;
-height: 3vw;
-min-width: 60px;
-min-height: 25px;
-padding: 9px;
-display: flex;
-justify-content: center;
-align-items: center;
-border-radius: 6px;
-font-size: 1.3vw;
-transition: all 0.1s ease;
-z-index: 300;
-cursor: pointer;
-background: ${(props) => props.theme.textColor};
-color: ${(props) => props.theme.bgColor};
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 9vw;
+  height: 3vw;
+  min-width: 60px;
+  min-height: 25px;
+  padding: 9px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 6px;
+  font-size: 1.3vw;
+  transition: all 0.1s ease;
+  z-index: 300;
+  cursor: pointer;
+  background: ${(props) => props.theme.textColor};
+  color: ${(props) => props.theme.bgColor};
 
-&:hover {
-  background: ${(props) => props.theme.pointColor};
-  color: white;
-}
+  &:hover {
+    background: ${(props) => props.theme.pointColor};
+    color: white;
+  }
 `;
 
 const KakaoButton = styled(KakaoLogin)`
@@ -116,74 +111,85 @@ const KakaoButton = styled(KakaoLogin)`
   text-align: center;
 `;
 
-interface IProps{
-    loginButtonClick:boolean
-    setLoginButtonClick:any
-    setUserSocialId:any
-    setUserSocialName:any
+interface IProps {
+  loginButtonClick: boolean;
+  setLoginButtonClick: any;
+  setUserSocialId: any;
+  setUserSocialName: any;
 }
-function LoginBoxComponent({loginButtonClick,setLoginButtonClick,setUserSocialId,setUserSocialName}:IProps){
-    return(
-        <LoginBox loginState={loginButtonClick}>
-                <GoogleLogin
-                    clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
-                    render={(renderProps) => (
-                        <button
-                            onClick={renderProps.onClick}
-                            disabled={renderProps.disabled}
-                            style={{
-                                background: 'none',
-                                width: '85px',
-                                minWidth: '75px',
-                            }}
-                        >
-                            <img
-                                src={google}
-                                alt="google_logo"
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                }}
-                                onClick={() => setLoginButtonClick(!loginButtonClick)}
-                            />
-                        </button>
-                    )}
-                    buttonText="Login"
-                    onSuccess={(res) => responseLogin(res, 'google',setUserSocialId,setUserSocialName)}
-                    onFailure={(res) => console.log('google login fail')}
-                    cookiePolicy={'single_host_origin'}
-                />
-                <KakaoButton
-                    jsKey="0a72b63b122363029a9f28be03dc7b33"
-                    buttonText="K"
-                    onSuccess={(res) => responseLogin(res, 'kakao',setUserSocialId,setUserSocialName)}
-                    onFailure={(res) => console.log('kakao login fail')}
-                    getProfile={true}
-                />
+function LoginBoxComponent({
+  loginButtonClick,
+  setLoginButtonClick,
+  setUserSocialId,
+  setUserSocialName,
+}: IProps) {
+  return (
+    <LoginBox loginState={loginButtonClick}>
+      <GoogleLogin
+        clientId="578715869929-mutudhudc1bh26dmvljgko5ofo7f690j.apps.googleusercontent.com"
+        render={(renderProps) => (
+          <button
+            onClick={renderProps.onClick}
+            disabled={renderProps.disabled}
+            style={{
+              background: 'none',
+              width: '85px',
+              minWidth: '75px',
+            }}
+          >
+            <img
+              src={google}
+              alt="google_logo"
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+              onClick={() => setLoginButtonClick(!loginButtonClick)}
+            />
+          </button>
+        )}
+        buttonText="Login"
+        onSuccess={(res) =>
+          responseLogin(res, 'google', setUserSocialId, setUserSocialName)
+        }
+        onFailure={(res) => console.log('google login fail')}
+        cookiePolicy={'single_host_origin'}
+      />
+      <KakaoButton
+        jsKey="0a72b63b122363029a9f28be03dc7b33"
+        buttonText="K"
+        onSuccess={(res) =>
+          responseLogin(res, 'kakao', setUserSocialId, setUserSocialName)
+        }
+        onFailure={(res) => console.log('kakao login fail')}
+        getProfile={true}
+      />
 
-                <NaverLogin
-                    clientId="_L3yUfmDgCWHvk7vDar5"
-                    callbackUrl="http://localhost:5000/select"
-                    render={(props) => (
-                        <NaverButton onClick={props.onClick}>
-                            <img
-                                src={naver}
-                                alt="naver"
-                                style={{
-                                    width: '100%',
-                                    height: '100%',
-                                }}
-                            />
-                        </NaverButton>
-                    )}
-                    onSuccess={(res) => responseLogin(res, 'naver',setUserSocialId,setUserSocialName)}
-                    onFailure={() => console.log('naver login fail')}
-                />
-                <LoginCancelButton
-                    onClick={() => setLoginButtonClick(!loginButtonClick)}
-                />
-            </LoginBox>
-    )
+      <NaverLogin
+        clientId="_L3yUfmDgCWHvk7vDar5"
+        callbackUrl="http://localhost:5000/select"
+        render={(props) => (
+          <NaverButton onClick={props.onClick}>
+            <img
+              src={naver}
+              alt="naver"
+              style={{
+                width: '100%',
+                height: '100%',
+              }}
+            />
+          </NaverButton>
+        )}
+        onSuccess={(res) =>
+          responseLogin(res, 'naver', setUserSocialId, setUserSocialName)
+        }
+        onFailure={() => console.log('naver login fail')}
+      />
+      <LoginCancelButton
+        onClick={() => setLoginButtonClick(!loginButtonClick)}
+      />
+    </LoginBox>
+  );
 }
 
 export default LoginBoxComponent;

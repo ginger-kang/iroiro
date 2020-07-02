@@ -12,7 +12,7 @@ import ParseDateString from '../../Services/ParseDateString';
 import axios from 'axios';
 import client from '../../apollo';
 import CheckUser from '../../Services/CheckUser';
-import topShirt from '../../Images/clothes.png'
+import topShirt from '../../Images/clothes.png';
 import LoginBoxComponent from '../../components/LoginBox';
 
 const GameSelectContainer = styled.main`
@@ -73,6 +73,7 @@ const StyleGameContainer = styled.section`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  position: relative;
 `;
 
 const PriceGameContainer = styled.section`
@@ -83,25 +84,22 @@ const PriceGameContainer = styled.section`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-
-  
 `;
-const PriceGameMain = styled('div') <DescriptionVisibility>`
-width: 100%;
+const PriceGameMain = styled('div')<DescriptionVisibility>`
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-display: ${({ isParticipation }) => {
+  display: ${({ isParticipation }) => {
     if (!isParticipation) {
       return 'flex';
     } else {
       return 'none';
     }
   }};
-
 `;
 const PriceContentContainer = styled('article')`
   width: 80%;
@@ -112,7 +110,7 @@ const PriceContentContainer = styled('article')`
   line-height: 1.25;
   text-align: center;
   color: ${(props) => props.theme.textColor};
-  
+
   & p {
     font-size: 1vw;
   }
@@ -208,12 +206,11 @@ const StyleTitle = styled.h1`
   color: ${(props) => props.theme.textColor};
 `;
 
-const UploadButton = styled.button` 
-  background:transparent;
+const UploadButton = styled.button`
+  background: transparent;
 
-
-  & img{
-    height:15px;
+  & img {
+    height: 15px;
   }
 `;
 
@@ -240,17 +237,15 @@ const InstaContainer = styled.div`
     border-radius: 6px;
     outline: none;
     color: white;
-    margin-left : 10px;
+    margin-left: 10px;
   }
 `;
-
-
 
 interface DescriptionVisibility {
   isParticipation: boolean;
 }
 
-const FileUploadContainer = styled('section') <DescriptionVisibility>`
+const FileUploadContainer = styled('section')<DescriptionVisibility>`
   width: 50%;
   height: 100%;
   display: ${({ isParticipation }) => {
@@ -322,11 +317,10 @@ const Preview = styled.label`
   }
 `;
 
-
 interface PrevImageProps {
   url: string;
 }
-const PreviewP = styled('div') <PrevImageProps>`
+const PreviewP = styled('div')<PrevImageProps>`
   background-image: url(${({ url }) => url});
   width: 100%;
   height: 100%;
@@ -347,7 +341,7 @@ const ImageSubmitButtonContainer = styled.div`
   align-items: center;
 `;
 
-const ImageSubmitButton = styled('button') <WritePriceProps>`
+const ImageSubmitButton = styled('button')<WritePriceProps>`
   width: 8vw;
   padding: 10px;
   min-width: 62px;
@@ -369,7 +363,6 @@ const ImageSubmitButton = styled('button') <WritePriceProps>`
       return 'none';
     }
   }};
-  
 `;
 
 const Input = styled.input`
@@ -380,11 +373,11 @@ interface WritePriceProps {
   writeState: Boolean;
 }
 
-const SubmitPriceContainer = styled('div') <WritePriceProps>`
-  height:50%;
-  
+const SubmitPriceContainer = styled('div')<WritePriceProps>`
+  height: 50%;
+
   & div {
-    margin-bottom:10px;
+    margin-bottom: 10px;
   }
 
   display: ${({ writeState }) => {
@@ -394,11 +387,10 @@ const SubmitPriceContainer = styled('div') <WritePriceProps>`
       return 'none';
     }
   }};
-  
 `;
 
-const PreviewContainer = styled('div') <WritePriceProps>`
-  text-align:center;
+const PreviewContainer = styled('div')<WritePriceProps>`
+  text-align: center;
   display: ${({ writeState }) => {
     if (!writeState) {
       return 'grid';
@@ -413,17 +405,17 @@ const PriceButtons = styled.div`
 `;
 
 interface ShowLoginProps {
-  showLoginBox: boolean
+  showLoginBox: boolean;
 }
-const LoginBoxBox = styled('div') <ShowLoginProps>`
-display: ${({ showLoginBox }) => {
+const LoginBoxBox = styled('div')<ShowLoginProps>`
+  display: ${({ showLoginBox }) => {
     if (showLoginBox) {
       return 'flex';
     } else {
       return 'none';
     }
   }};
-`
+`;
 type FormData = {
   topName: string;
   topPrice: string;
@@ -456,14 +448,18 @@ export default function GameSelect() {
     setUploadedFileUrl(URL.createObjectURL(file));
   };
 
-
   const goToWritePrice = async () => {
-    if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName')) == false) {
+    if (
+      (await CheckUser(
+        window.sessionStorage.getItem('userId'),
+        window.sessionStorage.getItem('userName'),
+      )) == false
+    ) {
       setShowLoginBox(true);
     } else {
       setWriteState(true);
     }
-  }
+  };
 
   const onSubmit = handleSubmit(
     async ({
@@ -475,13 +471,17 @@ export default function GameSelect() {
       shoesPrice,
       photo,
     }) => {
-
-      if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {
+      if (
+        await CheckUser(
+          window.sessionStorage.getItem('userId'),
+          window.sessionStorage.getItem('userName'),
+        )
+      ) {
         if (photo[0] == undefined) {
-          alert('사진을 선택해주세요!')
+          alert('사진을 선택해주세요!');
         } else {
           var date = ParseDateString();
-          var instagram = 'temp'
+          var instagram = 'temp';
           var name2 = date + '-' + photo[0].name;
           var imageData = new FormData();
 
@@ -503,7 +503,6 @@ export default function GameSelect() {
               alert('업로드 실패');
               setIsParticipation(false);
               setWriteState(false);
-
             });
 
           client.mutate({
@@ -529,7 +528,6 @@ export default function GameSelect() {
     },
   );
 
-
   return (
     <GameSelectContainer>
       <GameSelectNavContainer>
@@ -547,12 +545,12 @@ export default function GameSelect() {
                 style={{ width: '100%', height: '100%', minWidth: '200px' }}
               />
             ) : (
-                <img
-                  src={FloatDoodle}
-                  alt="floatdoodle"
-                  style={{ width: '100%', height: '100%', minWidth: '200px' }}
-                />
-              )}
+              <img
+                src={FloatDoodle}
+                alt="floatdoodle"
+                style={{ width: '100%', height: '100%', minWidth: '200px' }}
+              />
+            )}
           </StyleDoodleContainer>
           <StyleContentContainer>
             <StyleTitle>제목</StyleTitle>
@@ -563,7 +561,7 @@ export default function GameSelect() {
           </StyleContentContainer>
         </StyleGameContainer>
         <PriceGameContainer>
-          <PriceGameMain isParticipation={isParticipation} >
+          <PriceGameMain isParticipation={isParticipation}>
             <PriceTagImageContainer>
               <img
                 src={priceTag}
@@ -576,22 +574,23 @@ export default function GameSelect() {
               <PriceButtons>
                 <p>더 비싼 옷을 맞춰보세요. 옷 정보와 가격도 알아보세요!</p>
 
-                <UploadButton onClick={() => setIsParticipation(!isParticipation)}><img src={topShirt} ></img></UploadButton>
+                <UploadButton
+                  onClick={() => setIsParticipation(!isParticipation)}
+                >
+                  <img src={topShirt}></img>
+                </UploadButton>
               </PriceButtons>
               <Link to="/game">
                 <PriceStartButton>시작</PriceStartButton>
               </Link>
-
-
             </PriceContentContainer>
-
           </PriceGameMain>
           <FileUploadContainer isParticipation={isParticipation}>
             <form onSubmit={onSubmit}>
               <SubmitPriceContainer writeState={writeState}>
                 <InstaContainer>
                   Top
-            <input
+                  <input
                     name="topName"
                     placeholder="상의 정보"
                     ref={register}
@@ -604,7 +603,7 @@ export default function GameSelect() {
                 </InstaContainer>
                 <InstaContainer>
                   Bottom
-            <input
+                  <input
                     name="bottomName"
                     placeholder="하의 정보"
                     ref={register}
@@ -617,12 +616,11 @@ export default function GameSelect() {
                 </InstaContainer>
                 <InstaContainer>
                   Shoes
-            <input
+                  <input
                     name="shoesName"
                     placeholder="신발 정보"
                     ref={register}
                   />
-
                   <input
                     name="shoesPrice"
                     placeholder="가격 정보"
@@ -637,24 +635,48 @@ export default function GameSelect() {
                   </PreviewP>
                 </Preview>
               </PreviewContainer>
-              <Input type="file" id="photo" name="photo" onChange={handleChange} ref={register} />
+              <Input
+                type="file"
+                id="photo"
+                name="photo"
+                onChange={handleChange}
+                ref={register}
+              />
               <ImageSubmitButtonContainer>
-                <ImageSubmitButton type="button" writeState={!writeState} onClick={goToWritePrice}>가격 작성</ImageSubmitButton>
-                <ImageSubmitButton type="submit" writeState={writeState}>착장 공유</ImageSubmitButton>
-                <FileUploadCloseFButton type="button"
-                  onClick={() => { if (writeState) { setWriteState(false) } else { setIsParticipation(!isParticipation) } }}
+                <ImageSubmitButton
+                  type="button"
+                  writeState={!writeState}
+                  onClick={goToWritePrice}
+                >
+                  가격 작성
+                </ImageSubmitButton>
+                <ImageSubmitButton type="submit" writeState={writeState}>
+                  착장 공유
+                </ImageSubmitButton>
+                <FileUploadCloseFButton
+                  type="button"
+                  onClick={() => {
+                    if (writeState) {
+                      setWriteState(false);
+                    } else {
+                      setIsParticipation(!isParticipation);
+                    }
+                  }}
                 >
                   취소
-              </FileUploadCloseFButton>
+                </FileUploadCloseFButton>
               </ImageSubmitButtonContainer>
             </form>
-
           </FileUploadContainer>
         </PriceGameContainer>
       </SelectGame>
 
-      <LoginBoxComponent loginButtonClick={showLoginBox} setLoginButtonClick={setLoginButtonClick} setUserSocialId={setUserSocialId} setUserSocialName={setUserSocialName} />
-
+      <LoginBoxComponent
+        loginButtonClick={showLoginBox}
+        setLoginButtonClick={setLoginButtonClick}
+        setUserSocialId={setUserSocialId}
+        setUserSocialName={setUserSocialName}
+      />
     </GameSelectContainer>
   );
 }

@@ -3,7 +3,7 @@ import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import Home from './routes/Home/Home';
 import Game from './routes/Game/GameLogic';
 import Admin from './routes/Admin/Admin';
-import Styles from './components/Styles';
+import Styles from './routes/Styles/Styles';
 import GameSelect from './routes/Select/GameSelect';
 
 export default function Router() {
