@@ -112,7 +112,7 @@ const RootQuery = new GraphQLObjectType({
         };
 
         params.Key.userId = args.userId;
-
+                
         return db
           .get(params)
           .promise()
@@ -161,6 +161,7 @@ const RootMutation = new GraphQLObjectType({
             userInstagram:args.userInstagram
           },
         };
+        
         return db
           .put(params)
           .promise()

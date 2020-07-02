@@ -39,7 +39,7 @@ export default function Home() {
       <Main />
       <SelectMenu />
       <Winner />
-      <Awarded />
+      
     </>
   );
 }
