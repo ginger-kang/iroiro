@@ -18,12 +18,13 @@ const MoonButton = styled('button')<ToggleProps>`
   position: absolute;
   left: 6px;
   top: 6px;
-  transition: all 0.5s ease;
   background: none;
   color: white;
   z-index: 10;
 
   & svg {
+    transition: all 1.5s ease;
+
     fill: ${({ isLight }) => {
       if (isLight) {
         return 'black';

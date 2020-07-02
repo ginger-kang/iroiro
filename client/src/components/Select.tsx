@@ -14,6 +14,7 @@ const SelectPageContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: all 1s ease;
   background: ${(props) => props.theme.secondBgColor};
   overflow: hidden;
   position: relative;

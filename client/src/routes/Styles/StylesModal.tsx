@@ -5,8 +5,8 @@ const ModalContainer = styled.figure`
   position: fixed;
   top: 50%;
   left: 50%;
-  width: 40vw;
-  height: 40vw;
+  width: 35vw;
+  height: 36vw;
   transition: all 1s ease;
   transform: translateX(-50%) translateY(-50%);
 
