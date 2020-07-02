@@ -12,7 +12,7 @@ import ParseDateString from '../../Services/ParseDateString';
 import axios from 'axios';
 import client from '../../apollo';
 import CheckUser from '../../Services/CheckUser';
-import topShirt from '../../Images/clothes.png'
+import topShirt from '../../Images/clothes.png';
 const GameSelectContainer = styled.main`
   width: 100%;
   height: 100vh;
@@ -71,6 +71,7 @@ const StyleGameContainer = styled.section`
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  position: relative;
 `;
 
 const PriceGameContainer = styled.section`
@@ -81,25 +82,22 @@ const PriceGameContainer = styled.section`
   justify-content: center;
   align-items: center;
   overflow: hidden;
-
-  
 `;
-const PriceGameMain = styled('div') <DescriptionVisibility>`
-width: 100%;
+const PriceGameMain = styled('div')<DescriptionVisibility>`
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   overflow: hidden;
-display: ${({ isParticipation }) => {
+  display: ${({ isParticipation }) => {
     if (!isParticipation) {
       return 'flex';
     } else {
       return 'none';
     }
   }};
-
 `;
 const PriceContentContainer = styled('article')`
   width: 80%;
@@ -110,7 +108,7 @@ const PriceContentContainer = styled('article')`
   line-height: 1.25;
   text-align: center;
   color: ${(props) => props.theme.textColor};
-  
+
   & p {
     font-size: 1vw;
   }
@@ -207,12 +205,11 @@ const StyleTitle = styled.h1`
 `;
 
 const UploadButton = styled.button`
-  margin-left:70px;
-  background:transparent;
+  margin-left: 70px;
+  background: transparent;
 
-
-  & img{
-    height:20px;
+  & img {
+    height: 20px;
   }
 `;
 
@@ -239,17 +236,15 @@ const InstaContainer = styled.div`
     border-radius: 6px;
     outline: none;
     color: white;
-    margin-left : 10px;
+    margin-left: 10px;
   }
 `;
-
-
 
 interface DescriptionVisibility {
   isParticipation: boolean;
 }
 
-const FileUploadContainer = styled('section') <DescriptionVisibility>`
+const FileUploadContainer = styled('section')<DescriptionVisibility>`
   width: 50%;
   height: 100%;
   display: ${({ isParticipation }) => {
@@ -321,11 +316,10 @@ const Preview = styled.label`
   }
 `;
 
-
 interface PrevImageProps {
   url: string;
 }
-const PreviewP = styled('div') <PrevImageProps>`
+const PreviewP = styled('div')<PrevImageProps>`
   background-image: url(${({ url }) => url});
   width: 100%;
   height: 100%;
@@ -346,7 +340,7 @@ const ImageSubmitButtonContainer = styled.div`
   align-items: center;
 `;
 
-const ImageSubmitButton = styled.button`  
+const ImageSubmitButton = styled.button`
   width: 8vw;
   padding: 10px;
   min-width: 62px;
@@ -367,15 +361,14 @@ const Input = styled.input`
 `;
 
 const SubmitPriceContainer = styled.div`
-  height:50%;
+  height: 50%;
 `;
 
 const PreviewContainer = styled.div`
-  text-align:center;
+  text-align: center;
 `;
 
-const PriceButtons = styled.div`
-`;
+const PriceButtons = styled.div``;
 
 type FormData = {
   topName: string;
@@ -395,7 +388,6 @@ export default function GameSelect() {
   const [uploadedFileUrl, setUploadedFileUrl] = useState('');
   const { register, setValue, handleSubmit, errors } = useForm<FormData>();
 
-
   const handleChange = (e: any) => {
     var file = e.target.files[0];
 
@@ -409,55 +401,58 @@ export default function GameSelect() {
       bottomName,
       bottomPrice,
       shoesName,
-      shoesPrice,      
+      shoesPrice,
       photo,
-    }) => {      
-     
-      if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {
-      var date = ParseDateString();
-      var instagram = 'temp'
-      var name2 = date + '-' + photo[0].name;
-      var imageData = new FormData();
+    }) => {
+      if (
+        await CheckUser(
+          window.sessionStorage.getItem('userId'),
+          window.sessionStorage.getItem('userName'),
+        )
+      ) {
+        var date = ParseDateString();
+        var instagram = 'temp';
+        var name2 = date + '-' + photo[0].name;
+        var imageData = new FormData();
 
-      imageData.append('image', photo[0]);
-      imageData.append('imageId', name2);
+        imageData.append('image', photo[0]);
+        imageData.append('imageId', name2);
 
-      const config = {
-        headers: { 'Content-type': 'multipart/form-data' },
-      };
+        const config = {
+          headers: { 'Content-type': 'multipart/form-data' },
+        };
 
-      axios
-        .post('/upload', imageData, config)
-        .then(function (response) {
-          alert('이미지 업로드 성공');
-        })
-        .catch(function (error) {
-          alert('업로드 실패');
+        axios
+          .post('/upload', imageData, config)
+          .then(function (response) {
+            alert('이미지 업로드 성공');
+          })
+          .catch(function (error) {
+            alert('업로드 실패');
+          });
+
+        client.mutate({
+          variables: {
+            owner: instagram,
+            category: 'man',
+            instagram: instagram,
+            top1: topName,
+            top2: Number(topPrice),
+            bottom1: bottomName,
+            bottom2: Number(bottomPrice),
+            shoes1: shoesName,
+            shoes2: Number(shoesPrice),
+            url:
+              'https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/man/' +
+              name2,
+            id: name2,
+          },
+          mutation: UPLOAD_PHOTO_FOR_GAME,
         });
-
-      client.mutate({
-        variables: {
-          owner: instagram,
-          category: 'man',
-          instagram: instagram,
-          top1: topName,
-          top2: Number(topPrice),
-          bottom1: bottomName,
-          bottom2: Number(bottomPrice),
-          shoes1: shoesName,
-          shoes2: Number(shoesPrice),
-          url:
-            'https://s3.ap-northeast-2.amazonaws.com/showmethestyle.com/man/' +
-            name2,
-          id: name2,
-        },
-        mutation: UPLOAD_PHOTO_FOR_GAME,
-      });
-    };
+      }
     },
   );
 
-  
   return (
     <GameSelectContainer>
       <GameSelectNavContainer>
@@ -475,12 +470,12 @@ export default function GameSelect() {
                 style={{ width: '100%', height: '100%', minWidth: '200px' }}
               />
             ) : (
-                <img
-                  src={FloatDoodle}
-                  alt="floatdoodle"
-                  style={{ width: '100%', height: '100%', minWidth: '200px' }}
-                />
-              )}
+              <img
+                src={FloatDoodle}
+                alt="floatdoodle"
+                style={{ width: '100%', height: '100%', minWidth: '200px' }}
+              />
+            )}
           </StyleDoodleContainer>
           <StyleContentContainer>
             <StyleTitle>제목</StyleTitle>
@@ -491,7 +486,7 @@ export default function GameSelect() {
           </StyleContentContainer>
         </StyleGameContainer>
         <PriceGameContainer>
-          <PriceGameMain isParticipation={isParticipation} >
+          <PriceGameMain isParticipation={isParticipation}>
             <PriceTagImageContainer>
               <img
                 src={priceTag}
@@ -503,75 +498,83 @@ export default function GameSelect() {
               <PriceTitle>뭐가 더 비쌀까</PriceTitle>
               <p>더 비싼 옷을 맞춰보세요. 옷 정보와 가격도 알아보세요!</p>
               <PriceButtons>
-              <Link to="/game">
-                <PriceStartButton>시작</PriceStartButton>
-              </Link>
-              <UploadButton onClick={() => setIsParticipation(!isParticipation)}><img src={topShirt} ></img></UploadButton>
-
+                <Link to="/game">
+                  <PriceStartButton>시작</PriceStartButton>
+                </Link>
+                <UploadButton
+                  onClick={() => setIsParticipation(!isParticipation)}
+                >
+                  <img src={topShirt}></img>
+                </UploadButton>
               </PriceButtons>
             </PriceContentContainer>
-            
           </PriceGameMain>
           <FileUploadContainer isParticipation={isParticipation}>
             <form onSubmit={onSubmit}>
-            <SubmitPriceContainer>
-              <InstaContainer>
-                Top
-            <input
-                  name="topName"
-                  placeholder="상의 정보"
-                  ref={register} 
-                />
-                <input
-                  name="topPrice"
-                  placeholder="가격 정보"
-                  ref={register} 
-                />
-              </InstaContainer>
-              <InstaContainer>
-                Bottom
-            <input
-                  name="bottomName"
-                  placeholder="하의 정보"
-                  ref={register} 
-                />
-                <input
-                  name="bottomPrice"
-                  placeholder="가격 정보"
-                  ref={register} 
-                />
-              </InstaContainer>
-              <InstaContainer>
-                Shoes
-            <input
-                  name="shoesName"
-                  placeholder="신발 정보"
-                  ref={register} 
-                />
-
-                <input
-                  name="shoesPrice"
-                  placeholder="가격 정보"
-                  ref={register} 
-                />
-              </InstaContainer>
-            </SubmitPriceContainer>
-            <PreviewContainer>
-              <Preview htmlFor="photo">
-                <PreviewP url={uploadedFileUrl}>
-                  <AiOutlineUpload size={50} />
-                </PreviewP>
-              </Preview>
-            </PreviewContainer>
-            <Input type="file" id="photo" name="photo" onChange={handleChange} ref={register}/>
-            <ImageSubmitButtonContainer>
-              <ImageSubmitButton type='submit'>착장 공유</ImageSubmitButton>              
-              <FileUploadCloseFButton type="button"
-                onClick={() => setIsParticipation(!isParticipation)}
-              >
-                취소
-              </FileUploadCloseFButton>
-            </ImageSubmitButtonContainer>
+              <SubmitPriceContainer>
+                <InstaContainer>
+                  Top
+                  <input
+                    name="topName"
+                    placeholder="상의 정보"
+                    ref={register}
+                  />
+                  <input
+                    name="topPrice"
+                    placeholder="가격 정보"
+                    ref={register}
+                  />
+                </InstaContainer>
+                <InstaContainer>
+                  Bottom
+                  <input
+                    name="bottomName"
+                    placeholder="하의 정보"
+                    ref={register}
+                  />
+                  <input
+                    name="bottomPrice"
+                    placeholder="가격 정보"
+                    ref={register}
+                  />
+                </InstaContainer>
+                <InstaContainer>
+                  Shoes
+                  <input
+                    name="shoesName"
+                    placeholder="신발 정보"
+                    ref={register}
+                  />
+                  <input
+                    name="shoesPrice"
+                    placeholder="가격 정보"
+                    ref={register}
+                  />
+                </InstaContainer>
+              </SubmitPriceContainer>
+              <PreviewContainer>
+                <Preview htmlFor="photo">
+                  <PreviewP url={uploadedFileUrl}>
+                    <AiOutlineUpload size={50} />
+                  </PreviewP>
+                </Preview>
+              </PreviewContainer>
+              <Input
+                type="file"
+                id="photo"
+                name="photo"
+                onChange={handleChange}
+                ref={register}
+              />
+              <ImageSubmitButtonContainer>
+                <ImageSubmitButton type="submit">착장 공유</ImageSubmitButton>
+                <FileUploadCloseFButton
+                  type="button"
+                  onClick={() => setIsParticipation(!isParticipation)}
+                >
+                  취소
+                </FileUploadCloseFButton>
+              </ImageSubmitButtonContainer>
             </form>
           </FileUploadContainer>
         </PriceGameContainer>

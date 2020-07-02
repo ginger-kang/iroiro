@@ -135,18 +135,6 @@ const HomeContentContainer = styled('article')<scrollPercentage>`
   }
 `;
 
-const DoodleContainer = styled.img`
-  width: 60%;
-`;
-
-// const MainImageContainer = styled.img.attrs(props => ({
-//     src: props.theme.sittingIcon,
-//     alt: 'sittingIcon',
-//     width: '60%',
-// }))`
-
-// `;
-
 const MainTitleImage = styled.figure`
   font-size: 7vw;
   & svg {
@@ -371,10 +359,10 @@ function Main() {
 
   //set google-user Info
   const responseLogin = (response: any, tempProvider: any) => {
-    console.log(response.wc,response.tokenObj)
+    console.log(response.wc, response.tokenObj);
     let userIdForQuery: any;
     let userNameForQuery: any;
-    
+
     if (tempProvider == 'google') {
       userIdForQuery = response.googleId;
       userNameForQuery = response.profileObj.name;
