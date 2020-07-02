@@ -1,7 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineHeart } from 'react-icons/ai';
 import instagramLogo from '../../Images/instagramlogo.png';
+import StylesModal from './StylesModal';
 
 interface gridLayoutProps {
   layoutNumber: number;
@@ -74,6 +75,8 @@ const shuffleImageData = (a: any) => {
 };
 
 export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
+  const [modal, setModal] = useState<boolean>(false);
+
   useEffect(() => {
     const orderArray: any = [];
     for (let i = 0; i < 10; i++) {
@@ -82,37 +85,57 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
     shuffledData = shuffleImageData(orderArray);
   }, []);
 
+  const showModal = () => {
+    setModal(true);
+  };
+
+  const hideModal = () => {
+    setModal(false);
+  };
+
   return (
     <>
       {PhotoData &&
-        PhotoData.Photos.map((photo: any) => (
-          <StylesPhotoContainer layoutNumber={layoutNumber}>
-            <img src={photo.url} alt="photo"></img>
-            <PhotoCaption>
-              <AiOutlineHeart size={22} />
-              <InstaInfoContainer>
-                <a
-                  onClick={() =>
-                    window.open(
-                      'https://instagram.com/' + photo.instagram,
-                      '_blank',
-                    )
-                  }
-                >
-                  <img
-                    src={instagramLogo}
-                    alt="instagram"
-                    style={{
-                      width: '23px',
-                      height: '23px',
-                      marginRight: '3px',
-                    }}
-                  />
-                  {photo.instagram}
-                </a>
-              </InstaInfoContainer>
-            </PhotoCaption>
-          </StylesPhotoContainer>
+        PhotoData.Photos.map((photo: any, i: any) => (
+          <>
+            <StylesPhotoContainer layoutNumber={layoutNumber}>
+              <img
+                key={i}
+                src={photo.url}
+                alt="photo"
+                onClick={() => showModal()}
+              ></img>
+              <PhotoCaption>
+                <AiOutlineHeart size={22} />
+                <InstaInfoContainer>
+                  <a
+                    onClick={() =>
+                      window.open(
+                        'https://instagram.com/' + photo.instagram,
+                        '_blank',
+                      )
+                    }
+                  >
+                    <img
+                      src={instagramLogo}
+                      alt="instagram"
+                      style={{
+                        width: '23px',
+                        height: '23px',
+                        marginRight: '3px',
+                      }}
+                    />
+                    {photo.instagram}
+                  </a>
+                </InstaInfoContainer>
+              </PhotoCaption>
+            </StylesPhotoContainer>
+            <StylesModal
+              photo={photo.url}
+              showModal={modal}
+              hideModal={() => hideModal()}
+            />
+          </>
         ))}
     </>
   );

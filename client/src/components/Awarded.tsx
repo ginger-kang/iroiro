@@ -31,17 +31,17 @@ const RoundContainer = styled.div`
 const PrevRoundButton = styled.button`
   position: absolute;
   top: 50%;
-  left: 10%;
+  left: 15%;
   transition: 0.1s ease;
-  height: 8vw;
+  height: 3.5vw;
   width: 3.5vw;
   min-width: 30px;
-  border-radius: 6px;
+  min-height: 30px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transform: translateY(-50%);
-
-  & svg {
-    width: 2vw;
-  }
 
   &:hover {
     color: white;
@@ -52,17 +52,17 @@ const PrevRoundButton = styled.button`
 const NextRoundButton = styled.button`
   position: absolute;
   top: 50%;
-  right: 10%;
+  right: 15%;
   transition: 0.1s ease;
-  height: 8vw;
+  height: 3.5vw;
   width: 3.5vw;
   min-width: 30px;
-  border-radius: 6px;
+  min-height: 30px;
+  border-radius: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   transform: translateY(-50%);
-
-  & svg {
-    width: 2vw;
-  }
 
   &:hover {
     color: white;
@@ -91,7 +91,7 @@ function Awarded() {
   return (
     <AwardedContainer>
       <PrevRoundButton onClick={leftButtonClick}>
-        <AiOutlineLeft size={27} />
+        <AiOutlineLeft size={25} />
       </PrevRoundButton>
       <RoundContainer>
         <span
@@ -104,7 +104,7 @@ function Awarded() {
         </span>
       </RoundContainer>
       <NextRoundButton onClick={rightButtonClick}>
-        <AiOutlineRight size={27} />
+        <AiOutlineRight size={25} />
       </NextRoundButton>
       <Contest />
     </AwardedContainer>

@@ -3,6 +3,7 @@ import styled, { ThemeProvider } from 'styled-components';
 import { GlobalStyle } from './global-styles';
 import Router from './Router';
 import { lightTheme, darkTheme } from './theme';
+import { FiMoon } from 'react-icons/fi';
 import client from './apollo';
 import { ApolloProvider } from 'react-apollo';
 import { ApolloProvider as ApolloHooksProvider } from 'react-apollo-hooks';
@@ -13,43 +14,32 @@ interface ToggleProps {
   isLight: boolean;
 }
 
-const ToggleButtonContainer = styled('div')<ToggleProps>`
-  background: ${({ isLight }) => {
-    if (isLight) {
-      return 'linear-gradient(#331679,#716a6a)';
-    } else {
-      return 'linear-gradient(#3c93ff,#b8bbff)';
-    }
-  }};
-  top: 3px;
-  left: 3px;
-  border-radius: 30px;
-  display: flex;
-  align-items: center;
+const MoonButton = styled('button')<ToggleProps>`
   position: absolute;
-  width: 64px;
-  height: 36px;
+  left: 6px;
+  top: 6px;
+  transition: all 0.5s ease;
+  background: none;
+  color: white;
   z-index: 10;
-  transition: all 0.5s ease;
-`;
 
-const ToggleButton = styled('button')<ToggleProps>`
-  position: absolute;
-  left: 4px;
-  top: 4px;
-  background: white;
-  width: 28px;
-  height: 28px;
-  border-radius: 100%;
-  transition: all 0.5s ease;
+  & svg {
+    fill: ${({ isLight }) => {
+      if (isLight) {
+        return 'black';
+      } else {
+        return '#ffff35';
+      }
+    }};
 
-  transform: ${({ isLight }) => {
-    if (isLight) {
-      return 'translateX(29px)';
-    } else {
-      return 'translateX(0)';
-    }
-  }};
+    color: ${({ isLight }) => {
+      if (isLight) {
+        return 'black';
+      } else {
+        return '#ffff35';
+      }
+    }};
+  }
 `;
 
 function App() {
@@ -81,9 +71,9 @@ function App() {
 
   return (
     <AppContainer>
-      <ToggleButtonContainer isLight={isLight}>
-        <ToggleButton isLight={isLight} onClick={toggleTheme} />
-      </ToggleButtonContainer>
+      <MoonButton isLight={isLight} onClick={toggleTheme}>
+        <FiMoon size={30} />
+      </MoonButton>
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
           <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>

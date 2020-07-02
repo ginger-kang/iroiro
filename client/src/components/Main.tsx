@@ -149,9 +149,6 @@ const BottomLineContainer = styled.div`
 
 function Main() {
   const [scrollPosition, setScrollPosition] = useState(0);
-
-  //total-user Info
-
   const themeContext = useContext(ThemeContext);
 
   const handleScrollControll = () => {
@@ -177,7 +174,6 @@ function Main() {
       setScrollPosition(0);
     }
   };
-
   window.addEventListener('scroll', getCurrentScroll);
 
   return (
