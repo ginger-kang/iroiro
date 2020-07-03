@@ -12,6 +12,7 @@ const HomeContainer = styled('header')`
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  transition: all 0.5s ease;
   background: ${(props) => props.theme.firstBgColor};
 `;
 
@@ -44,6 +45,7 @@ const DoodleContainer = styled.img`
 const MainTitleImage = styled.figure`
   font-size: 7vw;
   & svg {
+    transition: all 1s ease;
     animation: fill 0.5s ease forwards 2s;
     width: 50vw;
     height: 10vw;
@@ -106,6 +108,7 @@ const ContentContatiner = styled.p`
   padding: 15px;
   display: flex;
   justify-content: center;
+  transition: all 1s ease;
   color: ${(props) => props.theme.textColor};
 `;
 
@@ -120,6 +123,7 @@ const ScrollController = styled('button')<displayRocket>`
   cursor: pointer;
   transition: 1s ease;
   background: none;
+  transition: all 1s ease;
   display: ${({ dpRocket }) => {
     if (dpRocket != 0) {
       return 'flex';

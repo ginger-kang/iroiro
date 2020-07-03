@@ -15,6 +15,7 @@ const WinnerContainer = styled.section`
   overflow: hidden;
   justify-content: center;
   position: relative;
+  transition: all 1s ease;
 `;
 
 interface scrollPosition {

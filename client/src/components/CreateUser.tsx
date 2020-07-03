@@ -120,7 +120,7 @@ const NickNameContainer = styled.section`
     color: white;
   }
 `;
-const UserModal = styled('div') <UserModalState>`
+const UserModal = styled('div')<UserModalState>`
   position: fixed;
   top: 48%;
   left: 50%;
@@ -145,9 +145,7 @@ const UserModal = styled('div') <UserModalState>`
 `;
 
 function CreateUserInfo() {
-
   const [modalIsOpen, setModalIsOpen] = useState(false);
-
 
   const { register, handleSubmit } = useForm();
 
@@ -173,12 +171,15 @@ function CreateUserInfo() {
         userInstagram: 'Guest',
       },
     };
-
   }
 
-  async function onSubmit(data: any){
-
-    if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {
+  async function onSubmit(data: any) {
+    if (
+      await CheckUser(
+        window.sessionStorage.getItem('userId'),
+        window.sessionStorage.getItem('userName'),
+      )
+    ) {
       client
         .mutate({
           mutation: SET_USER_INFO,
@@ -189,11 +190,11 @@ function CreateUserInfo() {
           },
         })
         .then((res) => {
-          toast.dark('👩‍🔧닉네임 변경 완료👨‍🔧', {
+          toast.info('👩‍🔧닉네임 변경 완료👨‍🔧', {
             transition: Slide,
             position: 'top-right',
             autoClose: 2000,
-            hideProgressBar: true,
+            hideProgressBar: false,
             closeOnClick: true,
             pauseOnHover: true,
             draggable: true,
@@ -201,17 +202,15 @@ function CreateUserInfo() {
           });
         });
     }
-  };
+  }
 
   return (
     <UserModalContainer>
       <ModalOpenButton onClick={() => setModalIsOpen(!modalIsOpen)}>
         {data.User.userNickName || 'Guest'}
       </ModalOpenButton>
-
       <UserModal isOpen={modalIsOpen}>
         <ModalCloseButton onClick={() => setModalIsOpen(!modalIsOpen)} />
-
         <UserInfoForm onSubmit={handleSubmit(onSubmit)}>
           <NickNameContainer>
             <span>닉네임</span>
@@ -229,7 +228,6 @@ function CreateUserInfo() {
               ref={register({ maxLength: 20 })}
             />
           </InstaContainer>
-
           <SubmitButton type="submit">등록</SubmitButton>
         </UserInfoForm>
       </UserModal>

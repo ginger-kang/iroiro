@@ -76,6 +76,7 @@ const shuffleImageData = (a: any) => {
 
 export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
   const [modal, setModal] = useState<boolean>(false);
+  const [photoPath, setPhotoPath] = useState<string>('');
 
   useEffect(() => {
     const orderArray: any = [];
@@ -85,8 +86,9 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
     shuffledData = shuffleImageData(orderArray);
   }, []);
 
-  const showModal = () => {
+  const showModal = (photoProps: any) => {
     setModal(true);
+    setPhotoPath(photoProps);
   };
 
   const hideModal = () => {
@@ -96,14 +98,13 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
   return (
     <>
       {PhotoData &&
-        PhotoData.Photos.map((photo: any, i: any) => (
+        PhotoData.Photos.map((photo: any, i: number) => (
           <>
-            <StylesPhotoContainer layoutNumber={layoutNumber}>
+            <StylesPhotoContainer layoutNumber={layoutNumber} key={i}>
               <img
-                key={i}
                 src={photo.url}
                 alt="photo"
-                onClick={() => showModal()}
+                onClick={() => showModal(photo.url)}
               ></img>
               <PhotoCaption>
                 <AiOutlineHeart size={22} />
@@ -131,7 +132,7 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
               </PhotoCaption>
             </StylesPhotoContainer>
             <StylesModal
-              photo={photo.url}
+              photo={photoPath}
               showModal={modal}
               hideModal={() => hideModal()}
             />

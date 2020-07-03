@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
         font-family: 'NanumSquare', sans-serif !important;
     }
     body {
-        transition: all 0.25s linear;
+        transition: all .25s linear;
         color: ${({ theme }: { theme: any }) => theme.textColor};
     }
     button { 
