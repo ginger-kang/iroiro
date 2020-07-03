@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AiOutlineHeart } from 'react-icons/ai';
-import { PHOTOS } from '../../query';
+import { FINDGAMEPHOTOS } from '../../query';
 import { Query, Mutation } from 'react-apollo';
 import { Link } from 'react-router-dom';
 import GameLoading from '../../components/GameLoading';
@@ -108,7 +108,7 @@ function Styles() {
 
   return (
     <Query
-      query={PHOTOS}
+      query={FINDGAMEPHOTOS}
       notifyOnNetworkStatusChange={true}
       fetchPolicy={'cache-and-network'}
     >
