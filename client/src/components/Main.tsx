@@ -12,7 +12,7 @@ const HomeContainer = styled('header')`
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  transition: all 1s ease;
+  transition: all 0.5s ease;
   background: ${(props) => props.theme.firstBgColor};
 `;
 

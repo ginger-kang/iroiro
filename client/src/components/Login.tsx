@@ -3,9 +3,24 @@ import styled, { ThemeContext } from 'styled-components';
 
 import LoginBoxComponent from './LoginBox';
 
-interface LoginBoxProps {
-  loginState: boolean;
-}
+const LogoutContainer = styled('section')<LogoutBoxProps>`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
+  display: ${({ logoutState }) => {
+    if (logoutState) {
+      return 'flex';
+    } else {
+      return 'none';
+    }
+  }};
+  justify-content: center;
+  align-items: center;
+`;
 
 const LogoutButton = styled.button`
   position: fixed;
@@ -37,17 +52,11 @@ interface LogoutBoxProps {
   logoutState: boolean;
 }
 
-const LogoutBox = styled('div')<LogoutBoxProps>`
+const LogoutBox = styled('div')`
   position: fixed;
   top: 48%;
   left: 50%;
-  display: ${({ logoutState }) => {
-    if (logoutState) {
-      return 'flex';
-    } else {
-      return 'none';
-    }
-  }};
+  display: flex;
   width: 30vw;
   min-width: 300px;
   min-height: 140px;
@@ -59,7 +68,6 @@ const LogoutBox = styled('div')<LogoutBoxProps>`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 10000;
   transform: translateX(-50%) translateY(-50%) scale(1.05);
 `;
 
@@ -84,68 +92,6 @@ const LogoutButtonContainer = styled.div`
     &:hover {
       background: #072ea7;
     }
-  }
-`;
-
-const NaverButton = styled.button`
-  width: 90px;
-  height: 80px;
-  min-width: 70px;
-  min-height: 70px;
-  color: black;
-  background-color: transparent;
-  border-radius: 10px;
-  font-size: 60px;
-  text-align: center;
-`;
-
-const LoginBox = styled('div')<LoginBoxProps>`
-  position: fixed;
-  top: 48%;
-  left: 50%;
-  display: ${({ loginState }) => {
-    if (loginState) {
-      return 'flex';
-    } else {
-      return 'none';
-    }
-  }};
-  width: 30vw;
-  min-width: 300px;
-  min-height: 140px;
-  color: ${(props) => props.theme.textColor};
-  font-size: 20px;
-  transition: all 1.5s ease;
-  background: ${(props) => props.theme.modalBgColor};
-  border-radius: 6px;
-  flex-direction: row;
-  justify-content: space-evenly;
-  align-items: center;
-  z-index: 10000;
-  transform: translateX(-50%) translateY(-50%) scale(1.05);
-  & button {
-    transition: all 0.2s ease;
-    &:hover {
-      -ms-transform: scale(1.05);
-      -webkit-transform: scale(1.05);
-      transform: scale(1.05);
-    }
-  }
-`;
-
-const LoginCancelButton = styled.button`
-  position: absolute;
-  left: 5px;
-  top: 5px;
-  color: white;
-  cursor: pointer;
-  background: white;
-  border-radius: 100%;
-  width: 15px;
-  height: 15px;
-
-  &:hover {
-    background: red;
   }
 `;
 
@@ -212,22 +158,23 @@ function Login() {
         setUserSocialId={setUserSocialId}
         setUserSocialName={setUserSocialName}
       />
-
-      <LogoutBox logoutState={logoutButtonClick}>
-        <span
-          style={{
-            fontSize: '23px',
-          }}
-        >
-          로그아웃 하시겠습니까?
-        </span>
-        <LogoutButtonContainer>
-          <button onClick={responseLogout}>예</button>
-          <button onClick={() => setLogoutButtonClick(!logoutButtonClick)}>
-            아니요
-          </button>
-        </LogoutButtonContainer>
-      </LogoutBox>
+      <LogoutContainer logoutState={logoutButtonClick}>
+        <LogoutBox>
+          <span
+            style={{
+              fontSize: '23px',
+            }}
+          >
+            로그아웃 하시겠습니까?
+          </span>
+          <LogoutButtonContainer>
+            <button onClick={responseLogout}>예</button>
+            <button onClick={() => setLogoutButtonClick(!logoutButtonClick)}>
+              아니요
+            </button>
+          </LogoutButtonContainer>
+        </LogoutBox>
+      </LogoutContainer>
     </>
   );
 }
