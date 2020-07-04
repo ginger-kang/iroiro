@@ -26,12 +26,12 @@ export const PHOTOS = gql`
 `;
 export const FINDGAMEPHOTOS = gql`
   {
-    Photos {
+    FindStyleGamePhotos {
       url
       gender
       instagram
       likeNum
-    }
+}
   }
 `;
 
