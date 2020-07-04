@@ -69,8 +69,7 @@ const FindGamePhotoType = new GraphQLObjectType({
     id: { type: GraphQLString },
     url: { type: GraphQLString },
     gender: { type: GraphQLString },
-    likeNum: { type: GraphQLInt },   
-    
+    likeNum: { type: GraphQLInt },       
     instagram:{ type: GraphQLString },
 
   }),
@@ -99,7 +98,7 @@ const RootQuery = new GraphQLObjectType({
       },
     },
     FindStyleGamePhotos: {
-      type: new GraphQLList(PhotoType),
+      type: new GraphQLList(FindGamePhotoType),
       resolve(parent, args) {
         var params = {
           TableName: "FindGame",
