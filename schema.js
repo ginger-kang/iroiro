@@ -63,6 +63,18 @@ const PhotoType = new GraphQLObjectType({
 
   }),
 });
+const FindGamePhotoType = new GraphQLObjectType({
+  name: "FindGamePhoto",
+  fields: () => ({
+    id: { type: GraphQLString },
+    url: { type: GraphQLString },
+    gender: { type: GraphQLString },
+    likeNum: { type: GraphQLInt },   
+    
+    instagram:{ type: GraphQLString },
+
+  }),
+});
 
 /*const AllUsers = new GraphQLObjectType({
   name: 'AllUsers',
@@ -79,6 +91,18 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         var params = {
           TableName: "showmethestyle",
+        };
+        return db
+          .scan(params)
+          .promise()
+          .then((res) => res.Items);
+      },
+    },
+    FindStyleGamePhotos: {
+      type: new GraphQLList(PhotoType),
+      resolve(parent, args) {
+        var params = {
+          TableName: "FindGame",
         };
         return db
           .scan(params)
@@ -260,7 +284,34 @@ const RootMutation = new GraphQLObjectType({
             }
           },
         };
-
+        console.log(params);
+        return db
+          .put(params)
+          .promise()
+          .then((res) => res);
+      },
+    },
+    UploadPhotoForFindStyleGame: {
+      type: FindGamePhotoType,
+      args: {
+        id:{type:GraphQLString},
+        gender: {type: GraphQLString},              
+        instagram: { type: GraphQLString },
+        url:{type:GraphQLString},
+        likeNum: {type:GraphQLInt},       
+      },
+      resolve(parent, args) {
+        params = {
+          TableName: "FindGame",
+          Item: {
+            id: args.id,                        
+            url:args.url,              
+            gender: args.gender,
+            instagram: args.instagram,   
+            likeNum:args.likeNum        
+          },
+        };
+        console.log(params);
         return db
           .put(params)
           .promise()

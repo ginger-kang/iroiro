@@ -24,6 +24,18 @@ export const PHOTOS = gql`
     }
   }
 `;
+export const FINDGAMEPHOTOS = gql`
+  {
+    Photos {
+      url
+      gender      
+      instagram
+      likeNum
+      
+      } 
+    }
+  }
+`;
 
 export const USER_EXIST = gql`
   query getUser($userId: String) {    
@@ -139,6 +151,26 @@ export const UPLOAD_PHOTO_FOR_GAME = gql`
       instagram:$instagram
     ) {
       owner
+    }
+  }
+`;
+
+export const UPLOAD_PHOTO_FOR_FIND_STYLE_GAME = gql`
+  mutation UploadPhotoForFindStyleGame(
+    $id: String!
+    $gender: String!         
+    $instagram: String!
+    $url: String!
+    $likeNum: Int!    
+  ) {
+    UploadPhotoForFindStyleGame(     
+      id: $id
+      gender: $gender
+      instagram:$instagram
+      url: $url
+      likeNum: $likeNum
+    ) {
+      instagram
     }
   }
 `;
