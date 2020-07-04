@@ -98,8 +98,8 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
   return (
     <>
       {PhotoData &&
-        PhotoData.Photos.map((photo: any, i: number) => (
-          <>
+        PhotoData.FindStyleGamePhotos.map((photo: any, i: number) => (
+          <React.Fragment key={i}>
             <StylesPhotoContainer layoutNumber={layoutNumber} key={i}>
               <img
                 src={photo.url}
@@ -136,7 +136,7 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
               showModal={modal}
               hideModal={() => hideModal()}
             />
-          </>
+          </React.Fragment>
         ))}
     </>
   );
