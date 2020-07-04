@@ -63,6 +63,12 @@ const SelectGame = styled.section`
   display: flex;
   flex-direction: row;
   overflow: hidden;
+  justify-content: center;
+  align-items: center;
+
+  @media screen and (max-width: 760px) {
+    flex-direction: column;
+  }
 `;
 
 const StyleGameContainer = styled.section`
@@ -72,7 +78,6 @@ const StyleGameContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
   position: relative;
 `;
 
@@ -83,7 +88,6 @@ const PriceGameContainer = styled.section`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
 `;
 const PriceGameMain = styled('div')<DescriptionVisibility>`
   width: 100%;
@@ -135,17 +139,17 @@ const PriceStartButton = styled.button`
 `;
 
 const PriceTagImageContainer = styled.figure`
-  width: 330px;
-  height: 260px;
+  width: 300px;
+  height: 230px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   transition: all 1s ease;
 
-  @media screen and (min-width: 1100px) {
-    width: 600px;
-    height: 435px;
+  @media screen and (min-width: 1150px) {
+    width: 550px;
+    height: 375px;
   }
 `;
 
@@ -155,16 +159,16 @@ const PriceTitle = styled.h1`
 `;
 
 const StyleDoodleContainer = styled.figure`
-  width: 330px;
-  height: 260px;
+  width: 300px;
+  height: 230px;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: all 1s ease;
 
-  @media screen and (min-width: 1100px) {
-    width: 600px;
-    height: 435px;
+  @media screen and (min-width: 1150px) {
+    width: 550px;
+    height: 375px;
   }
 `;
 
