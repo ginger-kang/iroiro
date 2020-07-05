@@ -70,6 +70,12 @@ function Winner() {
   const [scrollPosition, setScrollPosition] = useState<number>(0);
   const themeContext = useContext(ThemeContext);
 
+  useEffect(() => {
+    window.addEventListener('scroll', getCurrentScroll);
+
+    return () => window.removeEventListener('scroll', getCurrentScroll);
+  });
+
   const getCurrentScroll = () => {
     if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
@@ -85,8 +91,6 @@ function Winner() {
       setScrollPosition(-150);
     }
   };
-
-  window.addEventListener('scroll', getCurrentScroll);
 
   return (
     <>

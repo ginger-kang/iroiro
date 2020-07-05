@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import ErrorPage from './ErrorPage';
+import { MdClose } from 'react-icons/md';
 
 import 'react-toastify/dist/ReactToastify.css';
 import CheckUser from '../Services/CheckUser';
@@ -33,15 +34,13 @@ const ModalOpenButton = styled.button`
 
 const ModalCloseButton = styled.button`
   position: absolute;
-  left: 5px;
-  top: 5px;
-  width: 15px;
-  height: 15px;
-  background: white;
-  border-radius: 100%;
+  right: 8px;
+  top: 8px;
+  cursor: pointer;
+  background: none;
 
-  &:hover {
-    background: red;
+  & svg {
+    color: white;
   }
 `;
 
@@ -224,8 +223,10 @@ function CreateUserInfo() {
         {data.User.userNickName || 'Guest'}
       </ModalOpenButton>
       <ModalContainer isOpen={modalIsOpen}>
+        <ModalCloseButton onClick={() => setModalIsOpen(!modalIsOpen)}>
+          <MdClose size={33} />
+        </ModalCloseButton>
         <UserModal>
-          <ModalCloseButton onClick={() => setModalIsOpen(!modalIsOpen)} />
           <UserInfoForm onSubmit={handleSubmit(onSubmit)}>
             <NickNameContainer>
               <span>닉네임</span>

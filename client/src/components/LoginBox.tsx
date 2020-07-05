@@ -6,6 +6,7 @@ import naver from '../Images/naver.png';
 import KakaoLogin from 'react-kakao-login';
 import responseLogin from '../Services/ResponseLogin';
 import NaverLogin from 'react-login-by-naver';
+import { MdClose } from 'react-icons/md';
 
 const LoginContainer = styled('section')<LoginBoxProps>`
   position: fixed;
@@ -71,17 +72,13 @@ const LoginBox = styled('div')`
 
 const LoginCancelButton = styled.button`
   position: absolute;
-  left: 5px;
-  top: 5px;
-  color: white;
+  right: 8px;
+  top: 8px;
   cursor: pointer;
-  background: white;
-  border-radius: 100%;
-  width: 15px;
-  height: 15px;
+  background: none;
 
-  &:hover {
-    background: red;
+  & svg {
+    color: white;
   }
 `;
 
@@ -198,10 +195,10 @@ function LoginBoxComponent({
           }
           onFailure={() => console.log('naver login fail')}
         />
-        <LoginCancelButton
-          onClick={() => setLoginButtonClick(!loginButtonClick)}
-        />
       </LoginBox>
+      <LoginCancelButton onClick={() => setLoginButtonClick(!loginButtonClick)}>
+        <MdClose size={33} />
+      </LoginCancelButton>
     </LoginContainer>
   );
 }

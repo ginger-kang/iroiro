@@ -27,7 +27,7 @@ function GameLogic<lState>() {
 
   useEffect(() => {
     const orderArray: any = [];
-    for (let i = 0; i < 6; i++) {
+    for (let i = 0; i < 2; i++) {
       orderArray.push(i);
     }
     shuffledData = shuffleImageData(orderArray);
@@ -56,16 +56,15 @@ function GameLogic<lState>() {
   };
 
   const ClickImage = (side: any, LPrice: any, RPrice: any) => {
-    
-    if(LPrice != 0 && RPrice != 0){
-    LPrice =
-      LPrice.detail.top.price +
-      LPrice.detail.bottom.price +
-      LPrice.detail.shoes.price;
-    RPrice =
-      RPrice.detail.top.price +
-      RPrice.detail.bottom.price +
-      RPrice.detail.shoes.price;
+    if (LPrice != 0 && RPrice != 0) {
+      LPrice =
+        LPrice.detail.top.price +
+        LPrice.detail.bottom.price +
+        LPrice.detail.shoes.price;
+      RPrice =
+        RPrice.detail.top.price +
+        RPrice.detail.bottom.price +
+        RPrice.detail.shoes.price;
     }
     if (clickState == 0) {
       setViewTag(true);
@@ -88,7 +87,7 @@ function GameLogic<lState>() {
         }
         setTotalScore(TotalScore + 1);
       }
-    }else{
+    } else {
       setViewTag(!ViewTag);
     }
   };

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import styled, { ThemeContext } from 'styled-components';
 import { Link } from 'react-router-dom';
 
@@ -117,8 +117,13 @@ const BottomLineContainer = styled.div`
 function SelectMenu() {
   // let userId = window.sessionStorage.getItem('userId');
   const [scrollPosition, setScrollPosition] = useState<number>(0);
-
   const themeContext = useContext(ThemeContext);
+
+  useEffect(() => {
+    window.addEventListener('scroll', getCurrentScroll);
+
+    return () => window.removeEventListener('scroll', getCurrentScroll);
+  });
 
   const getCurrentScroll = () => {
     if (
@@ -135,8 +140,6 @@ function SelectMenu() {
       setScrollPosition(-40);
     }
   };
-
-  window.addEventListener('scroll', getCurrentScroll);
 
   return (
     <SelectPageContainer>

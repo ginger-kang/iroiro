@@ -10,7 +10,7 @@ export const lightTheme = {
   firstBgColor: '#ffffff',
   secondBgColor: '#feffbd12',
   thirdBgColor: '#8eefff14',
-  fourthBgColor: '#ffb0b014',
+  fourthBgColor: '#e0e0e026',
   modalBgColor: 'rgba(10,10,10,.95)',
   textColor: '#000000',
   toggleBorder: '#FFF',
