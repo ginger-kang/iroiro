@@ -155,6 +155,17 @@ function Main() {
   const [scrollPosition, setScrollPosition] = useState(0);
   const themeContext = useContext(ThemeContext);
 
+  useEffect(() => {
+    window.addEventListener('scroll', getCurrentScroll);
+
+    return () => window.removeEventListener('scroll', getCurrentScroll);
+  });
+
+  // console.log(
+  //   ((window.scrollY + window.innerHeight) / document.body.clientHeight) * 100,
+  //   mounted,
+  // );
+
   const handleScrollControll = () => {
     window.scrollTo({
       top: 0,
@@ -178,7 +189,6 @@ function Main() {
       setScrollPosition(0);
     }
   };
-  window.addEventListener('scroll', getCurrentScroll);
 
   return (
     <HomeContainer>
