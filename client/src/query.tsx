@@ -7,20 +7,20 @@ export const PHOTOS = gql`
       category
       owner
       instagram
-      detail{
-        top{
+      detail {
+        top {
           name
           price
         }
-        bottom{
+        bottom {
           name
           price
         }
-        shoes{
+        shoes {
           name
           price
         }
-      } 
+      }
     }
   }
 `;
@@ -28,17 +28,15 @@ export const FINDGAMEPHOTOS = gql`
   {
     FindStyleGamePhotos {
       url
-      gender      
+      gender
       instagram
       likeNum
-      
-      } 
-    
+}
   }
 `;
 
 export const USER_EXIST = gql`
-  query getUser($userId: String) {    
+  query getUser($userId: String) {
     User(userId: $userId) {
       userId
       userName
@@ -127,28 +125,28 @@ export const UPLOAD_PHOTO_FOR_GAME = gql`
   mutation UploadPhotoForGame(
     $id: String!
     $owner: String!
-    $category: String!       
+    $category: String!
     $instagram: String!
     $url: String!
-    $top1:String!
-    $top2:Int!
-    $bottom1:String!
-    $bottom2:Int!
-    $shoes1:String!
-    $shoes2:Int!   
+    $top1: String!
+    $top2: Int!
+    $bottom1: String!
+    $bottom2: Int!
+    $shoes1: String!
+    $shoes2: Int!
   ) {
     UploadPhotoForGame(
       owner: $owner
-      category: $category      
+      category: $category
       id: $id
       url: $url
-      top1:$top1
-      top2:$top2
-      bottom1:$bottom1
-      bottom2:$bottom2
-      shoes1:$shoes1
-      shoes2:$shoes2
-      instagram:$instagram
+      top1: $top1
+      top2: $top2
+      bottom1: $bottom1
+      bottom2: $bottom2
+      shoes1: $shoes1
+      shoes2: $shoes2
+      instagram: $instagram
     ) {
       owner
     }
@@ -158,15 +156,15 @@ export const UPLOAD_PHOTO_FOR_GAME = gql`
 export const UPLOAD_PHOTO_FOR_FIND_STYLE_GAME = gql`
   mutation UploadPhotoForFindStyleGame(
     $id: String!
-    $gender: String!         
+    $gender: String!
     $instagram: String!
     $url: String!
-    $likeNum: Int!    
+    $likeNum: Int!
   ) {
-    UploadPhotoForFindStyleGame(     
+    UploadPhotoForFindStyleGame(
       id: $id
       gender: $gender
-      instagram:$instagram
+      instagram: $instagram
       url: $url
       likeNum: $likeNum
     ) {

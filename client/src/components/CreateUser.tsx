@@ -6,6 +6,7 @@ import { useQuery } from '@apollo/react-hooks';
 import { ToastContainer, toast, Slide } from 'react-toastify';
 import { useForm } from 'react-hook-form';
 import ErrorPage from './ErrorPage';
+import { MdClose } from 'react-icons/md';
 
 import 'react-toastify/dist/ReactToastify.css';
 import CheckUser from '../Services/CheckUser';
@@ -33,15 +34,13 @@ const ModalOpenButton = styled.button`
 
 const ModalCloseButton = styled.button`
   position: absolute;
-  left: 5px;
-  top: 5px;
-  width: 15px;
-  height: 15px;
-  background: white;
-  border-radius: 100%;
+  right: 8px;
+  top: 8px;
+  cursor: pointer;
+  background: none;
 
-  &:hover {
-    background: red;
+  & svg {
+    color: white;
   }
 `;
 
@@ -120,10 +119,15 @@ const NickNameContainer = styled.section`
     color: white;
   }
 `;
-const UserModal = styled('div')<UserModalState>`
+
+const ModalContainer = styled('section')<UserModalState>`
   position: fixed;
-  top: 48%;
-  left: 50%;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 10000;
   display: ${({ isOpen }) => {
     if (isOpen) {
       return 'flex';
@@ -131,6 +135,15 @@ const UserModal = styled('div')<UserModalState>`
       return 'none';
     }
   }};
+  justify-content: center;
+  align-items: center;
+`;
+
+const UserModal = styled('div')`
+  position: fixed;
+  top: 48%;
+  left: 50%;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -139,7 +152,7 @@ const UserModal = styled('div')<UserModalState>`
   width: 30vw;
   height: 10vw;
   min-width: 300px;
-  z-index: 500;
+  min-height: 140px;
   transition: all 1s ease;
   transform: translateX(-50%) translateY(-50%) scale(1.05);
 `;
@@ -209,28 +222,32 @@ function CreateUserInfo() {
       <ModalOpenButton onClick={() => setModalIsOpen(!modalIsOpen)}>
         {data.User.userNickName || 'Guest'}
       </ModalOpenButton>
-      <UserModal isOpen={modalIsOpen}>
-        <ModalCloseButton onClick={() => setModalIsOpen(!modalIsOpen)} />
-        <UserInfoForm onSubmit={handleSubmit(onSubmit)}>
-          <NickNameContainer>
-            <span>닉네임</span>
-            <input
-              name="userNickName"
-              defaultValue={data.User.userNickName}
-              ref={register({ maxLength: 20 })}
-            />
-          </NickNameContainer>
-          <InstaContainer>
-            <span>인스타</span>
-            <input
-              name="userInstagram"
-              defaultValue={data.User.userInstagram || ''}
-              ref={register({ maxLength: 20 })}
-            />
-          </InstaContainer>
-          <SubmitButton type="submit">등록</SubmitButton>
-        </UserInfoForm>
-      </UserModal>
+      <ModalContainer isOpen={modalIsOpen}>
+        <ModalCloseButton onClick={() => setModalIsOpen(!modalIsOpen)}>
+          <MdClose size={33} />
+        </ModalCloseButton>
+        <UserModal>
+          <UserInfoForm onSubmit={handleSubmit(onSubmit)}>
+            <NickNameContainer>
+              <span>닉네임</span>
+              <input
+                name="userNickName"
+                defaultValue={data.User.userNickName}
+                ref={register({ maxLength: 20 })}
+              />
+            </NickNameContainer>
+            <InstaContainer>
+              <span>인스타</span>
+              <input
+                name="userInstagram"
+                defaultValue={data.User.userInstagram || ''}
+                ref={register({ maxLength: 20 })}
+              />
+            </InstaContainer>
+            <SubmitButton type="submit">등록</SubmitButton>
+          </UserInfoForm>
+        </UserModal>
+      </ModalContainer>
       <ToastContainer />
     </UserModalContainer>
   );

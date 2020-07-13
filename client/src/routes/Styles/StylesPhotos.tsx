@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AiOutlineHeart } from 'react-icons/ai';
 import instagramLogo from '../../Images/instagramlogo.png';
 import StylesModal from './StylesModal';
+import StyleKakaoLink from './StyleKakaoLink';
 
 interface gridLayoutProps {
   layoutNumber: number;
@@ -28,6 +29,7 @@ const StylesPhotoContainer = styled('figure')<gridLayoutProps>`
     width: 100%;
     height: 85%;
     cursor: pointer;
+    object-fit: cover;
 
     &:hover {
       transition: all 0.5s ease;
@@ -43,6 +45,16 @@ const PhotoCaption = styled.figcaption`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+
+  & a {
+    height: 2vw;
+    width: 2vw;
+
+    & img {
+      width: 100%;
+      height: 100%;
+    }
+  }
 `;
 
 const InstaInfoContainer = styled.div`
@@ -99,7 +111,11 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
     <>
       {PhotoData &&
         PhotoData.FindStyleGamePhotos.map((photo: any, i: number) => (
+<<<<<<< HEAD
           <>
+=======
+          <React.Fragment key={i}>
+>>>>>>> b9b1d95ac8b0060bcce406b4e32712942f271a33
             <StylesPhotoContainer layoutNumber={layoutNumber} key={i}>
               <img
                 src={photo.url}
@@ -129,14 +145,16 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
                     {photo.instagram}
                   </a>
                 </InstaInfoContainer>
+                <StyleKakaoLink photo={photo.url} insta={photo.instagram} />
               </PhotoCaption>
             </StylesPhotoContainer>
             <StylesModal
               photo={photoPath}
               showModal={modal}
               hideModal={() => hideModal()}
+              insta={photo.instagram}
             />
-          </>
+          </React.Fragment>
         ))}
     </>
   );
