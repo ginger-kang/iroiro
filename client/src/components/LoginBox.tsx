@@ -1,12 +1,13 @@
-import React, { useState, useEffect, useContext } from 'react';
-import styled, { ThemeContext } from 'styled-components';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
+import React from 'react';
+import styled from 'styled-components';
+import { GoogleLogin } from 'react-google-login';
 import google from '../Images/google.png';
 import naver from '../Images/naver.png';
 import KakaoLogin from 'react-kakao-login';
 import responseLogin from '../Services/ResponseLogin';
 import NaverLogin from 'react-login-by-naver';
 import { MdClose } from 'react-icons/md';
+import KakaoLoginImg from '../Images/kakaologin.png';
 
 const LoginContainer = styled('section')<LoginBoxProps>`
   position: fixed;
@@ -28,8 +29,8 @@ const LoginContainer = styled('section')<LoginBoxProps>`
 `;
 
 const NaverButton = styled.button`
-  width: 90px;
-  height: 80px;
+  width: 86px;
+  height: 77px;
   min-width: 70px;
   min-height: 70px;
   color: black;
@@ -108,13 +109,20 @@ const LoginButton = styled.button`
   }
 `;
 
-const KakaoButton = styled(KakaoLogin)`
-  width: 80px;
-  height: 80px;
+interface KakaoImg {
+  img: any;
+}
+
+const KakaoButton = styled(KakaoLogin)<KakaoImg>`
+  width: 75px;
+  height: 75px;
   min-width: 70px;
   min-height: 70px;
-  color: black;
-  background-color: #ffeb00;
+  color: rgba(0, 0, 0, 0);
+  background-image: url(${({ img }) => img});
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
   border-radius: 10px;
   font-size: 60px;
   text-align: center;
@@ -143,7 +151,7 @@ function LoginBoxComponent({
               disabled={renderProps.disabled}
               style={{
                 background: 'none',
-                width: '85px',
+                width: '82px',
                 minWidth: '75px',
               }}
             >
@@ -167,14 +175,14 @@ function LoginBoxComponent({
         />
         <KakaoButton
           jsKey="0a72b63b122363029a9f28be03dc7b33"
-          buttonText="K"
+          buttonText="Kakao"
           onSuccess={(res) =>
             responseLogin(res, 'kakao', setUserSocialId, setUserSocialName)
           }
           onFailure={(res) => console.log('kakao login fail')}
           getProfile={true}
+          img={KakaoLoginImg}
         />
-
         <NaverLogin
           clientId="_L3yUfmDgCWHvk7vDar5"
           callbackUrl="http://localhost:5000/select"
