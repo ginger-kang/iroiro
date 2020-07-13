@@ -20,15 +20,35 @@ const UserModalContainer = styled.div`
 `;
 
 const ModalOpenButton = styled.button`
-  width: 100px;
-  height: 35px;
-  background: ${(props) => props.theme.textColor};
-  border-radius: 100%;
+  width: auto;
+  height: 45px;
+  border-radius: 10px;
+  margin-top: 1px;
   font-size: 13px;
+  color: white;
   transition: all 0.5s ease;
+  animation: bgColor 8s infinite;
 
   &:hover {
-    transform: scale(1.1);
+    transform: scale(1.05);
+  }
+
+  @keyframes bgColor {
+    0% {
+      background-color: red;
+    }
+    25% {
+      background-color: #ead11f;
+    }
+    50% {
+      background-color: green;
+    }
+    75% {
+      background-color: brown;
+    }
+    100% {
+      background-color: #fd9ded;
+    }
   }
 `;
 
@@ -213,6 +233,7 @@ function CreateUserInfo() {
             draggable: true,
             progress: undefined,
           });
+          setModalIsOpen(false);
         });
     }
   }
