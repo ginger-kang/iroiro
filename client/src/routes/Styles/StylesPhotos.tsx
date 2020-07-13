@@ -141,13 +141,14 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
                     {photo.instagram}
                   </a>
                 </InstaInfoContainer>
-                <StyleKakaoLink />
+                <StyleKakaoLink photo={photo.url} insta={photo.instagram} />
               </PhotoCaption>
             </StylesPhotoContainer>
             <StylesModal
               photo={photoPath}
               showModal={modal}
               hideModal={() => hideModal()}
+              insta={photo.instagram}
             />
           </React.Fragment>
         ))}

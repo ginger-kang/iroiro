@@ -66,15 +66,21 @@ interface mProps {
   photo: string;
   showModal: boolean;
   hideModal: any;
+  insta: string;
 }
 
-export default function StylesModal({ photo, showModal, hideModal }: mProps) {
+export default function StylesModal({
+  photo,
+  showModal,
+  hideModal,
+  insta,
+}: mProps) {
   return showModal ? (
     <ModalContainer>
       <Modal>
         <img src={photo} alt="photo" />
         <IconContainer>
-          <StyleKakaoLink />
+          <StyleKakaoLink photo={photo} insta={insta} />
         </IconContainer>
       </Modal>
       <ModalCancelButton onClick={hideModal}>

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import loadingIcon from '../Images/loadingIcon.svg';
+import loadingIcon from '../Images/loading.png';
 
 const LoadingContainer = styled.div`
   position: absolute;
