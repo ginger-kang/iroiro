@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AiOutlineHeart } from 'react-icons/ai';
 import instagramLogo from '../../Images/instagramlogo.png';
 import StylesModal from './StylesModal';
+import StyleKakaoLink from './StyleKakaoLink';
 
 interface gridLayoutProps {
   layoutNumber: number;
@@ -44,6 +45,16 @@ const PhotoCaption = styled.figcaption`
   flex-direction: row;
   justify-content: space-evenly;
   align-items: center;
+
+  & a {
+    height: 2vw;
+    width: 2vw;
+
+    & img {
+      width: 100%;
+      height: 100%;
+    }
+  }
 `;
 
 const InstaInfoContainer = styled.div`
@@ -130,6 +141,7 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
                     {photo.instagram}
                   </a>
                 </InstaInfoContainer>
+                <StyleKakaoLink />
               </PhotoCaption>
             </StylesPhotoContainer>
             <StylesModal

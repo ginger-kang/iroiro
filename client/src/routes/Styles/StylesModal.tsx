@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { MdClose } from 'react-icons/md';
+import StyleKakaoLink from './StyleKakaoLink';
 
 const ModalContainer = styled.section`
   position: fixed;
@@ -11,22 +12,23 @@ const ModalContainer = styled.section`
   background: rgba(0, 0, 0, 0.1);
   z-index: 10000;
   display: flex;
+  flex-direction: row;
   justify-content: center;
   align-items: center;
 `;
 
 const Modal = styled.figure`
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  width: 35vw;
-  height: 36vw;
-  transition: all 1s ease;
-  transform: translateX(-50%) translateY(-50%);
+  width: auto;
+  height: 50vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease;
 
   & img {
-    width: 100%;
-    height: 100%;
+    width: 40vw;
+    height: 45vw;
   }
 `;
 
@@ -42,6 +44,24 @@ const ModalCancelButton = styled.div`
   }
 `;
 
+const IconContainer = styled.div`
+  width: 28vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  & a {
+    width: 70px;
+    height: 70px;
+
+    & img {
+      width: 100%;
+      height: 100%;
+    }
+  }
+`;
+
 interface mProps {
   photo: string;
   showModal: boolean;
@@ -53,6 +73,9 @@ export default function StylesModal({ photo, showModal, hideModal }: mProps) {
     <ModalContainer>
       <Modal>
         <img src={photo} alt="photo" />
+        <IconContainer>
+          <StyleKakaoLink />
+        </IconContainer>
       </Modal>
       <ModalCancelButton onClick={hideModal}>
         <MdClose size={33} />
