@@ -94,11 +94,11 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
   const hideModal = () => {
     setModal(false);
   };
-
+  console.log(PhotoData)
   return (
     <>
       {PhotoData &&
-        PhotoData.Photos.map((photo: any, i: number) => (
+        PhotoData.FindStyleGamePhotos.map((photo: any, i: number) => (
           <>
             <StylesPhotoContainer layoutNumber={layoutNumber} key={i}>
               <img

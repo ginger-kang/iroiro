@@ -121,6 +121,7 @@ function SelectMenu() {
   const themeContext = useContext(ThemeContext);
 
   const getCurrentScroll = () => {
+    
     if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 >=
