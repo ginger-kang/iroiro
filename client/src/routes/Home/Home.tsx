@@ -4,6 +4,7 @@ import SelectMenu from '../../components/Select';
 import Winner from '../../components/Winner';
 import Awarded from '../../components/Awarded';
 import Main from '../../components/Main';
+import Footer from '../../components/Footer';
 import CreateUserInfo from '../../components/CreateUser';
 
 const LoginNavContainer = styled.nav`
@@ -40,6 +41,7 @@ export default function Home() {
       <SelectMenu />
       <Winner />
       <Awarded />
+      <Footer />
     </>
   );
 }

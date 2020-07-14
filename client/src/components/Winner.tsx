@@ -80,13 +80,13 @@ function Winner() {
     if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 >=
-      60
+      47
     ) {
       setScrollPosition(0);
     } else if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 <
-      60
+      47
     ) {
       setScrollPosition(-150);
     }

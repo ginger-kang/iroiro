@@ -158,7 +158,6 @@ function Main() {
 
   // console.log(
   //   ((window.scrollY + window.innerHeight) / document.body.clientHeight) * 100,
-  //   mounted,
   // );
 
   const handleScrollControll = () => {
@@ -173,13 +172,13 @@ function Main() {
     if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 >=
-      28
+      22
     ) {
       setScrollPosition(13);
     } else if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 <
-      28
+      22
     ) {
       setScrollPosition(0);
     }
