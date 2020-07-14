@@ -4,6 +4,7 @@ import { MdClose } from 'react-icons/md';
 import { AiOutlineHeart } from 'react-icons/ai';
 import StyleKakaoLink from './StyleKakaoLink';
 import kakaolink from '../../Images/kakaolink.png';
+import instagram from '../../Images/instagramlogo.png';
 
 const { Kakao } = window;
 
@@ -60,7 +61,8 @@ const IconContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.2);
+  background: rgba(0, 0, 0, 0.25);
+  position: relative;
 
   @media screen and (max-width: 800px) {
     width: 100%;
@@ -78,6 +80,8 @@ const KakaoLinkBox = styled.button`
   align-items: center;
   background: #feeb00;
   color: black;
+  margin-bottom: 5px;
+  font-size: small;
 
   & img {
     width: 20px;
@@ -89,14 +93,48 @@ const KakaoLinkBox = styled.button`
   }
 `;
 
-const LikedBox = styled.div`
-  width: 100%;
+const InstaBox = styled.a`
+  width: 50%;
+  min-width: 160px;
+  height: 40px;
+  border-radius: 6px;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
+  background: white;
+  color: black;
+  font-size: small;
+
+  & img {
+    width: 25px;
+    height: 25px;
+    border-radius: 6px;
+  }
+
+  &:hover {
+    background: #e4e4e4;
+  }
+`;
+
+const LikedBox = styled.button`
+  width: 50%;
+  min-width: 160px;
+  height: 40px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background: #ff2d2d;
+  color: white;
+  margin-bottom: 5px;
+  font-size: small;
 
   & svg {
     color: white;
+  }
+
+  &:hover {
+    background: #e82828;
   }
 `;
 
@@ -151,12 +189,21 @@ export default function StylesModal({
         <img src={photo} alt="photo" />
         <IconContainer>
           <LikedBox>
-            <AiOutlineHeart size={80} />
+            <AiOutlineHeart size={25} />
+            <span>좋아요</span>
           </LikedBox>
           <KakaoLinkBox onClick={sendLink}>
             <img src={kakaolink} alt="kakaolink" />
             <span>카카오톡 공유하기</span>
           </KakaoLinkBox>
+          <InstaBox
+            onClick={() =>
+              window.open('https://instagram.com/' + insta, '_blank')
+            }
+          >
+            <img src={instagram} alt="insta" />
+            {insta}
+          </InstaBox>
         </IconContainer>
       </Modal>
       <ModalCancelButton onClick={hideModal}>

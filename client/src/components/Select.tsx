@@ -129,13 +129,13 @@ function SelectMenu() {
     if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 >=
-      40
+      38
     ) {
       setScrollPosition(39);
     } else if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 <
-      40
+      38
     ) {
       setScrollPosition(-40);
     }
