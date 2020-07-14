@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
+import React, { useState, useEffect, useContext } from 'react';
+import styled, { ThemeContext } from 'styled-components';
 import { FiMail } from 'react-icons/fi';
-import icecreamDoodle from '../Images/doodle/BlackIceCreamDoodle.svg';
-import zombieDoodle from '../Images/doodle/BlackZombieingDoodle.svg';
+import BlackIceCreamDoodle from '../Images/doodle/BlackIceCreamDoodle.svg';
+import zombieDoodle from '../Images/doodle/ZombieingDoodle.svg';
+import BlackZombieDoodle from '../Images/doodle/BlackZombieingDoodle.svg';
+import IceCreamDoodle from '../Images/doodle/IceCreamDoodle.svg';
 
 interface ComponentVisual {
   isView: boolean;
@@ -41,6 +43,8 @@ const ContactBox = styled.div`
   justify-content: center;
   align-items: center;
   transition: all 1s ease;
+  z-index: 1;
+
   & span {
     margin-left: 5px;
   }
@@ -80,6 +84,8 @@ const Title = styled.div`
 
 export default function Footer() {
   const [isView, setIsView] = useState<boolean>(false);
+  const themeContext = useContext(ThemeContext);
+
   useEffect(() => {
     window.addEventListener('scroll', getCurrentScroll);
 
@@ -111,26 +117,53 @@ export default function Footer() {
 
   return (
     <FooterContainer isView={isView}>
-      <img
-        src={icecreamDoodle}
-        alt="doodle"
-        style={{
-          position: 'absolute',
-          bottom: '0',
-          left: '-15%',
-          width: '65vw',
-        }}
-      />
-      <img
-        src={zombieDoodle}
-        alt="doodle"
-        style={{
-          position: 'absolute',
-          bottom: '-5%',
-          right: '-15%',
-          width: '65vw',
-        }}
-      />
+      {themeContext.bgColor === '#ffffff' ? (
+        <>
+          <img
+            src={BlackIceCreamDoodle}
+            alt="doodle"
+            style={{
+              position: 'absolute',
+              bottom: '0',
+              left: '-15%',
+              width: '65vw',
+            }}
+          />
+          <img
+            src={BlackZombieDoodle}
+            alt="doodle"
+            style={{
+              position: 'absolute',
+              bottom: '-5%',
+              right: '-15%',
+              width: '65vw',
+            }}
+          />
+        </>
+      ) : (
+        <>
+          <img
+            src={IceCreamDoodle}
+            alt="doodle"
+            style={{
+              position: 'absolute',
+              bottom: '0',
+              left: '-15%',
+              width: '65vw',
+            }}
+          />
+          <img
+            src={zombieDoodle}
+            alt="doodle"
+            style={{
+              position: 'absolute',
+              bottom: '-5%',
+              right: '-15%',
+              width: '65vw',
+            }}
+          />
+        </>
+      )}
       <ContactContainer>
         <ContactBox>
           <div>

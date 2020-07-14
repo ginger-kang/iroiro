@@ -172,13 +172,13 @@ function Main() {
     if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 >=
-      23
+      22
     ) {
       setScrollPosition(13);
     } else if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 <
-      23
+      22
     ) {
       setScrollPosition(0);
     }
