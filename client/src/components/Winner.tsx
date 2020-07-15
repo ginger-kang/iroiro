@@ -77,6 +77,7 @@ function Winner() {
   });
 
   const getCurrentScroll = () => {
+    
     if (
       ((window.scrollY + window.innerHeight) / document.body.clientHeight) *
         100 >=

@@ -106,7 +106,7 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
   const hideModal = () => {
     setModal(false);
   };
-
+  console.log(PhotoData)
   return (
     <>
       {PhotoData &&
