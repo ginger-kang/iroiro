@@ -111,11 +111,7 @@ export default function StylesPhotos({ PhotoData, layoutNumber }: sProps) {
     <>
       {PhotoData &&
         PhotoData.FindStyleGamePhotos.map((photo: any, i: number) => (
-<<<<<<< HEAD
-          <>
-=======
           <React.Fragment key={i}>
->>>>>>> b9b1d95ac8b0060bcce406b4e32712942f271a33
             <StylesPhotoContainer layoutNumber={layoutNumber} key={i}>
               <img
                 src={photo.url}
