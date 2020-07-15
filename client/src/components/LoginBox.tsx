@@ -170,7 +170,7 @@ function LoginBoxComponent({
           onSuccess={(res) =>
             responseLogin(res, 'google', setUserSocialId, setUserSocialName)
           }
-          onFailure={(res) => console.log('google login fail')}
+          onFailure={(res) => console.log(res)}
           cookiePolicy={'single_host_origin'}
         />
         <KakaoButton
@@ -179,7 +179,7 @@ function LoginBoxComponent({
           onSuccess={(res) =>
             responseLogin(res, 'kakao', setUserSocialId, setUserSocialName)
           }
-          onFailure={(res) => console.log('kakao login fail')}
+          onFailure={(res) => console.log(res)}
           getProfile={true}
           img={KakaoLoginImg}
         />
