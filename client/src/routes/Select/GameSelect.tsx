@@ -459,7 +459,8 @@ export default function GameSelect() {
         window.sessionStorage.getItem('userName'),
       )) == false
     ) {
-      setShowLoginBox(true);
+      //setShowLoginBox(true);
+      setLoginButtonClick(true);
     } else {
       setWriteState(true);
     }
@@ -676,7 +677,7 @@ export default function GameSelect() {
       </SelectGame>
 
       <LoginBoxComponent
-        loginButtonClick={showLoginBox}
+        loginButtonClick={loginButtonClick}
         setLoginButtonClick={setLoginButtonClick}
         setUserSocialId={setUserSocialId}
         setUserSocialName={setUserSocialName}
