@@ -173,9 +173,12 @@ function ImageUpload() {
   //It sends a request to upload to the server by storing the file object in the state
   //Post request to server when submitted
   const handleSubmit = async (e: { preventDefault: () => void }) => {
-    
-    
-    if (await CheckUser(window.sessionStorage.getItem('userId'), window.sessionStorage.getItem('userName'))) {      
+    if (
+      await CheckUser(
+        window.sessionStorage.getItem('userId'),
+        window.sessionStorage.getItem('userName'),
+      )
+    ) {
       var date = ParseDateString();
 
       var originalname = uploadedFile.name;
