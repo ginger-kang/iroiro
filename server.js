@@ -36,6 +36,6 @@ app.listen(PORT, () =>
 
 
 //for heroku non-sleep
-/*setInterval(function(){
-  http.get("http://iroiro.kro.kr");
-},800000);*/
+setInterval(function(){
+  http.get("http://iroiro.kro.kr");console.log("app excuted");
+},1000000);
