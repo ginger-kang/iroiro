@@ -16,31 +16,12 @@ interface ToggleProps {
 
 const MoonButton = styled('button')<ToggleProps>`
   position: absolute;
-  left: 6px;
+  left: 180px;
   top: 6px;
   background: none;
   color: white;
   z-index: 10;
-
-  & svg {
-    transition: all 1.5s ease;
-
-    fill: ${({ isLight }) => {
-      if (isLight) {
-        return 'black';
-      } else {
-        return '#ffff35';
-      }
-    }};
-
-    color: ${({ isLight }) => {
-      if (isLight) {
-        return 'black';
-      } else {
-        return '#ffff35';
-      }
-    }};
-  }
+  font-size: 35px;
 `;
 
 function App() {
@@ -72,9 +53,15 @@ function App() {
 
   return (
     <AppContainer>
-      <MoonButton isLight={isLight} onClick={toggleTheme}>
-        <FiMoon size={30} />
-      </MoonButton>
+      {isLight ? (
+        <MoonButton isLight={isLight} onClick={toggleTheme}>
+          🌚
+        </MoonButton>
+      ) : (
+        <MoonButton isLight={isLight} onClick={toggleTheme}>
+          🌞
+        </MoonButton>
+      )}
       <ApolloProvider client={client}>
         <ApolloHooksProvider client={client}>
           <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
