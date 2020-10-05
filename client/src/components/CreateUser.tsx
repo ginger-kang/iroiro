@@ -27,28 +27,10 @@ const ModalOpenButton = styled.button`
   font-size: 13px;
   color: white;
   transition: all 0.5s ease;
-  animation: bgColor 8s infinite;
+  background: #254ccd;
 
   &:hover {
     transform: scale(1.05);
-  }
-
-  @keyframes bgColor {
-    0% {
-      background-color: red;
-    }
-    25% {
-      background-color: #ead11f;
-    }
-    50% {
-      background-color: green;
-    }
-    75% {
-      background-color: brown;
-    }
-    100% {
-      background-color: #fd9ded;
-    }
   }
 `;
 
